@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealVerse - Habit Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+            animation-delay: 0s;
+        }
+
+        .bg-shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 20%;
+            right: -100px;
+            animation-delay: -5s;
+        }
+
+        .bg-shape:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            bottom: -125px;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        .bg-shape:nth-child(4) {
+            width: 180px;
+            height: 180px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -15s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-20px) rotate(90deg);
+            }
+
+            50% {
+                transform: translateY(0px) rotate(180deg);
+            }
+
+            75% {
+                transform: translateY(20px) rotate(270deg);
+            }
+        }
+
+        /* Particle System */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(59, 130, 246, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 15s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-icon {
+            color: #3b82f6;
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .brand-text {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #e2e8f0;
+            font-weight: 500;
+            font-size: 16px;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 8px 0;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: .4s;
+            border-radius: 50px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        input:checked+.slider {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 120px 20px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(59, 130, 246, 0.1);
+            backdrop-filter: blur(10px);
+            color: #3b82f6;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+            }
+
+            to {
+                box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            }
+        }
+
+        .title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            color: #f8fafc;
+            text-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 30%, #06b6d4 60%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #cbd5e1;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #f8fafc;
+        }
+
+        .card-title svg {
+            color: #3b82f6;
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+        }
+
+        /* Form Styles */
+        #habit-form {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        #habit-input,
+        #date-input {
+            padding: 16px 20px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            font-size: 16px;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(10px);
+            color: #f8fafc;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #habit-input {
+            flex: 2;
+        }
+
+        #date-input {
+            flex: 1;
+            max-width: 200px;
+        }
+
+        #habit-input::placeholder,
+        #date-input::placeholder {
+            color: #94a3b8;
+        }
+
+        #habit-input:focus,
+        #date-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: rgba(248, 250, 252, 0.08);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 45px rgba(59, 130, 246, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(248, 250, 252, 0.05);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Week Toggle */
+        .week-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .week-toggle button {
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            background: rgba(248, 250, 252, 0.05);
+            color: #e2e8f0;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .week-toggle button.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .week-toggle button:hover:not(.active) {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Weekly Overview */
+        .weekly-overview {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        /* Habit Items */
+        .habit-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(248, 250, 252, 0.03);
+            backdrop-filter: blur(10px);
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .habit-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        .habit-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .habit-left input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #3b82f6;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .habit-left label {
+            font-weight: 500;
+            cursor: pointer;
+            color: #e2e8f0;
+            font-size: 16px;
+        }
+
+        .habit-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .habit-actions button {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .habit-actions button:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            transform: scale(1.1);
+        }
+
+        /* Progress Section */
+        .progress-section {
+            margin-top: 30px;
+        }
+
+        .progress-section p {
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+        }
+
+        .progress-bar-bg {
+            height: 12px;
+            width: 100%;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 50px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 50px;
+            position: relative;
+        }
+
+        #progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: rgba(248, 250, 252, 0.02);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: inset 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #habitChart {
+            width: 100% !important;
+            height: 250px !important;
+        }
+
+        /* Calendar */
+        #calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            position: relative;
+        }
+
+        #calendar div {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            color: #e2e8f0;
+            cursor: pointer;
+            position: relative;
+        }
+
+        #calendar div.done {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        #calendar div:hover:not(.done) {
+            background: rgba(59, 130, 246, 0.1);
+            transform: scale(1.05);
+        }
+
+        #calendar .tooltip {
+            visibility: hidden;
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.95);
+            color: #f8fafc;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 10;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        #calendar div:hover .tooltip {
+            visibility: visible;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #94a3b8;
+        }
+
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #94a3b8;
+            font-size: 14px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .container {
+                padding: 100px 16px 40px;
+            }
+
+            #habit-form {
+                flex-direction: column;
+            }
+
+            #date-input {
+                max-width: 100%;
+            }
+
+            .habit-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .habit-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+            .weekly-overview {
+                grid-template-columns: 1fr;
+            }
+
+            #calendar {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .week-toggle {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 20px;
+            }
+
+            #calendar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .week-toggle button {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+        }
+
+        /* Dark theme styles (when toggled) */
+        body.dark {
+            /* Additional dark theme adjustments can be added here if needed */
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Fade in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+    </div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand" onclick="window.location.href='index.html'">
+                <svg class="nav-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l11 11Z" />
+                </svg>
+                <span class="brand-text">HealVerse</span>
+            </div>
+
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="health-analytics.html" class="nav-link">Analytics</a>
+                <a href="#habits" class="nav-link">Habits</a>
+                <div class="theme-toggle">
+                    <label class="switch">
+                        <input type="checkbox" id="themeSwitch" />
+                        <span class="slider"></span>
+                    </label>
+                    <span id="theme-label">Dark</span>
+                </div>
+                <a href="index.html#cta" class="nav-cta">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v20m8-10H4" />
+                </svg>
+                Smart Habit Tracking System
+            </div>
+
+            <h1 class="title">
+                Build Better <span class="gradient-text">Health Habits</span>
+            </h1>
+
+            <p class="subtitle">
+                Track your daily health habits, visualize your progress, and build lasting routines with our intelligent
+                habit tracking system.
+            </p>
+        </div>
+
+        <!-- Manage Habits (Add Habit + Progress) -->
+        <div class="card fade-in">
+            <h2 class="card-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="16" />
+                    <line x1="8" y1="12" x2="16" y2="12" />
+                </svg>
+                Manage Habits
+            </h2>
+            <form id="habit-form">
+                <input type="text" id="habit-input"
+                    placeholder="Add a new health habit (e.g., Drink 8 glasses of water)" required />
+                <input type="date" id="date-input" required />
+                <button type="submit" class="btn btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="16" />
+                        <line x1="8" y1="12" x2="16" y2="12" />
+                    </svg>
+                    Add Habit
+                </button>
+            </form>
+            <div class="progress-section">
+                <p>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" />
+                    </svg>
+                    Daily Completion Progress
+                </p>
+                <div class="progress-bar-bg">
+                    <div id="progress-bar"></div>
+                </div>
+                <button id="reset-button" class="btn btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="23 4 23 10 17 10" />
+                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+                    </svg>
+                    Reset Today's Habits
+                </button>
+            </div>
+        </div>
+
+        <!-- Habits List -->
+        <div class="card fade-in" id="habits-section">
+            <h2 class="card-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 12l2 2 4-4" />
+                    <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3" />
+                    <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3" />
+                    <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3" />
+                    <path d="M12 21c0-1 1-3 3-3s3 2 3 3-1 3-3 3-3-2-3-3" />
+                </svg>
+                Your Habits
+            </h2>
+            <div id="habits-list"></div>
+        </div>
+
+        <!-- Weekly Overview -->
+        <div class="card fade-in">
+            <h2 class="card-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                Weekly Habit Overview
+            </h2>
+            <div class="week-toggle">
+                <button id="week-prev">Previous Week</button>
+                <button id="week-current" class="active">This Week</button>
+                <button id="week-next">Next Week</button>
+            </div>
+            <div class="weekly-overview">
+                <div class="chart-container">
+                    <canvas id="habitChart"></canvas>
+                </div>
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l11 11Z" />
+            </svg>
+            Made with care by HealVerse
+        </p>
+    </footer>
+
+    <script>
+        // Create Particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize variables
+        const habitForm = document.getElementById("habit-form");
+        const habitInput = document.getElementById("habit-input");
+        const dateInput = document.getElementById("date-input");
+        const habitsList = document.getElementById("habits-list");
+        const progressBar = document.getElementById("progress-bar");
+        const resetButton = document.getElementById("reset-button");
+        const weekPrev = document.getElementById("week-prev");
+        const weekCurrent = document.getElementById("week-current");
+        const weekNext = document.getElementById("week-next");
+        const themeSwitch = document.getElementById("themeSwitch");
+        const themeLabel = document.getElementById("theme-label");
+        const calendar = document.getElementById("calendar");
+        const ctx = document.getElementById("habitChart");
+
+        let habits = JSON.parse(localStorage.getItem("habits")) || [];
+        let weekOffset = 0; // 0: this week, -1: last week, 1: next week, etc.
+        let habitChart;
+
+        // Set default date to today and restrict future dates
+        dateInput.value = getTodayDateStr();
+        dateInput.max = getTodayDateStr();
+
+        // Theme Toggle
+        themeSwitch.addEventListener("change", () => {
+            document.body.classList.toggle("dark");
+            themeLabel.textContent = document.body.classList.contains("dark") ? "Dark" : "Light";
+            localStorage.setItem("darkMode", document.body.classList.contains("dark"));
+        });
+
+        if (localStorage.getItem("darkMode") === "true") {
+            document.body.classList.add("dark");
+            themeSwitch.checked = true;
+            themeLabel.textContent = "Dark";
+        }
+
+        // Date Helpers
+        function getTodayDateStr() {
+            return new Date().toISOString().split("T")[0];
+        }
+
+        function getWeekDates(offset) {
+            const today = new Date();
+            const monday = new Date(today.setDate(today.getDate() - today.getDay() + 1 + (offset * 7)));
+            const week = [];
+            for (let i = 0; i < 7; i++) {
+                const d = new Date(monday);
+                d.setDate(monday.getDate() + i);
+                week.push(d.toISOString().split("T")[0]);
+            }
+            return week;
+        }
+
+        function updateWeekButtons() {
+            weekPrev.disabled = weekOffset <= -4;
+            weekNext.disabled = weekOffset >= 1;
+            weekPrev.classList.toggle('active', weekOffset === -1);
+            weekCurrent.classList.toggle('active', weekOffset === 0);
+            weekNext.classList.toggle('active', weekOffset === 1);
+        }
+
+        // Habit Logic
+        function saveHabits() {
+            localStorage.setItem("habits", JSON.stringify(habits));
+        }
+
+        function renderHabits() {
+            habitsList.innerHTML = "";
+            const today = getTodayDateStr();
+
+            if (habits.length === 0) {
+                habitsList.innerHTML = `
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="8" x2="12" y2="16"/>
+                            <line x1="8" y1="12" x2="16" y2="12"/>
+                        </svg>
+                        <h3>No habits added yet</h3>
+                        <p>Start building better health habits by adding your first habit above!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            habits.forEach((habit, i) => {
+                if (!habit.history) habit.history = {};
+                const todayDone = habit.history[today] || false;
+
+                const item = document.createElement("div");
+                item.className = "habit-item";
+
+                const left = document.createElement("div");
+                left.className = "habit-left";
+
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.id = `habit-${i}`;
+                checkbox.checked = todayDone;
+                checkbox.addEventListener("change", () => {
+                    habit.history[today] = checkbox.checked;
+                    saveHabits();
+                    renderHabits();
+                    updateChart();
+                    renderCalendar();
+                });
+
+                const label = document.createElement("label");
+                label.textContent = habit.name;
+                label.setAttribute("for", `habit-${i}`);
+
+                left.appendChild(checkbox);
+                left.appendChild(label);
+
+                const actions = document.createElement("div");
+                actions.className = "habit-actions";
+
+                const editBtn = document.createElement("button");
+                editBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
+                editBtn.title = "Edit habit";
+                editBtn.onclick = () => {
+                    const newName = prompt("Edit Habit", habit.name);
+                    if (newName && newName.trim()) {
+                        habit.name = newName.trim();
+                        saveHabits();
+                        renderHabits();
+                    }
+                };
+
+                const deleteBtn = document.createElement("button");
+                deleteBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`;
+                deleteBtn.title = "Delete habit";
+                deleteBtn.onclick = () => {
+                    if (confirm(`Are you sure you want to delete "${habit.name}"?`)) {
+                        habits.splice(i, 1);
+                        saveHabits();
+                        renderHabits();
+                        updateChart();
+                        renderCalendar();
+                    }
+                };
+
+                actions.appendChild(editBtn);
+                actions.appendChild(deleteBtn);
+
+                item.appendChild(left);
+                item.appendChild(actions);
+                habitsList.appendChild(item);
+            });
+
+            updateProgress();
+        }
+
+        // Add Habit
+        habitForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const name = habitInput.value.trim();
+            const date = dateInput.value;
+            if (name && date) {
+                console.log("Adding habit:", name, "for date:", date); // Debug log
+                const habit = habits.find(h => h.name === name);
+                if (habit) {
+                    // If habit exists, update its history for the selected date
+                    habit.history[date] = true;
+                } else {
+                    // Add new habit with completion for the selected date
+                    habits.push({ name, history: { [date]: true } });
+                }
+                habitInput.value = "";
+                dateInput.value = getTodayDateStr(); // Reset to today
+                saveHabits();
+                renderHabits();
+                updateChart();
+                renderCalendar();
+
+                const button = habitForm.querySelector('button[type="submit"]');
+                button.classList.add('loading');
+                setTimeout(() => {
+                    button.classList.remove('loading');
+                }, 1000);
+            } else {
+                console.log("Invalid input: empty habit name or date");
+            }
+        });
+
+        // Reset Today's Habits
+        resetButton.addEventListener("click", () => {
+            if (confirm("Are you sure you want to reset all habits for today?")) {
+                const today = getTodayDateStr();
+                habits.forEach((h) => (h.history[today] = false));
+                saveHabits();
+                renderHabits();
+                updateChart();
+                renderCalendar();
+            }
+        });
+
+        // Progress Bar
+        function updateProgress() {
+            const today = getTodayDateStr();
+            const total = habits.length || 1;
+            const completed = habits.filter((h) => h.history[today]).length;
+            const percent = (completed / total) * 100;
+            progressBar.style.width = `${percent}%`;
+        }
+
+        // Week Navigation
+        weekPrev.addEventListener("click", () => {
+            if (weekOffset > -4) {
+                weekOffset--;
+                updateWeekButtons();
+                updateChart();
+                renderCalendar();
+            }
+        });
+
+        weekCurrent.addEventListener("click", () => {
+            weekOffset = 0;
+            updateWeekButtons();
+            updateChart();
+            renderCalendar();
+        });
+
+        weekNext.addEventListener("click", () => {
+            if (weekOffset < 1) {
+                weekOffset++;
+                updateWeekButtons();
+                updateChart();
+                renderCalendar();
+            }
+        });
+
+        // Chart.js
+        function updateChart() {
+            const weekDates = getWeekDates(weekOffset);
+            const labels = weekDates.map((d) =>
+                new Date(d).toLocaleDateString("en-US", { weekday: "short" })
+            );
+            const data = weekDates.map((date) =>
+                habits.reduce((sum, h) => sum + (h.history[date] ? 1 : 0), 0)
+            );
+
+            if (habitChart) habitChart.destroy();
+
+            habitChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "Habits Completed",
+                            data: data,
+                            backgroundColor: "rgba(59, 130, 246, 0.8)",
+                            borderColor: "rgba(59, 130, 246, 1)",
+                            borderWidth: 2,
+                            borderRadius: 8,
+                            borderSkipped: false,
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                            titleColor: '#f8fafc',
+                            bodyColor: '#cbd5e1',
+                            borderColor: 'rgba(59, 130, 246, 0.3)',
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function (context) {
+                                    return `${context.parsed.y} habit${context.parsed.y !== 1 ? 's' : ''} completed`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1,
+                                precision: 0,
+                                color: '#94a3b8',
+                                font: { family: 'Inter', size: 12 }
+                            },
+                            grid: { color: "rgba(148, 163, 184, 0.1)", drawBorder: false },
+                        },
+                        x: {
+                            ticks: {
+                                color: '#94a3b8',
+                                font: { family: 'Inter', size: 12, weight: '500' }
+                            },
+                            grid: { display: false },
+                        },
+                    },
+                    animation: { duration: 1000, easing: 'easeInOutQuart' }
+                },
+            });
+        }
+
+        // Calendar View
+        function renderCalendar() {
+            calendar.innerHTML = "";
+            const weekDates = getWeekDates(weekOffset);
+
+            weekDates.forEach((date) => {
+                const div = document.createElement("div");
+                const day = new Date(date).toLocaleDateString("en-US", { weekday: "short" });
+                const dateNum = new Date(date).getDate();
+                const count = habits.reduce((sum, h) => sum + (h.history[date] ? 1 : 0), 0);
+
+                div.innerHTML = `<span>${day}</span><br>${dateNum}`;
+
+                if (count > 0) {
+                    div.classList.add("done");
+                    div.innerHTML += `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; bottom: 4px; right: 4px;">
+                        <path d="M20 6L9 17l-5-5"/>
+                    </svg>`;
+                }
+
+                const tooltip = document.createElement("span");
+                tooltip.className = "tooltip";
+                tooltip.textContent = count > 0 ? `${count} habit${count !== 1 ? 's' : ''} completed` : "No habits completed";
+                div.appendChild(tooltip);
+
+                calendar.appendChild(div);
+            });
+        }
+
+        // Fade in animation
+        function initFadeInAnimation() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('appear');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            fadeElements.forEach(el => observer.observe(el));
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function () {
+            createParticles();
+            renderHabits();
+            updateChart();
+            renderCalendar();
+            updateWeekButtons();
+            initFadeInAnimation();
+
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in').forEach(el => {
+                    el.classList.add('appear');
+                });
+            }, 100);
+        });
+
+        // Handle window resize for chart
+        window.addEventListener('resize', function () {
+            if (habitChart) {
+                habitChart.resize();
+            }
+        });
+    </script>
+</body>
+
+</html>

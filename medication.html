@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medication Manager | HealVerse - AI-Powered Healthcare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+            animation-delay: 0s;
+        }
+
+        .bg-shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 20%;
+            right: -100px;
+            animation-delay: -5s;
+        }
+
+        .bg-shape:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            bottom: -125px;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        .bg-shape:nth-child(4) {
+            width: 180px;
+            height: 180px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -15s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-20px) rotate(90deg);
+            }
+
+            50% {
+                transform: translateY(0px) rotate(180deg);
+            }
+
+            75% {
+                transform: translateY(20px) rotate(270deg);
+            }
+        }
+
+        /* Particle System */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(59, 130, 246, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 15s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-icon {
+            color: #3b82f6;
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+            animation: pulse 2s ease-in-out infinite;
+            font-size: 24px;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .brand-text {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #e2e8f0;
+            font-weight: 500;
+            font-size: 16px;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 8px 0;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-cta:hover::before {
+            left: 100%;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 140px;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(59, 130, 246, 0.1);
+            backdrop-filter: blur(10px);
+            color: #3b82f6;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+            }
+
+            to {
+                box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            }
+        }
+
+        .page-title {
+            font-size: clamp(3rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 40px;
+            line-height: 1.1;
+            color: #f8fafc;
+            text-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
+            animation: titleAnimation 1s ease-out 0.3s both;
+        }
+
+        @keyframes titleAnimation {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 30%, #06b6d4 60%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .page-description {
+            font-size: 20px;
+            color: #cbd5e1;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            height: fit-content;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-title i {
+            color: #3b82f6;
+            font-size: 24px;
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+        }
+
+        /* Form Styles */
+        .med-form {
+            display: grid;
+            gap: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #cbd5e1;
+            z-index: 1;
+            font-size: 18px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 20px 20px 20px 56px;
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(10px);
+            color: #f8fafc;
+            font-weight: 500;
+        }
+
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+            background: rgba(248, 250, 252, 0.1);
+        }
+
+        select option {
+            background: #1e293b;
+            color: #f8fafc;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateY(-2px);
+            border-color: #3b82f6;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(16, 185, 129, 0.6);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(239, 68, 68, 0.6);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(245, 158, 11, 0.6);
+        }
+
+        .btn-sm {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        /* Medication List */
+        .medication-list {
+            display: grid;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .med-item {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #3b82f6;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .med-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .med-details {
+            display: grid;
+            gap: 12px;
+        }
+
+        .med-name {
+            font-weight: 700;
+            color: #f8fafc;
+            font-size: 20px;
+        }
+
+        .med-meta {
+            display: flex;
+            gap: 24px;
+            color: #cbd5e1;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .med-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .med-meta i {
+            color: #3b82f6;
+        }
+
+        .med-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Schedule List */
+        .schedule-list {
+            display: grid;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .schedule-item {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            display: grid;
+            gap: 16px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .schedule-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .schedule-item.taken {
+            border-left: 4px solid #10b981;
+        }
+
+        .schedule-item.missed {
+            border-left: 4px solid #ef4444;
+        }
+
+        .schedule-item.upcoming {
+            border-left: 4px solid #f59e0b;
+        }
+
+        .schedule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .schedule-time {
+            font-weight: 700;
+            color: #f8fafc;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .schedule-time i {
+            color: #3b82f6;
+        }
+
+        .schedule-status {
+            padding: 6px 16px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+        }
+
+        .status-taken {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-missed {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .status-upcoming {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .schedule-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .schedule-details div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .schedule-details i {
+            color: #3b82f6;
+        }
+
+        .schedule-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .schedule-footer small {
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .schedule-footer small i {
+            color: #3b82f6;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 350px;
+            width: 100%;
+            background: rgba(248, 250, 252, 0.02);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #cbd5e1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            color: rgba(59, 130, 246, 0.3);
+            margin-bottom: 24px;
+            filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.2));
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #f8fafc;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+            color: #94a3b8;
+        }
+
+        /* Alert Styles */
+        .alert {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            padding: 20px 28px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 1000;
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-width: 300px;
+        }
+
+        .alert.show {
+            transform: translateX(0);
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.9);
+            color: white;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+        }
+
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.9);
+            color: white;
+        }
+
+        .alert-info {
+            background: rgba(59, 130, 246, 0.9);
+            color: white;
+        }
+
+        .alert-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 4px;
+            transition: transform 0.2s ease;
+        }
+
+        .alert-close:hover {
+            transform: scale(1.2);
+        }
+
+        /* Dialog Styles */
+        .dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .dialog-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .dialog {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            transform: translateY(30px) scale(0.9);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .dialog-overlay.active .dialog {
+            transform: translateY(0) scale(1);
+        }
+
+        .dialog-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #f8fafc;
+        }
+
+        .dialog-message {
+            margin-bottom: 32px;
+            color: #cbd5e1;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .dialog-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+        }
+
+        /* AI Insights Styles */
+        .ai-insights-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .insight-item {
+            padding: 20px;
+            background: rgba(248, 250, 252, 0.03);
+            border-radius: 16px;
+            border-left: 4px solid;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .insight-item:hover {
+            transform: translateY(-2px);
+            background: rgba(248, 250, 252, 0.05);
+        }
+
+        .insight-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .insight-icon {
+            font-size: 24px;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .insight-title {
+            font-weight: 700;
+            color: #f8fafc;
+            font-size: 16px;
+        }
+
+        .insight-value {
+            font-size: 32px;
+            font-weight: 800;
+            margin-top: 4px;
+        }
+
+        .insight-description {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-top: 8px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .med-item {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .med-actions {
+                justify-content: flex-end;
+            }
+
+            .schedule-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .card {
+                padding: 24px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50%;
+            border-top-color: #3b82f6;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+    </div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="healverse-enhanced-landing.html" class="nav-brand">
+                <i class="fas fa-heart nav-icon"></i>
+                <span class="brand-text">HealVerse</span>
+            </a>
+            <!-- <div class="nav-links">
+                <a href="#dashboard" class="nav-link">Dashboard</a>
+                <a href="#medications" class="nav-link">Medications</a>
+                <a href="#analytics" class="nav-link">Analytics</a>
+                <a href="#settings" class="nav-link">Settings</a>
+            </div> -->
+            <a href="index.html" class="nav-cta">
+                <i class="fas fa-user-md"></i>
+                Home
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-badge">
+                    <i class="fas fa-pills"></i>
+                    Smart Medication Management
+                </div>
+                <h1 class="page-title">
+                    Medication <span class="gradient-text">Manager</span>
+                </h1>
+                <p class="page-description">
+                    Track, manage, and optimize your medication routine with AI-powered insights and smart reminders
+                </p>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Add Medication Card -->
+                <div class="card fade-in" style="grid-column: span 4;">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-plus-circle"></i>
+                            Add New Medication
+                        </h3>
+                    </div>
+                    <form id="medForm" class="med-form">
+                        <div class="form-group">
+                            <i class="fas fa-pills"></i>
+                            <input type="text" id="medName" placeholder="Medication Name" required>
+                        </div>
+                        <div class="form-group">
+                            <i class="fas fa-prescription-bottle-alt"></i>
+                            <input type="text" id="medDose" placeholder="Dosage (e.g., 500mg)" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <i class="far fa-calendar-alt"></i>
+                                <input type="date" id="medDate" required>
+                            </div>
+                            <div class="form-group">
+                                <i class="far fa-clock"></i>
+                                <input type="time" id="medTime" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <i class="fas fa-syringe"></i>
+                            <select id="medType">
+                                <option value="">Select Medication Type</option>
+                                <option value="tablet">Tablet</option>
+                                <option value="capsule">Capsule</option>
+                                <option value="liquid">Liquid</option>
+                                <option value="injection">Injection</option>
+                                <option value="inhaler">Inhaler</option>
+                                <option value="topical">Topical</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Add Medication
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Today's Schedule Card -->
+                <div class="card fade-in" style="grid-column: span 4;">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-calendar-day"></i>
+                            Today's Schedule
+                        </h3>
+                    </div>
+                    <div id="todaySchedule" class="schedule-list">
+                        <div class="empty-state">
+                            <i class="fas fa-smile-beam"></i>
+                            <h3>No Medications Today</h3>
+                            <p>Enjoy your medication-free day!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medication Inventory Card -->
+                <div class="card fade-in" style="grid-column: span 4;">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-list-ul"></i>
+                            Medication Inventory
+                        </h3>
+                    </div>
+                    <div id="medList" class="medication-list">
+                        <div class="empty-state">
+                            <i class="fas fa-pills"></i>
+                            <h3>No Medications Added</h3>
+                            <p>Add your first medication to get started</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Adherence Analytics Card -->
+                <div class="card fade-in" style="grid-column: span 8;">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-chart-line"></i>
+                            Adherence Analytics
+                        </h3>
+                        <button id="downloadReport" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-download"></i>
+                            Export Report
+                        </button>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="adherenceChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- AI Insights Card -->
+                <div class="card fade-in" style="grid-column: span 4;">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-brain"></i>
+                            AI Health Insights
+                        </h3>
+                    </div>
+                    <div id="aiInsights" class="ai-insights-container">
+                        <div class="empty-state">
+                            <i class="fas fa-lightbulb"></i>
+                            <h3>Generating Insights</h3>
+                            <p>Add medications to receive personalized AI insights</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Alert Container -->
+    <div id="alertContainer"></div>
+
+    <!-- Dialog Container -->
+    <div id="dialogContainer"></div>
+
+    <script>
+        // Create Particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // DOM Elements
+        const medForm = document.getElementById("medForm");
+        const medList = document.getElementById("medList");
+        const todaySchedule = document.getElementById("todaySchedule");
+        const aiInsights = document.getElementById("aiInsights");
+        const downloadBtn = document.getElementById("downloadReport");
+        const alertContainer = document.getElementById("alertContainer");
+
+        // Initialize with localStorage data or empty arrays
+        let medications = JSON.parse(localStorage.getItem("healverse_medications")) || [];
+        let takenLog = JSON.parse(localStorage.getItem("healverse_taken_log")) || {};
+
+        // Set today's date as default
+        document.getElementById("medDate").valueAsDate = new Date();
+
+        // Initial render
+        renderAll();
+
+        // Form Submission
+        medForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById("medName").value.trim();
+            const dose = document.getElementById("medDose").value.trim();
+            const date = document.getElementById("medDate").value;
+            const time = document.getElementById("medTime").value;
+            const type = document.getElementById("medType").value;
+
+            if (!name || !dose || !date || !time) {
+                showAlert("Please fill all required fields!", "error");
+                return;
+            }
+
+            const med = {
+                id: Date.now(),
+                name,
+                dose,
+                date,
+                time,
+                type,
+                added: new Date().toISOString()
+            };
+
+            medications.push(med);
+            saveMedications();
+            renderAll();
+            medForm.reset();
+            document.getElementById("medDate").valueAsDate = new Date();
+            showAlert(`${name} added successfully! 🎉`, "success");
+            generateAIInsights();
+        });
+
+        // Save to localStorage
+        function saveMedications() {
+            localStorage.setItem("healverse_medications", JSON.stringify(medications));
+            localStorage.setItem("healverse_taken_log", JSON.stringify(takenLog));
+        }
+
+        // Render all components
+        function renderAll() {
+            renderMedicationList();
+            renderTodaySchedule();
+            renderChart();
+            generateAIInsights();
+        }
+
+        // Render medication list
+        function renderMedicationList() {
+            if (medications.length === 0) {
+                medList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-pills"></i>
+                        <h3>No Medications Added</h3>
+                        <p>Add your first medication to get started</p>
+                    </div>
+                `;
+                return;
+            }
+
+            medList.innerHTML = "";
+
+            // Sort by date (newest first)
+            const sortedMeds = [...medications].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            sortedMeds.forEach((med) => {
+                const takenCount = takenLog[med.id]?.length || 0;
+                const item = document.createElement("div");
+                item.className = "med-item fade-in";
+                item.innerHTML = `
+                    <div class="med-details">
+                        <div class="med-name">${med.name}</div>
+                        <div class="med-meta">
+                            <span><i class="fas fa-prescription-bottle-alt"></i> ${med.dose}</span>
+                            <span><i class="far fa-calendar-alt"></i> ${formatDate(med.date)}</span>
+                            <span><i class="far fa-clock"></i> ${med.time}</span>
+                            <span><i class="fas fa-pills"></i> ${med.type || "Not specified"}</span>
+                            <span><i class="fas fa-check-circle"></i> Taken ${takenCount} times</span>
+                        </div>
+                    </div>
+                    <div class="med-actions">
+                        <button class="btn btn-success btn-sm" onclick="markTaken(${med.id})" title="Mark as taken">
+                            <i class="fas fa-check"></i>
+                        </button>
+                        <button class="btn btn-warning btn-sm" onclick="editMed(${med.id})" title="Edit medication">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteMed(${med.id})" title="Delete medication">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                `;
+                medList.appendChild(item);
+            });
+        }
+
+        // Render today's schedule
+        function renderTodaySchedule() {
+            const today = new Date().toISOString().split("T")[0];
+            const todaysMeds = medications
+                .filter((m) => m.date === today)
+                .sort((a, b) => a.time.localeCompare(b.time));
+
+            if (todaysMeds.length === 0) {
+                todaySchedule.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-smile-beam"></i>
+                        <h3>No Medications Today</h3>
+                        <p>Enjoy your medication-free day!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            todaySchedule.innerHTML = "";
+
+            todaysMeds.forEach((med) => {
+                const now = new Date();
+                const medTime = new Date(`${today}T${med.time}`);
+                const isPast = now > medTime;
+                const isTaken = takenLog[med.id]?.includes(today);
+
+                const item = document.createElement("div");
+                item.className = `schedule-item fade-in ${isTaken ? "taken" : isPast ? "missed" : "upcoming"}`;
+                item.innerHTML = `
+                    <div class="schedule-header">
+                        <div class="schedule-time">
+                            <i class="far fa-clock"></i> ${med.time} - ${med.name}
+                        </div>
+                        <div class="schedule-status ${isTaken ? "status-taken" : isPast ? "status-missed" : "status-upcoming"}">
+                            ${isTaken ? "✓ Taken" : isPast ? "⚠ Missed" : "⏰ Upcoming"}
+                        </div>
+                    </div>
+                    <div class="schedule-details">
+                        <div><i class="fas fa-prescription-bottle-alt"></i> ${med.dose}</div>
+                        <div><i class="fas fa-pills"></i> ${med.type || "Not specified"}</div>
+                    </div>
+                    <div class="schedule-footer">
+                        <small><i class="fas fa-calendar-plus"></i> Added ${formatDate(med.added)}</small>
+                        ${!isTaken && !isPast ? `
+                            <button class="btn btn-success btn-sm" onclick="markTaken(${med.id})">
+                                <i class="fas fa-check"></i> Mark as Taken
+                            </button>
+                        ` : ""}
+                    </div>
+                `;
+                todaySchedule.appendChild(item);
+            });
+        }
+
+        // Mark medication as taken
+        function markTaken(id) {
+            const date = new Date().toISOString().split("T")[0];
+            if (!takenLog[id]) takenLog[id] = [];
+
+            if (!takenLog[id].includes(date)) {
+                takenLog[id].push(date);
+                saveMedications();
+                renderAll();
+                showAlert("Medication marked as taken! 🎉", "success");
+            } else {
+                showAlert("Already marked as taken today.", "info");
+            }
+        }
+
+        // Delete medication
+        function deleteMed(id) {
+            const med = medications.find(m => m.id === id);
+            showDialog(
+                "Delete Medication",
+                `Are you sure you want to delete <strong>${med.name}</strong>? This action cannot be undone.`,
+                "Delete",
+                "Cancel",
+                () => {
+                    medications = medications.filter((med) => med.id !== id);
+                    delete takenLog[id];
+                    saveMedications();
+                    renderAll();
+                    showAlert("Medication deleted successfully.", "success");
+                }
+            );
+        }
+
+        // Edit medication
+        function editMed(id) {
+            const med = medications.find((m) => m.id === id);
+            if (!med) return;
+
+            document.getElementById("medName").value = med.name;
+            document.getElementById("medDose").value = med.dose;
+            document.getElementById("medDate").value = med.date;
+            document.getElementById("medTime").value = med.time;
+            document.getElementById("medType").value = med.type || "";
+
+            // Delete the old entry
+            medications = medications.filter((m) => m.id !== id);
+            delete takenLog[id];
+            saveMedications();
+            renderAll();
+            showAlert("Medication loaded for editing. Update and save.", "info");
+        }
+
+        // Generate AI Insights
+        function generateAIInsights() {
+            if (medications.length === 0) {
+                aiInsights.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Generating Insights</h3>
+                        <p>Add medications to receive personalized AI insights</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const totalMeds = medications.length;
+            const totalTaken = Object.values(takenLog).reduce((sum, arr) => sum + arr.length, 0);
+            const adherenceRate = totalMeds > 0 ? Math.round((totalTaken / totalMeds) * 100) : 0;
+
+            const insights = [
+                {
+                    icon: "fas fa-chart-line",
+                    title: "Adherence Rate",
+                    value: `${adherenceRate}%`,
+                    description: adherenceRate >= 80 ? "Excellent adherence!" : adherenceRate >= 60 ? "Good, but can improve" : "Needs attention",
+                    color: adherenceRate >= 80 ? "#10b981" : adherenceRate >= 60 ? "#f59e0b" : "#ef4444"
+                },
+                {
+                    icon: "fas fa-pills",
+                    title: "Active Medications",
+                    value: totalMeds,
+                    description: `${totalMeds} medications in your routine`,
+                    color: "#3b82f6"
+                },
+                {
+                    icon: "fas fa-calendar-check",
+                    title: "Doses Taken",
+                    value: totalTaken,
+                    description: "Total doses completed",
+                    color: "#10b981"
+                }
+            ];
+
+            aiInsights.innerHTML = `
+                <div style="display: grid; gap: 20px;">
+                    ${insights.map(insight => `
+                        <div class="insight-item" style="border-left-color: ${insight.color};">
+                            <div class="insight-header">
+                                <i class="${insight.icon} insight-icon" style="color: ${insight.color};"></i>
+                                <div>
+                                    <div class="insight-title">${insight.title}</div>
+                                    <div class="insight-value" style="color: ${insight.color};">${insight.value}</div>
+                                </div>
+                            </div>
+                            <div class="insight-description">${insight.description}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Render adherence chart
+        function renderChart() {
+            const ctx = document.getElementById("adherenceChart").getContext("2d");
+            if (window.chartInstance) window.chartInstance.destroy();
+
+            if (medications.length === 0) {
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                ctx.font = "16px Inter";
+                ctx.fillStyle = "#cbd5e1";
+                ctx.textAlign = "center";
+                ctx.fillText("No data available yet", ctx.canvas.width / 2, ctx.canvas.height / 2);
+                return;
+            }
+
+            // Prepare data for last 7 days
+            const labels = [];
+            const today = new Date();
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                labels.push(date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }));
+            }
+
+            // Calculate adherence rate for each day
+            const adherenceData = labels.map((_, index) => {
+                const day = new Date(today);
+                day.setDate(day.getDate() - (6 - index));
+                const dateStr = day.toISOString().split("T")[0];
+
+                let takenCount = 0;
+                let totalMeds = 0;
+
+                medications.forEach(med => {
+                    if (med.date <= dateStr) {
+                        totalMeds++;
+                        if (takenLog[med.id]?.includes(dateStr)) {
+                            takenCount++;
+                        }
+                    }
+                });
+
+                return totalMeds > 0 ? Math.round((takenCount / totalMeds) * 100) : 0;
+            });
+
+            window.chartInstance = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels,
+                    datasets: [{
+                        label: "Adherence Rate (%)",
+                        data: adherenceData,
+                        backgroundColor: "rgba(59, 130, 246, 0.1)",
+                        borderColor: "#3b82f6",
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: "#3b82f6",
+                        pointBorderColor: "#ffffff",
+                        pointBorderWidth: 2,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: "rgba(15, 23, 42, 0.9)",
+                            titleColor: "#f8fafc",
+                            bodyColor: "#cbd5e1",
+                            borderColor: "#3b82f6",
+                            borderWidth: 1,
+                            cornerRadius: 12,
+                            callbacks: {
+                                label: (context) => `Adherence: ${context.raw}%`
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                color: "rgba(203, 213, 225, 0.1)"
+                            },
+                            ticks: {
+                                callback: (value) => `${value}%`,
+                                color: "#cbd5e1",
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: "#cbd5e1",
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                }
+            });
+        }
+
+        // Download report functionality
+        downloadBtn.addEventListener("click", () => {
+            const reportData = {
+                medications: medications,
+                takenLog: takenLog,
+                generatedAt: new Date().toISOString(),
+                totalMedications: medications.length,
+                totalDosesTaken: Object.values(takenLog).reduce((sum, arr) => sum + arr.length, 0)
+            };
+
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(reportData, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", `HealVerse_Medication_Report_${new Date().toISOString().split('T')[0]}.json`);
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+
+            showAlert("Report downloaded successfully! 📊", "success");
+        });
+
+        // Helper functions
+        function formatDate(dateString) {
+            const options = { year: "numeric", month: "short", day: "numeric" };
+            return new Date(dateString).toLocaleDateString("en-US", options);
+        }
+
+        function showAlert(message, type, duration = 4000) {
+            const alert = document.createElement("div");
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                <span>${message}</span>
+                <button class="alert-close">&times;</button>
+            `;
+
+            alertContainer.appendChild(alert);
+            setTimeout(() => alert.classList.add("show"), 100);
+
+            // Close button
+            alert.querySelector(".alert-close").addEventListener("click", () => {
+                alert.classList.remove("show");
+                setTimeout(() => alert.remove(), 300);
+            });
+
+            // Auto-close
+            setTimeout(() => {
+                alert.classList.remove("show");
+                setTimeout(() => alert.remove(), 300);
+            }, duration);
+        }
+
+        function showDialog(title, message, confirmText, cancelText, onConfirm) {
+            const dialog = document.createElement("div");
+            dialog.className = "dialog-overlay";
+            dialog.innerHTML = `
+                <div class="dialog">
+                    <h3 class="dialog-title">${title}</h3>
+                    <div class="dialog-message">${message}</div>
+                    <div class="dialog-actions">
+                        ${cancelText ? `<button class="btn btn-secondary cancel-btn">${cancelText}</button>` : ""}
+                        <button class="btn btn-danger confirm-btn">${confirmText}</button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(dialog);
+            setTimeout(() => dialog.classList.add("active"), 10);
+
+            const closeDialog = () => {
+                dialog.classList.remove("active");
+                setTimeout(() => dialog.remove(), 300);
+            };
+
+            if (cancelText) {
+                dialog.querySelector(".cancel-btn").addEventListener("click", closeDialog);
+            }
+
+            dialog.querySelector(".confirm-btn").addEventListener("click", () => {
+                onConfirm();
+                closeDialog();
+            });
+
+            // Close on backdrop click
+            dialog.addEventListener("click", (e) => {
+                if (e.target === dialog) closeDialog();
+            });
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            createParticles();
+
+            // Animate cards on load
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.classList.add('fade-in-up');
+                observer.observe(card);
+
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 150);
+            });
+        });
+
+        // Mouse parallax effect
+        document.addEventListener('mousemove', function (e) {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+
+            // Parallax for background shapes
+            document.querySelectorAll('.bg-shape').forEach((shape, index) => {
+                const speed = (index + 1) * 0.3;
+                const x = (mouseX - 0.5) * speed * 30;
+                const y = (mouseY - 0.5) * speed * 30;
+                shape.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+
+        // Handle window resize for chart
+        window.addEventListener('resize', function () {
+            if (window.chartInstance) {
+                window.chartInstance.resize();
+            }
+        });
+    </script>
+</body>
+
+</html>

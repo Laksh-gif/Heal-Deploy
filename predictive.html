@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealVerse - Health Analytics Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+            animation-delay: 0s;
+        }
+
+        .bg-shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 20%;
+            right: -100px;
+            animation-delay: -5s;
+        }
+
+        .bg-shape:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            bottom: -125px;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        .bg-shape:nth-child(4) {
+            width: 180px;
+            height: 180px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -15s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-20px) rotate(90deg);
+            }
+
+            50% {
+                transform: translateY(0px) rotate(180deg);
+            }
+
+            75% {
+                transform: translateY(20px) rotate(270deg);
+            }
+        }
+
+        /* Particle System */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(59, 130, 246, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 15s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-icon {
+            color: #3b82f6;
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .brand-text {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #e2e8f0;
+            font-weight: 500;
+            font-size: 16px;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 8px 0;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
+        }
+
+        /* Header Section */
+        .header {
+            padding: 140px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(59, 130, 246, 0.1);
+            backdrop-filter: blur(10px);
+            color: #3b82f6;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+            }
+
+            to {
+                box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            }
+        }
+
+        .header-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 24px;
+            line-height: 1.1;
+            color: #f8fafc;
+            text-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 30%, #06b6d4 60%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-description {
+            font-size: 20px;
+            color: #cbd5e1;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .stat-label {
+            color: #cbd5e1;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .trend-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .trend-up {
+            color: #ef4444;
+        }
+
+        .trend-down {
+            color: #10b981;
+        }
+
+        .trend-neutral {
+            color: #6b7280;
+        }
+
+        /* Dashboard Layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #f8fafc;
+        }
+
+        .card-title svg {
+            color: #3b82f6;
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+        }
+
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #e2e8f0;
+            font-size: 14px;
+        }
+
+        input,
+        select {
+            padding: 16px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            font-size: 16px;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(10px);
+            color: #f8fafc;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: rgba(248, 250, 252, 0.08);
+        }
+
+        .time-group {
+            display: flex;
+            gap: 16px;
+        }
+
+        .time-group input[type="time"] {
+            flex: 2;
+        }
+
+        .time-group select {
+            flex: 1;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 45px rgba(59, 130, 246, 0.6);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            background: rgba(248, 250, 252, 0.02);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: inset 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Table Styles */
+        .table-container {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .table-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background: transparent;
+        }
+
+        th,
+        td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        th {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        tr:hover {
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-normal {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-high {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .status-low {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 8px;
+            display: none;
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 24px;
+            }
+
+            .time-group {
+                flex-direction: column;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th,
+            td {
+                padding: 12px 8px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Fade in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+    </div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand" onclick="window.location.href='index.html'">
+                <svg class="nav-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l11 11Z" />
+                </svg>
+                <span class="brand-text">HealVerse</span>
+            </div>
+
+            <div class="nav-links">
+
+                <a href="#dashboard" class="nav-link">Dashboard</a>
+
+                <a href="blue-landingpage.html" class="nav-cta">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="header">
+        <div class="container">
+            <div class="header-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" />
+                </svg>
+                AI-Powered Health Analytics Dashboard
+            </div>
+
+            <h1 class="header-title">
+                Monitor Your <span class="gradient-text">Health Journey</span>
+            </h1>
+
+            <p class="header-description">
+                Track your vital signs, analyze trends, and get predictive insights with our advanced AI-powered health
+                analytics platform.
+            </p>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Average BP</div>
+                    <div class="stat-value" id="avg-bp">--</div>
+                    <div class="trend-indicator trend-neutral">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        <span>No data</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Average Heart Rate</div>
+                    <div class="stat-value" id="avg-hr">--</div>
+                    <div class="trend-indicator trend-neutral">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        <span>No data</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Average Sugar</div>
+                    <div class="stat-value" id="avg-sugar">--</div>
+                    <div class="trend-indicator trend-neutral">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        <span>No data</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="container">
+        <div class="dashboard">
+            <!-- Form Card -->
+            <div class="card fade-in">
+                <h2 class="card-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14,2 14,8 20,8" />
+                        <line x1="16" y1="13" x2="8" y2="13" />
+                        <line x1="16" y1="17" x2="8" y2="17" />
+                        <polyline points="10,9 9,9 8,9" />
+                    </svg>
+                    New Health Entry
+                </h2>
+                <form id="healthForm">
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" required aria-label="Date" />
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Time</label>
+                        <div class="time-group">
+                            <input type="time" id="time" required aria-label="Time" />
+                            <select id="period" required aria-label="AM/PM">
+                                <option value="AM">AM</option>
+                                <option value="PM">PM</option>
+                            </select>
+                        </div>
+                        <div class="error-message" id="time-error">Please enter a valid time.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bp">Blood Pressure (mmHg)</label>
+                        <input type="number" id="bp" placeholder="e.g. 120" required min="50" max="250"
+                            aria-label="Blood Pressure" />
+                        <div class="error-message" id="bp-error">Please enter a value between 50 and 250.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="hr">Heart Rate (bpm)</label>
+                        <input type="number" id="hr" placeholder="e.g. 72" required min="30" max="200"
+                            aria-label="Heart Rate" />
+                        <div class="error-message" id="hr-error">Please enter a value between 30 and 200.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sugar">Sugar Level (mg/dL)</label>
+                        <input type="number" id="sugar" placeholder="e.g. 100" required min="20" max="400"
+                            aria-label="Sugar Level" />
+                        <div class="error-message" id="sugar-error">Please enter a value between 20 and 400.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="16" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                        </svg>
+                        Add Entry
+                    </button>
+                </form>
+            </div>
+
+            <!-- Chart Card -->
+            <div class="card fade-in">
+                <h2 class="card-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" />
+                    </svg>
+                    Health Trends
+                </h2>
+                <div class="chart-container">
+                    <canvas id="healthChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Section -->
+        <div class="table-container fade-in">
+            <h2 class="card-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h4" />
+                </svg>
+                Health Records
+            </h2>
+            <table id="reportTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>BP (mmHg)</th>
+                        <th>Heart Rate (bpm)</th>
+                        <th>Sugar (mg/dL)</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 2rem; color: #94a3b8;">
+                            No health entries found. Add your first entry above.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button onclick="generatePDF()" class="btn btn-primary" style="width: 100%;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14,2 14,8 20,8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10,9 9,9 8,9" />
+                </svg>
+                Download Full Report
+            </button>
+        </div>
+    </section>
+
+    <script>
+        // Create Particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize Chart with empty data
+        const ctx = document.getElementById('healthChart').getContext('2d');
+        let entries = [];
+
+        // Clear any existing data
+        localStorage.removeItem('healthEntries');
+
+        Chart.register(ChartDataLabels);
+
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'Blood Pressure',
+                        data: [],
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#ef4444',
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        cubicInterpolationMode: 'monotone'
+                    },
+                    {
+                        label: 'Heart Rate',
+                        data: [],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#3b82f6',
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        cubicInterpolationMode: 'monotone'
+                    },
+                    {
+                        label: 'Sugar Level',
+                        data: [],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#10b981',
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        cubicInterpolationMode: 'monotone'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                family: 'Inter',
+                                size: 12,
+                                weight: '600'
+                            },
+                            padding: 20,
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            color: '#e2e8f0'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                        titleFont: {
+                            family: 'Inter',
+                            size: 14,
+                            weight: '600'
+                        },
+                        bodyFont: {
+                            family: 'Inter',
+                            size: 12
+                        },
+                        titleColor: '#f8fafc',
+                        bodyColor: '#e2e8f0',
+                        borderColor: 'rgba(59, 130, 246, 0.3)',
+                        borderWidth: 1,
+                        padding: 12,
+                        cornerRadius: 12,
+                        displayColors: true,
+                        mode: 'index',
+                        intersect: false,
+                        callbacks: {
+                            label: function (context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += context.parsed.y;
+                                    if (context.dataset.label === 'Blood Pressure') {
+                                        label += ' mmHg';
+                                    } else if (context.dataset.label === 'Heart Rate') {
+                                        label += ' bpm';
+                                    } else if (context.dataset.label === 'Sugar Level') {
+                                        label += ' mg/dL';
+                                    }
+                                }
+                                return label;
+                            }
+                        }
+                    },
+                    datalabels: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date and Time',
+                            font: {
+                                family: 'Inter',
+                                size: 12,
+                                weight: '600'
+                            },
+                            color: '#cbd5e1'
+                        },
+                        grid: {
+                            display: false,
+                            drawBorder: true,
+                            color: 'rgba(203, 213, 225, 0.1)'
+                        },
+                        ticks: {
+                            color: '#94a3b8',
+                            font: {
+                                size: 11
+                            }
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Value',
+                            font: {
+                                family: 'Inter',
+                                size: 12,
+                                weight: '600'
+                            },
+                            color: '#cbd5e1'
+                        },
+                        grid: {
+                            color: 'rgba(203, 213, 225, 0.1)',
+                            drawBorder: true
+                        },
+                        ticks: {
+                            color: '#94a3b8',
+                            font: {
+                                size: 11
+                            }
+                        },
+                        beginAtZero: false
+                    }
+                },
+                interaction: {
+                    mode: 'nearest',
+                    axis: 'x',
+                    intersect: false
+                },
+                animation: {
+                    duration: 1500,
+                    easing: 'easeInOutQuart'
+                },
+                elements: {
+                    line: {
+                        borderJoinStyle: 'round'
+                    }
+                }
+            }
+        });
+
+        // Set default date/time to current
+        document.getElementById('date').valueAsDate = new Date();
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        document.getElementById('time').value = `${hours}:${minutes}`;
+        document.getElementById('period').value = now.getHours() >= 12 ? 'PM' : 'AM';
+
+        // Form submission with validation
+        document.getElementById('healthForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Reset error messages
+            document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const period = document.getElementById('period').value;
+            const bp = +document.getElementById('bp').value;
+            const hr = +document.getElementById('hr').value;
+            const sugar = +document.getElementById('sugar').value;
+
+            // Validation
+            let isValid = true;
+
+            if (!date || !time || !period) {
+                document.getElementById('time-error').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isNaN(bp) || bp < 50 || bp > 250) {
+                document.getElementById('bp-error').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isNaN(hr) || hr < 30 || hr > 200) {
+                document.getElementById('hr-error').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isNaN(sugar) || sugar < 20 || sugar > 400) {
+                document.getElementById('sugar-error').style.display = 'block';
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            const status = getHealthStatus(bp, hr, sugar);
+            entries.push({ date, time, period, bp, hr, sugar, status });
+            localStorage.setItem('healthEntries', JSON.stringify(entries));
+
+            updateChart();
+            updateTable();
+            updateStats();
+
+            // Reset form inputs (except date/time)
+            document.getElementById('bp').value = '';
+            document.getElementById('hr').value = '';
+            document.getElementById('sugar').value = '';
+
+            // Show success animation
+            const button = e.target.querySelector('button[type="submit"]');
+            button.classList.add('loading');
+            setTimeout(() => {
+                button.classList.remove('loading');
+            }, 1000);
+        });
+
+        function getHealthStatus(bp, hr, sugar) {
+            if (bp > 140 || hr > 100 || sugar > 160) return { text: 'High', class: 'status-high' };
+            if (bp < 90 || hr < 60 || sugar < 70) return { text: 'Low', class: 'status-low' };
+            return { text: 'Normal', class: 'status-normal' };
+        }
+
+        function updateChart() {
+            const validEntries = entries.filter(entry =>
+                entry &&
+                entry.date &&
+                entry.time &&
+                entry.period &&
+                !isNaN(entry.bp) &&
+                !isNaN(entry.hr) &&
+                !isNaN(entry.sugar)
+            );
+
+            chart.data.labels = validEntries.map(e => `${e.date} ${e.time} ${e.period}`);
+            chart.data.datasets[0].data = validEntries.map(e => e.bp);
+            chart.data.datasets[1].data = validEntries.map(e => e.hr);
+            chart.data.datasets[2].data = validEntries.map(e => e.sugar);
+            chart.update();
+        }
+
+        function updateTable() {
+            const tbody = document.querySelector('#reportTable tbody');
+            tbody.innerHTML = '';
+
+            const validEntries = entries.filter(entry =>
+                entry &&
+                entry.date &&
+                entry.time &&
+                entry.period &&
+                !isNaN(entry.bp) &&
+                !isNaN(entry.hr) &&
+                !isNaN(entry.sugar)
+            );
+
+            if (validEntries.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 2rem; color: #94a3b8;">
+                            No health entries found. Add your first entry above.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            validEntries.slice().reverse().forEach(entry => {
+                const status = getHealthStatus(entry.bp, entry.hr, entry.sugar);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${entry.date}</td>
+                    <td>${entry.time} ${entry.period}</td>
+                    <td>${entry.bp}</td>
+                    <td>${entry.hr}</td>
+                    <td>${entry.sugar}</td>
+                    <td><span class="status ${status.class}">${status.text}</span></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function updateStats() {
+            const validEntries = entries.filter(entry =>
+                entry &&
+                entry.date &&
+                entry.time &&
+                entry.period &&
+                !isNaN(entry.bp) &&
+                !isNaN(entry.hr) &&
+                !isNaN(entry.sugar)
+            );
+
+            if (validEntries.length === 0) {
+                document.getElementById('avg-bp').textContent = '--';
+                document.getElementById('avg-hr').textContent = '--';
+                document.getElementById('avg-sugar').textContent = '--';
+                document.querySelectorAll('.trend-indicator').forEach(el => {
+                    el.className = 'trend-indicator trend-neutral';
+                    el.innerHTML = `
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        <span>No data</span>
+                    `;
+                });
+                return;
+            }
+
+            const avgBp = Math.round(validEntries.reduce((sum, e) => sum + e.bp, 0) / validEntries.length);
+            const avgHr = Math.round(validEntries.reduce((sum, e) => sum + e.hr, 0) / validEntries.length);
+            const avgSugar = Math.round(validEntries.reduce((sum, e) => sum + e.sugar, 0) / validEntries.length);
+
+            document.getElementById('avg-bp').textContent = `${avgBp} mmHg`;
+            document.getElementById('avg-hr').textContent = `${avgHr} bpm`;
+            document.getElementById('avg-sugar').textContent = `${avgSugar} mg/dL`;
+
+            updateTrendIndicator('bp', avgBp);
+            updateTrendIndicator('hr', avgHr);
+            updateTrendIndicator('sugar', avgSugar);
+        }
+
+        function updateTrendIndicator(metric, currentValue) {
+            const validEntries = entries.filter(entry =>
+                entry &&
+                entry.date &&
+                entry.time &&
+                entry.period &&
+                !isNaN(entry.bp) &&
+                !isNaN(entry.hr) &&
+                !isNaN(entry.sugar)
+            );
+
+            if (validEntries.length < 2) {
+                const indicator = document.querySelector(`#avg-${metric}`).nextElementSibling;
+                indicator.className = 'trend-indicator trend-neutral';
+                indicator.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    <span>No trend</span>
+                `;
+                return;
+            }
+
+            const prevValue = validEntries[validEntries.length - 2][metric];
+            const indicator = document.querySelector(`#avg-${metric}`).nextElementSibling;
+
+            if (currentValue > prevValue) {
+                indicator.className = 'trend-indicator trend-up';
+                indicator.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                        <polyline points="17 6 23 6 23 12"/>
+                    </svg>
+                    <span>Increasing</span>
+                `;
+            } else if (currentValue < prevValue) {
+                indicator.className = 'trend-indicator trend-down';
+                indicator.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/>
+                        <polyline points="17 18 23 18 23 12"/>
+                    </svg>
+                    <span>Decreasing</span>
+                `;
+            } else {
+                indicator.className = 'trend-indicator trend-neutral';
+                indicator.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    <span>Stable</span>
+                `;
+            }
+        }
+
+        async function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            // Header
+            doc.setFont('Inter', 'bold');
+            doc.setFontSize(24);
+            doc.setTextColor(59, 130, 246);
+            doc.text('HealVerse Health Analytics Report', 105, 20, { align: 'center' });
+
+            doc.setFont('Inter', 'normal');
+            doc.setFontSize(12);
+            doc.setTextColor(107, 114, 128);
+            doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 105, 28, { align: 'center' });
+
+            // Summary Statistics
+            doc.setFontSize(18);
+            doc.setTextColor(0, 0, 0);
+            doc.text('Summary Statistics', 20, 45);
+
+            doc.setFontSize(12);
+            const validEntries = entries.filter(entry =>
+                entry &&
+                entry.date &&
+                entry.time &&
+                entry.period &&
+                !isNaN(entry.bp) &&
+                !isNaN(entry.hr) &&
+                !isNaN(entry.sugar)
+            );
+
+            if (validEntries.length > 0) {
+                const avgBp = Math.round(validEntries.reduce((sum, e) => sum + e.bp, 0) / validEntries.length);
+                const avgHr = Math.round(validEntries.reduce((sum, e) => sum + e.hr, 0) / validEntries.length);
+                const avgSugar = Math.round(validEntries.reduce((sum, e) => sum + e.sugar, 0) / validEntries.length);
+
+                doc.text(`Average Blood Pressure: ${avgBp} mmHg`, 20, 55);
+                doc.text(`Average Heart Rate: ${avgHr} bpm`, 20, 62);
+                doc.text(`Average Sugar Level: ${avgSugar} mg/dL`, 20, 69);
+                doc.text(`Total Entries: ${validEntries.length}`, 20, 76);
+            } else {
+                doc.text('No data available for summary statistics', 20, 55);
+            }
+
+            if (validEntries.length > 0) {
+                // Health Trends Chart
+                doc.setFontSize(18);
+                doc.text('Health Trends Over Time', 20, 95);
+
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = 800;
+                tempCanvas.height = 400;
+                const tempCtx = tempCanvas.getContext('2d');
+
+                const tempChart = new Chart(tempCtx, {
+                    type: 'line',
+                    data: chart.data,
+                    options: {
+                        responsive: false,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    font: {
+                                        family: 'Inter',
+                                        size: 14,
+                                        weight: '600'
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Date and Time',
+                                    font: {
+                                        family: 'Inter',
+                                        size: 14,
+                                        weight: '600'
+                                    }
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Value',
+                                    font: {
+                                        family: 'Inter',
+                                        size: 14,
+                                        weight: '600'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                await new Promise(resolve => setTimeout(resolve, 500));
+                const chartImg = tempCanvas.toDataURL('image/png');
+                doc.addImage(chartImg, 'PNG', 20, 100, 170, 80);
+
+                // Status Distribution
+                doc.setFontSize(18);
+                doc.text('Health Status Distribution', 20, 195);
+
+                const statusCounts = {
+                    normal: validEntries.filter(e => getHealthStatus(e.bp, e.hr, e.sugar).text === 'Normal').length,
+                    high: validEntries.filter(e => getHealthStatus(e.bp, e.hr, e.sugar).text === 'High').length,
+                    low: validEntries.filter(e => getHealthStatus(e.bp, e.hr, e.sugar).text === 'Low').length
+                };
+
+                doc.setFontSize(12);
+                doc.text(`Normal Readings: ${statusCounts.normal} (${Math.round(statusCounts.normal / validEntries.length * 100)}%)`, 20, 205);
+                doc.text(`High Readings: ${statusCounts.high} (${Math.round(statusCounts.high / validEntries.length * 100)}%)`, 20, 212);
+                doc.text(`Low Readings: ${statusCounts.low} (${Math.round(statusCounts.low / validEntries.length * 100)}%)`, 20, 219);
+            }
+
+            // Detailed Records
+            doc.setFontSize(18);
+            doc.text('Detailed Health Records', 20, validEntries.length > 0 ? 240 : 100);
+
+            if (validEntries.length > 0) {
+                // Table header
+                doc.setFontSize(12);
+                doc.setTextColor(255, 255, 255);
+                doc.setFillColor(59, 130, 246);
+                doc.rect(20, 245, 170, 8, 'F');
+                doc.text('Date', 25, 250);
+                doc.text('Time', 50, 250);
+                doc.text('BP', 80, 250);
+                doc.text('HR', 105, 250);
+                doc.text('Sugar', 130, 250);
+                doc.text('Status', 155, 250);
+
+                // Table rows
+                doc.setTextColor(0, 0, 0);
+                let y = 255;
+                validEntries.slice().reverse().forEach((entry, index) => {
+                    if (index > 0 && index % 25 === 0) {
+                        doc.addPage();
+                        y = 20;
+                        // Header on new page
+                        doc.setFillColor(59, 130, 246);
+                        doc.rect(20, y, 170, 8, 'F');
+                        doc.setTextColor(255, 255, 255);
+                        doc.text('Date', 25, y + 5);
+                        doc.text('Time', 50, y + 5);
+                        doc.text('BP', 80, y + 5);
+                        doc.text('HR', 105, y + 5);
+                        doc.text('Sugar', 130, y + 5);
+                        doc.text('Status', 155, y + 5);
+                        y += 10;
+                        doc.setTextColor(0, 0, 0);
+                    }
+
+                    const status = getHealthStatus(entry.bp, entry.hr, entry.sugar);
+                    doc.text(entry.date, 25, y);
+                    doc.text(`${entry.time} ${entry.period}`, 50, y);
+                    doc.text(entry.bp.toString(), 80, y);
+                    doc.text(entry.hr.toString(), 105, y);
+                    doc.text(entry.sugar.toString(), 130, y);
+
+                    // Color code status
+                    if (status.text === 'High') {
+                        doc.setTextColor(239, 68, 68);
+                    } else if (status.text === 'Low') {
+                        doc.setTextColor(245, 158, 11);
+                    } else {
+                        doc.setTextColor(16, 185, 129);
+                    }
+                    doc.text(status.text, 155, y);
+                    doc.setTextColor(0, 0, 0);
+                    y += 7;
+                });
+            } else {
+                doc.setFontSize(12);
+                doc.text('No health records available', 20, 110);
+            }
+
+            // Footer
+            doc.setFontSize(10);
+            doc.setTextColor(107, 114, 128);
+            doc.text('Generated by HealVerse AI-Powered Health Analytics Dashboard', 105, 285, { align: 'center' });
+
+            // Save the PDF
+            doc.save('HealVerse_Health_Report.pdf');
+        }
+
+        // Fade in animation
+        function initFadeInAnimation() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('appear');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            fadeElements.forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            createParticles();
+            updateTable();
+            updateStats();
+            initFadeInAnimation();
+
+            // Trigger fade in for elements already in view
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in').forEach(el => {
+                    el.classList.add('appear');
+                });
+            }, 100);
+        });
+
+        // Handle window resize for chart
+        window.addEventListener('resize', function () {
+            if (chart) {
+                chart.resize();
+            }
+        });
+    </script>
+</body>
+
+</html>
