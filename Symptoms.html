@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealVerse - AI Symptom Analyzer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+            animation: float 20s ease-in-out infinite;
+            filter: blur(40px);
+        }
+
+        .bg-shape:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            top: -200px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .bg-shape:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            top: 20%;
+            right: -150px;
+            animation-delay: -5s;
+        }
+
+        .bg-shape:nth-child(3) {
+            width: 350px;
+            height: 350px;
+            bottom: -175px;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        .bg-shape:nth-child(4) {
+            width: 250px;
+            height: 250px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -15s;
+        }
+
+        .bg-shape:nth-child(5) {
+            width: 320px;
+            height: 320px;
+            top: 40%;
+            left: 50%;
+            animation-delay: -20s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-30px) rotate(90deg);
+            }
+
+            50% {
+                transform: translateY(0px) rotate(180deg);
+            }
+
+            75% {
+                transform: translateY(30px) rotate(270deg);
+            }
+        }
+
+        /* Particle System */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(59, 130, 246, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 15s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-icon {
+            color: #3b82f6;
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .brand-text {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+        }
+
+        .nav-back {
+            background: rgba(248, 250, 252, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(248, 250, 252, 0.2);
+            color: #f8fafc;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-back:hover {
+            background: rgba(248, 250, 252, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 140px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(59, 130, 246, 0.1);
+            backdrop-filter: blur(10px);
+            color: #3b82f6;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+            animation: fadeInUp 1s ease-out, glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+            }
+
+            to {
+                box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 24px;
+            line-height: 1.1;
+            color: #f8fafc;
+            text-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 30%, #06b6d4 60%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .hero-description {
+            font-size: 20px;
+            color: #cbd5e1;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin: 60px 0;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+        }
+
+        .step::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 100%;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, transparent);
+            z-index: -1;
+        }
+
+        .step:last-child::after {
+            display: none;
+        }
+
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-icon.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            animation: stepPulse 2s ease-in-out infinite;
+        }
+
+        .step-icon.completed {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .step-icon.pending {
+            background: rgba(248, 250, 252, 0.1);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            color: #94a3b8;
+        }
+
+        @keyframes stepPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .step-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #cbd5e1;
+            text-align: center;
+        }
+
+        .step.active .step-label {
+            color: #3b82f6;
+        }
+
+        .step.completed .step-label {
+            color: #10b981;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 0 0 100px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* Panel Base Styles */
+        .panel {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 48px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .panel:hover::before {
+            transform: scaleX(1);
+        }
+
+        .panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 70px rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .panel-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+            color: #3b82f6;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .panel-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #f8fafc;
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Search Section */
+        .search-section {
+            margin-bottom: 40px;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 20px 24px 20px 60px;
+            background: rgba(248, 250, 252, 0.08);
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            border-radius: 20px;
+            color: #f8fafc;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.4), inset 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: rgba(248, 250, 252, 0.12);
+        }
+
+        .search-input::placeholder {
+            color: #94a3b8;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            transition: color 0.3s ease;
+        }
+
+        .search-input:focus+.search-icon {
+            color: #3b82f6;
+        }
+
+        /* Symptoms Grid */
+        .symptoms-section {
+            margin-bottom: 40px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .symptoms-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .symptoms-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .symptoms-grid::-webkit-scrollbar-track {
+            background: rgba(248, 250, 252, 0.1);
+            border-radius: 3px;
+        }
+
+        .symptoms-grid::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 3px;
+        }
+
+        .symptom-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 20px;
+            background: rgba(248, 250, 252, 0.05);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .symptom-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .symptom-item:hover::before {
+            left: 100%;
+        }
+
+        .symptom-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateX(8px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+        }
+
+        .symptom-item.selected {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateX(8px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .symptom-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .symptom-item.selected .symptom-checkbox {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            transform: scale(1.1);
+        }
+
+        .symptom-checkbox svg {
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+
+        .symptom-item.selected .symptom-checkbox svg {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .symptom-label {
+            color: #e2e8f0;
+            font-weight: 500;
+            font-size: 15px;
+            flex: 1;
+            transition: color 0.3s ease;
+        }
+
+        .symptom-item.selected .symptom-label {
+            color: #f8fafc;
+            font-weight: 600;
+        }
+
+        .symptom-severity {
+            font-size: 12px;
+            color: #94a3b8;
+            background: rgba(148, 163, 184, 0.1);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .symptom-item.selected .symptom-severity {
+            color: #cbd5e1;
+            background: rgba(203, 213, 225, 0.2);
+        }
+
+        /* Selected Symptoms */
+        .selected-section {
+            margin-bottom: 40px;
+        }
+
+        .selected-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .selected-count {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .selected-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            min-height: 60px;
+            padding: 20px;
+            background: rgba(248, 250, 252, 0.03);
+            border-radius: 16px;
+            border: 2px dashed rgba(59, 130, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .selected-list.has-items {
+            border-style: solid;
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .selected-tag {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            animation: tagSlideIn 0.3s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        .selected-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+        }
+
+        @keyframes tagSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .remove-tag {
+            cursor: pointer;
+            font-weight: bold;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .remove-tag:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+            flex: 1;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 45px rgba(59, 130, 246, 0.6);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: rgba(248, 250, 252, 0.1);
+            color: #e2e8f0;
+            border: 2px solid rgba(248, 250, 252, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(248, 250, 252, 0.2);
+            border-color: rgba(248, 250, 252, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn.loading {
+            pointer-events: none;
+        }
+
+        .btn-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Results Panel */
+        .results-panel {
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .results-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            text-align: center;
+            color: #94a3b8;
+            padding: 60px 20px;
+        }
+
+        .results-empty svg {
+            margin-bottom: 24px;
+            opacity: 0.5;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .results-empty h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #cbd5e1;
+        }
+
+        .results-empty p {
+            font-size: 16px;
+            line-height: 1.6;
+            max-width: 300px;
+        }
+
+        .loading-spinner {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 60px 20px;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(59, 130, 246, 0.2);
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 24px;
+        }
+
+        .loading-text {
+            color: #cbd5e1;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .loading-subtext {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .results-content {
+            display: none;
+            flex: 1;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .results-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+
+        .confidence-badge {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .condition-card {
+            background: rgba(248, 250, 252, 0.05);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .condition-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+        }
+
+        .condition-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .condition-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .condition-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #f8fafc;
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .probability-badge {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            white-space: nowrap;
+        }
+
+        .condition-description {
+            color: #cbd5e1;
+            margin-bottom: 24px;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .info-section {
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            position: relative;
+            border-left: 4px solid;
+        }
+
+        .recommendation {
+            background: rgba(59, 130, 246, 0.1);
+            border-left-color: #3b82f6;
+        }
+
+        .treatment-plan {
+            background: rgba(16, 185, 129, 0.1);
+            border-left-color: #10b981;
+        }
+
+        .warning {
+            background: rgba(249, 115, 22, 0.1);
+            border-left-color: #f97316;
+        }
+
+        .info-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+
+        .recommendation .info-title {
+            color: #3b82f6;
+        }
+
+        .treatment-plan .info-title {
+            color: #10b981;
+        }
+
+        .warning .info-title {
+            color: #f97316;
+        }
+
+        .info-text {
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* Error State */
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            color: #fca5a5;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .error-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            border-radius: 20px;
+            padding: 32px;
+            margin-top: 60px;
+            text-align: center;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .disclaimer-title {
+            color: #f97316;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 18px;
+        }
+
+        .disclaimer-text {
+            color: #cbd5e1;
+            font-size: 14px;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .progress-steps {
+                gap: 20px;
+            }
+
+            .step::after {
+                width: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .nav-container {
+                padding: 0 20px;
+            }
+
+            .hero {
+                padding: 120px 0 60px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .panel {
+                padding: 32px 24px;
+            }
+
+            .progress-steps {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .step::after {
+                display: none;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.6s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+    </div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <svg class="nav-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l11 11Z" />
+                </svg>
+                <span class="brand-text">HealVerse</span>
+            </div>
+            <a href="#" class="nav-back" onclick="goBack()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m12 19-7-7 7-7" />
+                    <path d="M19 12H5" />
+                </svg>
+                Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 12l2 2 4-4" />
+                    <circle cx="12" cy="12" r="9" />
+                </svg>
+                AI-Powered Medical Analysis
+            </div>
+
+            <h1 class="hero-title">
+                <span class="gradient-text">Intelligent</span> Symptom Analysis
+            </h1>
+
+            <p class="hero-description">
+                Get personalized health insights powered by advanced AI. Simply select your symptoms and receive
+                professional-grade analysis with treatment recommendations.
+            </p>
+
+            <!-- Progress Steps -->
+            <div class="progress-steps">
+                <div class="step active" id="step1">
+                    <div class="step-icon active">1</div>
+                    <div class="step-label">Select Symptoms</div>
+                </div>
+                <div class="step" id="step2">
+                    <div class="step-icon pending">2</div>
+                    <div class="step-label">AI Analysis</div>
+                </div>
+                <div class="step" id="step3">
+                    <div class="step-icon pending">3</div>
+                    <div class="step-label">Get Results</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-grid">
+                <!-- Symptom Selection Panel -->
+                <div class="panel slide-in-left">
+                    <div class="panel-header">
+                        <div class="panel-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.35-4.35" />
+                            </svg>
+                        </div>
+                        <h2 class="panel-title">Symptom Selection</h2>
+                    </div>
+
+                    <!-- Search Section -->
+                    <div class="search-section">
+                        <div class="search-container">
+                            <input type="text" class="search-input" id="symptomSearch"
+                                placeholder="Search symptoms (e.g., headache, fever...)">
+                            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.35-4.35" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Symptoms Grid -->
+                    <div class="symptoms-section">
+                        <h3 class="section-subtitle">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                            </svg>
+                            Available Symptoms
+                        </h3>
+                        <div class="symptoms-grid" id="symptomsGrid">
+                            <!-- Symptoms will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Selected Symptoms -->
+                    <div class="selected-section">
+                        <div class="selected-header">
+                            <h3 class="section-subtitle">Selected Symptoms</h3>
+                            <div class="selected-count" id="selectedCount">0</div>
+                        </div>
+                        <div class="selected-list" id="selectedList">
+                            <div class="empty-state">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M9 12l2 2 4-4" />
+                                    <circle cx="12" cy="12" r="9" />
+                                </svg>
+                                <p>No symptoms selected yet</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="analyzeBtn" disabled>
+                            <span id="analyzeText">Analyze Symptoms</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14" />
+                                <path d="m12 5 7 7-7 7" />
+                            </svg>
+                        </button>
+                        <button class="btn btn-secondary" id="clearBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                                <path d="M3 3v5h5" />
+                            </svg>
+                            Clear All
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="panel results-panel slide-in-right">
+                    <div class="panel-header">
+                        <div class="panel-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                            </svg>
+                        </div>
+                        <h2 class="panel-title">Analysis Results</h2>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div class="results-empty" id="resultsEmpty">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 12l2 2 4-4" />
+                            <circle cx="12" cy="12" r="9" />
+                        </svg>
+                        <h3>Ready for Analysis</h3>
+                        <p>Select your symptoms from the left panel and click "Analyze Symptoms" to get AI-powered
+                            health insights and recommendations.</p>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div class="loading-spinner" id="loadingSpinner">
+                        <div class="spinner"></div>
+                        <p class="loading-text">Analyzing your symptoms...</p>
+                        <p class="loading-subtext">Our AI is processing your data</p>
+                    </div>
+
+                    <!-- Results Content -->
+                    <div class="results-content" id="resultsContent">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Disclaimer -->
+    <div class="container">
+        <div class="disclaimer">
+            <h3 class="disclaimer-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                Important Medical Disclaimer
+            </h3>
+            <p class="disclaimer-text">
+                This AI symptom analyzer is designed for educational and informational purposes only. It is not intended
+                to replace professional medical advice, diagnosis, or treatment. Always consult with qualified
+                healthcare providers for medical concerns. In case of emergency, contact your local emergency services
+                immediately. The analysis provided should not be used as the sole basis for medical decisions.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // API Configuration
+        const API_CONFIG = {
+            rapidApiUrl: 'https://priaid-symptom-checker-v1.p.rapidapi.com/diagnosis',
+            rapidApiHeaders: {
+                'X-RapidAPI-Key': 'f1ee63dccamsha1c007b2044d5e1p109f36jsn94d521d2f33d',
+                'X-RapidAPI-Host': 'priaid-symptom-checker-v1.p.rapidapi.com',
+                'Content-Type': 'application/json'
+            }
+        };
+
+        // Enhanced symptoms data with categories and severity
+        const SAMPLE_SYMPTOMS = [
+            // Common symptoms
+            { id: 1, name: 'Headache', category: 'neurological', severity: 'mild', common: true },
+            { id: 2, name: 'Fever', category: 'general', severity: 'moderate', common: true },
+            { id: 3, name: 'Cough', category: 'respiratory', severity: 'mild', common: true },
+            { id: 4, name: 'Sore throat', category: 'respiratory', severity: 'mild', common: true },
+            { id: 5, name: 'Fatigue', category: 'general', severity: 'mild', common: true },
+            { id: 6, name: 'Nausea', category: 'digestive', severity: 'moderate', common: true },
+            { id: 7, name: 'Dizziness', category: 'neurological', severity: 'moderate', common: true },
+            { id: 8, name: 'Shortness of breath', category: 'respiratory', severity: 'moderate', common: true },
+            { id: 9, name: 'Chest pain', category: 'cardiovascular', severity: 'severe', common: false },
+            { id: 10, name: 'Abdominal pain', category: 'digestive', severity: 'moderate', common: true },
+
+            // Additional symptoms
+            { id: 11, name: 'Back pain', category: 'musculoskeletal', severity: 'moderate', common: true },
+            { id: 12, name: 'Joint pain', category: 'musculoskeletal', severity: 'moderate', common: true },
+            { id: 13, name: 'Muscle aches', category: 'musculoskeletal', severity: 'mild', common: true },
+            { id: 14, name: 'Runny nose', category: 'respiratory', severity: 'mild', common: true },
+            { id: 15, name: 'Sneezing', category: 'respiratory', severity: 'mild', common: true },
+            { id: 16, name: 'Loss of appetite', category: 'digestive', severity: 'mild', common: false },
+            { id: 17, name: 'Sleep problems', category: 'neurological', severity: 'moderate', common: false },
+            { id: 18, name: 'Skin rash', category: 'dermatological', severity: 'mild', common: false },
+            { id: 19, name: 'Swollen lymph nodes', category: 'immune', severity: 'moderate', common: false },
+            { id: 20, name: 'Weight loss', category: 'general', severity: 'moderate', common: false },
+
+            // More specific symptoms
+            { id: 21, name: 'Vomiting', category: 'digestive', severity: 'moderate', common: false },
+            { id: 22, name: 'Diarrhea', category: 'digestive', severity: 'moderate', common: false },
+            { id: 23, name: 'Constipation', category: 'digestive', severity: 'mild', common: false },
+            { id: 24, name: 'Blurred vision', category: 'neurological', severity: 'moderate', common: false },
+            { id: 25, name: 'Hearing problems', category: 'neurological', severity: 'moderate', common: false },
+            { id: 26, name: 'Night sweats', category: 'general', severity: 'moderate', common: false },
+            { id: 27, name: 'Chills', category: 'general', severity: 'mild', common: true },
+            { id: 28, name: 'Rapid heartbeat', category: 'cardiovascular', severity: 'moderate', common: false },
+            { id: 29, name: 'Difficulty swallowing', category: 'respiratory', severity: 'moderate', common: false },
+            { id: 30, name: 'Memory problems', category: 'neurological', severity: 'moderate', common: false }
+        ];
+
+        // Application state
+        let selectedSymptoms = [];
+        let allSymptoms = SAMPLE_SYMPTOMS;
+        let filteredSymptoms = SAMPLE_SYMPTOMS;
+        let currentStep = 1;
+
+        // DOM elements
+        const symptomSearch = document.getElementById('symptomSearch');
+        const symptomsGrid = document.getElementById('symptomsGrid');
+        const selectedList = document.getElementById('selectedList');
+        const selectedCount = document.getElementById('selectedCount');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const analyzeText = document.getElementById('analyzeText');
+        const clearBtn = document.getElementById('clearBtn');
+        const resultsEmpty = document.getElementById('resultsEmpty');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const resultsContent = document.getElementById('resultsContent');
+
+        // Initialize the application
+        function init() {
+            createParticles();
+            renderSymptoms();
+            setupEventListeners();
+            updateStepProgress();
+        }
+
+        // Create particle system
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            symptomSearch.addEventListener('input', handleSearch);
+            analyzeBtn.addEventListener('click', analyzeSymptoms);
+            clearBtn.addEventListener('click', clearAllSymptoms);
+        }
+
+        // Update step progress
+        function updateStepProgress() {
+            const steps = ['step1', 'step2', 'step3'];
+
+            steps.forEach((stepId, index) => {
+                const step = document.getElementById(stepId);
+                const icon = step.querySelector('.step-icon');
+
+                if (index + 1 < currentStep) {
+                    step.classList.remove('active');
+                    step.classList.add('completed');
+                    icon.classList.remove('active', 'pending');
+                    icon.classList.add('completed');
+                    icon.innerHTML = '✓';
+                } else if (index + 1 === currentStep) {
+                    step.classList.add('active');
+                    step.classList.remove('completed');
+                    icon.classList.add('active');
+                    icon.classList.remove('pending', 'completed');
+                    icon.innerHTML = index + 1;
+                } else {
+                    step.classList.remove('active', 'completed');
+                    icon.classList.add('pending');
+                    icon.classList.remove('active', 'completed');
+                    icon.innerHTML = index + 1;
+                }
+            });
+        }
+
+        // Render symptoms grid
+        function renderSymptoms() {
+            symptomsGrid.innerHTML = '';
+
+            // Sort symptoms: common first, then alphabetically
+            const sortedSymptoms = [...filteredSymptoms].sort((a, b) => {
+                if (a.common && !b.common) return -1;
+                if (!a.common && b.common) return 1;
+                return a.name.localeCompare(b.name);
+            });
+
+            sortedSymptoms.forEach((symptom, index) => {
+                const isSelected = selectedSymptoms.some(s => s.id === symptom.id);
+
+                const symptomElement = document.createElement('div');
+                symptomElement.className = symptom-item ${isSelected ? 'selected' : ''};
+                symptomElement.style.animationDelay = ${index * 0.05}s;
+
+                const severityColor = {
+                    'mild': '#10b981',
+                    'moderate': '#f59e0b',
+                    'severe': '#ef4444'
+                }[symptom.severity];
+
+                symptomElement.innerHTML = `
+                    <div class="symptom-checkbox">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                    </div>
+                    <span class="symptom-label">${symptom.name}</span>
+                    <span class="symptom-severity" style="color: ${severityColor};">${symptom.severity}</span>
+                `;
+
+                symptomElement.addEventListener('click', () => toggleSymptom(symptom));
+                symptomsGrid.appendChild(symptomElement);
+            });
+        }
+
+        // Handle symptom search
+        function handleSearch(e) {
+            const query = e.target.value.toLowerCase();
+            filteredSymptoms = allSymptoms.filter(symptom =>
+                symptom.name.toLowerCase().includes(query) ||
+                symptom.category.toLowerCase().includes(query)
+            );
+            renderSymptoms();
+        }
+
+        // Toggle symptom selection
+        function toggleSymptom(symptom) {
+            const existingIndex = selectedSymptoms.findIndex(s => s.id === symptom.id);
+
+            if (existingIndex > -1) {
+                selectedSymptoms.splice(existingIndex, 1);
+            } else {
+                selectedSymptoms.push(symptom);
+            }
+
+            updateSelectedSymptoms();
+            renderSymptoms();
+        }
+
+        // Update selected symptoms display
+        function updateSelectedSymptoms() {
+            selectedCount.textContent = selectedSymptoms.length;
+
+            if (selectedSymptoms.length === 0) {
+                selectedList.innerHTML = `
+                    <div class="empty-state">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 12l2 2 4-4"/>
+                            <circle cx="12" cy="12" r="9"/>
+                        </svg>
+                        <p>No symptoms selected yet</p>
+                    </div>
+                `;
+                selectedList.classList.remove('has-items');
+            } else {
+                selectedList.innerHTML = '';
+                selectedList.classList.add('has-items');
+
+                selectedSymptoms.forEach(symptom => {
+                    const tag = document.createElement('div');
+                    tag.className = 'selected-tag';
+                    tag.innerHTML = `
+                        ${symptom.name}
+                        <span class="remove-tag" onclick="removeSymptom(${symptom.id})">×</span>
+                    `;
+                    selectedList.appendChild(tag);
+                });
+            }
+
+            analyzeBtn.disabled = selectedSymptoms.length === 0;
+        }
+
+        // Remove symptom from selection
+        function removeSymptom(symptomId) {
+            selectedSymptoms = selectedSymptoms.filter(s => s.id !== symptomId);
+            updateSelectedSymptoms();
+            renderSymptoms();
+        }
+
+        // Clear all symptoms
+        function clearAllSymptoms() {
+            selectedSymptoms = [];
+            filteredSymptoms = allSymptoms;
+            updateSelectedSymptoms();
+            renderSymptoms();
+            symptomSearch.value = '';
+        }
+
+        // Analyze symptoms
+        async function analyzeSymptoms() {
+            if (selectedSymptoms.length === 0) return;
+
+            currentStep = 2;
+            updateStepProgress();
+            showLoading();
+
+            try {
+                const results = await simulateApiCall();
+                currentStep = 3;
+                updateStepProgress();
+                displayResults(results);
+            } catch (error) {
+                displayError(error.message);
+            }
+        }
+
+        // Show loading state
+        function showLoading() {
+            resultsEmpty.style.display = 'none';
+            loadingSpinner.style.display = 'flex';
+            resultsContent.style.display = 'none';
+
+            analyzeBtn.disabled = true;
+            analyzeBtn.classList.add('loading');
+            analyzeText.innerHTML = `
+                <div class="btn-spinner"></div>
+                Analyzing...
+            `;
+        }
+
+        // Simulate API call
+        async function simulateApiCall() {
+            await new Promise(resolve => setTimeout(resolve, 3000));
+            return generateEnhancedMockResults();
+        }
+
+        // Generate enhanced mock results
+        function generateEnhancedMockResults() {
+            const conditions = [
+                {
+                    name: 'Viral Upper Respiratory Infection',
+                    probability: 87,
+                    description: 'A common viral infection affecting the nose, throat, and upper airways. Usually self-limiting and resolves within 7-10 days.',
+                    recommendation: 'Self-care with rest, increased fluid intake, and over-the-counter symptom relief. Monitor for worsening symptoms.',
+                    treatment: 'Rest for 7-10 days, drink plenty of fluids, use a humidifier, gargle with warm salt water, and consider pain relievers like acetaminophen or ibuprofen for comfort.',
+                    urgency: 'low'
+                },
+                {
+                    name: 'Seasonal Allergic Rhinitis',
+                    probability: 72,
+                    description: 'An allergic reaction to environmental allergens such as pollen, dust mites, or pet dander causing inflammation of nasal passages.',
+                    recommendation: 'Avoid known allergens when possible, use antihistamines, and consider nasal corticosteroid sprays. Consult an allergist if symptoms persist.',
+                    treatment: 'Use daily antihistamines, nasal saline rinses, keep windows closed during high pollen seasons, use air purifiers, and wash bedding in hot water weekly.',
+                    urgency: 'low'
+                },
+                {
+                    name: 'Tension Headache',
+                    probability: 65,
+                    description: 'The most common type of headache, often caused by stress, muscle tension, or poor posture. Usually bilateral and described as a tight band around the head.',
+                    recommendation: 'Rest in a quiet, dark room, apply cold or warm compress, and use over-the-counter pain relievers. Practice stress management techniques.',
+                    treatment: 'Take breaks from screens, practice good posture, use relaxation techniques, stay hydrated, maintain regular sleep schedule, and consider gentle neck stretches.',
+                    urgency: 'low'
+                },
+                {
+                    name: 'Gastroenteritis',
+                    probability: 45,
+                    description: 'Inflammation of the stomach and intestines, commonly caused by viral or bacterial infections, resulting in digestive symptoms.',
+                    recommendation: 'Stay hydrated with clear fluids, follow the BRAT diet, and rest. Seek medical attention if symptoms worsen or signs of dehydration appear.',
+                    treatment: 'Clear liquids for first 24 hours, gradually introduce bland foods (bananas, rice, applesauce, toast), avoid dairy and fatty foods, use oral rehydration solutions.',
+                    urgency: 'moderate'
+                }
+            ];
+
+            // Filter and score conditions based on selected symptoms
+            const relevantConditions = conditions.filter(condition => {
+                const symptomNames = selectedSymptoms.map(s => s.name.toLowerCase());
+                const hasRelevantSymptoms = symptomNames.some(symptom => {
+                    return (
+                        (condition.name.includes('Respiratory') && (symptom.includes('cough') || symptom.includes('sore throat') || symptom.includes('runny nose') || symptom.includes('sneezing'))) ||
+                        (condition.name.includes('Allergic') && (symptom.includes('sneezing') || symptom.includes('runny nose') || symptom.includes('itchy'))) ||
+                        (condition.name.includes('Headache') && symptom.includes('headache')) ||
+                        (condition.name.includes('Gastroenteritis') && (symptom.includes('nausea') || symptom.includes('abdominal') || symptom.includes('diarrhea') || symptom.includes('vomiting')))
+                    );
+                });
+                return hasRelevantSymptoms;
+            });
+
+            return relevantConditions.length > 0 ? relevantConditions.slice(0, 3) : [conditions[0]];
+        }
+
+        // Display results
+        function displayResults(results) {
+            loadingSpinner.style.display = 'none';
+            resultsContent.style.display = 'block';
+
+            const overallConfidence = Math.round(results.reduce((sum, r) => sum + r.probability, 0) / results.length);
+
+            resultsContent.innerHTML = `
+                <div class="results-header">
+                    <h3 class="results-title">Analysis Complete</h3>
+                    <div class="confidence-badge">Overall Confidence: ${overallConfidence}%</div>
+                </div>
+            `;
+
+            results.forEach((condition, index) => {
+                const conditionCard = document.createElement('div');
+                conditionCard.className = 'condition-card';
+                conditionCard.style.animationDelay = ${index * 0.2}s;
+
+                const urgencyIcon = {
+                    'low': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+                    'moderate': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+                    'high': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'
+                }[condition.urgency || 'low'];
+
+                conditionCard.innerHTML = `
+                    <div class="condition-header">
+                        <h3 class="condition-name">${condition.name}</h3>
+                        <div class="probability-badge">${condition.probability}% match</div>
+                    </div>
+                    <p class="condition-description">${condition.description}</p>
+                    
+                    <div class="info-section recommendation">
+                        <div class="info-title">
+                            ${urgencyIcon}
+                            Recommended Action
+                        </div>
+                        <div class="info-text">${condition.recommendation}</div>
+                    </div>
+                    
+                    <div class="info-section treatment-plan">
+                        <div class="info-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l11 11Z"/>
+                            </svg>
+                            Treatment Plan
+                        </div>
+                        <div class="info-text">${condition.treatment}</div>
+                    </div>
+                    
+                    ${condition.urgency === 'moderate' || condition.urgency === 'high' ? `
+                    <div class="info-section warning">
+                        <div class="info-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                <line x1="12" y1="9" x2="12" y2="13"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                            When to Seek Medical Care
+                        </div>
+                        <div class="info-text">Contact a healthcare provider if symptoms worsen, persist beyond expected timeframe, or if you develop concerning new symptoms.</div>
