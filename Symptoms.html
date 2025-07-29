@@ -1594,8 +1594,8 @@
                 const isSelected = selectedSymptoms.some(s => s.id === symptom.id);
 
                 const symptomElement = document.createElement('div');
-                symptomElement.className = symptom-item ${isSelected ? 'selected' : ''};
-                symptomElement.style.animationDelay = ${index * 0.05}s;
+                symptomElement.className = `symptom-item ${isSelected ? 'selected' : ''}`;
+                symptomElement.style.animationDelay = `${index * 0.05}s`;
 
                 const severityColor = {
                     'mild': '#10b981',
@@ -1800,7 +1800,7 @@
             results.forEach((condition, index) => {
                 const conditionCard = document.createElement('div');
                 conditionCard.className = 'condition-card';
-                conditionCard.style.animationDelay = ${index * 0.2}s;
+                conditionCard.style.animationDelay = `${index * 0.2}s`;
 
                 const urgencyIcon = {
                     'low': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
@@ -1844,3 +1844,118 @@
                             When to Seek Medical Care
                         </div>
                         <div class="info-text">Contact a healthcare provider if symptoms worsen, persist beyond expected timeframe, or if you develop concerning new symptoms.</div>
+                    </div>
+                    ` : ''}
+                `;
+                resultsContent.appendChild(conditionCard);
+            });
+
+            // Add reset button
+            const resetSection = document.createElement('div');
+            resetSection.style.textAlign = 'center';
+            resetSection.style.marginTop = '32px';
+            resetSection.innerHTML = `
+                <button class="btn btn-secondary" onclick="resetAnalysis()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                        <path d="M3 3v5h5"/>
+                    </svg>
+                    Start New Analysis
+                </button>
+            `;
+            resultsContent.appendChild(resetSection);
+
+            // Reset analyze button
+            analyzeBtn.disabled = false;
+            analyzeBtn.classList.remove('loading');
+            analyzeText.innerHTML = `
+                Analyze Symptoms
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"/>
+                    <path d="m12 5 7 7-7 7"/>
+                </svg>
+            `;
+        }
+
+        // Display error
+        function displayError(message) {
+            loadingSpinner.style.display = 'none';
+            resultsContent.style.display = 'block';
+
+            resultsContent.innerHTML = `
+                <div class="error-message">
+                    <div class="error-title">Analysis Failed</div>
+                    <p>${message}</p>
+                    <p>Please try again or contact support if the problem persists.</p>
+                    <button class="btn btn-primary" onclick="resetAnalysis()" style="margin-top: 16px;">
+                        Try Again
+                    </button>
+                </div>
+            `;
+
+            // Reset analyze button
+            analyzeBtn.disabled = false;
+            analyzeBtn.classList.remove('loading');
+            analyzeText.innerHTML = `
+                Analyze Symptoms
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"/>
+                    <path d="m12 5 7 7-7 7"/>
+                </svg>
+            `;
+        }
+
+        // Reset analysis
+        function resetAnalysis() {
+            selectedSymptoms = [];
+            filteredSymptoms = allSymptoms;
+            currentStep = 1;
+
+            updateSelectedSymptoms();
+            renderSymptoms();
+            updateStepProgress();
+
+            resultsEmpty.style.display = 'flex';
+            loadingSpinner.style.display = 'none';
+            resultsContent.style.display = 'none';
+
+            symptomSearch.value = '';
+        }
+
+        // Navigation functions
+        function goBack() {
+            // In a real app, this would navigate back to the main page
+            alert('🏠 Returning to HealVerse homepage...');
+        }
+
+        // Mouse parallax effect
+        document.addEventListener('mousemove', function (e) {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+
+            document.querySelectorAll('.bg-shape').forEach((shape, index) => {
+                const speed = (index + 1) * 0.3;
+                const x = (mouseX - 0.5) * speed * 30;
+                const y = (mouseY - 0.5) * speed * 30;
+                shape.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Add smooth scrolling for better UX
+        window.addEventListener('scroll', function () {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.bg-shape');
+
+            parallaxElements.forEach((element, index) => {
+                const speed = 0.5 + (index * 0.2);
+                const yPos = -(scrolled * speed * 0.1);
+                element.style.transform += ` translateY(${yPos}px)`;
+            });
+        });
+    </script>
+</body>
+
+</html>
