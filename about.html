@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About HealVerse - Transforming Healthcare with AI</title>
-    <meta name="description" content="Learn about HealVerse's mission to revolutionize healthcare through AI-powered solutions. Discover our story, values, and commitment to better health outcomes.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
+    <title>HealVerse - Habit Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
     <style>
         /* Reset and Base Styles */
         * {
@@ -27,6 +27,7 @@
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
             overflow-x: hidden;
             position: relative;
+            min-height: 100vh;
         }
 
         /* Animated Background */
@@ -48,49 +49,54 @@
         }
 
         .bg-shape:nth-child(1) {
-            width: 400px;
-            height: 400px;
-            top: -200px;
-            right: -200px;
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
             animation-delay: 0s;
         }
 
         .bg-shape:nth-child(2) {
-            width: 300px;
-            height: 300px;
-            top: 30%;
-            left: -150px;
-            animation-delay: -7s;
+            width: 200px;
+            height: 200px;
+            top: 20%;
+            right: -100px;
+            animation-delay: -5s;
         }
 
         .bg-shape:nth-child(3) {
-            width: 350px;
-            height: 350px;
-            bottom: -175px;
-            right: 20%;
-            animation-delay: -14s;
+            width: 250px;
+            height: 250px;
+            bottom: -125px;
+            left: 20%;
+            animation-delay: -10s;
         }
 
         .bg-shape:nth-child(4) {
-            width: 250px;
-            height: 250px;
-            top: 70%;
-            left: 10%;
-            animation-delay: -21s;
+            width: 180px;
+            height: 180px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -15s;
         }
 
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0px) rotate(0deg);
             }
+
             25% {
-                transform: translateY(-30px) rotate(90deg);
+                transform: translateY(-20px) rotate(90deg);
             }
+
             50% {
                 transform: translateY(0px) rotate(180deg);
             }
+
             75% {
-                transform: translateY(30px) rotate(270deg);
+                transform: translateY(20px) rotate(270deg);
             }
         }
 
@@ -107,11 +113,11 @@
 
         .particle {
             position: absolute;
-            width: 3px;
-            height: 3px;
-            background: rgba(59, 130, 246, 0.4);
+            width: 4px;
+            height: 4px;
+            background: rgba(59, 130, 246, 0.6);
             border-radius: 50%;
-            animation: particleFloat 20s linear infinite;
+            animation: particleFloat 15s linear infinite;
         }
 
         @keyframes particleFloat {
@@ -119,24 +125,19 @@
                 transform: translateY(100vh) scale(0);
                 opacity: 0;
             }
+
             10% {
                 opacity: 1;
             }
+
             90% {
                 opacity: 1;
             }
+
             100% {
                 transform: translateY(-100vh) scale(1);
                 opacity: 0;
             }
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 1;
         }
 
         /* Navigation */
@@ -145,7 +146,6 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(20px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -168,7 +168,6 @@
             gap: 12px;
             cursor: pointer;
             transition: transform 0.3s ease;
-            text-decoration: none;
         }
 
         .nav-brand:hover {
@@ -182,12 +181,59 @@
         }
 
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scale(1);
             }
+
             50% {
                 transform: scale(1.1);
             }
+        }
+
+        /* Enhanced Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .loading-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(59, 130, 246, 0.2);
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: #f8fafc;
+        }
+
+        .loading-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 20px;
         }
 
         .brand-text {
@@ -236,14 +282,6 @@
             width: 100%;
         }
 
-        .nav-link.active {
-            color: #3b82f6;
-        }
-
-        .nav-link.active::before {
-            width: 100%;
-        }
-
         .nav-cta {
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             color: white;
@@ -254,23 +292,6 @@
             font-size: 16px;
             transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .nav-cta:hover::before {
-            left: 100%;
         }
 
         .nav-cta:hover {
@@ -278,41 +299,78 @@
             box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
         }
 
-        /* Hero Section */
-        .hero {
-            padding: 140px 0 100px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+        /* Theme Toggle */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #e2e8f0;
+            font-weight: 500;
         }
 
-        .hero::before {
-            content: '';
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
             position: absolute;
+            cursor: pointer;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
-            z-index: -1;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: .4s;
+            border-radius: 50px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
         }
 
-        .hero-content {
-            animation: fadeInUp 1s ease-out;
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        input:checked+.slider {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
         }
 
-        .hero-badge {
+        input:checked+.slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 120px 20px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header-badge {
             display: inline-flex;
             align-items: center;
             gap: 12px;
@@ -323,7 +381,7 @@
             border-radius: 50px;
             font-size: 14px;
             font-weight: 600;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             border: 1px solid rgba(59, 130, 246, 0.2);
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
             animation: glow 2s ease-in-out infinite alternate;
@@ -333,30 +391,19 @@
             from {
                 box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
             }
+
             to {
                 box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
             }
         }
 
-        .hero-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+        .title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             font-weight: 900;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             line-height: 1.1;
             color: #f8fafc;
             text-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
-            animation: titleAnimation 1s ease-out 0.3s both;
-        }
-
-        @keyframes titleAnimation {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
         }
 
         .gradient-text {
@@ -364,86 +411,31 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientShift 3s ease-in-out infinite;
         }
 
-        @keyframes gradientShift {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        .hero-description {
-            font-size: 20px;
-            color: #cbd5e1;
-            max-width: 700px;
-            margin: 0 auto 60px;
-            line-height: 1.7;
-            animation: fadeInUp 1s ease-out 0.6s both;
-        }
-
-        /* Mission Section */
-        .mission {
-            padding: 120px 0;
-            background: rgba(15, 23, 42, 0.95);
-            position: relative;
-        }
-
-        .mission::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(59,130,246,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            z-index: -1;
-        }
-
-        .mission-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        .mission-text h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 900;
-            margin-bottom: 32px;
-            color: #f8fafc;
-            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-        }
-
-        .mission-text p {
+        .subtitle {
             font-size: 18px;
             color: #cbd5e1;
-            line-height: 1.8;
-            margin-bottom: 24px;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
         }
 
-        .mission-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-        }
-
-        .stat-item {
+        /* Cards */
+        .card {
             background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(20px);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             transition: all 0.4s ease;
+            border: 1px solid rgba(59, 130, 246, 0.1);
             position: relative;
             overflow: hidden;
+            margin-bottom: 30px;
         }
 
-        .stat-item::before {
+        .card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -451,488 +443,394 @@
             right: 0;
             height: 3px;
             background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
         }
 
-        .stat-item:hover::before {
-            transform: scaleX(1);
-        }
-
-        .stat-item:hover {
-            transform: translateY(-10px);
+        .card:hover {
+            transform: translateY(-8px);
             box-shadow: 0 25px 50px rgba(59, 130, 246, 0.2);
             border-color: rgba(59, 130, 246, 0.3);
         }
 
-        .stat-number {
-            font-size: 48px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 12px;
-        }
-
-        .stat-label {
-            color: #cbd5e1;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        /* Values Section */
-        .values {
-            padding: 120px 0;
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.9) 100%);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .section-title {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 900;
-            margin-bottom: 24px;
-            line-height: 1.2;
-            color: #f8fafc;
-            text-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
-        }
-
-        .section-description {
-            font-size: 20px;
-            color: #cbd5e1;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-        }
-
-        .value-card {
-            background: rgba(248, 250, 252, 0.05);
-            backdrop-filter: blur(20px);
-            padding: 50px 40px;
-            border-radius: 24px;
-            text-align: center;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(59, 130, 246, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .value-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .value-card:hover::before {
-            opacity: 1;
-        }
-
-        .value-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 30px 60px rgba(59, 130, 246, 0.3);
-            border-color: rgba(59, 130, 246, 0.4);
-        }
-
-        .value-icon {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 32px;
-            transition: all 0.4s ease;
-            position: relative;
-            z-index: 1;
-        }
-
-        .value-card:hover .value-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .innovation-gradient {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%);
-            color: #3b82f6;
-            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.3);
-        }
-
-        .care-gradient {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.2) 100%);
-            color: #10b981;
-            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
-        }
-
-        .trust-gradient {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(124, 58, 237, 0.2) 100%);
-            color: #8b5cf6;
-            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.3);
-        }
-
-        .value-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #f8fafc;
-            position: relative;
-            z-index: 1;
-        }
-
-        .value-card:hover .value-title {
-            color: #3b82f6;
-        }
-
-        .value-description {
-            color: #cbd5e1;
-            line-height: 1.7;
-            font-size: 16px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Team Section */
-        .team {
-            padding: 120px 0;
-            background: rgba(15, 23, 42, 0.95);
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .team-card {
-            background: rgba(248, 250, 252, 0.05);
-            backdrop-filter: blur(20px);
-            padding: 40px;
-            border-radius: 24px;
-            text-align: center;
-            border: 1px solid rgba(59, 130, 246, 0.1);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .team-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .team-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .team-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.3);
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-
-        .team-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin: 0 auto 24px;
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            font-weight: 700;
-            color: white;
-            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .team-card:hover .team-avatar {
-            transform: scale(1.1);
-            box-shadow: 0 20px 45px rgba(59, 130, 246, 0.6);
-        }
-
-        .team-name {
+        .card-title {
             font-size: 24px;
             font-weight: 700;
-            color: #f8fafc;
-            margin-bottom: 8px;
-        }
-
-        .team-role {
-            font-size: 16px;
-            color: #3b82f6;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .team-bio {
-            color: #cbd5e1;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        /* Journey Section */
-        .journey {
-            padding: 120px 0;
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.9) 100%);
-        }
-
-        .journey-timeline {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .journey-timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, #3b82f6, #8b5cf6, #06b6d4);
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 60px;
-            position: relative;
-        }
-
-        .timeline-item:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .timeline-content {
-            flex: 1;
-            background: rgba(248, 250, 252, 0.05);
-            backdrop-filter: blur(20px);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(59, 130, 246, 0.1);
-            margin: 0 30px;
-            transition: all 0.3s ease;
-        }
-
-        .timeline-content:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
-        }
-
-        .timeline-year {
-            font-size: 24px;
-            font-weight: 800;
-            color: #3b82f6;
-            margin-bottom: 12px;
-        }
-
-        .timeline-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #f8fafc;
-            margin-bottom: 12px;
-        }
-
-        .timeline-description {
-            color: #cbd5e1;
-            line-height: 1.6;
-        }
-
-        .timeline-dot {
-            width: 20px;
-            height: 20px;
-            background: #3b82f6;
-            border-radius: 50%;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-            z-index: 2;
-        }
-
-        /* CTA Section */
-        .cta {
-            padding: 120px 0;
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-        }
-
-        .cta-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-title {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 900;
-            color: white;
-            margin-bottom: 32px;
-            text-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
-        }
-
-        .cta-description {
-            font-size: 22px;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 40px;
-            line-height: 1.7;
-        }
-
-        .btn-cta {
-            background: white;
-            color: #3b82f6;
-            padding: 20px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 700;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            display: inline-block;
-            margin-right: 20px;
-        }
-
-        .btn-cta:hover {
-            background: #f8fafc;
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            padding: 20px 40px;
-            border: 2px solid white;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .btn-secondary:hover {
-            background: white;
-            color: #3b82f6;
-            transform: translateY(-3px);
-        }
-
-        /* Footer */
-        .footer {
-            background: #0f172a;
-            color: white;
-            padding: 80px 0 40px;
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 80px;
-            margin-bottom: 60px;
-        }
-
-        .footer-logo {
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .footer-logo svg {
-            color: #3b82f6;
-        }
-
-        .footer-logo span {
-            font-size: 28px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .footer-description {
-            color: #cbd5e1;
-            line-height: 1.7;
-            font-size: 16px;
-        }
-
-        .footer-links {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .footer-column h4 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 20px;
             color: #f8fafc;
         }
 
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column li {
-            margin-bottom: 12px;
-        }
-
-        .footer-column a {
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 16px;
-        }
-
-        .footer-column a:hover {
+        .card-title svg {
             color: #3b82f6;
-            transform: translateX(5px);
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
         }
 
-        .footer-bottom {
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-            padding-top: 40px;
-            text-align: center;
-            color: #cbd5e1;
+        /* Form Styles */
+        #habit-form {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        #habit-input,
+        #date-input {
+            padding: 16px 20px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
             font-size: 16px;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(10px);
+            color: #f8fafc;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #habit-input {
+            flex: 2;
+        }
+
+        #date-input {
+            flex: 1;
+            max-width: 200px;
+        }
+
+        #habit-input::placeholder,
+        #date-input::placeholder {
+            color: #94a3b8;
+        }
+
+        #habit-input:focus,
+        #date-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: rgba(248, 250, 252, 0.08);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 45px rgba(59, 130, 246, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(248, 250, 252, 0.05);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Week Toggle */
+        .week-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .week-toggle button {
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            background: rgba(248, 250, 252, 0.05);
+            color: #e2e8f0;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .week-toggle button.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .week-toggle button:hover:not(.active) {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Weekly Overview */
+        .weekly-overview {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        /* Habit Items */
+        .habit-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(248, 250, 252, 0.03);
+            backdrop-filter: blur(10px);
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .habit-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        .habit-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .habit-left input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #3b82f6;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .habit-left label {
+            font-weight: 500;
+            cursor: pointer;
+            color: #e2e8f0;
+            font-size: 16px;
+        }
+
+        .habit-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .habit-actions button {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .habit-actions button:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            transform: scale(1.1);
+        }
+
+        /* Progress Section */
+        .progress-section {
+            margin-top: 30px;
+        }
+
+        .progress-section p {
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+        }
+
+        .progress-bar-bg {
+            height: 12px;
+            width: 100%;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 50px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 50px;
+            position: relative;
+        }
+
+        #progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: rgba(248, 250, 252, 0.02);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: inset 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #habitChart {
+            width: 100% !important;
+            height: 250px !important;
+        }
+
+        /* Calendar */
+        #calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            position: relative;
+        }
+
+        #calendar div {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            color: #e2e8f0;
+            cursor: pointer;
+            position: relative;
+        }
+
+        #calendar div.done {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        #calendar div:hover:not(.done) {
+            background: rgba(59, 130, 246, 0.1);
+            transform: scale(1.05);
+        }
+
+        #calendar .tooltip {
+            visibility: hidden;
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.95);
+            color: #f8fafc;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 10;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        #calendar div:hover .tooltip {
+            visibility: visible;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #94a3b8;
+        }
+
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #94a3b8;
+            font-size: 14px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         /* Responsive Design */
@@ -941,62 +839,105 @@
                 display: none;
             }
 
-            .mission-content {
+            .container {
+                padding: 100px 16px 40px;
+            }
+
+            #habit-form {
+                flex-direction: column;
+            }
+
+            #date-input {
+                max-width: 100%;
+            }
+
+            .habit-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .habit-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+            .weekly-overview {
                 grid-template-columns: 1fr;
-                gap: 40px;
             }
 
-            .mission-stats {
-                grid-template-columns: 1fr;
+            #calendar {
+                grid-template-columns: repeat(4, 1fr);
             }
 
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .footer-links {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-
-            .timeline-item {
-                flex-direction: column !important;
-            }
-
-            .timeline-item:nth-child(even) {
-                flex-direction: column !important;
-            }
-
-            .journey-timeline::before {
-                left: 20px;
-            }
-
-            .timeline-dot {
-                left: 20px;
-            }
-
-            .timeline-content {
-                margin-left: 60px;
-                margin-right: 0;
-            }
-
-            .cta-content .btn-cta,
-            .cta-content .btn-secondary {
-                display: block;
-                margin: 10px auto;
-                width: fit-content;
+            .week-toggle {
+                flex-wrap: wrap;
             }
         }
 
-        /* Scroll Animations */
-        .fade-in-up {
+        @media (max-width: 480px) {
+            .card {
+                padding: 20px;
+            }
+
+            #calendar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .week-toggle button {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+        }
+
+        /* Dark theme styles (when toggled) */
+        body.dark {
+            /* Additional dark theme adjustments can be added here if needed */
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+            position: relative;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Fade in animation */
+        .fade-in {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        .fade-in-up.visible {
+        .fade-in.appear {
             opacity: 1;
             transform: translateY(0);
         }
@@ -1018,558 +959,252 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="/" class="nav-brand">
-                <svg class="nav-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l11 11Z" />
+            <div class="nav-brand" onclick="window.location.href='index.html'">
+                <svg class="nav-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
                 </svg>
                 <span class="brand-text">HealVerse</span>
-            </a>
+            </div>
 
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
-                <a href="#about" class="nav-link active">About</a>
-                <a href="#mission" class="nav-link">Mission</a>
-                <a href="#team" class="nav-link">Team</a>
-                <a href="#contact" class="nav-cta">Contact Us</a>
+                <a href="predictive.html" class="nav-link">Analytics</a>
+                <a href="#habits" class="nav-link">Habits</a>
+                <div class="theme-toggle">
+                    <label class="switch">
+                        <input type="checkbox" id="themeSwitch" />
+                        <span class="slider"></span>
+                    </label>
+                    <span id="theme-label">Dark</span>
+                </div>
+                <a href="index.html#cta" class="nav-cta">Get Started</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-badge">
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Processing your request...</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v20m8-10H4" />
+                </svg>
+                Smart Habit Tracking System
+            </div>
+
+            <h1 class="title">
+                Build Better <span class="gradient-text">Health Habits</span>
+            </h1>
+
+            <p class="subtitle">
+                Track your daily health habits, visualize your progress, and build lasting routines with our intelligent
+                habit tracking system.
+            </p>
+        </div>
+
+        <!-- Manage Habits (Add Habit + Progress) -->
+        <div class="card fade-in">
+            <h2 class="card-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="16" />
+                    <line x1="8" y1="12" x2="16" y2="12" />
+                </svg>
+                Manage Habits
+            </h2>
+            <form id="habit-form">
+                <input type="text" id="habit-input"
+                    placeholder="Add a new health habit (e.g., Drink 8 glasses of water)" required />
+                <input type="date" id="date-input" required />
+                <button type="submit" class="btn btn-primary">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l11 11Z" />
-                    Transforming Healthcare Since 2023
-                </div>
-
-                <h1 class="hero-title">
-                    About <span class="gradient-text">HealVerse</span>
-                </h1>
-
-                <p class="hero-description">
-                    We're on a mission to revolutionize healthcare through intelligent technology, making wellness accessible, personalized, and effortless for everyone. Discover our story, values, and the passionate team behind the future of digital health.
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="16" />
+                        <line x1="8" y1="12" x2="16" y2="12" />
+                    </svg>
+                    Add Habit
+                </button>
+            </form>
+            <div class="progress-section">
+                <p>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" />
+                    </svg>
+                    Daily Completion Progress
                 </p>
+                <div class="progress-bar-bg">
+                    <div id="progress-bar"></div>
+                </div>
+                <button id="reset-button" class="btn btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="23 4 23 10 17 10" />
+                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+                    </svg>
+                    Reset Today's Habits
+                </button>
             </div>
         </div>
-    </section>
 
-    <!-- Mission Section -->
-    <section id="mission" class="mission">
-        <div class="container">
-            <div class="mission-content">
-                <div class="mission-text">
-                    <h2>Our <span class="gradient-text">Mission</span></h2>
-                    <p>
-                        At HealVerse, we believe healthcare should be intelligent, accessible, and personalized. Our all-in-one digital health platform combines cutting-edge AI technology with intuitive design to simplify and enhance your wellness journey.
-                    </p>
-                    <p>
-                        From medication management and smart health assistance to habit tracking and predictive analytics, we're building the tools that empower individuals to take control of their health with confidence and ease.
-                    </p>
-                    <p>
-                        Every feature we develop is guided by our commitment to improving health outcomes, reducing healthcare complexity, and making wellness a natural part of daily life.
-                    </p>
-                </div>
+        <!-- Habits List -->
+        <div class="card fade-in" id="habits-section">
+            <h2 class="card-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 12l2 2 4-4" />
+                    <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3" />
+                    <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3" />
+                    <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3" />
+                    <path d="M12 21c0-1 1-3 3-3s3 2 3 3-1 3-3 3-3-2-3-3" />
+                </svg>
+                Your Habits
+            </h2>
+            <div id="habits-list"></div>
+        </div>
 
-                <div class="mission-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">50K+</div>
-                        <div class="stat-label">Lives Improved</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">99.8%</div>
-                        <div class="stat-label">User Satisfaction</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">AI Support</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">150+</div>
-                        <div class="stat-label">Health Conditions</div>
-                    </div>
+        <!-- Weekly Overview -->
+        <div class="card fade-in">
+            <h2 class="card-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                Weekly Habit Overview
+            </h2>
+            <div class="week-toggle">
+                <button id="week-prev">Previous Week</button>
+                <button id="week-current" class="active">This Week</button>
+                <button id="week-next">Next Week</button>
+            </div>
+            <div class="weekly-overview">
+                <div class="chart-container">
+                    <canvas id="habitChart"></canvas>
                 </div>
+                <div id="calendar"></div>
             </div>
         </div>
-    </section>
-
-    <!-- Values Section -->
-    <section class="values">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our <span class="gradient-text">Core Values</span></h2>
-                <p class="section-description">
-                    These principles guide everything we do, from product development to customer care, ensuring we deliver meaningful impact in healthcare.
-                </p>
-            </div>
-
-            <div class="values-grid">
-                <div class="value-card">
-                    <div class="value-icon innovation-gradient">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M9 12l2 2 4-4"/>
-                            <path d="M21 12c.552 0 1-.448 1-1V5c0-.552-.448-1-1-1H3c-.552 0-1 .448-1 1v6c0 .552.448 1 1 1"/>
-                            <path d="M3 12v7c0 .552.448 1 1 1h16c.552 0 1-.448 1-1v-7"/>
-                        </svg>
-                    </div>
-                    <h3 class="value-title">Innovation First</h3>
-                    <p class="value-description">
-                        We continuously push the boundaries of what's possible in healthcare technology, leveraging AI and machine learning to create solutions that were unimaginable just years ago.
-                    </p>
-                </div>
-
-                <div class="value-card">
-                    <div class="value-icon care-gradient">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l11 11Z"/>
-                        </svg>
-                    </div>
-                    <h3 class="value-title">Patient-Centered Care</h3>
-                    <p class="value-description">
-                        Every decision we make is guided by what's best for our users' health and wellbeing. We design with empathy, understanding the real challenges people face in managing their health.
-                    </p>
-                </div>
-
-                <div class="value-card">
-                    <div class="value-icon trust-gradient">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                            <path d="M9 12l2 2 4-4"/>
-                        </svg>
-                    </div>
-                    <h3 class="value-title">Trust & Security</h3>
-                    <p class="value-description">
-                        We maintain the highest standards of data security and privacy protection. Your health information is sacred, and we treat it with the utmost care and responsibility.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Team Section -->
-    <section id="team" class="team">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Meet Our <span class="gradient-text">Team</span></h2>
-                <p class="section-description">
-                    Our diverse team of healthcare professionals, AI experts, and technology innovators work together to create the future of digital health.
-                </p>
-            </div>
-
-            <div class="team-grid">
-                <div class="team-card">
-                    <div class="team-avatar">DR</div>
-                    <h3 class="team-name">Dr. Sarah Rodriguez</h3>
-                    <p class="team-role">Chief Medical Officer</p>
-                    <p class="team-bio">
-                        Board-certified physician with 15+ years in digital health innovation. Former head of telemedicine at Johns Hopkins.
-                    </p>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-avatar">MK</div>
-                    <h3 class="team-name">Michael Kim</h3>
-                    <p class="team-role">Chief Technology Officer</p>
-                    <p class="team-bio">
-                        AI/ML expert with previous experience at Google Health and Apple. Specializes in healthcare applications of machine learning.
-                    </p>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-avatar">EP</div>
-                    <h3 class="team-name">Emily Parker</h3>
-                    <p class="team-role">Head of Product Design</p>
-                    <p class="team-bio">
-                        UX designer passionate about healthcare accessibility. Previously designed patient experiences at Mayo Clinic's digital division.
-                    </p>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-avatar">JC</div>
-                    <h3 class="team-name">Dr. James Chen</h3>
-                    <p class="team-role">VP of Clinical Research</p>
-                    <p class="team-bio">
-                        Clinical researcher with expertise in preventive medicine and health behavior change. Published author on digital health interventions.
-                    </p>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-avatar">AL</div>
-                    <h3 class="team-name">Aisha Lewis</h3>
-                    <p class="team-role">Head of Data Science</p>
-                    <p class="team-bio">
-                        Data scientist specializing in healthcare analytics and predictive modeling. Former researcher at Stanford Medicine AI Lab.
-                    </p>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-avatar">RG</div>
-                    <h3 class="team-name">Robert Garcia</h3>
-                    <p class="team-role">Chief Security Officer</p>
-                    <p class="team-bio">
-                        Cybersecurity expert with focus on healthcare data protection. Previously secured patient data for major health systems.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Journey Section -->
-    <section class="journey">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our <span class="gradient-text">Journey</span></h2>
-                <p class="section-description">
-                    From a simple idea to a comprehensive healthcare platform, here's how HealVerse has evolved to serve thousands of users worldwide.
-                </p>
-            </div>
-
-            <div class="journey-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">2023</div>
-                        <h3 class="timeline-title">The Beginning</h3>
-                        <p class="timeline-description">
-                            Founded by a team of healthcare professionals and tech innovators who experienced firsthand the challenges of managing health in the digital age.
-                        </p>
-                    </div>
-                    <div class="timeline-dot"></div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">Early 2024</div>
-                        <h3 class="timeline-title">First Product Launch</h3>
-                        <p class="timeline-description">
-                            Launched our AI health assistant and medication management system, helping our first 1,000 users better manage their health routines.
-                        </p>
-                    </div>
-                    <div class="timeline-dot"></div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">Mid 2024</div>
-                        <h3 class="timeline-title">Major Platform Expansion</h3>
-                        <p class="timeline-description">
-                            Added habit tracking, predictive analytics, and integrated wearable device support, growing our user base to over 25,000 active users.
-                        </p>
-                    </div>
-                    <div class="timeline-dot"></div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">Late 2024</div>
-                        <h3 class="timeline-title">AI Breakthrough</h3>
-                        <p class="timeline-description">
-                            Achieved breakthrough in personalized health predictions, with our AI now providing 94% accurate health trend forecasting for chronic conditions.
-                        </p>
-                    </div>
-                    <div class="timeline-dot"></div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">2025</div>
-                        <h3 class="timeline-title">Global Expansion</h3>
-                        <p class="timeline-description">
-                            Expanding internationally and partnering with healthcare providers to integrate HealVerse into clinical workflows, serving 50,000+ users globally.
-                        </p>
-                    </div>
-                    <div class="timeline-dot"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section id="contact" class="cta">
-        <div class="container">
-            <div class="cta-content">
-                <h2 class="cta-title">Ready to Join Our Mission?</h2>
-                <p class="cta-description">
-                    Whether you're looking to transform your health journey or want to be part of our growing team, we'd love to connect with you.
-                </p>
-                <a href="#" class="btn-cta" onclick="showContact()">Get Started Today</a>
-                <a href="#" class="btn-secondary" onclick="showCareers()">View Career Opportunities</a>
-            </div>
-        </div>
-    </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l11 11Z" />
-                        </svg>
-                        <span>HealVerse</span>
-                    </div>
-                    <p class="footer-description">
-                        Empowering healthcare with intelligence. Join thousands who trust HealVerse for their wellness journey.
-                    </p>
-                </div>
-
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="#about">About Us</a></li>
-                            <li><a href="#mission">Our Mission</a></li>
-                            <li><a href="#team">Our Team</a></li>
-                            <li><a href="#" onclick="showCareers()">Careers</a></li>
-                            <li><a href="#" onclick="showPress()">Press Kit</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-column">
-                        <h4>Platform</h4>
-                        <ul>
-                            <li><a href="#" onclick="showFeatures()">AI Health Assistant</a></li>
-                            <li><a href="#" onclick="showFeatures()">Medication Manager</a></li>
-                            <li><a href="#" onclick="showFeatures()">Health Analytics</a></li>
-                            <li><a href="#" onclick="showFeatures()">Habit Tracker</a></li>
-                            <li><a href="#" onclick="showSecurity()">Security & Privacy</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-column">
-                        <h4>Support</h4>
-                        <ul>
-                            <li><a href="#" onclick="showContact()">Contact Us</a></li>
-                            <li><a href="#" onclick="showHelp()">Help Center</a></li>
-                            <li><a href="#" onclick="showPrivacy()">Privacy Policy</a></li>
-                            <li><a href="#" onclick="showTerms()">Terms of Service</a></li>
-                            <li><a href="#" onclick="showAPI()">Developer API</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 HealVerse. All rights reserved. | Transforming healthcare with compassion and innovation</p>
-            </div>
-        </div>
+    <footer>
+        <p>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l11 11Z" />
+            </svg>
+            Made with care by HealVerse
+        </p>
     </footer>
 
     <script>
         // Create Particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 60;
+            const particleCount = 50;
 
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
                 particlesContainer.appendChild(particle);
             }
         }
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+        // Initialize variables
+        const habitForm = document.getElementById("habit-form");
+        const habitInput = document.getElementById("habit-input");
+        const dateInput = document.getElementById("date-input");
+        const habitsList = document.getElementById("habits-list");
+        const progressBar = document.getElementById("progress-bar");
+        const resetButton = document.getElementById("reset-button");
+        const weekPrev = document.getElementById("week-prev");
+        const weekCurrent = document.getElementById("week-current");
+        const weekNext = document.getElementById("week-next");
+        const themeSwitch = document.getElementById("themeSwitch");
+        const themeLabel = document.getElementById("theme-label");
+        const calendar = document.getElementById("calendar");
+        const ctx = document.getElementById("habitChart");
+        const loadingOverlay = document.getElementById("loadingOverlay");
+
+        let habits = JSON.parse(localStorage.getItem("habits")) || [];
+        let weekOffset = 0; // 0: this week, -1: last week, 1: next week, etc.
+        let habitChart;
+
+        // Loading functions
+        function showLoading(text = "Processing your request...") {
+            const loadingText = loadingOverlay.querySelector('.loading-text');
+            loadingText.textContent = text;
+            loadingOverlay.classList.add('show');
+        }
+
+        function hideLoading() {
+            loadingOverlay.classList.remove('show');
+        }
+
+        // Set default date to today and restrict future dates
+        dateInput.value = getTodayDateStr();
+        dateInput.max = getTodayDateStr();
+
+        // Theme Toggle
+        themeSwitch.addEventListener("change", () => {
+            document.body.classList.toggle("dark");
+            themeLabel.textContent = document.body.classList.contains("dark") ? "Dark" : "Light";
+            localStorage.setItem("darkMode", document.body.classList.contains("dark"));
         });
 
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function (entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        // Animate elements on scroll
-        function initScrollAnimations() {
-            const animateElements = document.querySelectorAll('.stat-item, .value-card, .team-card, .timeline-item');
-
-            animateElements.forEach(el => {
-                el.classList.add('fade-in-up');
-                observer.observe(el);
-            });
+        if (localStorage.getItem("darkMode") === "true") {
+            document.body.classList.add("dark");
+            themeSwitch.checked = true;
+            themeLabel.textContent = "Dark";
         }
 
-        // Counter animation for stats
-        function animateCounters() {
-            const counters = document.querySelectorAll('.stat-number');
-
-            counters.forEach(counter => {
-                const target = counter.textContent;
-                const numericValue = parseInt(target.replace(/[^\d]/g, ''));
-
-                if (numericValue) {
-                    let current = 0;
-                    const increment = numericValue / 60;
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= numericValue) {
-                            counter.textContent = target;
-                            clearInterval(timer);
-                        } else {
-                            const suffix = target.includes('%') ? '%' : target.includes('+') ? '+' : '';
-                            counter.textContent = Math.floor(current) + suffix;
-                        }
-                    }, 30);
-                }
-            });
+        // Date Helpers
+        function getTodayDateStr() {
+            return new Date().toISOString().split("T")[0];
         }
 
-        // Mouse parallax effect
-        document.addEventListener('mousemove', function (e) {
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
-
-            // Parallax for background shapes
-            document.querySelectorAll('.bg-shape').forEach((shape, index) => {
-                const speed = (index + 1) * 0.2;
-                const x = (mouseX - 0.5) * speed * 40;
-                const y = (mouseY - 0.5) * speed * 40;
-                shape.style.transform = `translate(${x}px, ${y}px)`;
-            });
-        });
-
-        // Interactive functions
-        function showContact() {
-            alert('📞 Contact HealVerse:\n\nEmail: hello@healverse.com\nPhone: +1 (555) 123-4567\nAddress: 123 Healthcare Ave, San Francisco, CA 94102\n\nOur team is available 24/7 to help with your health journey!');
-        }
-
-        function showCareers() {
-            alert('🚀 Join Our Team!\n\nWe\'re always looking for passionate individuals to join our mission of transforming healthcare.\n\nOpen Positions:\n• Senior AI Engineer\n• Healthcare Product Manager\n• Clinical Data Scientist\n• UX Designer\n• DevOps Engineer\n\nSend your resume to careers@healverse.com');
-        }
-
-        function showFeatures() {
-            alert('✨ HealVerse Features:\n\n🤖 AI Health Assistant - 24/7 personalized health guidance\n💊 Medication Manager - Smart reminders and interaction checking\n📊 Health Analytics - Predictive insights and trend analysis\n📅 Habit Tracker - Build healthy routines with AI coaching\n\nExplore all features in our main platform!');
-        }
-
-        function showSecurity() {
-            alert('🔒 Your Data Security:\n\n• End-to-end encryption for all health data\n• HIPAA compliant infrastructure\n• SOC 2 Type II certified\n• Zero-knowledge architecture\n• Regular security audits\n• Granular privacy controls\n\nYour health information is always protected with enterprise-grade security.');
-        }
-
-        function showHelp() {
-            alert('❓ Need Help?\n\nOur comprehensive help center includes:\n• Getting started guides\n• Feature tutorials\n• Troubleshooting tips\n• Video walkthroughs\n• FAQ section\n\nVisit help.healverse.com or contact our 24/7 support team!');
-        }
-
-        function showPrivacy() {
-            alert('🛡️ Privacy Policy:\n\nWe protect your health data with the highest standards:\n• We never sell your personal information\n• You control who sees your data\n• Transparent data usage policies\n• Right to data portability\n• Easy account deletion\n\nRead our full privacy policy at healverse.com/privacy');
-        }
-
-        function showTerms() {
-            alert('📋 Terms of Service:\n\nKey points:\n• HealVerse supplements, not replaces, professional medical care\n• Always consult healthcare providers for medical decisions\n• Our AI provides information, not medical diagnoses\n• User responsibilities and platform guidelines\n\nFull terms available at healverse.com/terms');
-        }
-
-        function showAPI() {
-            alert('🔧 Developer API:\n\nIntegrate HealVerse into your healthcare applications:\n• RESTful API with comprehensive documentation\n• SDKs for popular programming languages\n• Sandbox environment for testing\n• Webhook support for real-time updates\n• Enterprise-grade rate limits\n\nGet started at developers.healverse.com');
-        }
-
-        function showPress() {
-            alert('📰 Press & Media:\n\nPress Kit includes:\n• High-resolution logos and brand assets\n• Company fact sheet\n• Executive bios and photos\n• Product screenshots\n• Recent press releases\n\nDownload at healverse.com/press or contact press@healverse.com');
-        }
-
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function () {
-            createParticles();
-            initScrollAnimations();
-
-            // Animate counters when stats section is visible
-            const statsSection = document.querySelector('.mission-stats');
-            if (statsSection) {
-                const statsObserver = new IntersectionObserver(function (entries) {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            animateCounters();
-                            statsObserver.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.5 });
-
-                statsObserver.observe(statsSection);
+        function getWeekDates(offset) {
+            const today = new Date();
+            const monday = new Date(today.setDate(today.getDate() - today.getDay() + 1 + (offset * 7)));
+            const week = [];
+            for (let i = 0; i < 7; i++) {
+                const d = new Date(monday);
+                d.setDate(monday.getDate() + i);
+                week.push(d.toISOString().split("T")[0]);
             }
-        });
+            return week;
+        }
 
-        // Enhanced hover effects for cards
-        document.querySelectorAll('.value-card, .team-card').forEach(card => {
-            card.addEventListener('mouseenter', function () {
-                this.style.transform = 'translateY(-15px) scale(1.02)';
-            });
+        function updateWeekButtons() {
+            weekPrev.disabled = weekOffset <= -4;
+            weekNext.disabled = weekOffset >= 1;
+            weekPrev.classList.toggle('active', weekOffset === -1);
+            weekCurrent.classList.toggle('active', weekOffset === 0);
+            weekNext.classList.toggle('active', weekOffset === 1);
+        }
 
-            card.addEventListener('mouseleave', function () {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Parallax effect for scroll
-        window.addEventListener('scroll', function () {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.bg-shape');
-
-            parallaxElements.forEach((element, index) => {
-                const speed = 0.3 + (index * 0.1);
-                const yPos = -(scrolled * speed);
-                element.style.transform += ` translateY(${yPos}px)`;
-            });
-        });
-
-        // Add loading state for buttons
-        document.querySelectorAll('.btn-cta, .btn-secondary').forEach(button => {
-            button.addEventListener('click', function (e) {
-                if (this.getAttribute('onclick')) {
-                    const originalText = this.textContent;
-                    this.style.opacity = '0.7';
-                    this.style.pointerEvents = 'none';
-
-                    setTimeout(() => {
-                        this.style.opacity = '1';
-                        this.style.pointerEvents = 'auto';
-                    }, 1000);
-                }
-            });
-        });
-
-        // Timeline animation on scroll
-        const timelineObserver = new IntersectionObserver(function (entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.3 });
-
-        document.querySelectorAll('.timeline-item').forEach(item => {
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(30px)';
-            item.style.transition = 'all 0.6s ease';
-            timelineObserver.observe(item);
-        });
-    </script>
-</body>
-
-</html>
+        // Habit Logic
+        function saveHabits() {
+            localStorage
