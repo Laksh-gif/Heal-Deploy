@@ -119,15 +119,19 @@
             transform: scale(1.05);
         }
         .nav-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 20px;
+            color: #3b82f6;
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+            animation: pulse 2s ease-in-out infinite;
+            width: 32px;
+            height: 32px;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
         }
         .brand-text {
             font-size: 28px;
@@ -136,6 +140,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
         }
         .nav-links {
             display: flex;
@@ -369,6 +374,16 @@
             background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(14, 165, 233, 0.2) 100%);
             color: #06b6d4;
             box-shadow: 0 15px 35px rgba(6, 182, 212, 0.3);
+        }
+        .pattern-icon {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(234, 88, 12, 0.2) 100%);
+            color: #f97316;
+            box-shadow: 0 15px 35px rgba(249, 115, 22, 0.3);
+        }
+        .word-icon {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.2) 100%);
+            color: #ef4444;
+            box-shadow: 0 15px 35px rgba(239, 68, 68, 0.3);
         }
         .game-title {
             font-size: 1.8rem;
@@ -664,6 +679,68 @@
             background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 127, 0.2) 100%);
             box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
         }
+        /* Pattern Recognition Styles */
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            max-width: 400px;
+            margin: 0 auto 40px;
+        }
+        .pattern-item {
+            aspect-ratio: 1;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .pattern-item:hover {
+            transform: scale(1.05);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+        }
+        .pattern-item.selected {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+            color: #3b82f6;
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+        /* Word Association Styles */
+        .word-display {
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #f8fafc;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+            padding: 30px;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+        .word-input {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 30px;
+            padding: 20px;
+            font-size: 1.2rem;
+            background: rgba(248, 250, 252, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            color: #f8fafc;
+            text-align: center;
+        }
+        .word-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
         /* Results Styles */
         .results {
             text-align: center;
@@ -775,6 +852,9 @@
             .stroop-word {
                 font-size: 3rem;
             }
+            .pattern-grid {
+                max-width: 300px;
+            }
         }
         @media (max-width: 480px) {
             .stats-grid {
@@ -793,6 +873,9 @@
             .stroop-word {
                 font-size: 2.5rem;
             }
+            .word-display {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
@@ -806,16 +889,20 @@
     <!-- Navigation - Same as HealVerse -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="/" class="nav-brand">
-                <div class="nav-icon">❤️</div>
+            <a href="index.html" class="nav-brand">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l11 11Z" />
+                </svg>
                 <span class="brand-text">HealVerse</span>
             </a>
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
-                <a href="features" class="nav-link">Features</a>
-                <a href="/about" class="nav-link">About</a>
-                <a href="/cognitive-fitness" class="nav-link active">Brain Training</a>
-                <a href="/contact" class="nav-cta">Get Started</a>
+                <a href="index.html#features" class="nav-link">Features</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="cognitive-fitness-zone.html" class="nav-link active">Brain Training</a>
+                <a href="index.html#cta" class="nav-cta">Get Started</a>
             </div>
         </div>
     </nav>
@@ -857,6 +944,10 @@
                         <div class="stat-value" id="avgReaction">0ms</div>
                         <div class="stat-label">Avg Reaction Time</div>
                     </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="bestPattern">0%</div>
+                        <div class="stat-label">Pattern Recognition</div>
+                    </div>
                 </div>
                 <div class="games-grid">
                     <div class="game-card" onclick="startMemoryGame()">
@@ -881,6 +972,18 @@
                         <div class="game-icon reaction-icon">⚡</div>
                         <h3 class="game-title">Reaction Speed</h3>
                         <p class="game-description">Test and improve your reaction time and processing speed. Sharpen your reflexes and response accuracy.</p>
+                        <button class="btn">Start Training</button>
+                    </div>
+                    <div class="game-card" onclick="startPatternGame()">
+                        <div class="game-icon pattern-icon">🔍</div>
+                        <h3 class="game-title">Pattern Recognition</h3>
+                        <p class="game-description">Identify patterns and sequences to enhance visual processing and logical thinking abilities.</p>
+                        <button class="btn">Start Training</button>
+                    </div>
+                    <div class="game-card" onclick="startWordGame()">
+                        <div class="game-icon word-icon">📝</div>
+                        <h3 class="game-title">Word Association</h3>
+                        <p class="game-description">Improve verbal fluency and creative thinking through rapid word association challenges.</p>
                         <button class="btn">Start Training</button>
                     </div>
                 </div>
@@ -982,7 +1085,7 @@
                     </div>
                     <button class="btn btn-secondary" onclick="showDashboard()">← Back</button>
                 </div>
-                <div class="reaction-area reaction-waiting" id="reactionArea">
+                <div class="reaction-area reaction-waiting" id="reactionArea" onclick="handleReactionClick()">
                     Click here when ready, then wait for GREEN!
                 </div>
                 <div id="reactionResults" class="results" style="display: none;">
@@ -994,8 +1097,64 @@
                     <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
                 </div>
             </div>
+            <!-- Pattern Recognition Screen -->
+            <div id="patternGame" class="game-screen">
+                <div class="game-header">
+                    <h2>🔍 Pattern Recognition Training</h2>
+                    <div class="game-info">
+                        <div class="info-item">Round: <span id="patternRound">1</span>/10</div>
+                        <div class="info-item">Score: <span id="patternScore">0</span></div>
+                        <div class="info-item">Time: <span id="patternTimer">45</span>s</div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="showDashboard()">← Back</button>
+                </div>
+                <div class="question-container">
+                    <div class="question">Complete the pattern:</div>
+                    <div class="pattern-grid" id="patternGrid"></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="patternProgress"></div>
+                    </div>
+                </div>
+                <div id="patternResults" class="results" style="display: none;">
+                    <h3>🔍 Training Complete!</h3>
+                    <div class="score" id="patternFinalScore">0%</div>
+                    <div class="stars" id="patternStars"></div>
+                    <div class="motivational-quote" id="patternQuote"></div>
+                    <button class="btn" onclick="startPatternGame()">Train Again</button>
+                    <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
+                </div>
+            </div>
+            <!-- Word Association Screen -->
+            <div id="wordGame" class="game-screen">
+                <div class="game-header">
+                    <h2>📝 Word Association Training</h2>
+                    <div class="game-info">
+                        <div class="info-item">Round: <span id="wordRound">1</span>/10</div>
+                        <div class="info-item">Score: <span id="wordScore">0</span></div>
+                        <div class="info-item">Time: <span id="wordTimer">60</span>s</div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="showDashboard()">← Back</button>
+                </div>
+                <div class="question-container">
+                    <div class="word-display" id="wordDisplay">Ready?</div>
+                    <input type="text" class="word-input" id="wordInput" placeholder="Type a related word..." maxlength="20">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="wordProgress"></div>
+                    </div>
+                    <button class="btn" id="wordSubmit" onclick="submitWord()">Submit</button>
+                </div>
+                <div id="wordResults" class="results" style="display: none;">
+                    <h3>📝 Training Complete!</h3>
+                    <div class="score" id="wordFinalScore">0%</div>
+                    <div class="stars" id="wordStars"></div>
+                    <div class="motivational-quote" id="wordQuote"></div>
+                    <button class="btn" onclick="startWordGame()">Train Again</button>
+                    <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
+                </div>
+            </div>
         </main>
     </div>
+
     <script>
         // Game State Management
         let gameState = {
@@ -1005,10 +1164,12 @@
                 bestMemoryScore: 0,
                 bestMathScore: 0,
                 bestStroopScore: 0,
+                bestPatternScore: 0,
                 reactionTimes: [],
                 avgReactionTime: 0
             }
         };
+
         // Memory Game Variables
         let memoryGame = {
             cards: [],
@@ -1018,6 +1179,7 @@
             startTime: null,
             timer: null
         };
+
         // Math Quiz Variables
         let mathQuiz = {
             questions: [],
@@ -1027,6 +1189,7 @@
             timeLeft: 30,
             startTime: null
         };
+
         // Stroop Test Variables
         let stroopTest = {
             round: 0,
@@ -1046,14 +1209,60 @@
                 'yellow': '#f59e0b'
             }
         };
+
         // Reaction Test Variables
         let reactionTest = {
             round: 0,
             times: [],
             startTime: null,
             timeout: null,
-            isWaiting: false
+            isWaiting: false,
+            state: 'ready' // ready, waiting, green, clicked
         };
+
+        // Pattern Game Variables
+        let patternGame = {
+            round: 0,
+            score: 0,
+            currentPattern: [],
+            timer: null,
+            timeLeft: 45,
+            patterns: [
+                {sequence: ['🔴', '🔵', '🔴', '🔵', '🔴', '🔵'], answer: '🔴'},
+                {sequence: ['⭐', '⭐⭐', '⭐⭐⭐', '⭐⭐⭐⭐'], answer: '⭐⭐⭐⭐⭐'},
+                {sequence: ['🟢', '🟡', '🔴', '🟢', '🟡', '🔴'], answer: '🟢'},
+                {sequence: ['1️⃣', '2️⃣', '4️⃣', '8️⃣'], answer: '1️⃣6️⃣'},
+                {sequence: ['🔺', '🔻', '🔺', '🔻', '🔺'], answer: '🔻'},
+                {sequence: ['🌙', '🌙🌙', '🌙🌙🌙'], answer: '🌙🌙🌙🌙'},
+                {sequence: ['🔥', '💧', '🔥', '💧', '🔥'], answer: '💧'},
+                {sequence: ['🎯', '🎯🎯', '🎯🎯🎯', '🎯🎯🎯🎯'], answer: '🎯🎯🎯🎯🎯'},
+                {sequence: ['🟦', '🟨', '🟦', '🟨', '🟦'], answer: '🟨'},
+                {sequence: ['⚡', '⚡⚡', '⚡⚡⚡'], answer: '⚡⚡⚡⚡'}
+            ]
+        };
+
+        // Word Game Variables
+        let wordGame = {
+            round: 0,
+            score: 0,
+            currentWord: '',
+            timer: null,
+            timeLeft: 60,
+            words: ['OCEAN', 'FIRE', 'MOUNTAIN', 'MUSIC', 'BOOK', 'STAR', 'FLOWER', 'RAIN', 'DREAM', 'LIGHT'],
+            associations: {
+                'OCEAN': ['water', 'blue', 'waves', 'sea', 'fish', 'deep', 'salt', 'beach'],
+                'FIRE': ['hot', 'red', 'burn', 'flame', 'heat', 'smoke', 'warm', 'light'],
+                'MOUNTAIN': ['high', 'peak', 'climb', 'snow', 'rock', 'tall', 'summit', 'hill'],
+                'MUSIC': ['sound', 'song', 'melody', 'rhythm', 'note', 'beat', 'harmony', 'dance'],
+                'BOOK': ['read', 'page', 'story', 'word', 'knowledge', 'learn', 'paper', 'text'],
+                'STAR': ['bright', 'night', 'sky', 'shine', 'space', 'twinkle', 'galaxy', 'moon'],
+                'FLOWER': ['bloom', 'petal', 'garden', 'color', 'smell', 'beauty', 'spring', 'rose'],
+                'RAIN': ['water', 'drop', 'cloud', 'wet', 'storm', 'umbrella', 'puddle', 'weather'],
+                'DREAM': ['sleep', 'night', 'imagine', 'fantasy', 'vision', 'hope', 'wish', 'mind'],
+                'LIGHT': ['bright', 'shine', 'lamp', 'sun', 'glow', 'illuminate', 'beam', 'bulb']
+            }
+        };
+
         // Motivational Quotes
         const quotes = [
             "Excellent work! Your cognitive fitness is improving with every session! 🧠✨",
@@ -1067,22 +1276,26 @@
             "Incredible! You're developing the mental strength of a champion! 👑",
             "Perfect! Your cognitive fitness journey is inspiring and effective! 🌈"
         ];
+
         // Initialize App
         function init() {
             loadStats();
             updateDashboard();
             showDashboard();
         }
+
         // Local Storage Functions
         function saveStats() {
             localStorage.setItem('healverseCognitiveStats', JSON.stringify(gameState.stats));
         }
+
         function loadStats() {
             const saved = localStorage.getItem('healverseCognitiveStats');
             if (saved) {
                 gameState.stats = JSON.parse(saved);
             }
         }
+
         function resetStats() {
             if (confirm('Are you sure you want to reset all your cognitive training progress? This action cannot be undone.')) {
                 gameState.stats = {
@@ -1090,6 +1303,7 @@
                     bestMemoryScore: 0,
                     bestMathScore: 0,
                     bestStroopScore: 0,
+                    bestPatternScore: 0,
                     reactionTimes: [],
                     avgReactionTime: 0
                 };
@@ -1097,6 +1311,7 @@
                 updateDashboard();
             }
         }
+
         // Dashboard Functions
         function showDashboard() {
             hideAllScreens();
@@ -1104,28 +1319,34 @@
             gameState.currentGame = 'dashboard';
             updateDashboard();
         }
+
         function updateDashboard() {
             document.getElementById('totalGames').textContent = gameState.stats.totalGames;
             document.getElementById('bestMemory').textContent = gameState.stats.bestMemoryScore;
             document.getElementById('bestMath').textContent = gameState.stats.bestMathScore + '%';
             document.getElementById('bestStroop').textContent = gameState.stats.bestStroopScore + '%';
-                        const avgReaction = gameState.stats.reactionTimes.length > 0
-                 ? Math.round(gameState.stats.reactionTimes.reduce((a, b) => a + b, 0) / gameState.stats.reactionTimes.length)
+            document.getElementById('bestPattern').textContent = gameState.stats.bestPatternScore + '%';
+            
+            const avgReaction = gameState.stats.reactionTimes.length > 0
+                ? Math.round(gameState.stats.reactionTimes.reduce((a, b) => a + b, 0) / gameState.stats.reactionTimes.length)
                 : 0;
             document.getElementById('avgReaction').textContent = avgReaction + 'ms';
         }
+
         function hideAllScreens() {
-            const screens = ['dashboard', 'memoryGame', 'mathQuiz', 'stroopTest', 'reactionTest'];
+            const screens = ['dashboard', 'memoryGame', 'mathQuiz', 'stroopTest', 'reactionTest', 'patternGame', 'wordGame'];
             screens.forEach(screen => {
                 document.getElementById(screen).style.display = 'none';
             });
         }
+
         // Memory Game Functions
         function startMemoryGame() {
             hideAllScreens();
             document.getElementById('memoryGame').style.display = 'block';
             document.getElementById('memoryResults').style.display = 'none';
-                        // Reset game state
+            
+            // Reset game state
             memoryGame = {
                 cards: [],
                 flippedCards: [],
@@ -1134,215 +1355,291 @@
                 startTime: Date.now(),
                 timer: null
             };
+
             // Create card pairs
-            const symbols = ['🎯', '🎪', '🎨', '🎭', '🎪', '🎯', '🎨', '🎭', '🚀', '⭐', '🌟', '✨', '🚀', '⭐', '🌟', '✨'];
-            memoryGame.cards = symbols.sort(() => Math.random() - 0.5);
-            // Create grid
-            const grid = document.getElementById('memoryGrid');
-            grid.innerHTML = '';
-                        memoryGame.cards.forEach((symbol, index) => {
-                const card = document.createElement('div');
-                card.className = 'memory-card';
-                card.dataset.index = index;
-                card.dataset.symbol = symbol;
-                card.textContent = '?';
-                card.onclick = () => flipCard(index);
-                grid.appendChild(card);
-            });
+            const symbols = ['🎯', '🌟', '🔥', '💎', '🚀', '⚡', '🎨', '🎵'];
+            const cardPairs = [...symbols, ...symbols];
+            
+            // Shuffle cards
+            for (let i = cardPairs.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cardPairs[i], cardPairs[j]] = [cardPairs[j], cardPairs[i]];
+            }
+
+            // Create card objects
+            memoryGame.cards = cardPairs.map((symbol, index) => ({
+                id: index,
+                symbol: symbol,
+                flipped: false,
+                matched: false
+            }));
+
+            // Render cards
+            renderMemoryCards();
+            
             // Start timer
             memoryGame.timer = setInterval(updateMemoryTimer, 1000);
-            updateMemoryDisplay();
+            
+            // Update UI
+            updateMemoryUI();
         }
-        function flipCard(index) {
-            const card = document.querySelector(`[data-index="${index}"]`);
-                        if (memoryGame.flippedCards.length >= 2 ||
-                 memoryGame.flippedCards.includes(index) ||
-                 card.classList.contains('matched')) {
+
+        function renderMemoryCards() {
+            const grid = document.getElementById('memoryGrid');
+            grid.innerHTML = '';
+            
+            memoryGame.cards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'memory-card';
+                cardElement.dataset.id = card.id;
+                cardElement.textContent = card.flipped || card.matched ? card.symbol : '?';
+                
+                if (card.flipped) cardElement.classList.add('flipped');
+                if (card.matched) cardElement.classList.add('matched');
+                
+                cardElement.addEventListener('click', () => flipCard(card.id));
+                grid.appendChild(cardElement);
+            });
+        }
+
+        function flipCard(cardId) {
+            const card = memoryGame.cards[cardId];
+            
+            // Can't flip if already flipped, matched, or two cards are already flipped
+            if (card.flipped || card.matched || memoryGame.flippedCards.length >= 2) {
                 return;
             }
-            // Flip card
-            card.classList.add('flipped');
-            card.textContent = card.dataset.symbol;
-            memoryGame.flippedCards.push(index);
+
+            // Flip the card
+            card.flipped = true;
+            memoryGame.flippedCards.push(card);
+            memoryGame.moves++;
+            
+            renderMemoryCards();
+            updateMemoryUI();
+
+            // Check for match when two cards are flipped
             if (memoryGame.flippedCards.length === 2) {
-                memoryGame.moves++;
-                updateMemoryDisplay();
-                const [first, second] = memoryGame.flippedCards;
-                const firstCard = document.querySelector(`[data-index="${first}"]`);
-                const secondCard = document.querySelector(`[data-index="${second}"]`);
-                if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
-                    // Match found
-                    setTimeout(() => {
-                        firstCard.classList.add('matched');
-                        secondCard.classList.add('matched');
-                        memoryGame.matchedPairs++;
-                        memoryGame.flippedCards = [];
-                        updateMemoryDisplay();
-                        if (memoryGame.matchedPairs === 8) {
-                            endMemoryGame();
-                        }
-                    }, 500);
-                } else {
-                    // No match
-                    setTimeout(() => {
-                        firstCard.classList.remove('flipped');
-                        secondCard.classList.remove('flipped');
-                        firstCard.textContent = '?';
-                        secondCard.textContent = '?';
-                        memoryGame.flippedCards = [];
-                    }, 1000);
-                }
+                setTimeout(checkMemoryMatch, 1000);
             }
         }
+
+        function checkMemoryMatch() {
+            const [card1, card2] = memoryGame.flippedCards;
+            
+            if (card1.symbol === card2.symbol) {
+                // Match found
+                card1.matched = true;
+                card2.matched = true;
+                memoryGame.matchedPairs++;
+                
+                // Check if game is complete
+                if (memoryGame.matchedPairs === 8) {
+                    endMemoryGame();
+                }
+            } else {
+                // No match, flip cards back
+                card1.flipped = false;
+                card2.flipped = false;
+            }
+            
+            memoryGame.flippedCards = [];
+            renderMemoryCards();
+            updateMemoryUI();
+        }
+
         function updateMemoryTimer() {
             const elapsed = Math.floor((Date.now() - memoryGame.startTime) / 1000);
             document.getElementById('memoryTime').textContent = elapsed;
         }
-        function updateMemoryDisplay() {
+
+        function updateMemoryUI() {
             document.getElementById('memoryMoves').textContent = memoryGame.moves;
             document.getElementById('memoryPairs').textContent = memoryGame.matchedPairs;
         }
+
         function endMemoryGame() {
             clearInterval(memoryGame.timer);
-            const totalTime = Math.floor((Date.now() - memoryGame.startTime) / 1000);
-                        // Calculate score (lower moves and time = higher score)
-            const score = Math.max(1000 - (memoryGame.moves * 10) - (totalTime * 5), 100);
-                        // Update stats
-            gameState.stats.totalGames++;
+            const timeElapsed = Math.floor((Date.now() - memoryGame.startTime) / 1000);
+            
+            // Calculate score (lower moves and time = higher score)
+            const score = Math.max(1000 - (memoryGame.moves * 10) - (timeElapsed * 5), 100);
+            
+            // Update stats
             if (score > gameState.stats.bestMemoryScore) {
                 gameState.stats.bestMemoryScore = score;
             }
+            gameState.stats.totalGames++;
             saveStats();
+            
             // Show results
             document.getElementById('memoryScore').textContent = score;
             document.getElementById('memoryStars').textContent = getStars(score, 800);
             document.getElementById('memoryQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
             document.getElementById('memoryResults').style.display = 'block';
         }
+
         // Math Quiz Functions
         function startMathQuiz() {
             hideAllScreens();
             document.getElementById('mathQuiz').style.display = 'block';
             document.getElementById('mathResults').style.display = 'none';
+            
             // Reset game state
             mathQuiz = {
-                questions: generateMathQuestions(),
+                questions: [],
                 currentQuestion: 0,
                 score: 0,
                 timer: null,
                 timeLeft: 30,
                 startTime: Date.now()
             };
-            showMathQuestion();
+
+            // Generate questions
+            generateMathQuestions();
+            
+            // Start timer
             mathQuiz.timer = setInterval(updateMathTimer, 1000);
+            
+            // Show first question
+            showMathQuestion();
         }
+
         function generateMathQuestions() {
-            const questions = [];
-            const operations = ['+', '-', '×'];
+            mathQuiz.questions = [];
+            
             for (let i = 0; i < 10; i++) {
-                const op = operations[Math.floor(Math.random() * operations.length)];
-                let a, b, correct;
-                switch (op) {
+                const operations = ['+', '-', '*'];
+                const operation = operations[Math.floor(Math.random() * operations.length)];
+                
+                let num1, num2, answer;
+                
+                switch (operation) {
                     case '+':
-                        a = Math.floor(Math.random() * 50) + 1;
-                        b = Math.floor(Math.random() * 50) + 1;
-                        correct = a + b;
+                        num1 = Math.floor(Math.random() * 50) + 1;
+                        num2 = Math.floor(Math.random() * 50) + 1;
+                        answer = num1 + num2;
                         break;
                     case '-':
-                        a = Math.floor(Math.random() * 50) + 25;
-                        b = Math.floor(Math.random() * 25) + 1;
-                        correct = a - b;
+                        num1 = Math.floor(Math.random() * 50) + 25;
+                        num2 = Math.floor(Math.random() * 25) + 1;
+                        answer = num1 - num2;
                         break;
-                    case '×':
-                        a = Math.floor(Math.random() * 12) + 1;
-                        b = Math.floor(Math.random() * 12) + 1;
-                        correct = a * b;
+                    case '*':
+                        num1 = Math.floor(Math.random() * 12) + 1;
+                        num2 = Math.floor(Math.random() * 12) + 1;
+                        answer = num1 * num2;
                         break;
                 }
+                
                 // Generate wrong answers
-                const options = [correct];
-                while (options.length < 4) {
-                    const wrong = correct + Math.floor(Math.random() * 20) - 10;
-                    if (wrong > 0 && !options.includes(wrong)) {
-                        options.push(wrong);
+                const wrongAnswers = [];
+                while (wrongAnswers.length < 3) {
+                    const wrong = answer + Math.floor(Math.random() * 20) - 10;
+                    if (wrong !== answer && wrong > 0 && !wrongAnswers.includes(wrong)) {
+                        wrongAnswers.push(wrong);
                     }
                 }
-                questions.push({
-                    question: `${a} ${op} ${b} = ?`,
-                    options: options.sort(() => Math.random() - 0.5),
-                    correct: correct
+                
+                // Shuffle options
+                const options = [answer, ...wrongAnswers];
+                for (let j = options.length - 1; j > 0; j--) {
+                    const k = Math.floor(Math.random() * (j + 1));
+                    [options[j], options[k]] = [options[k], options[j]];
+                }
+                
+                mathQuiz.questions.push({
+                    question: `${num1} ${operation} ${num2}`,
+                    answer: answer,
+                    options: options
                 });
             }
-            return questions;
         }
+
         function showMathQuestion() {
             if (mathQuiz.currentQuestion >= mathQuiz.questions.length) {
                 endMathQuiz();
                 return;
             }
+            
             const question = mathQuiz.questions[mathQuiz.currentQuestion];
-            document.getElementById('mathQuestionText').textContent = question.question;
-            document.getElementById('mathQuestion').textContent = mathQuiz.currentQuestion + 1;
-            document.getElementById('mathScore').textContent = mathQuiz.score;
+            document.getElementById('mathQuestionText').textContent = question.question + ' = ?';
+            
             const optionsContainer = document.getElementById('mathOptions');
             optionsContainer.innerHTML = '';
+            
             question.options.forEach(option => {
                 const button = document.createElement('button');
                 button.className = 'option-btn';
                 button.textContent = option;
-                button.onclick = () => selectMathAnswer(option, question.correct);
+                button.onclick = () => selectMathAnswer(option);
                 optionsContainer.appendChild(button);
             });
+            
+            // Update UI
+            document.getElementById('mathQuestion').textContent = mathQuiz.currentQuestion + 1;
+            document.getElementById('mathScore').textContent = mathQuiz.score;
+            
             // Update progress
-            const progress = ((mathQuiz.currentQuestion + 1) / 10) * 100;
+            const progress = ((mathQuiz.currentQuestion + 1) / mathQuiz.questions.length) * 100;
             document.getElementById('mathProgress').style.width = progress + '%';
         }
-        function selectMathAnswer(selected, correct) {
+
+        function selectMathAnswer(selectedAnswer) {
+            const question = mathQuiz.questions[mathQuiz.currentQuestion];
             const buttons = document.querySelectorAll('.option-btn');
-            buttons.forEach(btn => {
-                btn.disabled = true;
-                if (parseInt(btn.textContent) === correct) {
-                    btn.classList.add('correct');
-                } else if (parseInt(btn.textContent) === selected && selected !== correct) {
-                    btn.classList.add('incorrect');
+            
+            buttons.forEach(button => {
+                button.disabled = true;
+                if (parseInt(button.textContent) === question.answer) {
+                    button.classList.add('correct');
+                } else if (parseInt(button.textContent) === selectedAnswer && selectedAnswer !== question.answer) {
+                    button.classList.add('incorrect');
                 }
             });
-            if (selected === correct) {
+            
+            if (selectedAnswer === question.answer) {
                 mathQuiz.score++;
             }
+            
             setTimeout(() => {
                 mathQuiz.currentQuestion++;
                 showMathQuestion();
             }, 1500);
         }
+
         function updateMathTimer() {
             mathQuiz.timeLeft--;
             document.getElementById('mathTimer').textContent = mathQuiz.timeLeft;
+            
             if (mathQuiz.timeLeft <= 0) {
                 endMathQuiz();
             }
         }
+
         function endMathQuiz() {
             clearInterval(mathQuiz.timer);
-            const percentage = Math.round((mathQuiz.score / 10) * 100);
+            const percentage = Math.round((mathQuiz.score / mathQuiz.questions.length) * 100);
+            
             // Update stats
-            gameState.stats.totalGames++;
             if (percentage > gameState.stats.bestMathScore) {
                 gameState.stats.bestMathScore = percentage;
             }
+            gameState.stats.totalGames++;
             saveStats();
+            
             // Show results
             document.getElementById('mathFinalScore').textContent = percentage + '%';
             document.getElementById('mathStars').textContent = getStars(percentage, 70);
             document.getElementById('mathQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
             document.getElementById('mathResults').style.display = 'block';
         }
+
         // Stroop Test Functions
         function startStroopTest() {
             hideAllScreens();
             document.getElementById('stroopTest').style.display = 'block';
             document.getElementById('stroopResults').style.display = 'none';
-            gameState.currentGame = 'stroopTest';
             
             // Reset game state
             stroopTest = {
@@ -1363,54 +1660,55 @@
                     'yellow': '#f59e0b'
                 }
             };
-            
-            showStroopWord();
+
+            // Start timer
             stroopTest.timer = setInterval(updateStroopTimer, 1000);
+            
+            // Show first word
+            showStroopWord();
         }
-        
+
         function showStroopWord() {
             if (stroopTest.round >= 15 || stroopTest.timeLeft <= 0) {
                 endStroopTest();
                 return;
             }
             
-            stroopTest.round++;
+            // Generate random word and color
+            stroopTest.currentWord = stroopTest.words[Math.floor(Math.random() * stroopTest.words.length)];
+            stroopTest.currentColor = stroopTest.colors[Math.floor(Math.random() * stroopTest.colors.length)];
+            stroopTest.correctColor = stroopTest.currentColor;
             
-            // Generate random word and color (often conflicting for challenge)
-            const wordIndex = Math.floor(Math.random() * stroopTest.words.length);
-            const colorIndex = Math.floor(Math.random() * stroopTest.colors.length);
-            
-            stroopTest.currentWord = stroopTest.words[wordIndex];
-            stroopTest.correctColor = stroopTest.colors[colorIndex];
-            
-            // Update display
+            // Display word with color
             const wordElement = document.getElementById('stroopWord');
             wordElement.textContent = stroopTest.currentWord;
-            wordElement.style.color = stroopTest.colorMap[stroopTest.correctColor];
+            wordElement.style.color = stroopTest.colorMap[stroopTest.currentColor];
             
+            // Reset button states
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                btn.classList.remove('correct', 'incorrect');
+                btn.disabled = false;
+            });
+            
+            // Update UI
+            stroopTest.round++;
             document.getElementById('stroopRound').textContent = stroopTest.round;
             document.getElementById('stroopScore').textContent = stroopTest.score;
             
             // Update progress
             const progress = (stroopTest.round / 15) * 100;
             document.getElementById('stroopProgress').style.width = progress + '%';
-            
-            // Reset button states
-            const buttons = document.querySelectorAll('.color-btn');
-            buttons.forEach(btn => {
-                btn.disabled = false;
-                btn.classList.remove('correct', 'incorrect');
-            });
         }
-        
+
         function selectColor(selectedColor) {
             const buttons = document.querySelectorAll('.color-btn');
-            buttons.forEach(btn => {
-                btn.disabled = true;
-                if (btn.classList.contains(stroopTest.correctColor)) {
-                    btn.classList.add('correct');
-                } else if (btn.classList.contains(selectedColor) && selectedColor !== stroopTest.correctColor) {
-                    btn.classList.add('incorrect');
+            
+            buttons.forEach(button => {
+                button.disabled = true;
+                if (button.classList.contains(stroopTest.correctColor)) {
+                    button.classList.add('correct');
+                } else if (button.classList.contains(selectedColor) && selectedColor !== stroopTest.correctColor) {
+                    button.classList.add('incorrect');
                 }
             });
             
@@ -1420,26 +1718,27 @@
             
             setTimeout(() => {
                 showStroopWord();
-            }, 800);
+            }, 1000);
         }
-        
+
         function updateStroopTimer() {
             stroopTest.timeLeft--;
             document.getElementById('stroopTimer').textContent = stroopTest.timeLeft;
+            
             if (stroopTest.timeLeft <= 0) {
                 endStroopTest();
             }
         }
-        
+
         function endStroopTest() {
             clearInterval(stroopTest.timer);
             const percentage = Math.round((stroopTest.score / stroopTest.round) * 100);
             
             // Update stats
-            gameState.stats.totalGames++;
             if (percentage > gameState.stats.bestStroopScore) {
                 gameState.stats.bestStroopScore = percentage;
             }
+            gameState.stats.totalGames++;
             saveStats();
             
             // Show results
@@ -1448,13 +1747,12 @@
             document.getElementById('stroopQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
             document.getElementById('stroopResults').style.display = 'block';
         }
-        
+
         // Reaction Test Functions
         function startReactionTest() {
             hideAllScreens();
             document.getElementById('reactionTest').style.display = 'block';
             document.getElementById('reactionResults').style.display = 'none';
-            gameState.currentGame = 'reactionTest';
             
             // Reset game state
             reactionTest = {
@@ -1462,92 +1760,361 @@
                 times: [],
                 startTime: null,
                 timeout: null,
-                isWaiting: false
+                isWaiting: false,
+                state: 'ready'
             };
-            startReactionRound();
-        }
-        function startReactionRound() {
-            if (reactionTest.round >= 5) {
-                endReactionTest();
-                return;
-            }
-            reactionTest.round++;
-            document.getElementById('reactionRound').textContent = reactionTest.round;
+
+            // Update UI
+            document.getElementById('reactionRound').textContent = '1';
+            document.getElementById('reactionBest').textContent = '0ms';
+            
+            // Reset area
             const area = document.getElementById('reactionArea');
             area.className = 'reaction-area reaction-waiting';
-            area.textContent = 'Wait for GREEN...';
-            reactionTest.isWaiting = true;
-            // Random delay between 2-6 seconds
-            const delay = Math.random() * 4000 + 2000;
-            reactionTest.timeout = setTimeout(() => {
-                if (reactionTest.isWaiting) {
-                    area.className = 'reaction-area reaction-ready';
-                    area.textContent = 'CLICK NOW!';
-                    reactionTest.startTime = Date.now();
-                }
-            }, delay);
-            area.onclick = handleReactionClick;
+            area.textContent = 'Click here when ready, then wait for GREEN!';
         }
+
         function handleReactionClick() {
             const area = document.getElementById('reactionArea');
-            if (!reactionTest.isWaiting) {
-                return;
-            }
-            if (area.classList.contains('reaction-ready')) {
-                // Good click
+            
+            if (reactionTest.state === 'ready') {
+                // Start waiting phase
+                reactionTest.state = 'waiting';
+                reactionTest.isWaiting = true;
+                area.className = 'reaction-area reaction-waiting';
+                area.textContent = 'Wait for it... Don\'t click yet!';
+                
+                // Set random delay (2-6 seconds)
+                const delay = Math.random() * 4000 + 2000;
+                reactionTest.timeout = setTimeout(() => {
+                    if (reactionTest.state === 'waiting') {
+                        reactionTest.state = 'green';
+                        reactionTest.startTime = Date.now();
+                        area.className = 'reaction-area reaction-ready';
+                        area.textContent = 'CLICK NOW!';
+                    }
+                }, delay);
+                
+            } else if (reactionTest.state === 'waiting') {
+                // Clicked too early
+                clearTimeout(reactionTest.timeout);
+                reactionTest.state = 'ready';
+                area.className = 'reaction-area reaction-waiting';
+                area.textContent = 'Too early! Click to try again.';
+                
+            } else if (reactionTest.state === 'green') {
+                // Good reaction
                 const reactionTime = Date.now() - reactionTest.startTime;
                 reactionTest.times.push(reactionTime);
-                                area.className = 'reaction-area reaction-clicked';
-                area.textContent = `${reactionTime}ms - Excellent!`;
-                                // Update best time display
-                const bestTime = Math.min(...reactionTest.times);
-                document.getElementById('reactionBest').textContent = bestTime + 'ms';
-                setTimeout(() => {
-                    startReactionRound();
-                }, 1500);
-            } else {
-                // Too early
-                clearTimeout(reactionTest.timeout);
+                reactionTest.round++;
+                
                 area.className = 'reaction-area reaction-clicked';
-                area.textContent = 'Too early! Wait for GREEN';
-                                setTimeout(() => {
-                    startReactionRound();
-                }, 1500);
+                area.textContent = `${reactionTime}ms - Great!`;
+                
+                // Update UI
+                document.getElementById('reactionRound').textContent = reactionTest.round + 1;
+                const best = Math.min(...reactionTest.times);
+                document.getElementById('reactionBest').textContent = best + 'ms';
+                
+                // Check if done
+                if (reactionTest.round >= 5) {
+                    setTimeout(endReactionTest, 2000);
+                } else {
+                    setTimeout(() => {
+                        reactionTest.state = 'ready';
+                        area.className = 'reaction-area reaction-waiting';
+                        area.textContent = 'Click here when ready, then wait for GREEN!';
+                    }, 2000);
+                }
             }
-            reactionTest.isWaiting = false;
         }
+
         function endReactionTest() {
-            const avgTime = Math.round(reactionTest.times.reduce((a, b) => a + b, 0) / reactionTest.times.length);
+            const average = Math.round(reactionTest.times.reduce((a, b) => a + b, 0) / reactionTest.times.length);
+            
             // Update stats
-            gameState.stats.totalGames++;
-            gameState.stats.reactionTimes = gameState.stats.reactionTimes.concat(reactionTest.times);
-            // Keep only last 50 reaction times
+            gameState.stats.reactionTimes = [...gameState.stats.reactionTimes, ...reactionTest.times];
             if (gameState.stats.reactionTimes.length > 50) {
                 gameState.stats.reactionTimes = gameState.stats.reactionTimes.slice(-50);
             }
+            gameState.stats.totalGames++;
             saveStats();
+            
             // Show results
-            document.getElementById('reactionAverage').textContent = avgTime + 'ms';
-            document.getElementById('reactionStars').textContent = getStars(300 - avgTime, 100); // Lower time = better
+            document.getElementById('reactionAverage').textContent = average + 'ms';
+            document.getElementById('reactionStars').textContent = getStars(400 - average, 200);
             document.getElementById('reactionQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
             document.getElementById('reactionResults').style.display = 'block';
         }
+
+        // Pattern Game Functions
+        function startPatternGame() {
+            hideAllScreens();
+            document.getElementById('patternGame').style.display = 'block';
+            document.getElementById('patternResults').style.display = 'none';
+            
+            // Reset game state
+            patternGame = {
+                round: 0,
+                score: 0,
+                currentPattern: [],
+                timer: null,
+                timeLeft: 45,
+                patterns: [
+                    {sequence: ['🔴', '🔵', '🔴', '🔵', '🔴'], answer: '🔵'},
+                    {sequence: ['⭐', '⭐⭐', '⭐⭐⭐'], answer: '⭐⭐⭐⭐'},
+                    {sequence: ['🟢', '🟡', '🔴', '🟢', '🟡'], answer: '🔴'},
+                    {sequence: ['🔺', '🔻', '🔺', '🔻'], answer: '🔺'},
+                    {sequence: ['🌙', '🌙🌙', '🌙🌙🌙'], answer: '🌙🌙🌙🌙'},
+                    {sequence: ['🔥', '💧', '🔥', '💧'], answer: '🔥'},
+                    {sequence: ['🎯', '🎯🎯', '🎯🎯🎯'], answer: '🎯🎯🎯🎯'},
+                    {sequence: ['🟦', '🟨', '🟦', '🟨'], answer: '🟦'},
+                    {sequence: ['⚡', '⚡⚡', '⚡⚡⚡'], answer: '⚡⚡⚡⚡'},
+                    {sequence: ['💎', '💎💎', '💎💎💎'], answer: '💎💎💎💎'}
+                ]
+            };
+
+            // Start timer
+            patternGame.timer = setInterval(updatePatternTimer, 1000);
+            
+            // Show first pattern
+            showPattern();
+        }
+
+        function showPattern() {
+            if (patternGame.round >= patternGame.patterns.length || patternGame.timeLeft <= 0) {
+                endPatternGame();
+                return;
+            }
+            
+            const pattern = patternGame.patterns[patternGame.round];
+            const grid = document.getElementById('patternGrid');
+            grid.innerHTML = '';
+            
+            // Show sequence + empty slot for answer
+            const allItems = [...pattern.sequence, '?'];
+            
+            allItems.forEach((item, index) => {
+                const element = document.createElement('div');
+                element.className = 'pattern-item';
+                element.textContent = item;
+                
+                if (item === '?') {
+                    element.style.cursor = 'pointer';
+                    element.onclick = () => selectPatternAnswer();
+                }
+                
+                grid.appendChild(element);
+            });
+            
+            // Generate options (correct answer + 2 wrong ones)
+            const options = [pattern.answer];
+            const allSymbols = ['🔴', '🔵', '🟢', '🟡', '⭐', '🔺', '🔻', '🌙', '🔥', '💧', '🎯', '🟦', '🟨', '⚡', '💎'];
+            
+            while (options.length < 3) {
+                const randomSymbol = allSymbols[Math.floor(Math.random() * allSymbols.length)];
+                if (!options.includes(randomSymbol)) {
+                    options.push(randomSymbol);
+                }
+            }
+            
+            // Shuffle options
+            for (let i = options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [options[i], options[j]] = [options[j], options[i]];
+            }
+            
+            patternGame.currentOptions = options;
+            patternGame.correctAnswer = pattern.answer;
+            
+            // Update UI
+            patternGame.round++;
+            document.getElementById('patternRound').textContent = patternGame.round;
+            document.getElementById('patternScore').textContent = patternGame.score;
+            
+            // Update progress
+            const progress = (patternGame.round / patternGame.patterns.length) * 100;
+            document.getElementById('patternProgress').style.width = progress + '%';
+        }
+
+        function selectPatternAnswer() {
+            const grid = document.getElementById('patternGrid');
+            const questionMark = grid.querySelector('.pattern-item:last-child');
+            
+            // Create option buttons
+            questionMark.innerHTML = '';
+            questionMark.style.display = 'flex';
+            questionMark.style.flexDirection = 'column';
+            questionMark.style.gap = '5px';
+            questionMark.style.fontSize = '1rem';
+            
+            patternGame.currentOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.style.background = 'rgba(59, 130, 246, 0.1)';
+                button.style.border = '1px solid rgba(59, 130, 246, 0.3)';
+                button.style.borderRadius = '8px';
+                button.style.color = '#f8fafc';
+                button.style.padding = '5px';
+                button.style.cursor = 'pointer';
+                button.onclick = () => checkPatternAnswer(option);
+                questionMark.appendChild(button);
+            });
+        }
+
+        function checkPatternAnswer(selectedAnswer) {
+            if (selectedAnswer === patternGame.correctAnswer) {
+                patternGame.score++;
+            }
+            
+            setTimeout(() => {
+                showPattern();
+            }, 1500);
+        }
+
+        function updatePatternTimer() {
+            patternGame.timeLeft--;
+            document.getElementById('patternTimer').textContent = patternGame.timeLeft;
+            
+            if (patternGame.timeLeft <= 0) {
+                endPatternGame();
+            }
+        }
+
+        function endPatternGame() {
+            clearInterval(patternGame.timer);
+            const percentage = Math.round((patternGame.score / patternGame.round) * 100);
+            
+            // Update stats
+            if (percentage > gameState.stats.bestPatternScore) {
+                gameState.stats.bestPatternScore = percentage;
+            }
+            gameState.stats.totalGames++;
+            saveStats();
+            
+            // Show results
+            document.getElementById('patternFinalScore').textContent = percentage + '%';
+            document.getElementById('patternStars').textContent = getStars(percentage, 70);
+            document.getElementById('patternQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('patternResults').style.display = 'block';
+        }
+
+        // Word Game Functions
+        function startWordGame() {
+            hideAllScreens();
+            document.getElementById('wordGame').style.display = 'block';
+            document.getElementById('wordResults').style.display = 'none';
+            
+            // Reset game state
+            wordGame = {
+                round: 0,
+                score: 0,
+                currentWord: '',
+                timer: null,
+                timeLeft: 60,
+                words: ['OCEAN', 'FIRE', 'MOUNTAIN', 'MUSIC', 'BOOK', 'STAR', 'FLOWER', 'RAIN', 'DREAM', 'LIGHT'],
+                associations: {
+                    'OCEAN': ['water', 'blue', 'waves', 'sea', 'fish', 'deep', 'salt', 'beach'],
+                    'FIRE': ['hot', 'red', 'burn', 'flame', 'heat', 'smoke', 'warm', 'light'],
+                    'MOUNTAIN': ['high', 'peak', 'climb', 'snow', 'rock', 'tall', 'summit', 'hill'],
+                    'MUSIC': ['sound', 'song', 'melody', 'rhythm', 'note', 'beat', 'harmony', 'dance'],
+                    'BOOK': ['read', 'page', 'story', 'word', 'knowledge', 'learn', 'paper', 'text'],
+                    'STAR': ['bright', 'night', 'sky', 'shine', 'space', 'twinkle', 'galaxy', 'moon'],
+                    'FLOWER': ['bloom', 'petal', 'garden', 'color', 'smell', 'beauty', 'spring', 'rose'],
+                    'RAIN': ['water', 'drop', 'cloud', 'wet', 'storm', 'umbrella', 'puddle', 'weather'],
+                    'DREAM': ['sleep', 'night', 'imagine', 'fantasy', 'vision', 'hope', 'wish', 'mind'],
+                    'LIGHT': ['bright', 'shine', 'lamp', 'sun', 'glow', 'illuminate', 'beam', 'bulb']
+                }
+            };
+
+            // Start timer
+            wordGame.timer = setInterval(updateWordTimer, 1000);
+            
+            // Show first word
+            showWord();
+            
+            // Setup input
+            const input = document.getElementById('wordInput');
+            input.value = '';
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    submitWord();
+                }
+            });
+        }
+
+        function showWord() {
+            if (wordGame.round >= wordGame.words.length || wordGame.timeLeft <= 0) {
+                endWordGame();
+                return;
+            }
+            
+            wordGame.currentWord = wordGame.words[wordGame.round];
+            document.getElementById('wordDisplay').textContent = wordGame.currentWord;
+            document.getElementById('wordInput').value = '';
+            document.getElementById('wordInput').focus();
+            
+            // Update UI
+            wordGame.round++;
+            document.getElementById('wordRound').textContent = wordGame.round;
+            document.getElementById('wordScore').textContent = wordGame.score;
+            
+            // Update progress
+            const progress = (wordGame.round / wordGame.words.length) * 100;
+            document.getElementById('wordProgress').style.width = progress + '%';
+        }
+
+        function submitWord() {
+            const input = document.getElementById('wordInput');
+            const userWord = input.value.toLowerCase().trim();
+            
+            if (userWord.length === 0) return;
+            
+            // Check if word is associated
+            const associations = wordGame.associations[wordGame.currentWord];
+            if (associations.includes(userWord) || userWord === wordGame.currentWord.toLowerCase()) {
+                wordGame.score++;
+            }
+            
+            setTimeout(() => {
+                showWord();
+            }, 500);
+        }
+
+        function updateWordTimer() {
+            wordGame.timeLeft--;
+            document.getElementById('wordTimer').textContent = wordGame.timeLeft;
+            
+            if (wordGame.timeLeft <= 0) {
+                endWordGame();
+            }
+        }
+
+        function endWordGame() {
+            clearInterval(wordGame.timer);
+            const percentage = Math.round((wordGame.score / wordGame.round) * 100);
+            
+            // Update stats
+            gameState.stats.totalGames++;
+            saveStats();
+            
+            // Show results
+            document.getElementById('wordFinalScore').textContent = percentage + '%';
+            document.getElementById('wordStars').textContent = getStars(percentage, 60);
+            document.getElementById('wordQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('wordResults').style.display = 'block';
+        }
+
         // Utility Functions
         function getStars(score, threshold) {
-            if (score >= threshold * 1.2) return '⭐⭐⭐';
+            if (score >= threshold + 20) return '⭐⭐⭐';
             if (score >= threshold) return '⭐⭐';
-            if (score >= threshold * 0.7) return '⭐';
-            return '💫';
+            if (score >= threshold - 20) return '⭐';
+            return '';
         }
-        // Initialize the app when page loads
-        window.onload = init;
-        // Prevent accidental page refresh during games
-        window.addEventListener('beforeunload', function(e) {
-            if (gameState.currentGame !== 'dashboard') {
-                e.preventDefault();
-                e.returnValue = '';
-            }
-        });
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
