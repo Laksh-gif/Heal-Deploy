@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HealVerse - Habit Tracker</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <title>Medication Manager | HealVerse - AI-Powered Healthcare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* Reset and Base Styles */
         * {
@@ -81,20 +80,15 @@
         }
 
         @keyframes float {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0px) rotate(0deg);
             }
-
             25% {
                 transform: translateY(-20px) rotate(90deg);
             }
-
             50% {
                 transform: translateY(0px) rotate(180deg);
             }
-
             75% {
                 transform: translateY(20px) rotate(270deg);
             }
@@ -125,19 +119,24 @@
                 transform: translateY(100vh) scale(0);
                 opacity: 0;
             }
-
             10% {
                 opacity: 1;
             }
-
             90% {
                 opacity: 1;
             }
-
             100% {
                 transform: translateY(-100vh) scale(1);
                 opacity: 0;
             }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
 
         /* Navigation */
@@ -146,6 +145,7 @@
             top: 0;
             width: 100%;
             z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(20px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -153,7 +153,7 @@
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
@@ -166,6 +166,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            text-decoration: none;
             cursor: pointer;
             transition: transform 0.3s ease;
         }
@@ -178,62 +179,16 @@
             color: #3b82f6;
             filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
             animation: pulse 2s ease-in-out infinite;
+            font-size: 24px;
         }
 
         @keyframes pulse {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: scale(1);
             }
-
             50% {
                 transform: scale(1.1);
             }
-        }
-
-        /* Enhanced Loading Animation */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .loading-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(59, 130, 246, 0.2);
-            border-top: 4px solid #3b82f6;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        .loading-content {
-            text-align: center;
-            color: #f8fafc;
-        }
-
-        .loading-text {
-            font-size: 18px;
-            font-weight: 600;
-            margin-top: 20px;
         }
 
         .brand-text {
@@ -292,6 +247,23 @@
             font-size: 16px;
             transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-cta:hover::before {
+            left: 100%;
         }
 
         .nav-cta:hover {
@@ -299,78 +271,33 @@
             box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
         }
 
-        /* Theme Toggle */
-        .theme-toggle {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #e2e8f0;
-            font-weight: 500;
-        }
-
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 26px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(255, 255, 255, 0.2);
-            transition: .4s;
-            border-radius: 50px;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 4px;
-            bottom: 3px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        input:checked+.slider {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-        }
-
-        input:checked+.slider:before {
-            transform: translateX(24px);
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 120px 20px 40px;
+        /* Main Content */
+        .main-content {
+            padding-top: 120px;
+            min-height: 100vh;
             position: relative;
             z-index: 1;
+            padding-bottom: 60px;
         }
 
-        /* Header */
-        .header {
+        .page-header {
             text-align: center;
             margin-bottom: 60px;
+            animation: fadeInUp 1s ease-out;
         }
 
-        .header-badge {
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-badge {
             display: inline-flex;
             align-items: center;
             gap: 12px;
@@ -391,19 +318,30 @@
             from {
                 box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
             }
-
             to {
                 box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
             }
         }
 
-        .title {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 900;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             line-height: 1.1;
             color: #f8fafc;
             text-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
+            animation: titleAnimation 1s ease-out 0.3s both;
+        }
+
+        @keyframes titleAnimation {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .gradient-text {
@@ -411,28 +349,75 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
         }
 
-        .subtitle {
-            font-size: 18px;
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .page-description {
+            font-size: clamp(16px, 2vw, 20px);
             color: #cbd5e1;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
             line-height: 1.7;
+            animation: fadeInUp 1s ease-out 0.6s both;
         }
 
-        /* Cards */
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        /* Two column layout for larger screens */
+        @media (min-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .chart-card {
+                grid-column: span 2;
+            }
+            
+            .insights-card {
+                grid-column: span 1;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .chart-card {
+                grid-column: span 2;
+            }
+        }
+
         .card {
             background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(20px);
             border-radius: 24px;
             padding: 30px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
             border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            height: fit-content;
             position: relative;
             overflow: hidden;
-            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
         }
 
         .card::before {
@@ -441,96 +426,130 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
         }
 
         .card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px) scale(1.02);
             box-shadow: 0 25px 50px rgba(59, 130, 246, 0.2);
             border-color: rgba(59, 130, 246, 0.3);
         }
 
-        .card-title {
-            font-size: 24px;
-            font-weight: 700;
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #f8fafc;
             display: flex;
             align-items: center;
             gap: 12px;
-            color: #f8fafc;
         }
 
-        .card-title svg {
+        .card-title i {
             color: #3b82f6;
+            font-size: 22px;
             filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
         }
 
-        /* Form Styles */
-        #habit-form {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 30px;
+        .card-content {
+            flex: 1;
+            position: relative;
+            z-index: 1;
         }
 
-        #habit-input,
-        #date-input {
-            padding: 16px 20px;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 12px;
+        /* Form Styles */
+        .med-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #cbd5e1;
+            z-index: 1;
             font-size: 16px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 16px 16px 16px 50px;
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            font-size: 15px;
+            transition: all 0.3s ease;
             background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(10px);
             color: #f8fafc;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
+            font-weight: 500;
         }
 
-        #habit-input {
-            flex: 2;
-        }
-
-        #date-input {
-            flex: 1;
-            max-width: 200px;
-        }
-
-        #habit-input::placeholder,
-        #date-input::placeholder {
+        input::placeholder {
             color: #94a3b8;
         }
 
-        #habit-input:focus,
-        #date-input:focus {
+        input:focus, select:focus {
             outline: none;
             border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-            background: rgba(248, 250, 252, 0.08);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+            background: rgba(248, 250, 252, 0.1);
         }
 
+        select option {
+            background: #1e293b;
+            color: #f8fafc;
+        }
+
+        /* Button Styles */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 16px 24px;
-            border-radius: 12px;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 16px;
             font-weight: 600;
-            font-size: 16px;
+            font-size: 15px;
+            cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: none;
-            cursor: pointer;
+            text-decoration: none;
             position: relative;
             overflow: hidden;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            color: white;
-            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
-        }
-
-        .btn-primary::before {
+        .btn::before {
             content: '';
             position: absolute;
             top: 0;
@@ -541,410 +560,646 @@
             transition: left 0.5s;
         }
 
-        .btn-primary:hover::before {
+        .btn:hover::before {
             left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            width: 100%;
+            margin-top: 10px;
         }
 
         .btn-primary:hover {
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 20px 45px rgba(59, 130, 246, 0.6);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.6);
         }
 
         .btn-secondary {
-            background: rgba(248, 250, 252, 0.05);
+            background: rgba(59, 130, 246, 0.1);
             color: #3b82f6;
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            backdrop-filter: blur(10px);
         }
 
         .btn-secondary:hover {
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(59, 130, 246, 0.2);
             transform: translateY(-2px);
+            border-color: #3b82f6;
         }
 
-        /* Week Toggle */
-        .week-toggle {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 24px;
-        }
-
-        .week-toggle button {
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 14px;
-            background: rgba(248, 250, 252, 0.05);
-            color: #e2e8f0;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .week-toggle button.active {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
-            border-color: rgba(59, 130, 246, 0.4);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
         }
 
-        .week-toggle button:hover:not(.active) {
-            background: rgba(59, 130, 246, 0.1);
-            transform: translateY(-2px);
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(16, 185, 129, 0.6);
         }
 
-        /* Weekly Overview */
-        .weekly-overview {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 24px;
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
         }
 
-        /* Habit Items */
-        .habit-item {
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(239, 68, 68, 0.6);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(245, 158, 11, 0.6);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+
+        /* Medication List */
+        .medication-list {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(248, 250, 252, 0.03);
-            backdrop-filter: blur(10px);
-            padding: 20px 24px;
-            margin-bottom: 16px;
-            border-radius: 16px;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .med-item {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 24px;
+            border-radius: 20px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            border-left: 4px solid #3b82f6;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: all 0.4s ease;
             border: 1px solid rgba(59, 130, 246, 0.1);
         }
 
-        .habit-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.15);
-            border-color: rgba(59, 130, 246, 0.2);
+        .med-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.3);
         }
 
-        .habit-left {
+        .med-details {
             display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .habit-left input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            accent-color: #3b82f6;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        .habit-left label {
-            font-weight: 500;
-            cursor: pointer;
-            color: #e2e8f0;
-            font-size: 16px;
-        }
-
-        .habit-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .habit-actions button {
-            background: transparent;
-            border: none;
-            color: #94a3b8;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-
-        .habit-actions button:hover {
-            background: rgba(59, 130, 246, 0.1);
-            color: #3b82f6;
-            transform: scale(1.1);
-        }
-
-        /* Progress Section */
-        .progress-section {
-            margin-top: 30px;
-        }
-
-        .progress-section p {
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #f8fafc;
-            display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 12px;
+            flex: 1;
+        }
+
+        .med-name {
+            font-weight: 700;
+            color: #f8fafc;
             font-size: 18px;
         }
 
-        .progress-bar-bg {
-            height: 12px;
-            width: 100%;
-            background: rgba(59, 130, 246, 0.1);
-            border-radius: 50px;
-            overflow: hidden;
-            margin: 20px 0;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        .med-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            color: #cbd5e1;
+            font-size: 13px;
         }
 
-        #progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 50px;
+        .med-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .med-meta i {
+            color: #3b82f6;
+        }
+
+        .med-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        /* Schedule List */
+        .schedule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
             position: relative;
+            z-index: 1;
         }
 
-        #progress-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: shimmer 2s infinite;
+        .schedule-item {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
         }
 
-        @keyframes shimmer {
-            0% {
-                transform: translateX(-100%);
-            }
+        .schedule-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
 
-            100% {
-                transform: translateX(100%);
-            }
+        .schedule-item.taken {
+            border-left: 4px solid #10b981;
+        }
+
+        .schedule-item.missed {
+            border-left: 4px solid #ef4444;
+        }
+
+        .schedule-item.upcoming {
+            border-left: 4px solid #f59e0b;
+        }
+
+        .schedule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .schedule-time {
+            font-weight: 700;
+            color: #f8fafc;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .schedule-time i {
+            color: #3b82f6;
+        }
+
+        .schedule-status {
+            padding: 6px 14px;
+            border-radius: 25px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+            white-space: nowrap;
+        }
+
+        .status-taken {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-missed {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .status-upcoming {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .schedule-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
+        .schedule-details div {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .schedule-details i {
+            color: #3b82f6;
+        }
+
+        .schedule-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .schedule-footer small {
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+        }
+
+        .schedule-footer small i {
+            color: #3b82f6;
         }
 
         /* Chart Container */
         .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
             background: rgba(248, 250, 252, 0.02);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 20px;
-            box-shadow: inset 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        #habitChart {
-            width: 100% !important;
-            height: 250px !important;
-        }
-
-        /* Calendar */
-        #calendar {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
-            position: relative;
-        }
-
-        #calendar div {
-            background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(10px);
-            padding: 12px;
-            text-align: center;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            font-weight: 500;
-            transition: all 0.3s ease;
             border: 1px solid rgba(59, 130, 246, 0.1);
-            color: #e2e8f0;
-            cursor: pointer;
-            position: relative;
         }
 
-        #calendar div.done {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            color: white;
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-
-        #calendar div:hover:not(.done) {
-            background: rgba(59, 130, 246, 0.1);
-            transform: scale(1.05);
-        }
-
-        #calendar .tooltip {
-            visibility: hidden;
-            position: absolute;
-            top: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(15, 23, 42, 0.95);
-            color: #f8fafc;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            white-space: nowrap;
-            z-index: 10;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-        }
-
-        #calendar div:hover .tooltip {
-            visibility: visible;
-        }
-
-        /* Empty State */
+        /* Empty States */
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
-            color: #94a3b8;
+            padding: 40px 20px;
+            color: #cbd5e1;
+            position: relative;
+            z-index: 1;
         }
 
-        .empty-state svg {
-            width: 64px;
-            height: 64px;
+        .empty-state i {
+            font-size: 48px;
+            color: rgba(59, 130, 246, 0.3);
             margin-bottom: 20px;
-            opacity: 0.5;
+            filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.2));
         }
 
         .empty-state h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: #cbd5e1;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #f8fafc;
         }
 
         .empty-state p {
-            font-size: 16px;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: #94a3b8;
             font-size: 14px;
-            margin-top: 60px;
+            color: #94a3b8;
         }
 
-        footer p {
+        /* Alert Styles */
+        .alert {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            padding: 18px 24px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            z-index: 1000;
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-width: 280px;
+            max-width: 400px;
+        }
+
+        .alert.show {
+            transform: translateX(0);
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.9);
+            color: white;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+        }
+
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.9);
+            color: white;
+        }
+
+        .alert-info {
+            background: rgba(59, 130, 246, 0.9);
+            color: white;
+        }
+
+        .alert-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px;
+            transition: transform 0.2s ease;
+        }
+
+        .alert-close:hover {
+            transform: scale(1.2);
+        }
+
+        /* Dialog Styles */
+        .dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .container {
-                padding: 100px 16px 40px;
-            }
-
-            #habit-form {
-                flex-direction: column;
-            }
-
-            #date-input {
-                max-width: 100%;
-            }
-
-            .habit-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 16px;
-            }
-
-            .habit-actions {
-                width: 100%;
-                justify-content: flex-end;
-            }
-
-            .weekly-overview {
-                grid-template-columns: 1fr;
-            }
-
-            #calendar {
-                grid-template-columns: repeat(4, 1fr);
-            }
-
-            .week-toggle {
-                flex-wrap: wrap;
-            }
+        .dialog-overlay.active {
+            opacity: 1;
+            pointer-events: all;
         }
 
-        @media (max-width: 480px) {
-            .card {
-                padding: 20px;
-            }
-
-            #calendar {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .title {
-                font-size: 2rem;
-            }
-
-            .week-toggle button {
-                padding: 10px 16px;
-                font-size: 12px;
-            }
+        .dialog {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 35px;
+            max-width: 480px;
+            width: 90%;
+            transform: translateY(30px) scale(0.9);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(59, 130, 246, 0.2);
         }
 
-        /* Dark theme styles (when toggled) */
-        body.dark {
-            /* Additional dark theme adjustments can be added here if needed */
+        .dialog-overlay.active .dialog {
+            transform: translateY(0) scale(1);
+        }
+
+        .dialog-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            color: #f8fafc;
+        }
+
+        .dialog-message {
+            margin-bottom: 28px;
+            color: #cbd5e1;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .dialog-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 14px;
+        }
+
+        /* AI Insights Styles */
+        .ai-insights-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .insight-item {
+            padding: 18px;
+            background: rgba(248, 250, 252, 0.03);
+            border-radius: 16px;
+            border-left: 4px solid;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+        }
+
+        .insight-item:hover {
+            transform: translateY(-2px);
+            background: rgba(248, 250, 252, 0.05);
+        }
+
+        .insight-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 10px;
+        }
+
+        .insight-icon {
+            font-size: 20px;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .insight-title {
+            font-weight: 700;
+            color: #f8fafc;
+            font-size: 15px;
+        }
+
+        .insight-value {
+            font-size: 28px;
+            font-weight: 800;
+            margin-top: 4px;
+        }
+
+        .insight-description {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 6px;
         }
 
         /* Loading Animation */
         .loading {
-            opacity: 0.7;
-            pointer-events: none;
-                <svg class="nav-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                    <path d="M2 17l10 5 10-5"/>
-                    <path d="M2 12l10 5 10-5"/>
-                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            margin: -10px 0 0 -10px;
-            border: 2px solid transparent;
-            border-top: 2px solid #3b82f6;
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(59, 130, 246, 0.3);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            border-top-color: #3b82f6;
+            animation: spin 1s ease-in-out infinite;
         }
 
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
+            to {
                 transform: rotate(360deg);
             }
         }
 
-        /* Fade in animation */
-        .fade-in {
+        /* Scroll Animations */
+        .fade-in-up {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
         }
 
-        .fade-in.appear {
+        .fade-in-up.visible {
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .nav-container {
+                padding: 0 15px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .brand-text {
+                font-size: 24px;
+            }
+
+            .main-content {
+                padding-top: 100px;
+            }
+
+            .page-header {
+                margin-bottom: 40px;
+            }
+
+            .page-title {
+                font-size: 2.2rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                margin-bottom: 40px;
+            }
+
+            .card {
+                padding: 20px;
+                min-height: auto;
+            }
+
+            .card-title {
+                font-size: 18px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .med-item {
+                padding: 18px;
+            }
+
+            .med-actions {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .schedule-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .schedule-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .chart-container {
+                height: 250px;
+                padding: 15px;
+            }
+
+            .alert {
+                bottom: 20px;
+                right: 20px;
+                left: 20px;
+                min-width: auto;
+                max-width: none;
+            }
+
+            .dialog {
+                padding: 25px;
+                margin: 20px;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            .empty-state {
+                padding: 30px 15px;
+            }
+
+            .empty-state i {
+                font-size: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .card {
+                padding: 16px;
+            }
+
+            .form-group i {
+                left: 14px;
+            }
+
+            input, select {
+                padding: 14px 14px 14px 44px;
+                font-size: 14px;
+            }
+
+            .med-meta {
+                gap: 12px;
+            }
+
+            .med-meta span {
+                font-size: 12px;
+            }
+
+            .insight-value {
+                font-size: 24px;
+            }
+        }
+
+        /* High DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .card {
+                backdrop-filter: blur(25px);
+            }
+        }
     </style>
 </head>
-
 <body>
     <!-- Animated Background -->
     <div class="animated-bg">
@@ -960,170 +1215,175 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-brand" onclick="window.location.href='index.html'">
-                <svg class="nav-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                    <path d="M2 17l10 5 10-5"/>
-                    <path d="M2 12l10 5 10-5"/>
-                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
-                </svg>
+            <a href="healverse-enhanced-landing.html" class="nav-brand">
+                <i class="fas fa-heart nav-icon"></i>
                 <span class="brand-text">HealVerse</span>
-            </div>
-
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="predictive.html" class="nav-link">Analytics</a>
-                <a href="#habits" class="nav-link">Habits</a>
-                <div class="theme-toggle">
-                    <label class="switch">
-                        <input type="checkbox" id="themeSwitch" />
-                        <span class="slider"></span>
-                    </label>
-                    <span id="theme-label">Dark</span>
-                </div>
-                <a href="newhabit.html" class="nav-cta">Get Started</a>
-            </div>
+            </a>
+            <a href="index.html" class="nav-cta">
+                <i class="fas fa-user-md"></i>
+                Home
+            </a>
         </div>
     </nav>
 
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <div class="loading-text">Processing your request...</div>
-        </div>
-    </div>
-
     <!-- Main Content -->
-    <main class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="header-badge">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                    <path d="M2 17l10 5 10-5"/>
-                    <path d="M2 12l10 5 10-5"/>
-                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
-                Smart Habit Tracking System
-            </div>
-
-            <h1 class="title">
-                Build Better <span class="gradient-text">Health Habits</span>
-            </h1>
-
-            <p class="subtitle">
-                Track your daily health habits, visualize your progress, and build lasting routines with our intelligent
-                habit tracking system.
-            </p>
-        </div>
-
-        <!-- Manage Habits (Add Habit + Progress) -->
-        <div class="card fade-in">
-            <h2 class="card-title">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="12" y1="8" x2="12" y2="16" />
-                    <line x1="8" y1="12" x2="16" y2="12" />
-                </svg>
-                Manage Habits
-            </h2>
-            <form id="habit-form">
-                <input type="text" id="habit-input"
-                    placeholder="Add a new health habit (e.g., Drink 8 glasses of water)" required />
-                <input type="date" id="date-input" required />
-                <button type="submit" class="btn btn-primary">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="12" y1="8" x2="12" y2="16" />
-                        <line x1="8" y1="12" x2="16" y2="12" />
-                    </svg>
-                    Add Habit
-                </button>
-            </form>
-            <div class="progress-section">
-                <p>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" />
-                    </svg>
-                    Daily Completion Progress
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-badge">
+                    <i class="fas fa-pills"></i>
+                    Smart Medication Management
+                </div>
+                <h1 class="page-title">
+                    Medication <span class="gradient-text">Manager</span>
+                </h1>
+                <p class="page-description">
+                    Track, manage, and optimize your medication routine with AI-powered insights and smart reminders
                 </p>
-                <div class="progress-bar-bg">
-                    <div id="progress-bar"></div>
-                </div>
-                <button id="reset-button" class="btn btn-secondary">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="23 4 23 10 17 10" />
-                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
-                    </svg>
-                    Reset Today's Habits
-                </button>
             </div>
-        </div>
 
-        <!-- Habits List -->
-        <div class="card fade-in" id="habits-section">
-            <h2 class="card-title">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 12l2 2 4-4" />
-                    <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3" />
-                    <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3" />
-                    <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3" />
-                    <path d="M12 21c0-1 1-3 3-3s3 2 3 3-1 3-3 3-3-2-3-3" />
-                </svg>
-                Your Habits
-            </h2>
-            <div id="habits-list"></div>
-        </div>
-
-        <!-- Weekly Overview -->
-        <div class="card fade-in">
-            <h2 class="card-title">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                    <line x1="16" y1="2" x2="16" y2="6" />
-                    <line x1="8" y1="2" x2="8" y2="6" />
-                    <line x1="3" y1="10" x2="21" y2="10" />
-                </svg>
-                Weekly Habit Overview
-            </h2>
-            <div class="week-toggle">
-                <button id="week-prev">Previous Week</button>
-                <button id="week-current" class="active">This Week</button>
-                <button id="week-next">Next Week</button>
-            </div>
-            <div class="weekly-overview">
-                <div class="chart-container">
-                    <canvas id="habitChart"></canvas>
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Add Medication Card -->
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-plus-circle"></i>
+                            Add New Medication
+                        </h3>
+                    </div>
+                    <div class="card-content">
+                        <form id="medForm" class="med-form">
+                            <div class="form-group">
+                                <i class="fas fa-pills"></i>
+                                <input type="text" id="medName" placeholder="Medication Name" required>
+                            </div>
+                            <div class="form-group">
+                                <i class="fas fa-prescription-bottle-alt"></i>
+                                <input type="text" id="medDose" placeholder="Dosage (e.g., 500mg)" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <i class="far fa-calendar-alt"></i>
+                                    <input type="date" id="medDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <i class="far fa-clock"></i>
+                                    <input type="time" id="medTime" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <i class="fas fa-syringe"></i>
+                                <select id="medType">
+                                    <option value="">Select Medication Type</option>
+                                    <option value="tablet">Tablet</option>
+                                    <option value="capsule">Capsule</option>
+                                    <option value="liquid">Liquid</option>
+                                    <option value="injection">Injection</option>
+                                    <option value="inhaler">Inhaler</option>
+                                    <option value="topical">Topical</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                Add Medication
+                            </button>
+                        </form>
+                    </div>
                 </div>
-                <div id="calendar"></div>
+
+                <!-- Today's Schedule Card -->
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-calendar-day"></i>
+                            Today's Schedule
+                        </h3>
+                    </div>
+                    <div class="card-content">
+                        <div id="todaySchedule" class="schedule-list">
+                            <div class="empty-state">
+                                <i class="fas fa-smile-beam"></i>
+                                <h3>No Medications Today</h3>
+                                <p>Enjoy your medication-free day!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medication Inventory Card -->
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-list-ul"></i>
+                            Medication Inventory
+                        </h3>
+                    </div>
+                    <div class="card-content">
+                        <div id="medList" class="medication-list">
+                            <div class="empty-state">
+                                <i class="fas fa-pills"></i>
+                                <h3>No Medications Added</h3>
+                                <p>Add your first medication to get started</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Adherence Analytics Card -->
+                <div class="card fade-in chart-card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-chart-line"></i>
+                            Adherence Analytics
+                        </h3>
+                        <button id="downloadReport" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-download"></i>
+                            Export Report
+                        </button>
+                    </div>
+                    <div class="card-content">
+                        <div class="chart-container">
+                            <canvas id="adherenceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Insights Card -->
+                <div class="card fade-in insights-card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-brain"></i>
+                            AI Health Insights
+                        </h3>
+                    </div>
+                    <div class="card-content">
+                        <div id="aiInsights" class="ai-insights-container">
+                            <div class="empty-state">
+                                <i class="fas fa-lightbulb"></i>
+                                <h3>Generating Insights</h3>
+                                <p>Add medications to receive personalized AI insights</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path
-                    d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l11 11Z" />
-            </svg>
-            Made with care by HealVerse
-        </p>
-    </footer>
+    <!-- Alert Container -->
+    <div id="alertContainer"></div>
+
+    <!-- Dialog Container -->
+    <div id="dialogContainer"></div>
 
     <script>
         // Create Particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
-
+            const particleCount = 30;
+            
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
@@ -1134,410 +1394,544 @@
             }
         }
 
-        // Initialize variables
-        const habitForm = document.getElementById("habit-form");
-        const habitInput = document.getElementById("habit-input");
-        const dateInput = document.getElementById("date-input");
-        const habitsList = document.getElementById("habits-list");
-        const progressBar = document.getElementById("progress-bar");
-        const resetButton = document.getElementById("reset-button");
-        const weekPrev = document.getElementById("week-prev");
-        const weekCurrent = document.getElementById("week-current");
-        const weekNext = document.getElementById("week-next");
-        const themeSwitch = document.getElementById("themeSwitch");
-        const themeLabel = document.getElementById("theme-label");
-        const calendar = document.getElementById("calendar");
-        const ctx = document.getElementById("habitChart");
-        const loadingOverlay = document.getElementById("loadingOverlay");
+        // DOM Elements
+        const medForm = document.getElementById("medForm");
+        const medList = document.getElementById("medList");
+        const todaySchedule = document.getElementById("todaySchedule");
+        const aiInsights = document.getElementById("aiInsights");
+        const downloadBtn = document.getElementById("downloadReport");
+        const alertContainer = document.getElementById("alertContainer");
 
-        let habits = JSON.parse(localStorage.getItem("habits")) || [];
-        let weekOffset = 0; // 0: this week, -1: last week, 1: next week, etc.
-        let habitChart;
+        // Initialize with localStorage data or empty arrays
+        let medications = JSON.parse(localStorage.getItem("healverse_medications")) || [];
+        let takenLog = JSON.parse(localStorage.getItem("healverse_taken_log")) || {};
 
-        // Loading functions
-        function showLoading(text = "Processing your request...") {
-            const loadingText = loadingOverlay.querySelector('.loading-text');
-            loadingText.textContent = text;
-            loadingOverlay.classList.add('show');
-        }
+        // Set today's date as default
+        document.getElementById("medDate").valueAsDate = new Date();
 
-        function hideLoading() {
-            loadingOverlay.classList.remove('show');
-        }
+        // Initial render
+        renderAll();
 
-        // Set default date to today and restrict future dates
-        dateInput.value = getTodayDateStr();
-        dateInput.max = getTodayDateStr();
+        // Form Submission
+        medForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            
+            const name = document.getElementById("medName").value.trim();
+            const dose = document.getElementById("medDose").value.trim();
+            const date = document.getElementById("medDate").value;
+            const time = document.getElementById("medTime").value;
+            const type = document.getElementById("medType").value;
 
-        // Theme Toggle
-        themeSwitch.addEventListener("change", () => {
-            document.body.classList.toggle("dark");
-            themeLabel.textContent = document.body.classList.contains("dark") ? "Dark" : "Light";
-            localStorage.setItem("darkMode", document.body.classList.contains("dark"));
+            if (!name || !dose || !date || !time) {
+                showAlert("Please fill all required fields!", "error");
+                return;
+            }
+
+            const med = {
+                id: Date.now(),
+                name,
+                dose,
+                date,
+                time,
+                type,
+                added: new Date().toISOString()
+            };
+
+            medications.push(med);
+            saveMedications();
+            renderAll();
+            medForm.reset();
+            document.getElementById("medDate").valueAsDate = new Date();
+            showAlert(`${name} added successfully! 🎉`, "success");
+            generateAIInsights();
         });
 
-        if (localStorage.getItem("darkMode") === "true") {
-            document.body.classList.add("dark");
-            themeSwitch.checked = true;
-            themeLabel.textContent = "Dark";
+        // Save to localStorage
+        function saveMedications() {
+            localStorage.setItem("healverse_medications", JSON.stringify(medications));
+            localStorage.setItem("healverse_taken_log", JSON.stringify(takenLog));
         }
 
-        // Date Helpers
-        function getTodayDateStr() {
-            return new Date().toISOString().split("T")[0];
+        // Render all components
+        function renderAll() {
+            renderMedicationList();
+            renderTodaySchedule();
+            renderChart();
+            generateAIInsights();
         }
 
-        function getWeekDates(offset) {
-            const today = new Date();
-            const monday = new Date(today.setDate(today.getDate() - today.getDay() + 1 + (offset * 7)));
-            const week = [];
-            for (let i = 0; i < 7; i++) {
-                const d = new Date(monday);
-                d.setDate(monday.getDate() + i);
-                week.push(d.toISOString().split("T")[0]);
-            }
-            return week;
-        }
-
-        function updateWeekButtons() {
-            weekPrev.disabled = weekOffset <= -4;
-            weekNext.disabled = weekOffset >= 1;
-            weekPrev.classList.toggle('active', weekOffset === -1);
-            weekCurrent.classList.toggle('active', weekOffset === 0);
-            weekNext.classList.toggle('active', weekOffset === 1);
-        }
-
-        // Habit Logic
-        function saveHabits() {
-            localStorage.setItem("habits", JSON.stringify(habits));
-        }
-
-        function renderHabits() {
-            habitsList.innerHTML = "";
-            const today = getTodayDateStr();
-
-            if (habits.length === 0) {
-                habitsList.innerHTML = `
+        // Render medication list
+        function renderMedicationList() {
+            if (medications.length === 0) {
+                medList.innerHTML = `
                     <div class="empty-state">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"/>
-                            <line x1="12" y1="8" x2="12" y2="16"/>
-                            <line x1="8" y1="12" x2="16" y2="12"/>
-                        </svg>
-                        <h3>No habits added yet</h3>
-                        <p>Start building better health habits by adding your first habit above!</p>
+                        <i class="fas fa-pills"></i>
+                        <h3>No Medications Added</h3>
+                        <p>Add your first medication to get started</p>
                     </div>
                 `;
                 return;
             }
 
-            habits.forEach((habit, i) => {
-                if (!habit.history) habit.history = {};
-                const todayDone = habit.history[today] || false;
+            medList.innerHTML = "";
+            
+            // Sort by date (newest first)
+            const sortedMeds = [...medications].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            sortedMeds.forEach((med) => {
+                const takenCount = takenLog[med.id]?.length || 0;
+                const item = document.createElement("div");
+                item.className = "med-item fade-in";
+                item.innerHTML = `
+                    <div class="med-details">
+                        <div class="med-name">${med.name}</div>
+                        <div class="med-meta">
+                            <span><i class="fas fa-prescription-bottle-alt"></i> ${med.dose}</span>
+                            <span><i class="far fa-calendar-alt"></i> ${formatDate(med.date)}</span>
+                            <span><i class="far fa-clock"></i> ${med.time}</span>
+                            <span><i class="fas fa-pills"></i> ${med.type || "Not specified"}</span>
+                            <span><i class="fas fa-check-circle"></i> Taken ${takenCount} times</span>
+                        </div>
+                    </div>
+                    <div class="med-actions">
+                        <button class="btn btn-success btn-sm" onclick="markTaken(${med.id})" title="Mark as taken">
+                            <i class="fas fa-check"></i>
+                        </button>
+                        <button class="btn btn-warning btn-sm" onclick="editMed(${med.id})" title="Edit medication">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteMed(${med.id})" title="Delete medication">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                `;
+                medList.appendChild(item);
+            });
+        }
+
+        // Render today's schedule
+        function renderTodaySchedule() {
+            const today = new Date().toISOString().split("T")[0];
+            const todaysMeds = medications
+                .filter((m) => m.date === today)
+                .sort((a, b) => a.time.localeCompare(b.time));
+
+            if (todaysMeds.length === 0) {
+                todaySchedule.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-smile-beam"></i>
+                        <h3>No Medications Today</h3>
+                        <p>Enjoy your medication-free day!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            todaySchedule.innerHTML = "";
+
+            todaysMeds.forEach((med) => {
+                const now = new Date();
+                const medTime = new Date(`${today}T${med.time}`);
+                const isPast = now > medTime;
+                const isTaken = takenLog[med.id]?.includes(today);
 
                 const item = document.createElement("div");
-                item.className = "habit-item";
+                item.className = `schedule-item fade-in ${isTaken ? "taken" : isPast ? "missed" : "upcoming"}`;
+                item.innerHTML = `
+                    <div class="schedule-header">
+                        <div class="schedule-time">
+                            <i class="far fa-clock"></i> ${med.time} - ${med.name}
+                        </div>
+                        <div class="schedule-status ${isTaken ? "status-taken" : isPast ? "status-missed" : "status-upcoming"}">
+                            ${isTaken ? "✓ Taken" : isPast ? "⚠ Missed" : "⏰ Upcoming"}
+                        </div>
+                    </div>
+                    <div class="schedule-details">
+                        <div><i class="fas fa-prescription-bottle-alt"></i> ${med.dose}</div>
+                        <div><i class="fas fa-pills"></i> ${med.type || "Not specified"}</div>
+                    </div>
+                    <div class="schedule-footer">
+                        <small><i class="fas fa-calendar-plus"></i> Added ${formatDate(med.added)}</small>
+                        ${!isTaken && !isPast ? `
+                            <button class="btn btn-success btn-sm" onclick="markTaken(${med.id})">
+                                <i class="fas fa-check"></i> Mark as Taken
+                            </button>
+                        ` : ""}
+                    </div>
+                `;
+                todaySchedule.appendChild(item);
+            });
+        }
 
-                const left = document.createElement("div");
-                left.className = "habit-left";
+        // Mark medication as taken
+        function markTaken(id) {
+            const date = new Date().toISOString().split("T")[0];
+            if (!takenLog[id]) takenLog[id] = [];
+            
+            if (!takenLog[id].includes(date)) {
+                takenLog[id].push(date);
+                saveMedications();
+                renderAll();
+                showAlert("Medication marked as taken! 🎉", "success");
+            } else {
+                showAlert("Already marked as taken today.", "info");
+            }
+        }
 
-                const checkbox = document.createElement("input");
-                checkbox.type = "checkbox";
-                checkbox.id = `habit-${i}`;
-                checkbox.checked = todayDone;
-                checkbox.addEventListener("change", () => {
-                    habit.history[today] = checkbox.checked;
-                    saveHabits();
-                    renderHabits();
-                    updateChart();
-                    renderCalendar();
+        // Delete medication
+        function deleteMed(id) {
+            const med = medications.find(m => m.id === id);
+            showDialog(
+                "Delete Medication",
+                `Are you sure you want to delete <strong>${med.name}</strong>? This action cannot be undone.`,
+                "Delete",
+                "Cancel",
+                () => {
+                    medications = medications.filter((med) => med.id !== id);
+                    delete takenLog[id];
+                    saveMedications();
+                    renderAll();
+                    showAlert("Medication deleted successfully.", "success");
+                }
+            );
+        }
+
+        // Edit medication
+        function editMed(id) {
+            const med = medications.find((m) => m.id === id);
+            if (!med) return;
+
+            document.getElementById("medName").value = med.name;
+            document.getElementById("medDose").value = med.dose;
+            document.getElementById("medDate").value = med.date;
+            document.getElementById("medTime").value = med.time;
+            document.getElementById("medType").value = med.type || "";
+
+            // Delete the old entry
+            medications = medications.filter((m) => m.id !== id);
+            delete takenLog[id];
+            saveMedications();
+            renderAll();
+            showAlert("Medication loaded for editing. Update and save.", "info");
+        }
+
+        // Generate AI Insights
+        function generateAIInsights() {
+            if (medications.length === 0) {
+                aiInsights.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Generating Insights</h3>
+                        <p>Add medications to receive personalized AI insights</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const totalMeds = medications.length;
+            const totalTaken = Object.values(takenLog).reduce((sum, arr) => sum + arr.length, 0);
+            const adherenceRate = totalMeds > 0 ? Math.round((totalTaken / totalMeds) * 100) : 0;
+
+            const insights = [
+                {
+                    icon: "fas fa-chart-line",
+                    title: "Adherence Rate",
+                    value: `${adherenceRate}%`,
+                    description: adherenceRate >= 80 ? "Excellent adherence!" : adherenceRate >= 60 ? "Good, but can improve" : "Needs attention",
+                    color: adherenceRate >= 80 ? "#10b981" : adherenceRate >= 60 ? "#f59e0b" : "#ef4444"
+                },
+                {
+                    icon: "fas fa-pills",
+                    title: "Active Medications",
+                    value: totalMeds,
+                    description: `${totalMeds} medications in your routine`,
+                    color: "#3b82f6"
+                },
+                {
+                    icon: "fas fa-calendar-check",
+                    title: "Doses Taken",
+                    value: totalTaken,
+                    description: "Total doses completed",
+                    color: "#10b981"
+                }
+            ];
+
+            aiInsights.innerHTML = `
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    ${insights.map(insight => `
+                        <div class="insight-item" style="border-left-color: ${insight.color};">
+                            <div class="insight-header">
+                                <i class="${insight.icon} insight-icon" style="color: ${insight.color};"></i>
+                                <div>
+                                    <div class="insight-title">${insight.title}</div>
+                                    <div class="insight-value" style="color: ${insight.color};">${insight.value}</div>
+                                </div>
+                            </div>
+                            <div class="insight-description">${insight.description}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Render adherence chart
+        function renderChart() {
+            const ctx = document.getElementById("adherenceChart").getContext("2d");
+            
+            if (window.chartInstance) window.chartInstance.destroy();
+
+            if (medications.length === 0) {
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                ctx.font = "16px Inter";
+                ctx.fillStyle = "#cbd5e1";
+                ctx.textAlign = "center";
+                ctx.fillText("No data available yet", ctx.canvas.width / 2, ctx.canvas.height / 2);
+                return;
+            }
+
+            // Prepare data for last 7 days
+            const labels = [];
+            const today = new Date();
+            
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                labels.push(date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }));
+            }
+
+            // Calculate adherence rate for each day
+            const adherenceData = labels.map((_, index) => {
+                const day = new Date(today);
+                day.setDate(day.getDate() - (6 - index));
+                const dateStr = day.toISOString().split("T")[0];
+                
+                let takenCount = 0;
+                let totalMeds = 0;
+
+                medications.forEach(med => {
+                    if (med.date <= dateStr) {
+                        totalMeds++;
+                        if (takenLog[med.id]?.includes(dateStr)) {
+                            takenCount++;
+                        }
+                    }
                 });
 
-                const label = document.createElement("label");
-                label.textContent = habit.name;
-                label.setAttribute("for", `habit-${i}`);
-
-                left.appendChild(checkbox);
-                left.appendChild(label);
-
-                const actions = document.createElement("div");
-                actions.className = "habit-actions";
-
-                const editBtn = document.createElement("button");
-                editBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
-                editBtn.title = "Edit habit";
-                editBtn.onclick = () => {
-                    const newName = prompt("Edit Habit", habit.name);
-                    if (newName && newName.trim()) {
-                        showLoading("Updating habit...");
-                        habit.name = newName.trim();
-                        saveHabits();
-                        setTimeout(() => {
-                            renderHabits();
-                            hideLoading();
-                        }, 500);
-                    }
-                };
-
-                const deleteBtn = document.createElement("button");
-                deleteBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`;
-                deleteBtn.title = "Delete habit";
-                deleteBtn.onclick = () => {
-                    if (confirm(`Are you sure you want to delete "${habit.name}"?`)) {
-                        showLoading("Deleting habit...");
-                        habits.splice(i, 1);
-                        saveHabits();
-                        setTimeout(() => {
-                            renderHabits();
-                            updateChart();
-                            renderCalendar();
-                            hideLoading();
-                        }, 500);
-                    }
-                };
-
-                actions.appendChild(editBtn);
-                actions.appendChild(deleteBtn);
-
-                item.appendChild(left);
-                item.appendChild(actions);
-                habitsList.appendChild(item);
+                return totalMeds > 0 ? Math.round((takenCount / totalMeds) * 100) : 0;
             });
 
-            updateProgress();
-        }
-
-        // Add Habit
-        habitForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const name = habitInput.value.trim();
-            const date = dateInput.value;
-            if (name && date) {
-                showLoading("Adding your habit...");
-                console.log("Adding habit:", name, "for date:", date); // Debug log
-                const habit = habits.find(h => h.name === name);
-                if (habit) {
-                    // If habit exists, update its history for the selected date
-                    habit.history[date] = true;
-                } else {
-                    // Add new habit with completion for the selected date
-                    habits.push({ name, history: { [date]: true } });
-                }
-                habitInput.value = "";
-                dateInput.value = getTodayDateStr(); // Reset to today
-                saveHabits();
-                setTimeout(() => {
-                    renderHabits();
-                    updateChart();
-                    renderCalendar();
-                    hideLoading();
-                }, 800);
-            } else {
-                console.log("Invalid input: empty habit name or date");
-            }
-        });
-
-        // Reset Today's Habits
-        resetButton.addEventListener("click", () => {
-            if (confirm("Are you sure you want to reset all habits for today?")) {
-                showLoading("Resetting habits...");
-                const today = getTodayDateStr();
-                habits.forEach((h) => (h.history[today] = false));
-                saveHabits();
-                setTimeout(() => {
-                    renderHabits();
-                    updateChart();
-                    renderCalendar();
-                    hideLoading();
-                }, 600);
-            }
-        });
-
-        // Progress Bar
-        function updateProgress() {
-            const today = getTodayDateStr();
-            const total = habits.length || 1;
-            const completed = habits.filter((h) => h.history[today]).length;
-            const percent = (completed / total) * 100;
-            progressBar.style.width = `${percent}%`;
-        }
-
-        // Week Navigation
-        weekPrev.addEventListener("click", () => {
-            if (weekOffset > -4) {
-                showLoading("Loading previous week...");
-                weekOffset--;
-                updateWeekButtons();
-                setTimeout(() => {
-                    updateChart();
-                    renderCalendar();
-                    hideLoading();
-                }, 400);
-            }
-        });
-
-        weekCurrent.addEventListener("click", () => {
-            showLoading("Loading current week...");
-            weekOffset = 0;
-            updateWeekButtons();
-            setTimeout(() => {
-                updateChart();
-                renderCalendar();
-                hideLoading();
-            }, 400);
-        });
-
-        weekNext.addEventListener("click", () => {
-            if (weekOffset < 1) {
-                showLoading("Loading next week...");
-                weekOffset++;
-                updateWeekButtons();
-                setTimeout(() => {
-                    updateChart();
-                    renderCalendar();
-                    hideLoading();
-                }, 400);
-            }
-        });
-
-        // Chart.js
-        function updateChart() {
-            const weekDates = getWeekDates(weekOffset);
-            const labels = weekDates.map((d) =>
-                new Date(d).toLocaleDateString("en-US", { weekday: "short" })
-            );
-            const data = weekDates.map((date) =>
-                habits.reduce((sum, h) => sum + (h.history[date] ? 1 : 0), 0)
-            );
-
-            if (habitChart) habitChart.destroy();
-
-            habitChart = new Chart(ctx, {
-                type: "bar",
+            window.chartInstance = new Chart(ctx, {
+                type: "line",
                 data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: "Habits Completed",
-                            data: data,
-                            backgroundColor: "rgba(59, 130, 246, 0.8)",
-                            borderColor: "rgba(59, 130, 246, 1)",
-                            borderWidth: 2,
-                            borderRadius: 8,
-                            borderSkipped: false,
-                        },
-                    ],
+                    labels,
+                    datasets: [{
+                        label: "Adherence Rate (%)",
+                        data: adherenceData,
+                        backgroundColor: "rgba(59, 130, 246, 0.1)",
+                        borderColor: "#3b82f6",
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: "#3b82f6",
+                        pointBorderColor: "#ffffff",
+                        pointBorderWidth: 2,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { display: false },
+                        legend: {
+                            display: false
+                        },
                         tooltip: {
-                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
-                            titleColor: '#f8fafc',
-                            bodyColor: '#cbd5e1',
-                            borderColor: 'rgba(59, 130, 246, 0.3)',
+                            backgroundColor: "rgba(15, 23, 42, 0.9)",
+                            titleColor: "#f8fafc",
+                            bodyColor: "#cbd5e1",
+                            borderColor: "#3b82f6",
                             borderWidth: 1,
-                            cornerRadius: 8,
+                            cornerRadius: 12,
                             callbacks: {
-                                label: function (context) {
-                                    return `${context.parsed.y} habit${context.parsed.y !== 1 ? 's' : ''} completed`;
-                                }
+                                label: (context) => `Adherence: ${context.raw}%`
                             }
                         }
                     },
                     scales: {
                         y: {
                             beginAtZero: true,
-                            ticks: {
-                                stepSize: 1,
-                                precision: 0,
-                                color: '#94a3b8',
-                                font: { family: 'Inter', size: 12 }
+                            max: 100,
+                            grid: {
+                                color: "rgba(203, 213, 225, 0.1)"
                             },
-                            grid: { color: "rgba(148, 163, 184, 0.1)", drawBorder: false },
+                            ticks: {
+                                callback: (value) => `${value}%`,
+                                color: "#cbd5e1",
+                                font: {
+                                    size: 12
+                                }
+                            }
                         },
                         x: {
-                            ticks: {
-                                color: '#94a3b8',
-                                font: { family: 'Inter', size: 12, weight: '500' }
+                            grid: {
+                                display: false
                             },
-                            grid: { display: false },
-                        },
+                            ticks: {
+                                color: "#cbd5e1",
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
                     },
-                    animation: { duration: 1000, easing: 'easeInOutQuart' }
-                },
-            });
-        }
-
-        // Calendar View
-        function renderCalendar() {
-            calendar.innerHTML = "";
-            const weekDates = getWeekDates(weekOffset);
-
-            weekDates.forEach((date) => {
-                const div = document.createElement("div");
-                const day = new Date(date).toLocaleDateString("en-US", { weekday: "short" });
-                const dateNum = new Date(date).getDate();
-                const count = habits.reduce((sum, h) => sum + (h.history[date] ? 1 : 0), 0);
-
-                div.innerHTML = `<span>${day}</span><br>${dateNum}`;
-
-                if (count > 0) {
-                    div.classList.add("done");
-                    div.innerHTML += `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; bottom: 4px; right: 4px;">
-                        <path d="M20 6L9 17l-5-5"/>
-                    </svg>`;
-                }
-
-                const tooltip = document.createElement("span");
-                tooltip.className = "tooltip";
-                tooltip.textContent = count > 0 ? `${count} habit${count !== 1 ? 's' : ''} completed` : "No habits completed";
-                div.appendChild(tooltip);
-
-                calendar.appendChild(div);
-            });
-        }
-
-        // Fade in animation
-        function initFadeInAnimation() {
-            const fadeElements = document.querySelectorAll('.fade-in');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('appear');
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
                     }
-                });
-            }, { threshold: 0.1 });
-
-            fadeElements.forEach(el => observer.observe(el));
+                }
+            });
         }
 
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', function () {
-            createParticles();
-            renderHabits();
-            updateChart();
-            renderCalendar();
-            updateWeekButtons();
-            initFadeInAnimation();
+        // Download report functionality
+        downloadBtn.addEventListener("click", () => {
+            const reportData = {
+                medications: medications,
+                takenLog: takenLog,
+                generatedAt: new Date().toISOString(),
+                totalMedications: medications.length,
+                totalDosesTaken: Object.values(takenLog).reduce((sum, arr) => sum + arr.length, 0)
+            };
 
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(reportData, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", `HealVerse_Medication_Report_${new Date().toISOString().split('T')[0]}.json`);
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+            
+            showAlert("Report downloaded successfully! 📊", "success");
+        });
+
+        // Helper functions
+        function formatDate(dateString) {
+            const options = { year: "numeric", month: "short", day: "numeric" };
+            return new Date(dateString).toLocaleDateString("en-US", options);
+        }
+
+        function showAlert(message, type, duration = 4000) {
+            const alert = document.createElement("div");
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                <span>${message}</span>
+                <button class="alert-close">&times;</button>
+            `;
+            
+            alertContainer.appendChild(alert);
+            setTimeout(() => alert.classList.add("show"), 100);
+
+            // Close button
+            alert.querySelector(".alert-close").addEventListener("click", () => {
+                alert.classList.remove("show");
+                setTimeout(() => alert.remove(), 300);
+            });
+
+            // Auto-close
             setTimeout(() => {
-                document.querySelectorAll('.fade-in').forEach(el => {
-                    el.classList.add('appear');
-                });
-            }, 100);
+                alert.classList.remove("show");
+                setTimeout(() => alert.remove(), 300);
+            }, duration);
+        }
+
+        function showDialog(title, message, confirmText, cancelText, onConfirm) {
+            const dialog = document.createElement("div");
+            dialog.className = "dialog-overlay";
+            dialog.innerHTML = `
+                <div class="dialog">
+                    <h3 class="dialog-title">${title}</h3>
+                    <div class="dialog-message">${message}</div>
+                    <div class="dialog-actions">
+                        ${cancelText ? `<button class="btn btn-secondary cancel-btn">${cancelText}</button>` : ""}
+                        <button class="btn btn-danger confirm-btn">${confirmText}</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(dialog);
+            setTimeout(() => dialog.classList.add("active"), 10);
+
+            const closeDialog = () => {
+                dialog.classList.remove("active");
+                setTimeout(() => dialog.remove(), 300);
+            };
+
+            if (cancelText) {
+                dialog.querySelector(".cancel-btn").addEventListener("click", closeDialog);
+            }
+
+            dialog.querySelector(".confirm-btn").addEventListener("click", () => {
+                onConfirm();
+                closeDialog();
+            });
+
+            // Close on backdrop click
+            dialog.addEventListener("click", (e) => {
+                if (e.target === dialog) closeDialog();
+            });
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            createParticles();
+            
+            // Animate cards on load
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.classList.add('fade-in-up');
+                observer.observe(card);
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 150);
+            });
+        });
+
+        // Mouse parallax effect
+        document.addEventListener('mousemove', function (e) {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+
+            // Parallax for background shapes
+            document.querySelectorAll('.bg-shape').forEach((shape, index) => {
+                const speed = (index + 1) * 0.3;
+                const x = (mouseX - 0.5) * speed * 30;
+                const y = (mouseY - 0.5) * speed * 30;
+                shape.style.transform = `translate(${x}px, ${y}px)`;
+            });
         });
 
         // Handle window resize for chart
         window.addEventListener('resize', function () {
-            if (habitChart) {
-                habitChart.resize();
+            if (window.chartInstance) {
+                window.chartInstance.resize();
             }
         });
     </script>
 </body>
-
 </html>
