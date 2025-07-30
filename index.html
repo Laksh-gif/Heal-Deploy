@@ -556,19 +556,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: min(12px, 3vw);
+            gap: min(16px, 3vw);
             background: rgba(248, 250, 252, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(248, 250, 252, 0.2);
             color: #f8fafc;
-            padding: min(16px, 3vw) min(24px, 5vw);
-            border-radius: 50px;
-            font-size: clamp(13px, 3vw, 16px);
+            padding: min(18px, 3.5vw) min(28px, 5.5vw);
+            border-radius: 60px;
+            font-size: clamp(14px, 3.2vw, 17px);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             width: 100%;
-            max-width: min(280px, 80vw);
+            max-width: min(300px, 85vw);
+            text-align: center;
+            line-height: 1.2;
+            letter-spacing: 0.5px;
         }
 
         .btn-demo:hover {
@@ -578,8 +581,8 @@
         }
 
         .play-icon {
-            width: min(40px, 8vw);
-            height: min(40px, 8vw);
+            width: min(44px, 8.5vw);
+            height: min(44px, 8.5vw);
             background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             border-radius: 50%;
             display: flex;
@@ -588,12 +591,22 @@
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
             transition: all 0.3s ease;
             flex-shrink: 0;
-            font-size: clamp(10px, 2.5vw, 16px);
+            font-size: clamp(12px, 2.8vw, 18px);
+            color: white;
+            font-weight: bold;
+            margin-left: 2px;
         }
 
         .btn-demo:hover .play-icon {
             transform: scale(1.1);
             box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
+        }
+
+        .demo-text {
+            flex: 1;
+            text-align: center;
+            white-space: nowrap;
+            margin-right: min(8px, 2vw);
         }
 
         /* Stats Grid */
@@ -1665,7 +1678,7 @@
                     <a href="#cta" class="btn-primary">Start Free Trial →</a>
                     <button class="btn-demo" onclick="showDemo()">
                         <div class="play-icon">▶</div>
-                        Watch Demo
+                        <span class="demo-text">Watch Demo</span>
                     </button>
                 </div>
             </div>
