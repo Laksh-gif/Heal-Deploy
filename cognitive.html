@@ -1,36 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HealVerse - Habit Tracker</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <title>Cognitive Fitness Zone - HealVerse</title>
     <style>
-        /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #1f2937;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
+            min-height: 100vh;
+            color: #f8fafc;
             overflow-x: hidden;
             position: relative;
-            min-height: 100vh;
         }
-
-        /* Animated Background */
+        /* Animated Background - Same as HealVerse */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -40,107 +28,67 @@
             z-index: -1;
             overflow: hidden;
         }
-
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 25%, rgba(51, 65, 85, 0.9) 50%, rgba(71, 85, 105, 0.9) 75%, rgba(100, 116, 139, 0.9) 100%);
+        }
         .bg-shape {
             position: absolute;
             border-radius: 50%;
-            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+            filter: blur(60px);
             animation: float 20s ease-in-out infinite;
         }
-
         .bg-shape:nth-child(1) {
             width: 300px;
             height: 300px;
-            top: -150px;
-            left: -150px;
+            background: rgba(59, 130, 246, 0.1);
+            top: 10%;
+            left: 10%;
             animation-delay: 0s;
         }
-
         .bg-shape:nth-child(2) {
-            width: 200px;
-            height: 200px;
-            top: 20%;
-            right: -100px;
-            animation-delay: -5s;
+            width: 400px;
+            height: 400px;
+            background: rgba(139, 92, 246, 0.1);
+            top: 40%;
+            right: 20%;
+            animation-delay: -7s;
         }
-
         .bg-shape:nth-child(3) {
-            width: 250px;
-            height: 250px;
-            bottom: -125px;
-            left: 20%;
-            animation-delay: -10s;
+            width: 350px;
+            height: 350px;
+            background: rgba(6, 182, 212, 0.1);
+            bottom: 20%;
+            left: 30%;
+            animation-delay: -14s;
         }
-
-        .bg-shape:nth-child(4) {
-            width: 180px;
-            height: 180px;
-            top: 60%;
-            right: 10%;
-            animation-delay: -15s;
-        }
-
         @keyframes float {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0px) rotate(0deg);
             }
-
             25% {
-                transform: translateY(-20px) rotate(90deg);
+                transform: translateY(-30px) rotate(90deg);
             }
-
             50% {
                 transform: translateY(0px) rotate(180deg);
             }
-
             75% {
-                transform: translateY(20px) rotate(270deg);
+                transform: translateY(30px) rotate(270deg);
             }
         }
-
-        /* Particle System */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(59, 130, 246, 0.6);
-            border-radius: 50%;
-            animation: particleFloat 15s linear infinite;
-        }
-
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 1;
-            }
-
-            90% {
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(-100vh) scale(1);
-                opacity: 0;
-            }
-        }
-
-        /* Navigation */
+        /* Navigation - Same as HealVerse */
         .navbar {
             position: fixed;
             top: 0;
@@ -148,10 +96,9 @@
             z-index: 1000;
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(20px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
-
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -161,81 +108,27 @@
             align-items: center;
             height: 80px;
         }
-
         .nav-brand {
             display: flex;
             align-items: center;
             gap: 12px;
-            cursor: pointer;
+            text-decoration: none;
             transition: transform 0.3s ease;
         }
-
         .nav-brand:hover {
             transform: scale(1.05);
         }
-
         .nav-icon {
-            color: #3b82f6;
-            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.1);
-            }
-        }
-
-        /* Enhanced Loading Animation */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(10px);
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 9999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
+            color: white;
+            font-size: 20px;
         }
-
-        .loading-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(59, 130, 246, 0.2);
-            border-top: 4px solid #3b82f6;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        .loading-content {
-            text-align: center;
-            color: #f8fafc;
-        }
-
-        .loading-text {
-            font-size: 18px;
-            font-weight: 600;
-            margin-top: 20px;
-        }
-
         .brand-text {
             font-size: 28px;
             font-weight: 800;
@@ -243,15 +136,12 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
         }
-
         .nav-links {
             display: flex;
             align-items: center;
             gap: 40px;
         }
-
         .nav-link {
             text-decoration: none;
             color: #e2e8f0;
@@ -261,7 +151,6 @@
             transition: all 0.3s ease;
             padding: 8px 0;
         }
-
         .nav-link::before {
             content: '';
             position: absolute;
@@ -272,16 +161,19 @@
             background: linear-gradient(90deg, #3b82f6, #8b5cf6);
             transition: width 0.3s ease;
         }
-
         .nav-link:hover {
             color: #3b82f6;
             transform: translateY(-2px);
         }
-
         .nav-link:hover::before {
             width: 100%;
         }
-
+        .nav-link.active {
+            color: #3b82f6;
+        }
+        .nav-link.active::before {
+            width: 100%;
+        }
         .nav-cta {
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             color: white;
@@ -293,84 +185,21 @@
             transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
         }
-
         .nav-cta:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
         }
-
-        /* Theme Toggle */
-        .theme-toggle {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #e2e8f0;
-            font-weight: 500;
+        /* Main Content */
+        .main-content {
+            padding-top: 120px;
+            min-height: 100vh;
         }
-
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 26px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(255, 255, 255, 0.2);
-            transition: .4s;
-            border-radius: 50px;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 4px;
-            bottom: 3px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        input:checked+.slider {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-        }
-
-        input:checked+.slider:before {
-            transform: translateX(24px);
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 120px 20px 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Header */
-        .header {
+        .page-header {
             text-align: center;
             margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out;
         }
-
-        .header-badge {
+        .page-badge {
             display: inline-flex;
             align-items: center;
             gap: 12px;
@@ -381,61 +210,60 @@
             border-radius: 50px;
             font-size: 14px;
             font-weight: 600;
-            margin-bottom: 30px;
+            margin-bottom: 32px;
             border: 1px solid rgba(59, 130, 246, 0.2);
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
-            animation: glow 2s ease-in-out infinite alternate;
         }
-
-        @keyframes glow {
-            from {
-                box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
-            }
-
-            to {
-                box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-            }
-        }
-
-        .title {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 900;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             line-height: 1.1;
             color: #f8fafc;
             text-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
         }
-
         .gradient-text {
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 30%, #06b6d4 60%, #10b981 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
-        .subtitle {
-            font-size: 18px;
+        .page-description {
+            font-size: 20px;
             color: #cbd5e1;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
             line-height: 1.7;
         }
-
-        /* Cards */
-        .card {
+        /* Dashboard Section */
+        .dashboard {
             background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(20px);
             border-radius: 24px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
+            padding: 40px;
+            margin-bottom: 40px;
             border: 1px solid rgba(59, 130, 246, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
-            margin-bottom: 30px;
         }
-
-        .card::before {
+        .stat-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -443,1101 +271,1283 @@
             right: 0;
             height: 3px;
             background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
         }
-
-        .card:hover {
-            transform: translateY(-8px);
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+        .stat-card:hover {
+            transform: translateY(-10px);
             box-shadow: 0 25px 50px rgba(59, 130, 246, 0.2);
             border-color: rgba(59, 130, 246, 0.3);
         }
-
-        .card-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #f8fafc;
-        }
-
-        .card-title svg {
-            color: #3b82f6;
-            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
-        }
-
-        /* Form Styles */
-        #habit-form {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 30px;
-        }
-
-        #habit-input,
-        #date-input {
-            padding: 16px 20px;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 12px;
-            font-size: 16px;
-            background: rgba(248, 250, 252, 0.05);
-            backdrop-filter: blur(10px);
-            color: #f8fafc;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-        }
-
-        #habit-input {
-            flex: 2;
-        }
-
-        #date-input {
-            flex: 1;
-            max-width: 200px;
-        }
-
-        #habit-input::placeholder,
-        #date-input::placeholder {
-            color: #94a3b8;
-        }
-
-        #habit-input:focus,
-        #date-input:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-            background: rgba(248, 250, 252, 0.08);
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 16px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: none;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary {
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            color: white;
-            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
         }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn-primary:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 20px 45px rgba(59, 130, 246, 0.6);
-        }
-
-        .btn-secondary {
-            background: rgba(248, 250, 252, 0.05);
-            color: #3b82f6;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(59, 130, 246, 0.1);
-            transform: translateY(-2px);
-        }
-
-        /* Week Toggle */
-        .week-toggle {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 24px;
-        }
-
-        .week-toggle button {
-            padding: 12px 20px;
-            border-radius: 12px;
+        .stat-label {
+            color: #cbd5e1;
             font-weight: 600;
             font-size: 14px;
-            background: rgba(248, 250, 252, 0.05);
-            color: #e2e8f0;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            cursor: pointer;
-            transition: all 0.3s ease;
         }
-
-        .week-toggle button.active {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            color: white;
-            border-color: rgba(59, 130, 246, 0.4);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-        }
-
-        .week-toggle button:hover:not(.active) {
-            background: rgba(59, 130, 246, 0.1);
-            transform: translateY(-2px);
-        }
-
-        /* Weekly Overview */
-        .weekly-overview {
+        /* Games Grid */
+        .games-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
-
-        /* Habit Items */
-        .habit-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(248, 250, 252, 0.03);
-            backdrop-filter: blur(10px);
-            padding: 20px 24px;
-            margin-bottom: 16px;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+        .game-card {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 40px 30px;
+            border-radius: 24px;
+            text-align: center;
             border: 1px solid rgba(59, 130, 246, 0.1);
-        }
-
-        .habit-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.15);
-            border-color: rgba(59, 130, 246, 0.2);
-        }
-
-        .habit-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .habit-left input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            accent-color: #3b82f6;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
-            border-radius: 4px;
-        }
-
-        .habit-left label {
-            font-weight: 500;
-            cursor: pointer;
-            color: #e2e8f0;
-            font-size: 16px;
-        }
-
-        .habit-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .habit-actions button {
-            background: transparent;
-            border: none;
-            color: #94a3b8;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-
-        .habit-actions button:hover {
-            background: rgba(59, 130, 246, 0.1);
-            color: #3b82f6;
-            transform: scale(1.1);
-        }
-
-        /* Progress Section */
-        .progress-section {
-            margin-top: 30px;
-        }
-
-        .progress-section p {
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #f8fafc;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 18px;
-        }
-
-        .progress-bar-bg {
-            height: 12px;
-            width: 100%;
-            background: rgba(59, 130, 246, 0.1);
-            border-radius: 50px;
-            overflow: hidden;
-            margin: 20px 0;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        #progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 50px;
             position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
         }
-
-        #progress-bar::after {
+        .game-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: shimmer 2s infinite;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-
-        @keyframes shimmer {
-            0% {
-                transform: translateX(-100%);
-            }
-
-            100% {
-                transform: translateX(100%);
-            }
+        .game-card:hover::before {
+            opacity: 1;
         }
-
-        /* Chart Container */
-        .chart-container {
-            background: rgba(248, 250, 252, 0.02);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: inset 0 4px 15px rgba(0, 0, 0, 0.1);
+        .game-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.4);
         }
-
-        #habitChart {
-            width: 100% !important;
-            height: 250px !important;
-        }
-
-        /* Calendar */
-        #calendar {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
-            position: relative;
-        }
-
-        #calendar div {
-            background: rgba(248, 250, 252, 0.05);
-            backdrop-filter: blur(10px);
-            padding: 12px;
-            text-align: center;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(59, 130, 246, 0.1);
-            color: #e2e8f0;
-            cursor: pointer;
-            position: relative;
-        }
-
-        #calendar div.done {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            color: white;
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-
-        #calendar div:hover:not(.done) {
-            background: rgba(59, 130, 246, 0.1);
-            transform: scale(1.05);
-        }
-
-        #calendar .tooltip {
-            visibility: hidden;
-            position: absolute;
-            top: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(15, 23, 42, 0.95);
-            color: #f8fafc;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            white-space: nowrap;
-            z-index: 10;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-        }
-
-        #calendar div:hover .tooltip {
-            visibility: visible;
-        }
-
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #94a3b8;
-        }
-
-        .empty-state svg {
-            width: 64px;
-            height: 64px;
-            margin-bottom: 20px;
-            opacity: 0.5;
-        }
-
-        .empty-state h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: #cbd5e1;
-        }
-
-        .empty-state p {
-            font-size: 16px;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: #94a3b8;
-            font-size: 14px;
-            margin-top: 60px;
-        }
-
-        footer p {
+        .game-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            margin: 0 auto 24px;
+            font-size: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
         }
-
+        .game-card:hover .game-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .memory-icon {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%);
+            color: #3b82f6;
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.3);
+        }
+        .math-icon {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.2) 100%);
+            color: #10b981;
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
+        }
+        .reaction-icon {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(124, 58, 237, 0.2) 100%);
+            color: #8b5cf6;
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.3);
+        }
+        .stroop-icon {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(14, 165, 233, 0.2) 100%);
+            color: #06b6d4;
+            box-shadow: 0 15px 35px rgba(6, 182, 212, 0.3);
+        }
+        .game-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #f8fafc;
+            position: relative;
+            z-index: 1;
+        }
+        .game-description {
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 16px;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            position: relative;
+            z-index: 1;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
+        }
+        .btn-secondary {
+            background: rgba(248, 250, 252, 0.1);
+            color: #cbd5e1;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .btn-secondary:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+        }
+        /* Game Screens */
+        .game-screen {
+            display: none;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease-out;
+        }
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .game-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+        .game-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .info-item {
+            background: rgba(59, 130, 246, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        /* Memory Game Styles */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .memory-card {
+            aspect-ratio: 1;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+        .memory-card:hover {
+            transform: scale(1.05);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+        }
+        .memory-card.flipped {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+            color: #3b82f6;
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+        .memory-card.matched {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            color: #10b981;
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+        /* Math Quiz Styles */
+        .question-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .question {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #f8fafc;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .option-btn {
+            padding: 24px;
+            font-size: 1.3rem;
+            border-radius: 16px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            color: #f8fafc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        .option-btn:hover {
+            transform: translateY(-3px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+        }
+        .option-btn.correct {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            color: #10b981;
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+        .option-btn.incorrect {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 127, 0.2) 100%);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.4);
+        }
+        /* Reaction Test Styles */
+        .reaction-area {
+            width: 100%;
+            height: 320px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 24px 0;
+            border: 2px solid rgba(59, 130, 246, 0.1);
+        }
+        .reaction-waiting {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 127, 0.2) 100%);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+        .reaction-ready {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            color: #10b981;
+            border-color: rgba(16, 185, 129, 0.4);
+            animation: pulse 1s infinite;
+        }
+        .reaction-clicked {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+            color: #3b82f6;
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+        /* Stroop Test Styles */
+        .stroop-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .stroop-word {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 40px;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+            user-select: none;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+        .stroop-instructions {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            margin-bottom: 32px;
+            padding: 20px;
+            background: rgba(59, 130, 246, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        .color-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .color-btn {
+            padding: 24px;
+            font-size: 1.3rem;
+            border-radius: 16px;
+            border: 2px solid;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .color-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        .color-btn.red {
+            color: #ef4444;
+            border-color: #ef4444;
+        }
+        .color-btn.red:hover {
+            background: rgba(239, 68, 68, 0.1);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        }
+        .color-btn.blue {
+            color: #3b82f6;
+            border-color: #3b82f6;
+        }
+        .color-btn.blue:hover {
+            background: rgba(59, 130, 246, 0.1);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+        .color-btn.green {
+            color: #10b981;
+            border-color: #10b981;
+        }
+        .color-btn.green:hover {
+            background: rgba(16, 185, 129, 0.1);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+        .color-btn.yellow {
+            color: #f59e0b;
+            border-color: #f59e0b;
+        }
+        .color-btn.yellow:hover {
+            background: rgba(245, 158, 11, 0.1);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+        }
+        .color-btn.correct {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+        .color-btn.incorrect {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 127, 0.2) 100%);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+        }
+        /* Results Styles */
+        .results {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            margin: 24px 0;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        .results h3 {
+            font-size: 2.2rem;
+            margin-bottom: 24px;
+            color: #f8fafc;
+        }
+        .score {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+        .stars {
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+        }
+        .motivational-quote {
+            font-style: italic;
+            color: #cbd5e1;
+            margin: 24px 0;
+            padding: 24px;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border-left: 4px solid #3b82f6;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(248, 250, 252, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            transition: width 0.3s ease;
+        }
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
         /* Responsive Design */
         @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
             .nav-links {
                 display: none;
             }
-
-            .container {
-                padding: 100px 16px 40px;
+            .page-title {
+                font-size: 2.5rem;
             }
-
-            #habit-form {
-                flex-direction: column;
-            }
-
-            #date-input {
-                max-width: 100%;
-            }
-
-            .habit-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 16px;
-            }
-
-            .habit-actions {
-                width: 100%;
-                justify-content: flex-end;
-            }
-
-            .weekly-overview {
+            .games-grid {
                 grid-template-columns: 1fr;
             }
-
-            #calendar {
-                grid-template-columns: repeat(4, 1fr);
+            .memory-grid {
+                max-width: 320px;
+                gap: 12px;
             }
-
-            .week-toggle {
-                flex-wrap: wrap;
+            .memory-card {
+                font-size: 1.5rem;
             }
-        }
-
-        @media (max-width: 480px) {
-            .card {
-                padding: 20px;
+            .options-grid, .color-buttons {
+                grid-template-columns: 1fr;
+                max-width: 320px;
             }
-
-            #calendar {
+            .game-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .game-info {
+                justify-content: center;
+            }
+            .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-
-            .title {
-                font-size: 2rem;
-            }
-
-            .week-toggle button {
-                padding: 10px 16px;
-                font-size: 12px;
+            .stroop-word {
+                font-size: 3rem;
             }
         }
-
-        /* Dark theme styles (when toggled) */
-        body.dark {
-            /* Additional dark theme adjustments can be added here if needed */
-        }
-
-        /* Loading Animation */
-        .loading {
-            opacity: 0.7;
-            pointer-events: none;
-                <svg class="nav-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                    <path d="M2 17l10 5 10-5"/>
-                    <path d="M2 12l10 5 10-5"/>
-                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            margin: -10px 0 0 -10px;
-            border: 2px solid transparent;
-            border-top: 2px solid #3b82f6;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
-
-            100% {
-                transform: rotate(360deg);
+            .reaction-area {
+                height: 240px;
+                font-size: 1.4rem;
             }
-        }
-
-        /* Fade in animation */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-in.appear {
-            opacity: 1;
-            transform: translateY(0);
+            .dashboard {
+                padding: 24px;
+            }
+            .game-screen {
+                padding: 24px;
+            }
+            .stroop-word {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
-
 <body>
     <!-- Animated Background -->
     <div class="animated-bg">
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
-        <div class="bg-shape"></div>
     </div>
-
-    <!-- Particles -->
-    <div class="particles" id="particles"></div>
-
-    <!-- Navigation -->
+    <!-- Navigation - Same as HealVerse -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-brand" onclick="window.location.href='index.html'">
-                <svg class="nav-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                    <path d="M2 17l10 5 10-5"/>
-                    <path d="M2 12l10 5 10-5"/>
-                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
-                </svg>
+            <a href="/" class="nav-brand">
+                <div class="nav-icon">❤️</div>
                 <span class="brand-text">HealVerse</span>
-            </div>
-
+            </a>
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
-                <a href="predictive.html" class="nav-link">Analytics</a>
-                <a href="#habits" class="nav-link">Habits</a>
-                <div class="theme-toggle">
-                    <label class="switch">
-                        <input type="checkbox" id="themeSwitch" />
-                        <span class="slider"></span>
-                    </label>
-                    <span id="theme-label">Dark</span>
-                </div>
-                <a href="newhabit.html" class="nav-cta">Get Started</a>
+                <a href="features" class="nav-link">Features</a>
+                <a href="/about" class="nav-link">About</a>
+                <a href="/cognitive-fitness" class="nav-link active">Brain Training</a>
+                <a href="/contact" class="nav-cta">Get Started</a>
             </div>
         </div>
     </nav>
-
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <div class="loading-text">Processing your request...</div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <main class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="header-badge">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                    <path d="M2 17l10 5 10-5"/>
-                    <path d="M2 12l10 5 10-5"/>
-                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
-                Smart Habit Tracking System
-            </div>
-
-            <h1 class="title">
-                Build Better <span class="gradient-text">Health Habits</span>
-            </h1>
-
-            <p class="subtitle">
-                Track your daily health habits, visualize your progress, and build lasting routines with our intelligent
-                habit tracking system.
-            </p>
-        </div>
-
-        <!-- Manage Habits (Add Habit + Progress) -->
-        <div class="card fade-in">
-            <h2 class="card-title">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="12" y1="8" x2="12" y2="16" />
-                    <line x1="8" y1="12" x2="16" y2="12" />
-                </svg>
-                Manage Habits
-            </h2>
-            <form id="habit-form">
-                <input type="text" id="habit-input"
-                    placeholder="Add a new health habit (e.g., Drink 8 glasses of water)" required />
-                <input type="date" id="date-input" required />
-                <button type="submit" class="btn btn-primary">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="12" y1="8" x2="12" y2="16" />
-                        <line x1="8" y1="12" x2="16" y2="12" />
-                    </svg>
-                    Add Habit
-                </button>
-            </form>
-            <div class="progress-section">
-                <p>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" />
-                    </svg>
-                    Daily Completion Progress
+    <div class="container">
+        <main class="main-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-badge">
+                    <div style="width: 8px; height: 8px; background: #3b82f6; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                    <span>Cognitive Fitness Zone</span>
+                </div>
+                <h1 class="page-title">
+                    Train Your <span class="gradient-text">Mind</span>
+                </h1>
+                <p class="page-description">
+                    Enhance your cognitive abilities with scientifically-designed brain training games. Improve memory, focus, and mental agility through engaging challenges.
                 </p>
-                <div class="progress-bar-bg">
-                    <div id="progress-bar"></div>
-                </div>
-                <button id="reset-button" class="btn btn-secondary">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="23 4 23 10 17 10" />
-                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
-                    </svg>
-                    Reset Today's Habits
-                </button>
             </div>
-        </div>
-
-        <!-- Habits List -->
-        <div class="card fade-in" id="habits-section">
-            <h2 class="card-title">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 12l2 2 4-4" />
-                    <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3" />
-                    <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3" />
-                    <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3" />
-                    <path d="M12 21c0-1 1-3 3-3s3 2 3 3-1 3-3 3-3-2-3-3" />
-                </svg>
-                Your Habits
-            </h2>
-            <div id="habits-list"></div>
-        </div>
-
-        <!-- Weekly Overview -->
-        <div class="card fade-in">
-            <h2 class="card-title">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                    <line x1="16" y1="2" x2="16" y2="6" />
-                    <line x1="8" y1="2" x2="8" y2="6" />
-                    <line x1="3" y1="10" x2="21" y2="10" />
-                </svg>
-                Weekly Habit Overview
-            </h2>
-            <div class="week-toggle">
-                <button id="week-prev">Previous Week</button>
-                <button id="week-current" class="active">This Week</button>
-                <button id="week-next">Next Week</button>
-            </div>
-            <div class="weekly-overview">
-                <div class="chart-container">
-                    <canvas id="habitChart"></canvas>
-                </div>
-                <div id="calendar"></div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <p>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path
-                    d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l11 11Z" />
-            </svg>
-            Made with care by HealVerse
-        </p>
-    </footer>
-
-    <script>
-        // Create Particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        // Initialize variables
-        const habitForm = document.getElementById("habit-form");
-        const habitInput = document.getElementById("habit-input");
-        const dateInput = document.getElementById("date-input");
-        const habitsList = document.getElementById("habits-list");
-        const progressBar = document.getElementById("progress-bar");
-        const resetButton = document.getElementById("reset-button");
-        const weekPrev = document.getElementById("week-prev");
-        const weekCurrent = document.getElementById("week-current");
-        const weekNext = document.getElementById("week-next");
-        const themeSwitch = document.getElementById("themeSwitch");
-        const themeLabel = document.getElementById("theme-label");
-        const calendar = document.getElementById("calendar");
-        const ctx = document.getElementById("habitChart");
-        const loadingOverlay = document.getElementById("loadingOverlay");
-
-        let habits = JSON.parse(localStorage.getItem("habits")) || [];
-        let weekOffset = 0; // 0: this week, -1: last week, 1: next week, etc.
-        let habitChart;
-
-        // Loading functions
-        function showLoading(text = "Processing your request...") {
-            const loadingText = loadingOverlay.querySelector('.loading-text');
-            loadingText.textContent = text;
-            loadingOverlay.classList.add('show');
-        }
-
-        function hideLoading() {
-            loadingOverlay.classList.remove('show');
-        }
-
-        // Set default date to today and restrict future dates
-        dateInput.value = getTodayDateStr();
-        dateInput.max = getTodayDateStr();
-
-        // Theme Toggle
-        themeSwitch.addEventListener("change", () => {
-            document.body.classList.toggle("dark");
-            themeLabel.textContent = document.body.classList.contains("dark") ? "Dark" : "Light";
-            localStorage.setItem("darkMode", document.body.classList.contains("dark"));
-        });
-
-        if (localStorage.getItem("darkMode") === "true") {
-            document.body.classList.add("dark");
-            themeSwitch.checked = true;
-            themeLabel.textContent = "Dark";
-        }
-
-        // Date Helpers
-        function getTodayDateStr() {
-            return new Date().toISOString().split("T")[0];
-        }
-
-        function getWeekDates(offset) {
-            const today = new Date();
-            const monday = new Date(today.setDate(today.getDate() - today.getDay() + 1 + (offset * 7)));
-            const week = [];
-            for (let i = 0; i < 7; i++) {
-                const d = new Date(monday);
-                d.setDate(monday.getDate() + i);
-                week.push(d.toISOString().split("T")[0]);
-            }
-            return week;
-        }
-
-        function updateWeekButtons() {
-            weekPrev.disabled = weekOffset <= -4;
-            weekNext.disabled = weekOffset >= 1;
-            weekPrev.classList.toggle('active', weekOffset === -1);
-            weekCurrent.classList.toggle('active', weekOffset === 0);
-            weekNext.classList.toggle('active', weekOffset === 1);
-        }
-
-        // Habit Logic
-        function saveHabits() {
-            localStorage.setItem("habits", JSON.stringify(habits));
-        }
-
-        function renderHabits() {
-            habitsList.innerHTML = "";
-            const today = getTodayDateStr();
-
-            if (habits.length === 0) {
-                habitsList.innerHTML = `
-                    <div class="empty-state">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"/>
-                            <line x1="12" y1="8" x2="12" y2="16"/>
-                            <line x1="8" y1="12" x2="16" y2="12"/>
-                        </svg>
-                        <h3>No habits added yet</h3>
-                        <p>Start building better health habits by adding your first habit above!</p>
+            <!-- Dashboard -->
+            <div id="dashboard" class="dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalGames">0</div>
+                        <div class="stat-label">Games Completed</div>
                     </div>
-                `;
+                    <div class="stat-card">
+                        <div class="stat-value" id="bestMemory">0</div>
+                        <div class="stat-label">Best Memory Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="bestMath">0%</div>
+                        <div class="stat-label">Best Math Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="bestStroop">0%</div>
+                        <div class="stat-label">Best Stroop Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="avgReaction">0ms</div>
+                        <div class="stat-label">Avg Reaction Time</div>
+                    </div>
+                </div>
+                <div class="games-grid">
+                    <div class="game-card" onclick="startMemoryGame()">
+                        <div class="game-icon memory-icon">🧠</div>
+                        <h3 class="game-title">Memory Match</h3>
+                        <p class="game-description">Challenge your working memory by matching pairs of cards. Improve your recall and concentration skills.</p>
+                        <button class="btn">Start Training</button>
+                    </div>
+                    <div class="game-card" onclick="startMathQuiz()">
+                        <div class="game-icon math-icon">🔢</div>
+                        <h3 class="game-title">Quick Math</h3>
+                        <p class="game-description">Boost your mental arithmetic speed with timed math challenges. Enhance your numerical processing abilities.</p>
+                        <button class="btn">Start Training</button>
+                    </div>
+                    <div class="game-card" onclick="startStroopTest()">
+                        <div class="game-icon stroop-icon">🎨</div>
+                        <h3 class="game-title">Stroop Test</h3>
+                        <p class="game-description">Test your cognitive flexibility and attention control. Click the color of the text, not what the word says!</p>
+                        <button class="btn">Start Training</button>
+                    </div>
+                    <div class="game-card" onclick="startReactionTest()">
+                        <div class="game-icon reaction-icon">⚡</div>
+                        <h3 class="game-title">Reaction Speed</h3>
+                        <p class="game-description">Test and improve your reaction time and processing speed. Sharpen your reflexes and response accuracy.</p>
+                        <button class="btn">Start Training</button>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <button class="btn btn-secondary" onclick="resetStats()">Reset Progress</button>
+                </div>
+            </div>
+            <!-- Memory Game Screen -->
+            <div id="memoryGame" class="game-screen">
+                <div class="game-header">
+                    <h2>🧠 Memory Match Training</h2>
+                    <div class="game-info">
+                        <div class="info-item">Moves: <span id="memoryMoves">0</span></div>
+                        <div class="info-item">Time: <span id="memoryTime">0</span>s</div>
+                        <div class="info-item">Pairs: <span id="memoryPairs">0</span>/8</div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="showDashboard()">← Back</button>
+                </div>
+                <div class="memory-grid" id="memoryGrid"></div>
+                <div id="memoryResults" class="results" style="display: none;">
+                    <h3>🎉 Training Complete!</h3>
+                    <div class="score" id="memoryScore">0</div>
+                    <div class="stars" id="memoryStars"></div>
+                    <div class="motivational-quote" id="memoryQuote"></div>
+                    <button class="btn" onclick="startMemoryGame()">Train Again</button>
+                    <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
+                </div>
+            </div>
+            <!-- Math Quiz Screen -->
+            <div id="mathQuiz" class="game-screen">
+                <div class="game-header">
+                    <h2>🔢 Quick Math Training</h2>
+                    <div class="game-info">
+                        <div class="info-item">Question: <span id="mathQuestion">1</span>/10</div>
+                        <div class="info-item">Score: <span id="mathScore">0</span></div>
+                        <div class="info-item">Time: <span id="mathTimer">30</span>s</div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="showDashboard()">← Back</button>
+                </div>
+                <div class="question-container">
+                    <div class="question" id="mathQuestionText">Loading...</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="mathProgress"></div>
+                    </div>
+                    <div class="options-grid" id="mathOptions"></div>
+                </div>
+                <div id="mathResults" class="results" style="display: none;">
+                    <h3>📊 Training Complete!</h3>
+                    <div class="score" id="mathFinalScore">0%</div>
+                    <div class="stars" id="mathStars"></div>
+                    <div class="motivational-quote" id="mathQuote"></div>
+                    <button class="btn" onclick="startMathQuiz()">Train Again</button>
+                    <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
+                </div>
+            </div>
+            <!-- Stroop Test Screen -->
+            <div id="stroopTest" class="game-screen">
+                <div class="game-header">
+                    <h2>🎨 Stroop Test Training</h2>
+                    <div class="game-info">
+                        <div class="info-item">Round: <span id="stroopRound">1</span>/15</div>
+                        <div class="info-item">Score: <span id="stroopScore">0</span></div>
+                        <div class="info-item">Time: <span id="stroopTimer">60</span>s</div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="showDashboard()">← Back</button>
+                </div>
+                <div class="stroop-container">
+                    <div class="stroop-instructions">
+                        <strong>Instructions:</strong> Click the <strong>COLOR</strong> of the text, NOT what the word says!<br>
+                        Focus on the actual color you see, ignore the word meaning.
+                    </div>
+                    <div class="stroop-word" id="stroopWord">Ready?</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="stroopProgress"></div>
+                    </div>
+                    <div class="color-buttons" id="colorButtons">
+                        <button class="color-btn red" onclick="selectColor('red')">Red</button>
+                        <button class="color-btn blue" onclick="selectColor('blue')">Blue</button>
+                        <button class="color-btn green" onclick="selectColor('green')">Green</button>
+                        <button class="color-btn yellow" onclick="selectColor('yellow')">Yellow</button>
+                    </div>
+                </div>
+                <div id="stroopResults" class="results" style="display: none;">
+                    <h3>🎨 Training Complete!</h3>
+                    <div class="score" id="stroopFinalScore">0%</div>
+                    <div class="stars" id="stroopStars"></div>
+                    <div class="motivational-quote" id="stroopQuote"></div>
+                    <button class="btn" onclick="startStroopTest()">Train Again</button>
+                    <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
+                </div>
+            </div>
+            <!-- Reaction Test Screen -->
+            <div id="reactionTest" class="game-screen">
+                <div class="game-header">
+                    <h2>⚡ Reaction Speed Training</h2>
+                    <div class="game-info">
+                        <div class="info-item">Round: <span id="reactionRound">1</span>/5</div>
+                        <div class="info-item">Best: <span id="reactionBest">0ms</span></div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="showDashboard()">← Back</button>
+                </div>
+                <div class="reaction-area reaction-waiting" id="reactionArea">
+                    Click here when ready, then wait for GREEN!
+                </div>
+                <div id="reactionResults" class="results" style="display: none;">
+                    <h3>⚡ Training Complete!</h3>
+                    <div class="score" id="reactionAverage">0ms</div>
+                    <div class="stars" id="reactionStars"></div>
+                    <div class="motivational-quote" id="reactionQuote"></div>
+                    <button class="btn" onclick="startReactionTest()">Train Again</button>
+                    <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        // Game State Management
+        let gameState = {
+            currentGame: 'dashboard',
+            stats: {
+                totalGames: 0,
+                bestMemoryScore: 0,
+                bestMathScore: 0,
+                bestStroopScore: 0,
+                reactionTimes: [],
+                avgReactionTime: 0
+            }
+        };
+        // Memory Game Variables
+        let memoryGame = {
+            cards: [],
+            flippedCards: [],
+            matchedPairs: 0,
+            moves: 0,
+            startTime: null,
+            timer: null
+        };
+        // Math Quiz Variables
+        let mathQuiz = {
+            questions: [],
+            currentQuestion: 0,
+            score: 0,
+            timer: null,
+            timeLeft: 30,
+            startTime: null
+        };
+        // Stroop Test Variables
+        let stroopTest = {
+            round: 0,
+            score: 0,
+            currentWord: '',
+            currentColor: '',
+            correctColor: '',
+            timer: null,
+            timeLeft: 60,
+            startTime: null,
+            words: ['RED', 'BLUE', 'GREEN', 'YELLOW'],
+            colors: ['red', 'blue', 'green', 'yellow'],
+            colorMap: {
+                'red': '#ef4444',
+                'blue': '#3b82f6',
+                'green': '#10b981',
+                'yellow': '#f59e0b'
+            }
+        };
+        // Reaction Test Variables
+        let reactionTest = {
+            round: 0,
+            times: [],
+            startTime: null,
+            timeout: null,
+            isWaiting: false
+        };
+        // Motivational Quotes
+        const quotes = [
+            "Excellent work! Your cognitive fitness is improving with every session! 🧠✨",
+            "Outstanding performance! Keep challenging your mind to reach new heights! 🚀",
+            "Brilliant! Your mental agility and focus are getting stronger! 💪",
+            "Fantastic progress! Consistent training leads to remarkable results! 🌟",
+            "Impressive! Your brain is adapting and growing with each challenge! 🎯",
+            "Superb effort! You're building powerful cognitive pathways! ⚡",
+            "Amazing! Your dedication to brain training is truly paying off! 🏆",
+            "Wonderful! Every session makes your mind sharper and more resilient! 💎",
+            "Incredible! You're developing the mental strength of a champion! 👑",
+            "Perfect! Your cognitive fitness journey is inspiring and effective! 🌈"
+        ];
+        // Initialize App
+        function init() {
+            loadStats();
+            updateDashboard();
+            showDashboard();
+        }
+        // Local Storage Functions
+        function saveStats() {
+            localStorage.setItem('healverseCognitiveStats', JSON.stringify(gameState.stats));
+        }
+        function loadStats() {
+            const saved = localStorage.getItem('healverseCognitiveStats');
+            if (saved) {
+                gameState.stats = JSON.parse(saved);
+            }
+        }
+        function resetStats() {
+            if (confirm('Are you sure you want to reset all your cognitive training progress? This action cannot be undone.')) {
+                gameState.stats = {
+                    totalGames: 0,
+                    bestMemoryScore: 0,
+                    bestMathScore: 0,
+                    bestStroopScore: 0,
+                    reactionTimes: [],
+                    avgReactionTime: 0
+                };
+                saveStats();
+                updateDashboard();
+            }
+        }
+        // Dashboard Functions
+        function showDashboard() {
+            hideAllScreens();
+            document.getElementById('dashboard').style.display = 'block';
+            gameState.currentGame = 'dashboard';
+            updateDashboard();
+        }
+        function updateDashboard() {
+            document.getElementById('totalGames').textContent = gameState.stats.totalGames;
+            document.getElementById('bestMemory').textContent = gameState.stats.bestMemoryScore;
+            document.getElementById('bestMath').textContent = gameState.stats.bestMathScore + '%';
+            document.getElementById('bestStroop').textContent = gameState.stats.bestStroopScore + '%';
+                        const avgReaction = gameState.stats.reactionTimes.length > 0
+                 ? Math.round(gameState.stats.reactionTimes.reduce((a, b) => a + b, 0) / gameState.stats.reactionTimes.length)
+                : 0;
+            document.getElementById('avgReaction').textContent = avgReaction + 'ms';
+        }
+        function hideAllScreens() {
+            const screens = ['dashboard', 'memoryGame', 'mathQuiz', 'stroopTest', 'reactionTest'];
+            screens.forEach(screen => {
+                document.getElementById(screen).style.display = 'none';
+            });
+        }
+        // Memory Game Functions
+        function startMemoryGame() {
+            hideAllScreens();
+            document.getElementById('memoryGame').style.display = 'block';
+            document.getElementById('memoryResults').style.display = 'none';
+                        // Reset game state
+            memoryGame = {
+                cards: [],
+                flippedCards: [],
+                matchedPairs: 0,
+                moves: 0,
+                startTime: Date.now(),
+                timer: null
+            };
+            // Create card pairs
+            const symbols = ['🎯', '🎪', '🎨', '🎭', '🎪', '🎯', '🎨', '🎭', '🚀', '⭐', '🌟', '✨', '🚀', '⭐', '🌟', '✨'];
+            memoryGame.cards = symbols.sort(() => Math.random() - 0.5);
+            // Create grid
+            const grid = document.getElementById('memoryGrid');
+            grid.innerHTML = '';
+                        memoryGame.cards.forEach((symbol, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.index = index;
+                card.dataset.symbol = symbol;
+                card.textContent = '?';
+                card.onclick = () => flipCard(index);
+                grid.appendChild(card);
+            });
+            // Start timer
+            memoryGame.timer = setInterval(updateMemoryTimer, 1000);
+            updateMemoryDisplay();
+        }
+        function flipCard(index) {
+            const card = document.querySelector(`[data-index="${index}"]`);
+                        if (memoryGame.flippedCards.length >= 2 ||
+                 memoryGame.flippedCards.includes(index) ||
+                 card.classList.contains('matched')) {
                 return;
             }
-
-            habits.forEach((habit, i) => {
-                if (!habit.history) habit.history = {};
-                const todayDone = habit.history[today] || false;
-
-                const item = document.createElement("div");
-                item.className = "habit-item";
-
-                const left = document.createElement("div");
-                left.className = "habit-left";
-
-                const checkbox = document.createElement("input");
-                checkbox.type = "checkbox";
-                checkbox.id = `habit-${i}`;
-                checkbox.checked = todayDone;
-                checkbox.addEventListener("change", () => {
-                    habit.history[today] = checkbox.checked;
-                    saveHabits();
-                    renderHabits();
-                    updateChart();
-                    renderCalendar();
-                });
-
-                const label = document.createElement("label");
-                label.textContent = habit.name;
-                label.setAttribute("for", `habit-${i}`);
-
-                left.appendChild(checkbox);
-                left.appendChild(label);
-
-                const actions = document.createElement("div");
-                actions.className = "habit-actions";
-
-                const editBtn = document.createElement("button");
-                editBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
-                editBtn.title = "Edit habit";
-                editBtn.onclick = () => {
-                    const newName = prompt("Edit Habit", habit.name);
-                    if (newName && newName.trim()) {
-                        showLoading("Updating habit...");
-                        habit.name = newName.trim();
-                        saveHabits();
-                        setTimeout(() => {
-                            renderHabits();
-                            hideLoading();
-                        }, 500);
-                    }
-                };
-
-                const deleteBtn = document.createElement("button");
-                deleteBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`;
-                deleteBtn.title = "Delete habit";
-                deleteBtn.onclick = () => {
-                    if (confirm(`Are you sure you want to delete "${habit.name}"?`)) {
-                        showLoading("Deleting habit...");
-                        habits.splice(i, 1);
-                        saveHabits();
-                        setTimeout(() => {
-                            renderHabits();
-                            updateChart();
-                            renderCalendar();
-                            hideLoading();
-                        }, 500);
-                    }
-                };
-
-                actions.appendChild(editBtn);
-                actions.appendChild(deleteBtn);
-
-                item.appendChild(left);
-                item.appendChild(actions);
-                habitsList.appendChild(item);
-            });
-
-            updateProgress();
-        }
-
-        // Add Habit
-        habitForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const name = habitInput.value.trim();
-            const date = dateInput.value;
-            if (name && date) {
-                showLoading("Adding your habit...");
-                console.log("Adding habit:", name, "for date:", date); // Debug log
-                const habit = habits.find(h => h.name === name);
-                if (habit) {
-                    // If habit exists, update its history for the selected date
-                    habit.history[date] = true;
-                } else {
-                    // Add new habit with completion for the selected date
-                    habits.push({ name, history: { [date]: true } });
-                }
-                habitInput.value = "";
-                dateInput.value = getTodayDateStr(); // Reset to today
-                saveHabits();
-                setTimeout(() => {
-                    renderHabits();
-                    updateChart();
-                    renderCalendar();
-                    hideLoading();
-                }, 800);
-            } else {
-                console.log("Invalid input: empty habit name or date");
-            }
-        });
-
-        // Reset Today's Habits
-        resetButton.addEventListener("click", () => {
-            if (confirm("Are you sure you want to reset all habits for today?")) {
-                showLoading("Resetting habits...");
-                const today = getTodayDateStr();
-                habits.forEach((h) => (h.history[today] = false));
-                saveHabits();
-                setTimeout(() => {
-                    renderHabits();
-                    updateChart();
-                    renderCalendar();
-                    hideLoading();
-                }, 600);
-            }
-        });
-
-        // Progress Bar
-        function updateProgress() {
-            const today = getTodayDateStr();
-            const total = habits.length || 1;
-            const completed = habits.filter((h) => h.history[today]).length;
-            const percent = (completed / total) * 100;
-            progressBar.style.width = `${percent}%`;
-        }
-
-        // Week Navigation
-        weekPrev.addEventListener("click", () => {
-            if (weekOffset > -4) {
-                showLoading("Loading previous week...");
-                weekOffset--;
-                updateWeekButtons();
-                setTimeout(() => {
-                    updateChart();
-                    renderCalendar();
-                    hideLoading();
-                }, 400);
-            }
-        });
-
-        weekCurrent.addEventListener("click", () => {
-            showLoading("Loading current week...");
-            weekOffset = 0;
-            updateWeekButtons();
-            setTimeout(() => {
-                updateChart();
-                renderCalendar();
-                hideLoading();
-            }, 400);
-        });
-
-        weekNext.addEventListener("click", () => {
-            if (weekOffset < 1) {
-                showLoading("Loading next week...");
-                weekOffset++;
-                updateWeekButtons();
-                setTimeout(() => {
-                    updateChart();
-                    renderCalendar();
-                    hideLoading();
-                }, 400);
-            }
-        });
-
-        // Chart.js
-        function updateChart() {
-            const weekDates = getWeekDates(weekOffset);
-            const labels = weekDates.map((d) =>
-                new Date(d).toLocaleDateString("en-US", { weekday: "short" })
-            );
-            const data = weekDates.map((date) =>
-                habits.reduce((sum, h) => sum + (h.history[date] ? 1 : 0), 0)
-            );
-
-            if (habitChart) habitChart.destroy();
-
-            habitChart = new Chart(ctx, {
-                type: "bar",
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: "Habits Completed",
-                            data: data,
-                            backgroundColor: "rgba(59, 130, 246, 0.8)",
-                            borderColor: "rgba(59, 130, 246, 1)",
-                            borderWidth: 2,
-                            borderRadius: 8,
-                            borderSkipped: false,
-                        },
-                    ],
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
-                            titleColor: '#f8fafc',
-                            bodyColor: '#cbd5e1',
-                            borderColor: 'rgba(59, 130, 246, 0.3)',
-                            borderWidth: 1,
-                            cornerRadius: 8,
-                            callbacks: {
-                                label: function (context) {
-                                    return `${context.parsed.y} habit${context.parsed.y !== 1 ? 's' : ''} completed`;
-                                }
-                            }
+            // Flip card
+            card.classList.add('flipped');
+            card.textContent = card.dataset.symbol;
+            memoryGame.flippedCards.push(index);
+            if (memoryGame.flippedCards.length === 2) {
+                memoryGame.moves++;
+                updateMemoryDisplay();
+                const [first, second] = memoryGame.flippedCards;
+                const firstCard = document.querySelector(`[data-index="${first}"]`);
+                const secondCard = document.querySelector(`[data-index="${second}"]`);
+                if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
+                    // Match found
+                    setTimeout(() => {
+                        firstCard.classList.add('matched');
+                        secondCard.classList.add('matched');
+                        memoryGame.matchedPairs++;
+                        memoryGame.flippedCards = [];
+                        updateMemoryDisplay();
+                        if (memoryGame.matchedPairs === 8) {
+                            endMemoryGame();
                         }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                stepSize: 1,
-                                precision: 0,
-                                color: '#94a3b8',
-                                font: { family: 'Inter', size: 12 }
-                            },
-                            grid: { color: "rgba(148, 163, 184, 0.1)", drawBorder: false },
-                        },
-                        x: {
-                            ticks: {
-                                color: '#94a3b8',
-                                font: { family: 'Inter', size: 12, weight: '500' }
-                            },
-                            grid: { display: false },
-                        },
-                    },
-                    animation: { duration: 1000, easing: 'easeInOutQuart' }
-                },
-            });
-        }
-
-        // Calendar View
-        function renderCalendar() {
-            calendar.innerHTML = "";
-            const weekDates = getWeekDates(weekOffset);
-
-            weekDates.forEach((date) => {
-                const div = document.createElement("div");
-                const day = new Date(date).toLocaleDateString("en-US", { weekday: "short" });
-                const dateNum = new Date(date).getDate();
-                const count = habits.reduce((sum, h) => sum + (h.history[date] ? 1 : 0), 0);
-
-                div.innerHTML = `<span>${day}</span><br>${dateNum}`;
-
-                if (count > 0) {
-                    div.classList.add("done");
-                    div.innerHTML += `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; bottom: 4px; right: 4px;">
-                        <path d="M20 6L9 17l-5-5"/>
-                    </svg>`;
+                    }, 500);
+                } else {
+                    // No match
+                    setTimeout(() => {
+                        firstCard.classList.remove('flipped');
+                        secondCard.classList.remove('flipped');
+                        firstCard.textContent = '?';
+                        secondCard.textContent = '?';
+                        memoryGame.flippedCards = [];
+                    }, 1000);
                 }
-
-                const tooltip = document.createElement("span");
-                tooltip.className = "tooltip";
-                tooltip.textContent = count > 0 ? `${count} habit${count !== 1 ? 's' : ''} completed` : "No habits completed";
-                div.appendChild(tooltip);
-
-                calendar.appendChild(div);
+            }
+        }
+        function updateMemoryTimer() {
+            const elapsed = Math.floor((Date.now() - memoryGame.startTime) / 1000);
+            document.getElementById('memoryTime').textContent = elapsed;
+        }
+        function updateMemoryDisplay() {
+            document.getElementById('memoryMoves').textContent = memoryGame.moves;
+            document.getElementById('memoryPairs').textContent = memoryGame.matchedPairs;
+        }
+        function endMemoryGame() {
+            clearInterval(memoryGame.timer);
+            const totalTime = Math.floor((Date.now() - memoryGame.startTime) / 1000);
+                        // Calculate score (lower moves and time = higher score)
+            const score = Math.max(1000 - (memoryGame.moves * 10) - (totalTime * 5), 100);
+                        // Update stats
+            gameState.stats.totalGames++;
+            if (score > gameState.stats.bestMemoryScore) {
+                gameState.stats.bestMemoryScore = score;
+            }
+            saveStats();
+            // Show results
+            document.getElementById('memoryScore').textContent = score;
+            document.getElementById('memoryStars').textContent = getStars(score, 800);
+            document.getElementById('memoryQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('memoryResults').style.display = 'block';
+        }
+        // Math Quiz Functions
+        function startMathQuiz() {
+            hideAllScreens();
+            document.getElementById('mathQuiz').style.display = 'block';
+            document.getElementById('mathResults').style.display = 'none';
+            // Reset game state
+            mathQuiz = {
+                questions: generateMathQuestions(),
+                currentQuestion: 0,
+                score: 0,
+                timer: null,
+                timeLeft: 30,
+                startTime: Date.now()
+            };
+            showMathQuestion();
+            mathQuiz.timer = setInterval(updateMathTimer, 1000);
+        }
+        function generateMathQuestions() {
+            const questions = [];
+            const operations = ['+', '-', '×'];
+            for (let i = 0; i < 10; i++) {
+                const op = operations[Math.floor(Math.random() * operations.length)];
+                let a, b, correct;
+                switch (op) {
+                    case '+':
+                        a = Math.floor(Math.random() * 50) + 1;
+                        b = Math.floor(Math.random() * 50) + 1;
+                        correct = a + b;
+                        break;
+                    case '-':
+                        a = Math.floor(Math.random() * 50) + 25;
+                        b = Math.floor(Math.random() * 25) + 1;
+                        correct = a - b;
+                        break;
+                    case '×':
+                        a = Math.floor(Math.random() * 12) + 1;
+                        b = Math.floor(Math.random() * 12) + 1;
+                        correct = a * b;
+                        break;
+                }
+                // Generate wrong answers
+                const options = [correct];
+                while (options.length < 4) {
+                    const wrong = correct + Math.floor(Math.random() * 20) - 10;
+                    if (wrong > 0 && !options.includes(wrong)) {
+                        options.push(wrong);
+                    }
+                }
+                questions.push({
+                    question: `${a} ${op} ${b} = ?`,
+                    options: options.sort(() => Math.random() - 0.5),
+                    correct: correct
+                });
+            }
+            return questions;
+        }
+        function showMathQuestion() {
+            if (mathQuiz.currentQuestion >= mathQuiz.questions.length) {
+                endMathQuiz();
+                return;
+            }
+            const question = mathQuiz.questions[mathQuiz.currentQuestion];
+            document.getElementById('mathQuestionText').textContent = question.question;
+            document.getElementById('mathQuestion').textContent = mathQuiz.currentQuestion + 1;
+            document.getElementById('mathScore').textContent = mathQuiz.score;
+            const optionsContainer = document.getElementById('mathOptions');
+            optionsContainer.innerHTML = '';
+            question.options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.onclick = () => selectMathAnswer(option, question.correct);
+                optionsContainer.appendChild(button);
+            });
+            // Update progress
+            const progress = ((mathQuiz.currentQuestion + 1) / 10) * 100;
+            document.getElementById('mathProgress').style.width = progress + '%';
+        }
+        function selectMathAnswer(selected, correct) {
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if (parseInt(btn.textContent) === correct) {
+                    btn.classList.add('correct');
+                } else if (parseInt(btn.textContent) === selected && selected !== correct) {
+                    btn.classList.add('incorrect');
+                }
+            });
+            if (selected === correct) {
+                mathQuiz.score++;
+            }
+            setTimeout(() => {
+                mathQuiz.currentQuestion++;
+                showMathQuestion();
+            }, 1500);
+        }
+        function updateMathTimer() {
+            mathQuiz.timeLeft--;
+            document.getElementById('mathTimer').textContent = mathQuiz.timeLeft;
+            if (mathQuiz.timeLeft <= 0) {
+                endMathQuiz();
+            }
+        }
+        function endMathQuiz() {
+            clearInterval(mathQuiz.timer);
+            const percentage = Math.round((mathQuiz.score / 10) * 100);
+            // Update stats
+            gameState.stats.totalGames++;
+            if (percentage > gameState.stats.bestMathScore) {
+                gameState.stats.bestMathScore = percentage;
+            }
+            saveStats();
+            // Show results
+            document.getElementById('mathFinalScore').textContent = percentage + '%';
+            document.getElementById('mathStars').textContent = getStars(percentage, 70);
+            document.getElementById('mathQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('mathResults').style.display = 'block';
+        }
+        // Stroop Test Functions
+        function startStroopTest() {
+            hideAllScreens();
+            document.getElementById('stroopTest').style.display = 'block';
+            document.getElementById('stroopResults').style.display = 'none';
+            gameState.currentGame = 'stroopTest';
+            
+            // Reset game state
+            stroopTest = {
+                round: 0,
+                score: 0,
+                currentWord: '',
+                currentColor: '',
+                correctColor: '',
+                timer: null,
+                timeLeft: 60,
+                startTime: Date.now(),
+                words: ['RED', 'BLUE', 'GREEN', 'YELLOW'],
+                colors: ['red', 'blue', 'green', 'yellow'],
+                colorMap: {
+                    'red': '#ef4444',
+                    'blue': '#3b82f6',
+                    'green': '#10b981',
+                    'yellow': '#f59e0b'
+                }
+            };
+            
+            showStroopWord();
+            stroopTest.timer = setInterval(updateStroopTimer, 1000);
+        }
+        
+        function showStroopWord() {
+            if (stroopTest.round >= 15 || stroopTest.timeLeft <= 0) {
+                endStroopTest();
+                return;
+            }
+            
+            stroopTest.round++;
+            
+            // Generate random word and color (often conflicting for challenge)
+            const wordIndex = Math.floor(Math.random() * stroopTest.words.length);
+            const colorIndex = Math.floor(Math.random() * stroopTest.colors.length);
+            
+            stroopTest.currentWord = stroopTest.words[wordIndex];
+            stroopTest.correctColor = stroopTest.colors[colorIndex];
+            
+            // Update display
+            const wordElement = document.getElementById('stroopWord');
+            wordElement.textContent = stroopTest.currentWord;
+            wordElement.style.color = stroopTest.colorMap[stroopTest.correctColor];
+            
+            document.getElementById('stroopRound').textContent = stroopTest.round;
+            document.getElementById('stroopScore').textContent = stroopTest.score;
+            
+            // Update progress
+            const progress = (stroopTest.round / 15) * 100;
+            document.getElementById('stroopProgress').style.width = progress + '%';
+            
+            // Reset button states
+            const buttons = document.querySelectorAll('.color-btn');
+            buttons.forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('correct', 'incorrect');
             });
         }
-
-        // Fade in animation
-        function initFadeInAnimation() {
-            const fadeElements = document.querySelectorAll('.fade-in');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('appear');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            fadeElements.forEach(el => observer.observe(el));
-        }
-
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', function () {
-            createParticles();
-            renderHabits();
-            updateChart();
-            renderCalendar();
-            updateWeekButtons();
-            initFadeInAnimation();
-
+        
+        function selectColor(selectedColor) {
+            const buttons = document.querySelectorAll('.color-btn');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if (btn.classList.contains(stroopTest.correctColor)) {
+                    btn.classList.add('correct');
+                } else if (btn.classList.contains(selectedColor) && selectedColor !== stroopTest.correctColor) {
+                    btn.classList.add('incorrect');
+                }
+            });
+            
+            if (selectedColor === stroopTest.correctColor) {
+                stroopTest.score++;
+            }
+            
             setTimeout(() => {
-                document.querySelectorAll('.fade-in').forEach(el => {
-                    el.classList.add('appear');
-                });
-            }, 100);
-        });
-
-        // Handle window resize for chart
-        window.addEventListener('resize', function () {
-            if (habitChart) {
-                habitChart.resize();
+                showStroopWord();
+            }, 800);
+        }
+        
+        function updateStroopTimer() {
+            stroopTest.timeLeft--;
+            document.getElementById('stroopTimer').textContent = stroopTest.timeLeft;
+            if (stroopTest.timeLeft <= 0) {
+                endStroopTest();
+            }
+        }
+        
+        function endStroopTest() {
+            clearInterval(stroopTest.timer);
+            const percentage = Math.round((stroopTest.score / stroopTest.round) * 100);
+            
+            // Update stats
+            gameState.stats.totalGames++;
+            if (percentage > gameState.stats.bestStroopScore) {
+                gameState.stats.bestStroopScore = percentage;
+            }
+            saveStats();
+            
+            // Show results
+            document.getElementById('stroopFinalScore').textContent = percentage + '%';
+            document.getElementById('stroopStars').textContent = getStars(percentage, 70);
+            document.getElementById('stroopQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('stroopResults').style.display = 'block';
+        }
+        
+        // Reaction Test Functions
+        function startReactionTest() {
+            hideAllScreens();
+            document.getElementById('reactionTest').style.display = 'block';
+            document.getElementById('reactionResults').style.display = 'none';
+            gameState.currentGame = 'reactionTest';
+            
+            // Reset game state
+            reactionTest = {
+                round: 0,
+                times: [],
+                startTime: null,
+                timeout: null,
+                isWaiting: false
+            };
+            startReactionRound();
+        }
+        function startReactionRound() {
+            if (reactionTest.round >= 5) {
+                endReactionTest();
+                return;
+            }
+            reactionTest.round++;
+            document.getElementById('reactionRound').textContent = reactionTest.round;
+            const area = document.getElementById('reactionArea');
+            area.className = 'reaction-area reaction-waiting';
+            area.textContent = 'Wait for GREEN...';
+            reactionTest.isWaiting = true;
+            // Random delay between 2-6 seconds
+            const delay = Math.random() * 4000 + 2000;
+            reactionTest.timeout = setTimeout(() => {
+                if (reactionTest.isWaiting) {
+                    area.className = 'reaction-area reaction-ready';
+                    area.textContent = 'CLICK NOW!';
+                    reactionTest.startTime = Date.now();
+                }
+            }, delay);
+            area.onclick = handleReactionClick;
+        }
+        function handleReactionClick() {
+            const area = document.getElementById('reactionArea');
+            if (!reactionTest.isWaiting) {
+                return;
+            }
+            if (area.classList.contains('reaction-ready')) {
+                // Good click
+                const reactionTime = Date.now() - reactionTest.startTime;
+                reactionTest.times.push(reactionTime);
+                                area.className = 'reaction-area reaction-clicked';
+                area.textContent = `${reactionTime}ms - Excellent!`;
+                                // Update best time display
+                const bestTime = Math.min(...reactionTest.times);
+                document.getElementById('reactionBest').textContent = bestTime + 'ms';
+                setTimeout(() => {
+                    startReactionRound();
+                }, 1500);
+            } else {
+                // Too early
+                clearTimeout(reactionTest.timeout);
+                area.className = 'reaction-area reaction-clicked';
+                area.textContent = 'Too early! Wait for GREEN';
+                                setTimeout(() => {
+                    startReactionRound();
+                }, 1500);
+            }
+            reactionTest.isWaiting = false;
+        }
+        function endReactionTest() {
+            const avgTime = Math.round(reactionTest.times.reduce((a, b) => a + b, 0) / reactionTest.times.length);
+            // Update stats
+            gameState.stats.totalGames++;
+            gameState.stats.reactionTimes = gameState.stats.reactionTimes.concat(reactionTest.times);
+            // Keep only last 50 reaction times
+            if (gameState.stats.reactionTimes.length > 50) {
+                gameState.stats.reactionTimes = gameState.stats.reactionTimes.slice(-50);
+            }
+            saveStats();
+            // Show results
+            document.getElementById('reactionAverage').textContent = avgTime + 'ms';
+            document.getElementById('reactionStars').textContent = getStars(300 - avgTime, 100); // Lower time = better
+            document.getElementById('reactionQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('reactionResults').style.display = 'block';
+        }
+        // Utility Functions
+        function getStars(score, threshold) {
+            if (score >= threshold * 1.2) return '⭐⭐⭐';
+            if (score >= threshold) return '⭐⭐';
+            if (score >= threshold * 0.7) return '⭐';
+            return '💫';
+        }
+        // Initialize the app when page loads
+        window.onload = init;
+        // Prevent accidental page refresh during games
+        window.addEventListener('beforeunload', function(e) {
+            if (gameState.currentGame !== 'dashboard') {
+                e.preventDefault();
+                e.returnValue = '';
             }
         });
     </script>
 </body>
-
 </html>
