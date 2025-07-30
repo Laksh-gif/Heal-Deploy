@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Reset and Base Styles */
         * {
@@ -201,6 +202,7 @@
             transition: transform 0.3s ease;
             z-index: 1001;
             flex-shrink: 0;
+            text-decoration: none;
         }
 
         .nav-brand:hover {
@@ -211,8 +213,7 @@
             color: #3b82f6;
             filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
             animation: pulse 2s ease-in-out infinite;
-            width: min(32px, 8vw);
-            height: min(32px, 8vw);
+            font-size: 28px;
         }
 
         @keyframes pulse {
@@ -1621,14 +1622,10 @@
     <!-- Navigation -->
     <nav id="navbar" class="navbar">
         <div class="nav-container">
-            <div class="nav-brand">
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path
-                        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l11 11Z" />
-                </svg>
+            <a href="#" class="nav-brand">
+                <i class="fas fa-heart nav-icon"></i>
                 <span class="brand-text">HealVerse</span>
-            </div>
+            </a>
             <div class="nav-links">
                 <a href="#features" class="nav-link">Features</a>
                 <a href="about.html" class="nav-link">About</a>
