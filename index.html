@@ -3,10 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About HealVerse - Transforming Healthcare with AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HealVerse - AI-Powered Healthcare Platform</title>
     <meta name="description"
-        content="Learn about HealVerse's mission to revolutionize healthcare through AI-powered solutions. Discover our story, values, and commitment to better health outcomes.">
+        content="Transform your healthcare journey with cutting-edge AI technology. Monitor health, manage medications, and get personalized insights.">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -17,10 +18,13 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+
         }
 
         html {
             scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
         }
 
         body {
@@ -30,6 +34,10 @@
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
             overflow-x: hidden;
             position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            width: 100%;
+            min-height: 100vh;
         }
 
         /* Animated Background */
@@ -48,38 +56,47 @@
             border-radius: 50%;
             background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
             animation: float 20s ease-in-out infinite;
+            filter: blur(40px);
         }
 
         .bg-shape:nth-child(1) {
-            width: 400px;
-            height: 400px;
-            top: -200px;
-            right: -200px;
+            width: min(300px, 30vw);
+            height: min(300px, 30vw);
+            top: -50px;
+            left: -50px;
             animation-delay: 0s;
         }
 
         .bg-shape:nth-child(2) {
-            width: 300px;
-            height: 300px;
-            top: 30%;
-            left: -150px;
-            animation-delay: -7s;
+            width: min(200px, 25vw);
+            height: min(200px, 25vw);
+            top: 20%;
+            right: -50px;
+            animation-delay: -5s;
         }
 
         .bg-shape:nth-child(3) {
-            width: 350px;
-            height: 350px;
-            bottom: -175px;
-            right: 20%;
-            animation-delay: -14s;
+            width: min(250px, 28vw);
+            height: min(250px, 28vw);
+            bottom: -50px;
+            left: 20%;
+            animation-delay: -10s;
         }
 
         .bg-shape:nth-child(4) {
-            width: 250px;
-            height: 250px;
-            top: 70%;
-            left: 10%;
-            animation-delay: -21s;
+            width: min(180px, 22vw);
+            height: min(180px, 22vw);
+            top: 60%;
+            right: 10%;
+            animation-delay: -15s;
+        }
+
+        .bg-shape:nth-child(5) {
+            width: min(220px, 26vw);
+            height: min(220px, 26vw);
+            top: 40%;
+            left: 50%;
+            animation-delay: -20s;
         }
 
         @keyframes float {
@@ -90,7 +107,7 @@
             }
 
             25% {
-                transform: translateY(-30px) rotate(90deg);
+                transform: translateY(-20px) rotate(90deg);
             }
 
             50% {
@@ -98,56 +115,17 @@
             }
 
             75% {
-                transform: translateY(30px) rotate(270deg);
-            }
-        }
-
-        /* Particle System */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: rgba(59, 130, 246, 0.4);
-            border-radius: 50%;
-            animation: particleFloat 20s linear infinite;
-        }
-
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 1;
-            }
-
-            90% {
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(-100vh) scale(1);
-                opacity: 0;
+                transform: translateY(20px) rotate(270deg);
             }
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 min(20px, 5vw);
             position: relative;
             z-index: 1;
+            width: 100%;
         }
 
         /* Navigation */
@@ -157,6 +135,10 @@
             width: 100%;
             z-index: 1000;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+        }
+
+        .navbar.scrolled {
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(20px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -166,20 +148,22 @@
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 min(20px, 5vw);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 80px;
+            height: min(70px, 12vh);
+            width: 100%;
         }
 
         .nav-brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: min(12px, 2vw);
             cursor: pointer;
             transition: transform 0.3s ease;
-            text-decoration: none;
+            z-index: 1001;
+            flex-shrink: 0;
         }
 
         .nav-brand:hover {
@@ -187,11 +171,8 @@
         }
 
         .nav-icon {
-            color: #3b82f6;
             filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
             animation: pulse 2s ease-in-out infinite;
-            width: 32px;
-            height: 32px;
         }
 
         @keyframes pulse {
@@ -207,29 +188,32 @@
         }
 
         .brand-text {
-            font-size: 28px;
+            font-size: clamp(18px, 4vw, 28px);
             font-weight: 800;
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+            white-space: nowrap;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 40px;
+            gap: min(30px, 4vw);
+            flex-wrap: wrap;
         }
 
         .nav-link {
             text-decoration: none;
             color: #e2e8f0;
             font-weight: 500;
-            font-size: 16px;
+            font-size: clamp(14px, 2.5vw, 16px);
             position: relative;
             transition: all 0.3s ease;
             padding: 8px 0;
+            white-space: nowrap;
         }
 
         .nav-link::before {
@@ -252,26 +236,20 @@
             width: 100%;
         }
 
-        .nav-link.active {
-            color: #3b82f6;
-        }
-
-        .nav-link.active::before {
-            width: 100%;
-        }
-
         .nav-cta {
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             color: white;
-            padding: 12px 28px;
+            padding: min(10px, 2vw) min(24px, 4vw);
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 16px;
+            font-size: clamp(12px, 2.5vw, 14px);
             transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
             position: relative;
             overflow: hidden;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .nav-cta::before {
@@ -294,12 +272,81 @@
             box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
         }
 
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+            padding: 8px;
+            z-index: 1001;
+            background: none;
+            border: none;
+            flex-shrink: 0;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: #e2e8f0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: min(30px, 5vh);
+            transition: left 0.3s ease;
+            z-index: 999;
+            padding: 20px;
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .mobile-menu .nav-link {
+            font-size: clamp(20px, 5vw, 24px);
+            font-weight: 600;
+        }
+
+        .mobile-menu .nav-cta {
+            font-size: clamp(16px, 4vw, 18px);
+            padding: min(16px, 3vw) min(32px, 6vw);
+        }
+
         /* Hero Section */
         .hero {
-            padding: 140px 0 100px;
+            padding: max(100px, 15vh) 0 max(60px, 10vh);
             text-align: center;
             position: relative;
             overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            width: 100%;
         }
 
         .hero::before {
@@ -314,7 +361,9 @@
         }
 
         .hero-content {
+            margin-bottom: min(60px, 8vh);
             animation: fadeInUp 1s ease-out;
+            width: 100%;
         }
 
         @keyframes fadeInUp {
@@ -332,18 +381,19 @@
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: min(8px, 2vw);
             background: rgba(59, 130, 246, 0.1);
             backdrop-filter: blur(10px);
             color: #3b82f6;
-            padding: 12px 24px;
+            padding: min(8px, 2vw) min(16px, 3vw);
             border-radius: 50px;
-            font-size: 14px;
+            font-size: clamp(10px, 2.2vw, 14px);
             font-weight: 600;
-            margin-bottom: 40px;
+            margin-bottom: min(30px, 5vh);
             border: 1px solid rgba(59, 130, 246, 0.2);
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
             animation: glow 2s ease-in-out infinite alternate;
+            max-width: 90vw;
         }
 
         @keyframes glow {
@@ -357,13 +407,15 @@
         }
 
         .hero-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(1.8rem, 7vw, 5rem);
             font-weight: 900;
-            margin-bottom: 40px;
+            margin-bottom: min(30px, 5vh);
             line-height: 1.1;
             color: #f8fafc;
             text-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
             animation: titleAnimation 1s ease-out 0.3s both;
+            word-wrap: break-word;
+            hyphens: auto;
         }
 
         @keyframes titleAnimation {
@@ -399,157 +451,270 @@
         }
 
         .hero-description {
-            font-size: 20px;
+            font-size: clamp(14px, 3.5vw, 22px);
             color: #cbd5e1;
-            max-width: 700px;
-            margin: 0 auto 60px;
+            max-width: min(800px, 90vw);
+            margin: 0 auto min(40px, 6vh);
             line-height: 1.7;
             animation: fadeInUp 1s ease-out 0.6s both;
+            padding: 0 min(10px, 2vw);
         }
 
-        /* Mission Section */
-        .mission {
-            padding: 120px 0;
-            background: rgba(15, 23, 42, 0.95);
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: min(20px, 3vh);
+            align-items: center;
+            justify-content: center;
+            margin-bottom: min(60px, 8vh);
+            animation: fadeInUp 1s ease-out 0.9s both;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: min(16px, 3vw) min(32px, 6vw);
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: clamp(14px, 3.5vw, 18px);
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
             position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: min(280px, 80vw);
+            text-align: center;
+            display: inline-block;
         }
 
-        .mission::before {
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 45px rgba(59, 130, 246, 0.6);
+        }
+
+        .btn-demo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: min(16px, 3vw);
+            background: rgba(248, 250, 252, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(248, 250, 252, 0.2);
+            color: #f8fafc;
+            padding: min(18px, 3.5vw) min(28px, 5.5vw);
+            border-radius: 60px;
+            font-size: clamp(14px, 3.2vw, 17px);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: min(300px, 85vw);
+            text-align: center;
+            line-height: 1.2;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-demo:hover {
+            background: rgba(248, 250, 252, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .play-icon {
+            width: min(44px, 8.5vw);
+            height: min(44px, 8.5vw);
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            font-size: clamp(12px, 2.8vw, 18px);
+            color: white;
+            font-weight: bold;
+            margin-left: 2px;
+        }
+
+        .btn-demo:hover .play-icon {
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
+        }
+
+        .demo-text {
+            flex: 1;
+            text-align: center;
+            white-space: nowrap;
+            margin-right: min(8px, 2vw);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(150px, 25vw), 1fr));
+            gap: min(20px, 4vw);
+            max-width: min(900px, 95vw);
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 1.2s both;
+            width: 100%;
+        }
+
+        .stat-card {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            padding: min(24px, 4vw) min(16px, 3vw);
+            border-radius: min(20px, 4vw);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            position: relative;
+            overflow: hidden;
+            min-height: min(120px, 20vw);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .stat-value {
+            font-size: clamp(20px, 6vw, 48px);
+            font-weight: 900;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: min(8px, 2vw);
+            animation: countUp 2s ease-out;
+        }
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .stat-label {
+            color: #cbd5e1;
+            font-weight: 600;
+            font-size: clamp(11px, 2.5vw, 16px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: min(60px, 10vh) 0;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+            position: relative;
+            width: 100%;
+        }
+
+        .features::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(59,130,246,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(59,130,246,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
             z-index: -1;
-        }
-
-        .mission-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        .mission-text h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 900;
-            margin-bottom: 32px;
-            color: #f8fafc;
-            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-        }
-
-        .mission-text p {
-            font-size: 18px;
-            color: #cbd5e1;
-            line-height: 1.8;
-            margin-bottom: 24px;
-        }
-
-        .mission-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-        }
-
-        .stat-item {
-            background: rgba(248, 250, 252, 0.05);
-            backdrop-filter: blur(20px);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            border: 1px solid rgba(59, 130, 246, 0.1);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-item:hover::before {
-            transform: scaleX(1);
-        }
-
-        .stat-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.2);
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-
-        .stat-number {
-            font-size: 48px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 12px;
-        }
-
-        .stat-label {
-            color: #cbd5e1;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        /* Values Section */
-        .values {
-            padding: 120px 0;
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.9) 100%);
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: min(50px, 8vh);
+            animation: fadeInUp 1s ease-out;
+            width: 100%;
         }
 
         .section-title {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-size: clamp(1.5rem, 5vw, 4rem);
             font-weight: 900;
-            margin-bottom: 24px;
+            margin-bottom: min(20px, 3vh);
             line-height: 1.2;
             color: #f8fafc;
             text-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
+            word-wrap: break-word;
+            hyphens: auto;
         }
 
         .section-description {
-            font-size: 20px;
+            font-size: clamp(13px, 3.5vw, 20px);
             color: #cbd5e1;
-            max-width: 800px;
+            max-width: min(800px, 90vw);
             margin: 0 auto;
             line-height: 1.7;
+            padding: 0 min(10px, 2vw);
         }
 
-        .values-grid {
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
+            grid-template-columns: 1fr;
+            gap: min(20px, 4vw);
+            width: 100%;
         }
 
-        .value-card {
+        .feature-card {
             background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(20px);
-            padding: 50px 40px;
-            border-radius: 24px;
-            text-align: center;
+            padding: min(24px, 4vw);
+            border-radius: min(20px, 4vw);
+            text-decoration: none;
+            color: inherit;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid rgba(59, 130, 246, 0.1);
+            cursor: pointer;
             position: relative;
             overflow: hidden;
+            animation: fadeInUp 1s ease-out;
+            width: 100%;
         }
 
-        .value-card::before {
+        .feature-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -561,247 +726,513 @@
             transition: opacity 0.3s ease;
         }
 
-        .value-card:hover::before {
+        .feature-card:hover::before {
             opacity: 1;
         }
 
-        .value-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 30px 60px rgba(59, 130, 246, 0.3);
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.3);
             border-color: rgba(59, 130, 246, 0.4);
         }
 
-        .value-icon {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
+        .feature-icon {
+            width: min(50px, 10vw);
+            height: min(50px, 10vw);
+            border-radius: min(16px, 3vw);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 32px;
+            margin-bottom: min(20px, 3vh);
             transition: all 0.4s ease;
             position: relative;
             z-index: 1;
+            flex-shrink: 0;
         }
 
-        .value-card:hover .value-icon {
+        .feature-card:hover .feature-icon {
             transform: scale(1.1) rotate(5deg);
         }
 
-        .innovation-gradient {
+        .blue-gradient {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%);
             color: #3b82f6;
-            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
         }
 
-        .care-gradient {
+        .green-gradient {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.2) 100%);
             color: #10b981;
-            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
         }
 
-        .trust-gradient {
+        .purple-gradient {
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(124, 58, 237, 0.2) 100%);
             color: #8b5cf6;
-            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
         }
 
-        .value-title {
-            font-size: 28px;
+        .cyan-gradient {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(8, 145, 178, 0.2) 100%);
+            color: #06b6d4;
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
+        }
+
+        .orange-gradient {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(234, 88, 12, 0.2) 100%);
+            color: #f97316;
+            box-shadow: 0 8px 25px rgba(249, 115, 22, 0.3);
+        }
+
+        .red-gradient {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.2) 100%);
+            color: #ef4444;
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        }
+
+        .feature-title {
+            font-size: clamp(16px, 3.5vw, 24px);
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: min(12px, 2vh);
+            transition: color 0.3s ease;
             color: #f8fafc;
             position: relative;
             z-index: 1;
         }
 
-        .value-card:hover .value-title {
+        .feature-card:hover .feature-title {
             color: #3b82f6;
         }
 
-        .value-description {
+        .feature-description {
             color: #cbd5e1;
             line-height: 1.7;
-            font-size: 16px;
+            font-size: clamp(12px, 2.8vw, 16px);
             position: relative;
             z-index: 1;
         }
 
-        /* Team Section */
-        .team {
-            padding: 120px 0;
+        /* Analytics Preview */
+        .analytics-preview {
+            padding: min(60px, 10vh) 0;
             background: rgba(15, 23, 42, 0.95);
+            position: relative;
+            width: 100%;
         }
 
-        .team-grid {
+        .analytics-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: 1fr;
+            gap: min(40px, 6vh);
+            align-items: center;
+            margin-bottom: min(50px, 8vh);
+            width: 100%;
         }
 
-        .team-card {
+        .analytics-features {
+            display: flex;
+            flex-direction: column;
+            gap: min(24px, 4vh);
+            width: 100%;
+        }
+
+        .analytics-feature {
+            display: flex;
+            gap: min(16px, 3vw);
+            animation: slideInLeft 1s ease-out;
+            width: 100%;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .analytics-feature-icon {
+            width: min(40px, 8vw);
+            height: min(40px, 8vw);
+            border-radius: min(12px, 2.5vw);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .analytics-feature:hover .analytics-feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .blue-bg {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%);
+            color: #3b82f6;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .green-bg {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.2) 100%);
+            color: #10b981;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .purple-bg {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(124, 58, 237, 0.2) 100%);
+            color: #8b5cf6;
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        .analytics-feature-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .analytics-feature-content h3 {
+            font-size: clamp(14px, 3.5vw, 22px);
+            font-weight: 700;
+            margin-bottom: min(6px, 1vh);
+            color: #f8fafc;
+        }
+
+        .analytics-feature-content p {
+            color: #cbd5e1;
+            line-height: 1.7;
+            font-size: clamp(12px, 2.8vw, 16px);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            animation: slideInRight 1s ease-out;
+            width: 100%;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .chart-wrapper {
             background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(20px);
-            padding: 40px;
-            border-radius: 24px;
-            text-align: center;
-            border: 1px solid rgba(59, 130, 246, 0.1);
-            transition: all 0.4s ease;
-            position: relative;
+            border-radius: min(20px, 4vw);
+            padding: min(16px, 3vw);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.3s ease;
+            width: 100%;
             overflow: hidden;
         }
 
-        .team-card::before {
+        .chart-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 70px rgba(59, 130, 246, 0.3);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: min(16px, 3vh);
+            flex-wrap: wrap;
+            gap: min(10px, 2vw);
+            width: 100%;
+        }
+
+        .chart-header h3 {
+            font-size: clamp(14px, 3.5vw, 20px);
+            font-weight: 700;
+            color: #f8fafc;
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: min(6px, 1.5vw);
+            font-size: clamp(9px, 2.2vw, 12px);
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        .live-dot {
+            width: min(8px, 2vw);
+            height: min(8px, 2vw);
+            background: #10b981;
+            border-radius: 50%;
+            animation: livePulse 2s infinite;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+            flex-shrink: 0;
+        }
+
+        @keyframes livePulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        .chart-area {
+            height: min(250px, 35vh);
+            background: rgba(248, 250, 252, 0.02);
+            border-radius: min(12px, 2.5vw);
+            padding: min(10px, 2vw);
+            box-shadow: inset 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: min(16px, 3vh);
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .chart-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: min(10px, 2vw);
+            width: 100%;
+        }
+
+        .chart-stat {
+            text-align: center;
+            padding: min(12px, 2.5vw) min(8px, 2vw);
+            background: rgba(248, 250, 252, 0.02);
+            border-radius: min(10px, 2vw);
+            transition: all 0.3s ease;
+            min-height: min(60px, 12vw);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .chart-stat:hover {
+            transform: translateY(-3px);
+            background: rgba(248, 250, 252, 0.05);
+        }
+
+        .chart-stat .stat-value {
+            font-size: clamp(16px, 4vw, 28px);
+            font-weight: 800;
+            margin-bottom: min(4px, 1vw);
+        }
+
+        .chart-stat .stat-value.red {
+            color: #ef4444;
+        }
+
+        .chart-stat .stat-value.blue {
+            color: #3b82f6;
+        }
+
+        .chart-stat .stat-value.green {
+            color: #10b981;
+        }
+
+        .chart-stat .stat-label {
+            font-size: clamp(9px, 2.2vw, 14px);
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: floatUpDown 4s ease-in-out infinite;
+        }
+
+        .floating-1 {
+            top: min(-15px, -3vw);
+            right: min(-15px, -3vw);
+            width: min(50px, 10vw);
+            height: min(50px, 10vw);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(139, 92, 246, 0.3) 100%);
+        }
+
+        .floating-2 {
+            bottom: min(-20px, -4vw);
+            left: min(-20px, -4vw);
+            width: min(40px, 8vw);
+            height: min(40px, 8vw);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(6, 182, 212, 0.3) 100%);
+            animation-delay: 2s;
+        }
+
+        @keyframes floatUpDown {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(180deg);
+            }
+        }
+
+        .analytics-cta {
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn-gradient {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: min(10px, 2vw);
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: min(16px, 3vw) min(28px, 5vw);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: clamp(13px, 3vw, 18px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+            max-width: min(320px, 85vw);
+            width: 100%;
+        }
+
+        .btn-gradient::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
         }
 
-        .team-card:hover::before {
-            transform: scaleX(1);
+        .btn-gradient:hover::before {
+            left: 100%;
         }
 
-        .team-card:hover {
-            transform: translateY(-10px);
+        .btn-gradient:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 45px rgba(59, 130, 246, 0.6);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: min(60px, 10vh) 0;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.9) 100%);
+            width: 100%;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: min(24px, 4vh);
+            width: 100%;
+        }
+
+        .testimonial-card {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            padding: min(24px, 4vw);
+            border-radius: min(20px, 4vw);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.4s ease;
+            animation: fadeInUp 1s ease-out;
+            width: 100%;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px) scale(1.02);
             box-shadow: 0 25px 50px rgba(59, 130, 246, 0.3);
             border-color: rgba(59, 130, 246, 0.3);
         }
 
-        .team-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin: 0 auto 24px;
+        .quote-mark {
+            font-size: clamp(24px, 6vw, 60px);
+            color: rgba(59, 130, 246, 0.3);
+            margin-bottom: min(12px, 2vh);
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            color: #cbd5e1;
+            font-style: italic;
+            margin-bottom: min(20px, 3vh);
+            line-height: 1.7;
+            font-size: clamp(12px, 2.8vw, 16px);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: min(12px, 2.5vw);
+            width: 100%;
+        }
+
+        .author-avatar {
+            width: min(40px, 8vw);
+            height: min(40px, 8vw);
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 36px;
-            font-weight: 700;
             color: white;
-            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+            font-weight: 700;
+            font-size: clamp(11px, 2.5vw, 16px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
             transition: all 0.3s ease;
+            flex-shrink: 0;
         }
 
-        .team-card:hover .team-avatar {
+        .testimonial-card:hover .author-avatar {
             transform: scale(1.1);
-            box-shadow: 0 20px 45px rgba(59, 130, 246, 0.6);
+            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
         }
 
-        .team-name {
-            font-size: 24px;
-            font-weight: 700;
-            color: #f8fafc;
-            margin-bottom: 8px;
-        }
-
-        .team-role {
-            font-size: 16px;
-            color: #3b82f6;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .team-bio {
-            color: #cbd5e1;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        /* Journey Section */
-        .journey {
-            padding: 120px 0;
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.9) 100%);
-        }
-
-        .journey-timeline {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .journey-timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, #3b82f6, #8b5cf6, #06b6d4);
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 60px;
-            position: relative;
-        }
-
-        .timeline-item:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .timeline-content {
+        .author-info {
             flex: 1;
-            background: rgba(248, 250, 252, 0.05);
-            backdrop-filter: blur(20px);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(59, 130, 246, 0.1);
-            margin: 0 30px;
-            transition: all 0.3s ease;
+            min-width: 0;
         }
 
-        .timeline-content:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
-        }
-
-        .timeline-year {
-            font-size: 24px;
-            font-weight: 800;
-            color: #3b82f6;
-            margin-bottom: 12px;
-        }
-
-        .timeline-title {
-            font-size: 20px;
+        .author-name {
             font-weight: 700;
             color: #f8fafc;
-            margin-bottom: 12px;
+            font-size: clamp(13px, 3vw, 18px);
         }
 
-        .timeline-description {
+        .author-role {
+            font-size: clamp(10px, 2.2vw, 14px);
             color: #cbd5e1;
-            line-height: 1.6;
-        }
-
-        .timeline-dot {
-            width: 20px;
-            height: 20px;
-            background: #3b82f6;
-            border-radius: 50%;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-            z-index: 2;
+            font-weight: 500;
         }
 
         /* CTA Section */
         .cta {
-            padding: 120px 0;
+            padding: min(60px, 10vh) 0;
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
             text-align: center;
             position: relative;
             overflow: hidden;
+            width: 100%;
         }
 
         .cta::before {
@@ -815,39 +1246,47 @@
         }
 
         .cta-content {
-            max-width: 800px;
+            max-width: min(800px, 90vw);
             margin: 0 auto;
             position: relative;
             z-index: 1;
+            padding: 0 min(10px, 2vw);
+            width: 100%;
         }
 
         .cta-title {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-size: clamp(1.5rem, 5vw, 3.5rem);
             font-weight: 900;
             color: white;
-            margin-bottom: 32px;
+            margin-bottom: min(20px, 3vh);
             text-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+            animation: fadeInUp 1s ease-out;
+            word-wrap: break-word;
+            hyphens: auto;
         }
 
         .cta-description {
-            font-size: 22px;
+            font-size: clamp(13px, 3.5vw, 22px);
             color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 40px;
+            margin-bottom: min(30px, 5vh);
             line-height: 1.7;
+            animation: fadeInUp 1s ease-out 0.3s both;
         }
 
         .btn-cta {
             background: white;
             color: #3b82f6;
-            padding: 20px 40px;
+            padding: min(16px, 3vw) min(32px, 6vw);
             border-radius: 50px;
             text-decoration: none;
-            font-size: 18px;
+            font-size: clamp(13px, 3vw, 18px);
             font-weight: 700;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             display: inline-block;
-            margin-right: 20px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            max-width: min(320px, 85vw);
+            width: 100%;
         }
 
         .btn-cta:hover {
@@ -856,53 +1295,39 @@
             box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
         }
 
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            padding: 20px 40px;
-            border: 2px solid white;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .btn-secondary:hover {
-            background: white;
-            color: #3b82f6;
-            transform: translateY(-3px);
-        }
-
         /* Footer */
         .footer {
             background: #0f172a;
             color: white;
-            padding: 80px 0 40px;
+            padding: min(50px, 8vh) 0 min(20px, 3vh);
             border-top: 1px solid rgba(59, 130, 246, 0.2);
+            width: 100%;
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 80px;
-            margin-bottom: 60px;
+            grid-template-columns: 1fr;
+            gap: min(30px, 5vh);
+            margin-bottom: min(30px, 5vh);
+            width: 100%;
         }
 
         .footer-logo {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: min(12px, 2.5vw);
+            margin-bottom: min(16px, 3vh);
+            justify-content: center;
         }
 
         .footer-logo svg {
             color: #3b82f6;
+            width: min(32px, 6vw);
+            height: min(32px, 6vw);
         }
 
         .footer-logo span {
-            font-size: 28px;
+            font-size: clamp(18px, 4vw, 28px);
             font-weight: 800;
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             -webkit-background-clip: text;
@@ -913,19 +1338,23 @@
         .footer-description {
             color: #cbd5e1;
             line-height: 1.7;
-            font-size: 16px;
+            font-size: clamp(12px, 2.8vw, 16px);
+            text-align: center;
+            margin-bottom: min(24px, 4vh);
         }
 
         .footer-links {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
+            grid-template-columns: 1fr;
+            gap: min(24px, 4vh);
+            text-align: center;
+            width: 100%;
         }
 
         .footer-column h4 {
-            font-size: 18px;
+            font-size: clamp(13px, 3vw, 18px);
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: min(12px, 2vh);
             color: #f8fafc;
         }
 
@@ -934,14 +1363,14 @@
         }
 
         .footer-column li {
-            margin-bottom: 12px;
+            margin-bottom: min(6px, 1vh);
         }
 
         .footer-column a {
             color: #cbd5e1;
             text-decoration: none;
             transition: all 0.3s ease;
-            font-size: 16px;
+            font-size: clamp(11px, 2.5vw, 16px);
         }
 
         .footer-column a:hover {
@@ -951,10 +1380,10 @@
 
         .footer-bottom {
             border-top: 1px solid rgba(59, 130, 246, 0.2);
-            padding-top: 40px;
+            padding-top: min(20px, 3vh);
             text-align: center;
             color: #cbd5e1;
-            font-size: 16px;
+            font-size: clamp(10px, 2.2vw, 16px);
         }
 
         /* Responsive Design */
@@ -963,51 +1392,73 @@
                 display: none;
             }
 
-            .mission-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
+            .mobile-menu-btn {
+                display: flex;
             }
 
-            .mission-stats {
+            .hero-buttons {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .stats-grid {
                 grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+
+        @media (min-width: 640px) {
+            .hero-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .analytics-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 50px;
             }
 
             .footer-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
+                grid-template-columns: 1fr 2fr;
+                gap: 50px;
             }
 
             .footer-links {
-                grid-template-columns: 1fr;
-                gap: 32px;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+                text-align: left;
             }
 
-            .timeline-item {
-                flex-direction: column !important;
+            .footer-logo {
+                justify-content: flex-start;
             }
 
-            .timeline-item:nth-child(even) {
-                flex-direction: column !important;
+            .footer-description {
+                text-align: left;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
 
-            .journey-timeline::before {
-                left: 20px;
-            }
-
-            .timeline-dot {
-                left: 20px;
-            }
-
-            .timeline-content {
-                margin-left: 60px;
-                margin-right: 0;
-            }
-
-            .cta-content .btn-cta,
-            .cta-content .btn-secondary {
-                display: block;
-                margin: 10px auto;
-                width: fit-content;
+            .testimonials-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
@@ -1022,6 +1473,95 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Touch optimizations for mobile */
+        @media (hover: none) and (pointer: coarse) {
+
+            .feature-card:hover,
+            .testimonial-card:hover,
+            .stat-card:hover {
+                transform: none;
+            }
+
+            .feature-card:active,
+            .testimonial-card:active,
+            .stat-card:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* Prevent zoom on input focus on iOS */
+        @media screen and (-webkit-min-device-pixel-ratio: 0) {
+
+            select,
+            textarea,
+            input[type="text"],
+            input[type="password"],
+            input[type="datetime"],
+            input[type="datetime-local"],
+            input[type="date"],
+            input[type="month"],
+            input[type="time"],
+            input[type="week"],
+            input[type="number"],
+            input[type="email"],
+            input[type="url"],
+            input[type="search"],
+            input[type="tel"],
+            input[type="color"] {
+                font-size: 16px;
+            }
+        }
+
+        /* Ensure no horizontal overflow */
+        * {
+            max-width: 100%;
+        }
+
+        /* Fix for very small screens */
+        @media (max-width: 320px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .nav-container {
+                padding: 0 10px;
+            }
+
+            .hero-badge {
+                font-size: 9px;
+                padding: 6px 12px;
+            }
+
+            .chart-area {
+                height: 180px;
+                padding: 6px;
+            }
+
+            .chart-stats {
+                gap: 6px;
+            }
+
+            .chart-stat {
+                padding: 8px 4px;
+            }
+        }
+
+        /* Landscape orientation fixes */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero {
+                min-height: auto;
+                padding: 80px 0 40px;
+            }
+
+            .hero-content {
+                margin-bottom: 30px;
+            }
+
+            .stats-grid {
+                margin-bottom: 30px;
+            }
+        }
     </style>
 </head>
 
@@ -1032,298 +1572,406 @@
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
     </div>
-
-    <!-- Particles -->
-    <div class="particles" id="particles"></div>
-
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="#testimonials" class="nav-link">Testimonials</a>
+        <a href="cognitive.html" class="nav-link">Brain Training</a>
+        <a href="#cta" class="nav-cta">Get Started</a>
+    </div>
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav id="navbar" class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-brand">
-                <svg class="nav-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path
-                        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l11 11Z" />
-                </svg>
+            <div class="nav-brand">
+                <i class="fas fa-heart nav-icon" style="font-size: 32px; color: #3b82f6;"></i>
                 <span class="brand-text">HealVerse</span>
-            </a>
-
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-
-                <a href="#mission" class="nav-link">Mission</a>
-                <a href="#team" class="nav-link">Team</a>
             </div>
+            <div class="nav-links">
+
+                <a href="about.html" class="nav-link">About</a>
+                <a href="#testimonials" class="nav-link">Testimonials</a>
+
+                <a href="#features" class="nav-cta">Features</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
-
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-
-            </div>
-
-            <h1 class="hero-title">
-                About <span class="gradient-text">HealVerse</span>
-            </h1>
-
-            <p class="hero-description">
-                We're on a mission to revolutionize healthcare through intelligent technology, making wellness
-                accessible, personalized, and effortless for everyone. Discover our story, values, and the
-                passionate team behind the future of digital health.
-            </p>
-        </div>
-        </div>
-    </section>
-
-    <!-- Mission Section -->
-    <section id="mission" class="mission">
-        <div class="container">
-            <div class="mission-content">
-                <div class="mission-text">
-                    <h2>Our <span class="gradient-text">Mission</span></h2>
-                    <p>
-                        At HealVerse, we believe healthcare should be intelligent, accessible, and personalized. Our
-                        all-in-one digital health platform combines cutting-edge AI technology with intuitive design to
-                        simplify and enhance your wellness journey.
-                    </p>
-                    <p>
-                        From medication management and smart health assistance to habit tracking and predictive
-                        analytics, we're building the tools that empower individuals to take control of their health
-                        with confidence and ease.
-                    </p>
-                    <p>
-                        Every feature we develop is guided by our commitment to improving health outcomes, reducing
-                        healthcare complexity, and making wellness a natural part of daily life.
-                    </p>
+                <h1 class="hero-title">
+                    Build the <span class="gradient-text">Future</span> of Your Health
+                </h1>
+                <p class="hero-description">
+                    Transform your healthcare journey with our cutting-edge AI platform. Streamline health
+                    monitoring,
+                    boost wellness productivity, and scale your health management with intelligent automation.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn-demo" onclick="showDemo()">
+                        <div class="play-icon">▶</div>
+                        <span class="demo-text">Watch Demo</span>
+                    </button>
                 </div>
-
-                <div class="mission-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">50K+</div>
-                        <div class="stat-label">Lives Improved</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">99.8%</div>
-                        <div class="stat-label">User Satisfaction</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">AI Support</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">150+</div>
-                        <div class="stat-label">Health Conditions</div>
-                    </div>
+            </div>
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">10K+</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">99.9%</div>
+                    <div class="stat-label">Uptime</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">24/7</div>
+                    <div class="stat-label">AI Support</div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Values Section -->
-    <section class="values">
+    <!-- Features Section -->
+    <section id="features" class="features">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Our <span class="gradient-text">Core Values</span></h2>
+                <h2 class="section-title">
+                    Intelligent Healthcare Solutions for <span class="gradient-text">Modern Living</span>
+                </h2>
                 <p class="section-description">
-                    These principles guide everything we do, from product development to customer care, ensuring we
-                    deliver meaningful impact in healthcare.
+                    Discover how our AI-powered features transform your healthcare experience with personalized,
+                    intelligent care.
                 </p>
             </div>
-
-            <div class="values-grid">
-                <div class="value-card">
-                    <div class="value-icon innovation-gradient">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            <div class="features-grid">
+                <a href="edu.html" class="feature-card">
+                    <div class="feature-icon blue-gradient">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M9 12l2 2 4-4" />
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Health Education Hub</h3>
+                    <p class="feature-description">Access comprehensive health articles, medical insights, and
+                        evidence-based
+                        wellness information.</p>
+                </a>
+                <a href="medication.html" class="feature-card">
+                    <div class="feature-icon green-gradient">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z" />
+                            <path d="m8.5 8.5 7 7" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Medication Manager</h3>
+                    <p class="feature-description">Never miss a dose with intelligent reminders and interaction
+                        monitoring.</p>
+                </a>
+                <a href="predictive.html" class="feature-card">
+                    <div class="feature-icon purple-gradient">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Health Analytics</h3>
+                    <p class="feature-description">Track vitals and get predictive insights for better health outcomes.
+                    </p>
+                </a>
+                <a href="newhabit.html" class="feature-card">
+                    <div class="feature-icon cyan-gradient">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+                            <line x1="16" x2="16" y1="2" y2="6" />
+                            <line x1="8" x2="8" y1="2" y2="6" />
+                            <line x1="3" x2="21" y1="10" y2="10" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Habit Tracker</h3>
+                    <p class="feature-description">Build healthy routines with AI guidance and progress monitoring.</p>
+                </a>
+                <a href="cognitive.html" class="feature-card">
+                    <div class="feature-icon orange-gradient">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path
-                                d="M21 12c.552 0 1-.448 1-1V5c0-.552-.448-1-1-1H3c-.552 0-1 .448-1 1v6c0 .552.448 1 1 1" />
-                            <path d="M3 12v7c0 .552.448 1 1 1h16c.552 0 1-.448 1-1v-7" />
-                        </svg>
-                    </div>
-                    <h3 class="value-title">Innovation First</h3>
-                    <p class="value-description">
-                        We continuously push the boundaries of what's possible in healthcare technology, leveraging AI
-                        and machine learning to create solutions that were unimaginable just years ago.
-                    </p>
-                </div>
-
-                <div class="value-card">
-                    <div class="value-icon care-gradient">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z" />
                             <path
-                                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l11 11Z" />
+                                d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z" />
                         </svg>
                     </div>
-                    <h3 class="value-title">Patient-Centered Care</h3>
-                    <p class="value-description">
-                        Every decision we make is guided by what's best for our users' health and wellbeing. We design
-                        with empathy, understanding the real challenges people face in managing their health.
-                    </p>
-                </div>
-
-                <div class="value-card">
-                    <div class="value-icon trust-gradient">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    <h3 class="feature-title">Cognitive Fitness</h3>
+                    <p class="feature-description">Train your brain with engaging games and exercises designed to
+                        improve memory, focus, and mental agility.</p>
+                </a>
+                <a href="Symptoms.html" class="feature-card">
+                    <div class="feature-icon red-gradient">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                            <path d="M9 12l2 2 4-4" />
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                            <circle cx="12" cy="17" r="1" />
+                            <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" />
                         </svg>
                     </div>
-                    <h3 class="value-title">Trust & Security</h3>
-                    <p class="value-description">
-                        We maintain the highest standards of data security and privacy protection. Your health
-                        information is sacred, and we treat it with the utmost care and responsibility.
-                    </p>
-                </div>
+                    <h3 class="feature-title">Symptoms Checker</h3>
+                    <p class="feature-description">Get instant AI-powered symptom analysis and personalized health
+                        recommendations.</p>
+                </a>
             </div>
         </div>
     </section>
-
-    <!-- Team Section -->
-    <section id="team" class="team">
+    <!-- Health Analytics Preview -->
+    <section class="analytics-preview">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Meet Our <span class="gradient-text">Team</span></h2>
+                <h2 class="section-title">
+                    Real-time Health <span class="gradient-text">Insights</span>
+                </h2>
                 <p class="section-description">
-                    Our diverse team of healthcare professionals, AI experts, and technology innovators work together to
-                    create the future of digital health.
+                    Track your health metrics with intelligent analytics and predictive insights powered by AI.
                 </p>
             </div>
-
-            <div class="team-grid">
-                <div class="team-card">
-                    <div class="team-avatar">LG</div>
-                    <h3 class="team-name">Laksh Gandhi</h3>
-                    <p class="team-role">Web-Developer</p>
-                    <p class="team-bio">
-                        Laksh Gandhi, a visionary collaborator, brought strategic direction and creative insight to
-                        <b>HealVerse</b>, shaping its core identity.
-                        With sharp instincts and relentless dedication, he helped transform the project into a powerful
-                        digital health solution.
-                    </p>
+            <div class="analytics-content">
+                <!-- Left side - Features list -->
+                <div class="analytics-features">
+                    <div class="analytics-feature">
+                        <div class="analytics-feature-icon blue-bg">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" />
+                            </svg>
+                        </div>
+                        <div class="analytics-feature-content">
+                            <h3>Predictive Analytics</h3>
+                            <p>AI-powered predictions help you stay ahead of potential health issues before they become
+                                serious.</p>
+                        </div>
+                    </div>
+                    <div class="analytics-feature">
+                        <div class="analytics-feature-icon green-bg">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                            </svg>
+                        </div>
+                        <div class="analytics-feature-content">
+                            <h3>Real-time Monitoring</h3>
+                            <p>Continuous tracking of vital signs and health metrics with instant alerts for anomalies.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="analytics-feature">
+                        <div class="analytics-feature-icon purple-bg">
+                            <i class="fas fa-heart" style="font-size: 20px;"></i>
+                        </div>
+                        <div class="analytics-feature-content">
+                            <h3>Personalized Insights</h3>
+                            <p>Get tailored health recommendations based on your unique patterns and medical history.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="team-card">
-                    <div class="team-avatar">SS</div>
-                    <h3 class="team-name">Shaurya Shivhare</h3>
-                    <p class="team-role">Web-Developer</p>
-                    <p class="team-bio">
-
-                        Shaurya Shivhare, a skilled web developer, played a pivotal role in bringing HealVerse to life
-                        with sleek, responsive design and smart functionalities.
-                        His expertise turned vision into reality, building a platform that truly redefines digital
-                        healthcare.
-                    </p>
+                <!-- Right side - Chart -->
+                <div class="chart-container">
+                    <div class="chart-wrapper">
+                        <div class="chart-header">
+                            <h3>Health Trends</h3>
+                            <div class="live-indicator">
+                                <div class="live-dot"></div>
+                                <span>Live</span>
+                            </div>
+                        </div>
+                        <div class="chart-area">
+                            <canvas id="healthChart"></canvas>
+                        </div>
+                        <div class="chart-stats">
+                            <div class="chart-stat">
+                                <div class="stat-value red" id="avgBP">119</div>
+                                <div class="stat-label">Avg BP</div>
+                            </div>
+                            <div class="chart-stat">
+                                <div class="stat-value blue" id="avgHR">73</div>
+                                <div class="stat-label">Avg HR</div>
+                            </div>
+                            <div class="chart-stat">
+                                <div class="stat-value green" id="avgSugar">97</div>
+                                <div class="stat-label">Avg Sugar</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Floating elements -->
+                    <div class="floating-element floating-1"></div>
+                    <div class="floating-element floating-2"></div>
                 </div>
+            </div>
+            <!-- Call to action -->
+            <div class="analytics-cta">
 
 
-
-
-
+                <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" />
+                </svg>
+                </a>
             </div>
         </div>
     </section>
-
-    <!-- Journey Section -->
-    <section class="journey">
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonials">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Our <span class="gradient-text">Journey</span></h2>
+                <h2 class="section-title">What Our Users Say</h2>
                 <p class="section-description">
-                    From a simple idea to a comprehensive healthcare platform, here's how HealVerse has evolved to serve
-                    thousands of users worldwide.
+                    Real stories from people who have transformed their healthcare experience.
                 </p>
             </div>
-
-            <div class="journey-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">2023</div>
-                        <h3 class="timeline-title">The Beginning</h3>
-                        <p class="timeline-description">
-                            Founded by a team of healthcare professionals and tech innovators who experienced firsthand
-                            the challenges of managing health in the digital age.
-                        </p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="quote-mark">"</div>
+                    <p class="testimonial-text">HealVerse has completely changed how I manage my diabetes. The AI
+                        insights are incredible!</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SM</div>
+                        <div class="author-info">
+                            <div class="author-name">Sarah Martinez</div>
+                            <div class="author-role">Diabetes Patient</div>
+                        </div>
                     </div>
-                    <div class="timeline-dot"></div>
                 </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">Early 2024</div>
-                        <h3 class="timeline-title">First Product Launch</h3>
-                        <p class="timeline-description">
-                            Launched our AI health assistant and medication management system, helping our first 1,000
-                            users better manage their health routines.
-                        </p>
+                <div class="testimonial-card">
+                    <div class="quote-mark">"</div>
+                    <p class="testimonial-text">As a busy professional, this platform helps me stay on top of my health
+                        goals effortlessly.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DJ</div>
+                        <div class="author-info">
+                            <div class="author-name">David Johnson</div>
+                            <div class="author-role">Business Executive</div>
+                        </div>
                     </div>
-                    <div class="timeline-dot"></div>
                 </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">Mid 2024</div>
-                        <h3 class="timeline-title">Major Platform Expansion</h3>
-                        <p class="timeline-description">
-                            Added habit tracking, predictive analytics, and integrated wearable device support, growing
-                            our user base to over 25,000 active users.
-                        </p>
+                <div class="testimonial-card">
+                    <div class="quote-mark">"</div>
+                    <p class="testimonial-text">The cognitive fitness games have really helped improve my focus and
+                        memory. Highly
+                        recommended!</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">EC</div>
+                        <div class="author-info">
+                            <div class="author-name">Emily Chen</div>
+                            <div class="author-role">Healthcare Worker</div>
+                        </div>
                     </div>
-                    <div class="timeline-dot"></div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">Late 2024</div>
-                        <h3 class="timeline-title">AI Breakthrough</h3>
-                        <p class="timeline-description">
-                            Achieved breakthrough in personalized health predictions, with our AI now providing 94%
-                            accurate health trend forecasting for chronic conditions.
-                        </p>
-                    </div>
-                    <div class="timeline-dot"></div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">2025</div>
-                        <h3 class="timeline-title">Global Expansion</h3>
-                        <p class="timeline-description">
-                            Expanding internationally and partnering with healthcare providers to integrate HealVerse
-                            into clinical workflows, serving 50,000+ users globally.
-                        </p>
-                    </div>
-                    <div class="timeline-dot"></div>
                 </div>
             </div>
         </div>
     </section>
+    <!-- CTA Section -->
+    <section id="cta" class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Transform Your Health Journey?</h2>
+                <p class="cta-description">
+                    Join thousands of users who trust HealVerse for their health and wellness needs.
+                </p>
 
-
-
-
-
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-heart" style="font-size: 32px; color: #3b82f6;"></i>
+                        <span>HealVerse</span>
+                    </div>
+                    <p class="footer-description">
+                        Empowering healthcare with intelligence. Join thousands who trust HealVerse.
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Features</h4>
+                        <ul>
+                            <li><a href="ai-assistant.html">AI Assistant</a></li>
+                            <li><a href="medication.html">Medication Manager</a></li>
+                            <li><a href="predictive.html">Health Analytics</a></li>
+                            <li><a href="newhabit.html">Habit Tracker</a></li>
+                            <li><a href="cognitive.html">Cognitive Fitness</a></li>
+                            <li><a href="symptoms-checker.html">Symptoms Checker</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="#" onclick="showPrivacy()">Privacy Policy</a></li>
+                            <li><a href="#" onclick="showTerms()">Terms of Service</a></li>
+                            <li><a href="#" onclick="showContact()">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contact</h4>
+                        <ul>
+                            <li>support@healverse.com</li>
+                            <li>99999999</li>
+                            <li>Headquarters - In New Delhi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 HealVerse. All rights reserved. | Designed with ❤ for better healthcare</p>
+            </div>
+        </div>
+    </footer>
     <script>
-        // Create Particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 60;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
-                particlesContainer.appendChild(particle);
+        // Navigation scroll effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
             }
+        });
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function () {
+                mobileMenu.classList.toggle('active');
+                mobileMenuBtn.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
         }
-
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.mobile-menu .nav-link, .mobile-menu .nav-cta').forEach(link => {
+            link.addEventListener('click', function () {
+                mobileMenu.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function (event) {
+            if (!mobileMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1337,13 +1985,272 @@
                 }
             });
         });
-
+        // Demo and other functions
+        function showDemo() {
+            alert('🎬 Demo video would play here! This showcases the HealVerse platform in action with real user scenarios.');
+        }
+        function showSignup() {
+            alert('🚀 Sign up form would appear here! Join thousands of users transforming their healthcare journey.');
+        }
+        function showPrivacy() {
+            alert('📋 Privacy Policy: We protect your health data with enterprise-grade security and never share personal information.');
+        }
+        function showTerms() {
+            alert('📄 Terms of Service: Our platform is designed to supplement, not replace, professional medical care.');
+        }
+        function showContact() {
+            alert('📞 Contact Us:\n\nEmail: support@healverse.com\nPhone: +1 (555) 123-4567\nAddress: 123 Healthcare Ave, San Francisco, CA 94102');
+        }
+        // Health Analytics Chart - Fully Mobile Optimized
+        let healthChart = null;
+        let chartData = [];
+        let chartUpdateInterval = null;
+        function generateHealthData() {
+            const now = new Date();
+            const labels = [];
+            const bpData = [];
+            const hrData = [];
+            const sugarData = [];
+            // Generate 7 days of data
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(now);
+                date.setDate(date.getDate() - i);
+                // Use very short labels for mobile
+                const label = window.innerWidth < 480
+                    ? date.toLocaleDateString('en-US', { day: 'numeric' })
+                    : window.innerWidth < 768
+                        ? date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+                        : date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                labels.push(label);
+                // Generate realistic health data with some variation
+                const baseBP = 120 + Math.sin(i * 0.5) * 10;
+                const baseHR = 72 + Math.sin(i * 0.3) * 8;
+                const baseSugar = 95 + Math.sin(i * 0.7) * 15;
+                bpData.push(Math.round(baseBP + (Math.random() - 0.5) * 10));
+                hrData.push(Math.round(baseHR + (Math.random() - 0.5) * 12));
+                sugarData.push(Math.round(baseSugar + (Math.random() - 0.5) * 20));
+            }
+            return { labels, bpData, hrData, sugarData };
+        }
+        function initHealthChart() {
+            const ctx = document.getElementById('healthChart');
+            if (!ctx) return;
+            // Generate initial data
+            const data = generateHealthData();
+            chartData = data;
+            // Destroy existing chart if it exists
+            if (healthChart) {
+                healthChart.destroy();
+            }
+            // Mobile-responsive chart configuration
+            const isMobile = window.innerWidth < 768;
+            const isSmallMobile = window.innerWidth < 480;
+            healthChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.labels,
+                    datasets: [
+                        {
+                            label: 'BP',
+                            data: data.bpData,
+                            borderColor: '#ef4444',
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            borderWidth: isMobile ? 2 : 3,
+                            fill: false,
+                            tension: 0.4,
+                            pointBackgroundColor: '#ef4444',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 1,
+                            pointRadius: isSmallMobile ? 3 : isMobile ? 4 : 6,
+                            pointHoverRadius: isSmallMobile ? 5 : isMobile ? 6 : 8
+                        },
+                        {
+                            label: 'HR',
+                            data: data.hrData,
+                            borderColor: '#3b82f6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            borderWidth: isMobile ? 2 : 3,
+                            fill: false,
+                            tension: 0.4,
+                            pointBackgroundColor: '#3b82f6',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 1,
+                            pointRadius: isSmallMobile ? 3 : isMobile ? 4 : 6,
+                            pointHoverRadius: isSmallMobile ? 5 : isMobile ? 6 : 8
+                        },
+                        {
+                            label: 'Sugar',
+                            data: data.sugarData,
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            borderWidth: isMobile ? 2 : 3,
+                            fill: false,
+                            tension: 0.4,
+                            pointBackgroundColor: '#10b981',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 1,
+                            pointRadius: isSmallMobile ? 3 : isMobile ? 4 : 6,
+                            pointHoverRadius: isSmallMobile ? 5 : isMobile ? 6 : 8
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: isSmallMobile ? 8 : isMobile ? 10 : 20,
+                                font: {
+                                    size: isSmallMobile ? 8 : isMobile ? 10 : 12,
+                                    weight: '600'
+                                },
+                                color: '#cbd5e1',
+                                boxWidth: isSmallMobile ? 8 : 12
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                            titleColor: '#f8fafc',
+                            bodyColor: '#cbd5e1',
+                            borderColor: 'rgba(59, 130, 246, 0.3)',
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            displayColors: true,
+                            titleFont: {
+                                size: isSmallMobile ? 10 : isMobile ? 11 : 14
+                            },
+                            bodyFont: {
+                                size: isSmallMobile ? 9 : isMobile ? 10 : 12
+                            },
+                            padding: isSmallMobile ? 6 : isMobile ? 8 : 12,
+                            callbacks: {
+                                label: function (context) {
+                                    const label = context.dataset.label || '';
+                                    const value = context.parsed.y;
+                                    if (label === 'BP') {
+                                        return `Blood Pressure: ${value} mmHg`;
+                                    } else if (label === 'HR') {
+                                        return `Heart Rate: ${value} bpm`;
+                                    } else if (label === 'Sugar') {
+                                        return `Blood Sugar: ${value} mg/dL`;
+                                    }
+                                    return `${label}: ${value}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 50,
+                            max: 150,
+                            grid: {
+                                color: 'rgba(203, 213, 225, 0.1)'
+                            },
+                            ticks: {
+                                font: {
+                                    size: isSmallMobile ? 8 : isMobile ? 9 : 11
+                                },
+                                color: '#cbd5e1',
+                                maxTicksLimit: isSmallMobile ? 4 : 6
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: {
+                                    size: isSmallMobile ? 8 : isMobile ? 9 : 11
+                                },
+                                color: '#cbd5e1',
+                                maxRotation: isSmallMobile ? 0 : isMobile ? 45 : 0,
+                                maxTicksLimit: isSmallMobile ? 4 : 7
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    elements: {
+                        point: {
+                            hoverBackgroundColor: '#fff',
+                            hoverBorderWidth: 2
+                        }
+                    }
+                }
+            });
+            // Update stats display
+            updateHealthStats();
+            // Start real-time updates
+            startRealTimeUpdates();
+        }
+        function updateHealthStats() {
+            if (!chartData.bpData || !chartData.hrData || !chartData.sugarData) return;
+            const avgBP = Math.round(chartData.bpData.reduce((a, b) => a + b, 0) / chartData.bpData.length);
+            const avgHR = Math.round(chartData.hrData.reduce((a, b) => a + b, 0) / chartData.hrData.length);
+            const avgSugar = Math.round(chartData.sugarData.reduce((a, b) => a + b, 0) / chartData.sugarData.length);
+            const avgBPElement = document.getElementById('avgBP');
+            const avgHRElement = document.getElementById('avgHR');
+            const avgSugarElement = document.getElementById('avgSugar');
+            if (avgBPElement) avgBPElement.textContent = avgBP;
+            if (avgHRElement) avgHRElement.textContent = avgHR;
+            if (avgSugarElement) avgSugarElement.textContent = avgSugar;
+        }
+        function startRealTimeUpdates() {
+            // Clear existing interval
+            if (chartUpdateInterval) {
+                clearInterval(chartUpdateInterval);
+            }
+            // Update chart every 5 seconds with new data point
+            chartUpdateInterval = setInterval(() => {
+                if (!healthChart || !chartData) return;
+                // Generate new data point
+                const lastBP = chartData.bpData[chartData.bpData.length - 1];
+                const lastHR = chartData.hrData[chartData.hrData.length - 1];
+                const lastSugar = chartData.sugarData[chartData.sugarData.length - 1];
+                const newBP = Math.round(lastBP + (Math.random() - 0.5) * 6);
+                const newHR = Math.round(lastHR + (Math.random() - 0.5) * 8);
+                const newSugar = Math.round(lastSugar + (Math.random() - 0.5) * 10);
+                // Add new data point
+                const now = new Date();
+                const newLabel = window.innerWidth < 480
+                    ? now.getMinutes().toString().padStart(2, '0')
+                    : window.innerWidth < 768
+                        ? now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+                        : now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                // Keep only last 7 data points
+                if (healthChart.data.labels.length >= 7) {
+                    healthChart.data.labels.shift();
+                    healthChart.data.datasets[0].data.shift();
+                    healthChart.data.datasets[1].data.shift();
+                    healthChart.data.datasets[2].data.shift();
+                    chartData.bpData.shift();
+                    chartData.hrData.shift();
+                    chartData.sugarData.shift();
+                }
+                // Add new data
+                healthChart.data.labels.push(newLabel);
+                healthChart.data.datasets[0].data.push(Math.max(90, Math.min(140, newBP)));
+                healthChart.data.datasets[1].data.push(Math.max(60, Math.min(100, newHR)));
+                healthChart.data.datasets[2].data.push(Math.max(70, Math.min(130, newSugar)));
+                chartData.bpData.push(Math.max(90, Math.min(140, newBP)));
+                chartData.hrData.push(Math.max(60, Math.min(100, newHR)));
+                chartData.sugarData.push(Math.max(70, Math.min(130, newSugar)));
+                // Update chart
+                healthChart.update('none');
+                updateHealthStats();
+            }, 5000);
+        }
         // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
-
         const observer = new IntersectionObserver(function (entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1351,28 +2258,23 @@
                 }
             });
         }, observerOptions);
-
         // Animate elements on scroll
         function initScrollAnimations() {
-            const animateElements = document.querySelectorAll('.stat-item, .value-card, .team-card, .timeline-item');
-
+            const animateElements = document.querySelectorAll('.stat-card, .feature-card, .testimonial-card, .analytics-feature, .chart-container');
             animateElements.forEach(el => {
                 el.classList.add('fade-in-up');
                 observer.observe(el);
             });
         }
-
         // Counter animation for stats
         function animateCounters() {
-            const counters = document.querySelectorAll('.stat-number');
-
+            const counters = document.querySelectorAll('.stat-value');
             counters.forEach(counter => {
                 const target = counter.textContent;
                 const numericValue = parseInt(target.replace(/[^\d]/g, ''));
-
                 if (numericValue) {
                     let current = 0;
-                    const increment = numericValue / 60;
+                    const increment = numericValue / 50;
                     const timer = setInterval(() => {
                         current += increment;
                         if (current >= numericValue) {
@@ -1382,69 +2284,47 @@
                             const suffix = target.includes('%') ? '%' : target.includes('+') ? '+' : '';
                             counter.textContent = Math.floor(current) + suffix;
                         }
-                    }, 30);
+                    }, 40);
                 }
             });
         }
-
-        // Mouse parallax effect
-        document.addEventListener('mousemove', function (e) {
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
-
-            // Parallax for background shapes
-            document.querySelectorAll('.bg-shape').forEach((shape, index) => {
-                const speed = (index + 1) * 0.2;
-                const x = (mouseX - 0.5) * speed * 40;
-                const y = (mouseY - 0.5) * speed * 40;
-                shape.style.transform = `translate(${x}px, ${y}px)`;
+        // Mouse parallax effect (disabled on mobile for performance)
+        if (window.innerWidth >= 768) {
+            document.addEventListener('mousemove', function (e) {
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+                // Parallax for floating elements
+                document.querySelectorAll('.floating-element').forEach((element, index) => {
+                    const speed = (index + 1) * 0.5;
+                    const x = (mouseX - 0.5) * speed * 20;
+                    const y = (mouseY - 0.5) * speed * 20;
+                    element.style.transform = `translate(${x}px, ${y}px)`;
+                });
+                // Parallax for background shapes
+                document.querySelectorAll('.bg-shape').forEach((shape, index) => {
+                    const speed = (index + 1) * 0.3;
+                    const x = (mouseX - 0.5) * speed * 30;
+                    const y = (mouseY - 0.5) * speed * 30;
+                    shape.style.transform = `translate(${x}px, ${y}px)`;
+                });
             });
-        });
-
-        // Interactive functions
-        function showContact() {
-            alert('📞 Contact HealVerse:\n\nEmail: hello@healverse.com\nPhone: +1 (555) 123-4567\nAddress: 123 Healthcare Ave, San Francisco, CA 94102\n\nOur team is available 24/7 to help with your health journey!');
         }
-
-        function showCareers() {
-            alert('🚀 Join Our Team!\n\nWe\'re always looking for passionate individuals to join our mission of transforming healthcare.\n\nOpen Positions:\n• Senior AI Engineer\n• Healthcare Product Manager\n• Clinical Data Scientist\n• UX Designer\n• DevOps Engineer\n\nSend your resume to careers@healverse.com');
+        // Handle window resize for chart responsiveness
+        function handleResize() {
+            if (healthChart) {
+                // Reinitialize chart with new responsive settings
+                initHealthChart();
+            }
         }
-
-        function showFeatures() {
-            alert('✨ HealVerse Features:\n\n🤖 AI Health Assistant - 24/7 personalized health guidance\n💊 Medication Manager - Smart reminders and interaction checking\n📊 Health Analytics - Predictive insights and trend analysis\n📅 Habit Tracker - Build healthy routines with AI coaching\n\nExplore all features in our main platform!');
-        }
-
-        function showSecurity() {
-            alert('🔒 Your Data Security:\n\n• End-to-end encryption for all health data\n• HIPAA compliant infrastructure\n• SOC 2 Type II certified\n• Zero-knowledge architecture\n• Regular security audits\n• Granular privacy controls\n\nYour health information is always protected with enterprise-grade security.');
-        }
-
-        function showHelp() {
-            alert('❓ Need Help?\n\nOur comprehensive help center includes:\n• Getting started guides\n• Feature tutorials\n• Troubleshooting tips\n• Video walkthroughs\n• FAQ section\n\nVisit help.healverse.com or contact our 24/7 support team!');
-        }
-
-        function showPrivacy() {
-            alert('🛡️ Privacy Policy:\n\nWe protect your health data with the highest standards:\n• We never sell your personal information\n• You control who sees your data\n• Transparent data usage policies\n• Right to data portability\n• Easy account deletion\n\nRead our full privacy policy at healverse.com/privacy');
-        }
-
-        function showTerms() {
-            alert('📋 Terms of Service:\n\nKey points:\n• HealVerse supplements, not replaces, professional medical care\n• Always consult healthcare providers for medical decisions\n• Our AI provides information, not medical diagnoses\n• User responsibilities and platform guidelines\n\nFull terms available at healverse.com/terms');
-        }
-
-        function showAPI() {
-            alert('🔧 Developer API:\n\nIntegrate HealVerse into your healthcare applications:\n• RESTful API with comprehensive documentation\n• SDKs for popular programming languages\n• Sandbox environment for testing\n• Webhook support for real-time updates\n• Enterprise-grade rate limits\n\nGet started at developers.healverse.com');
-        }
-
-        function showPress() {
-            alert('📰 Press & Media:\n\nPress Kit includes:\n• High-resolution logos and brand assets\n• Company fact sheet\n• Executive bios and photos\n• Product screenshots\n• Recent press releases\n\nDownload at healverse.com/press or contact press@healverse.com');
-        }
-
         // Initialize everything when DOM is loaded
         document.addEventListener('DOMContentLoaded', function () {
-            createParticles();
+            // Initialize chart after a short delay to ensure DOM is ready
+            setTimeout(() => {
+                initHealthChart();
+            }, 500);
             initScrollAnimations();
-
             // Animate counters when stats section is visible
-            const statsSection = document.querySelector('.mission-stats');
+            const statsSection = document.querySelector('.stats-grid');
             if (statsSection) {
                 const statsObserver = new IntersectionObserver(function (entries) {
                     entries.forEach(entry => {
@@ -1454,66 +2334,76 @@
                         }
                     });
                 }, { threshold: 0.5 });
-
                 statsObserver.observe(statsSection);
             }
         });
-
-        // Enhanced hover effects for cards
-        document.querySelectorAll('.value-card, .team-card').forEach(card => {
-            card.addEventListener('mouseenter', function () {
-                this.style.transform = 'translateY(-15px) scale(1.02)';
-            });
-
-            card.addEventListener('mouseleave', function () {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
+        // Handle window resize with debouncing
+        let resizeTimeout;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(handleResize, 250);
         });
-
-        // Parallax effect for scroll
-        window.addEventListener('scroll', function () {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.bg-shape');
-
-            parallaxElements.forEach((element, index) => {
-                const speed = 0.3 + (index * 0.1);
-                const yPos = -(scrolled * speed);
-                element.style.transform += ` translateY(${yPos}px)`;
-            });
+        // Handle orientation change on mobile
+        window.addEventListener('orientationchange', function () {
+            setTimeout(handleResize, 100);
         });
-
+        // Clean up intervals when page is unloaded
+        window.addEventListener('beforeunload', function () {
+            if (chartUpdateInterval) {
+                clearInterval(chartUpdateInterval);
+            }
+        });
         // Add loading state for buttons
-        document.querySelectorAll('.btn-cta, .btn-secondary').forEach(button => {
+        document.querySelectorAll('.btn-primary, .btn-gradient, .btn-cta').forEach(button => {
             button.addEventListener('click', function (e) {
-                if (this.getAttribute('onclick')) {
-                    const originalText = this.textContent;
-                    this.style.opacity = '0.7';
-                    this.style.pointerEvents = 'none';
-
-                    setTimeout(() => {
-                        this.style.opacity = '1';
-                        this.style.pointerEvents = 'auto';
-                    }, 1000);
-                }
+                const originalText = this.textContent;
+                this.style.opacity = '0.7';
+                this.style.pointerEvents = 'none';
+                setTimeout(() => {
+                    this.style.opacity = '1';
+                    this.style.pointerEvents = 'auto';
+                }, 1000);
             });
         });
-
-        // Timeline animation on scroll
-        const timelineObserver = new IntersectionObserver(function (entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
+        // Enhanced hover effects for feature cards (desktop only)
+        if (window.innerWidth >= 768) {
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                card.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
             });
-        }, { threshold: 0.3 });
-
-        document.querySelectorAll('.timeline-item').forEach(item => {
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(30px)';
-            item.style.transition = 'all 0.6s ease';
-            timelineObserver.observe(item);
-        });
+        }
+        // Prevent zoom on double tap for iOS
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+        // Optimize scroll performance on mobile
+        let ticking = false;
+        function updateScrollEffects() {
+            // Throttled scroll effects
+            if (!ticking) {
+                requestAnimationFrame(function () {
+                    // Add any scroll-based animations here
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+        window.addEventListener('scroll', updateScrollEffects, { passive: true });
+        // Prevent horizontal scrolling issues
+        document.addEventListener('touchmove', function (e) {
+            if (e.touches.length > 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
     </script>
 </body>
 
