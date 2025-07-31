@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
     <style>
-        /* Reset and Base Styles */
+  
         * {
             margin: 0;
             padding: 0;
@@ -31,7 +31,7 @@
             min-height: 100vh;
         }
 
-        /* Animated Background */
+    
         .animated-bg {
             position: fixed;
             top: 0;
@@ -101,7 +101,7 @@
             }
         }
 
-        /* Particle System */
+       
         .particles {
             position: fixed;
             top: 0;
@@ -141,7 +141,7 @@
             }
         }
 
-        /* Navigation */
+
         .navbar {
             position: fixed;
             top: 0;
@@ -256,7 +256,7 @@
             box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
         }
 
-        /* Main Container */
+       
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -265,7 +265,7 @@
             z-index: 1;
         }
 
-        /* Header */
+   
         .header {
             text-align: center;
             margin-bottom: 60px;
@@ -322,7 +322,7 @@
             line-height: 1.7;
         }
 
-        /* Cards */
+   
         .card {
             background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(20px);
@@ -367,7 +367,7 @@
             filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
         }
 
-        /* Form Styles */
+      
         #habit-form {
             display: flex;
             gap: 16px;
@@ -462,7 +462,7 @@
             transform: translateY(-2px);
         }
 
-        /* Week Toggle */
+       
         .week-toggle {
             display: flex;
             align-items: center;
@@ -494,14 +494,14 @@
             transform: translateY(-2px);
         }
 
-        /* Weekly Overview */
+      
         .weekly-overview {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 24px;
         }
 
-        /* Habit Items */
+      
         .habit-item {
             display: flex;
             justify-content: space-between;
@@ -569,7 +569,7 @@
             transform: scale(1.1);
         }
 
-        /* Progress Section */
+ 
         .progress-section {
             margin-top: 30px;
         }
@@ -624,7 +624,7 @@
             }
         }
 
-        /* Chart Container */
+        
         .chart-container {
             background: rgba(248, 250, 252, 0.02);
             border-radius: 16px;
@@ -637,7 +637,7 @@
             height: 250px !important;
         }
 
-        /* Calendar */
+   
         #calendar {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -694,7 +694,7 @@
             visibility: visible;
         }
 
-        /* Empty State */
+       
         .empty-state {
             text-align: center;
             padding: 60px 20px;
@@ -718,7 +718,7 @@
             font-size: 16px;
         }
 
-        /* Footer */
+ 
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -734,7 +734,7 @@
             gap: 8px;
         }
 
-        /* Responsive Design */
+       
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -795,12 +795,6 @@
             }
         }
 
-        /* Dark theme styles (when toggled) */
-        body.dark {
-            /* Additional dark theme adjustments can be added here if needed */
-        }
-
-        /* Loading Animation */
         .loading {
             opacity: 0.7;
             pointer-events: none;
@@ -830,7 +824,6 @@
             }
         }
 
-        /* Fade in animation */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -845,16 +838,16 @@
 </head>
 
 <body>
-    <!-- Animated Background -->
+   
     <div class="animated-bg">
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
     </div>
-    <!-- Particles -->
+ 
     <div class="particles" id="particles"></div>
-    <!-- Navigation -->
+ 
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand" onclick="window.location.href='index.html'">
@@ -869,9 +862,8 @@
             <a href="index.html" class="nav-cta">Back to Home</a>
         </div>
     </nav>
-    <!-- Main Content -->
+ 
     <main class="container">
-        <!-- Header -->
         <div class="header">
             <h1 class="title">
                 Build Better <span class="gradient-text">Health Habits</span>
@@ -881,7 +873,7 @@
                 habit tracking system.
             </p>
         </div>
-        <!-- Manage Habits (Add Habit + Progress) -->
+      
         <div class="card fade-in">
             <h2 class="card-title">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -927,7 +919,7 @@
                 </button>
             </div>
         </div>
-        <!-- Habits List -->
+  
         <div class="card fade-in" id="habits-section">
             <h2 class="card-title">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -942,7 +934,7 @@
             </h2>
             <div id="habits-list"></div>
         </div>
-        <!-- Weekly Overview -->
+   
         <div class="card fade-in">
             <h2 class="card-title">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -967,7 +959,7 @@
             </div>
         </div>
     </main>
-    <!-- Footer -->
+
     <footer>
         <p>
             <i class="fas fa-heart" style="font-size: 24px; color: #3b82f6;"></i>
@@ -975,7 +967,7 @@
         </p>
     </footer>
     <script>
-        // Create Particles
+      
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = 50;
@@ -988,7 +980,7 @@
                 particlesContainer.appendChild(particle);
             }
         }
-        // Initialize variables
+        
         const habitForm = document.getElementById("habit-form");
         const habitInput = document.getElementById("habit-input");
         const dateInput = document.getElementById("date-input");
@@ -1003,12 +995,12 @@
         const calendar = document.getElementById("calendar");
         const ctx = document.getElementById("habitChart");
         let habits = JSON.parse(localStorage.getItem("habits")) || [];
-        let weekOffset = 0; // 0: this week, -1: last week, 1: next week, etc.
+        let weekOffset = 0; 
         let habitChart;
-        // Set default date to today and restrict future dates
+ 
         dateInput.value = getTodayDateStr();
         dateInput.max = getTodayDateStr();
-        // Date Helpers
+      
         function getTodayDateStr() {
             return new Date().toISOString().split("T")[0];
         }
@@ -1030,7 +1022,7 @@
             weekCurrent.classList.toggle('active', weekOffset === 0);
             weekNext.classList.toggle('active', weekOffset === 1);
         }
-        // Habit Logic
+     
         function saveHabits() {
             localStorage.setItem("habits", JSON.stringify(habits));
         }
@@ -1107,25 +1099,25 @@
             });
             updateProgress();
         }
-        // Add Habit
+  
         habitForm.addEventListener("submit", (e) => {
             e.preventDefault();
             const name = habitInput.value.trim();
             const date = dateInput.value;
             if (name && date) {
-                console.log("Adding habit:", name, "for date:", date); // Debug log
+                console.log("Adding habit:", name, "for date:", date); 
                 const habit = habits.find(h => h.name === name);
                 if (habit) {
-                    // If habit exists, do not automatically mark as completed
+                  
                     if (!habit.history[date]) {
                         habit.history[date] = false;
                     }
                 } else {
-                    // Add new habit without marking as completed
+               
                     habits.push({ name, history: {} });
                 }
                 habitInput.value = "";
-                dateInput.value = getTodayDateStr(); // Reset to today
+                dateInput.value = getTodayDateStr(); 
                 saveHabits();
                 renderHabits();
                 updateChart();
@@ -1139,7 +1131,7 @@
                 console.log("Invalid input: empty habit name or date");
             }
         });
-        // Reset Today's Habits
+        
         resetButton.addEventListener("click", () => {
             if (confirm("Are you sure you want to reset all habits for today?")) {
                 const today = getTodayDateStr();
@@ -1150,7 +1142,7 @@
                 renderCalendar();
             }
         });
-        // Progress Bar
+       
         function updateProgress() {
             const today = getTodayDateStr();
             const total = habits.length || 1;
@@ -1158,7 +1150,7 @@
             const percent = (completed / total) * 100;
             progressBar.style.width = `${percent}%`;
         }
-        // Week Navigation
+      
         weekPrev.addEventListener("click", () => {
             if (weekOffset > -4) {
                 weekOffset--;
@@ -1181,7 +1173,7 @@
                 renderCalendar();
             }
         });
-        // Chart.js
+    
         function updateChart() {
             const weekDates = getWeekDates(weekOffset);
             const labels = weekDates.map((d) =>
@@ -1249,7 +1241,7 @@
                 },
             });
         }
-        // Calendar View
+        
         function renderCalendar() {
             calendar.innerHTML = "";
             const weekDates = getWeekDates(weekOffset);
@@ -1272,7 +1264,7 @@
                 calendar.appendChild(div);
             });
         }
-        // Fade in animation
+        
         function initFadeInAnimation() {
             const fadeElements = document.querySelectorAll('.fade-in');
             const observer = new IntersectionObserver((entries) => {
@@ -1284,7 +1276,7 @@
             }, { threshold: 0.1 });
             fadeElements.forEach(el => observer.observe(el));
         }
-        // Initialize everything
+       
         document.addEventListener('DOMContentLoaded', function () {
             createParticles();
             renderHabits();
@@ -1298,7 +1290,7 @@
                 });
             }, 100);
         });
-        // Handle window resize for chart
+     
         window.addEventListener('resize', function () {
             if (habitChart) {
                 habitChart.resize();
