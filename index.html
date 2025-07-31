@@ -11,13 +11,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
- 
+
     <style>
         /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+
         }
 
         html {
@@ -1448,56 +1449,6 @@
                 grid-template-columns: 1fr;
                 gap: 16px;
             }
-
-            .chatbot-window {
-                width: min(1000px, 90vw);
-                height: min(650px, 75vh);
-                right: min(15px, 3vw);
-                bottom: 80px;
-            }
-
-            .chatbot-widget {
-                bottom: min(20px, 3vh);
-                right: min(20px, 4vw);
-            }
-
-            .chatbot-toggle {
-                width: 65px;
-                height: 65px;
-                font-size: 26px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .chatbot-window {
-                width: min(900px, 95vw);
-                height: min(600px, 70vh);
-                right: min(5px, 1vw);
-                bottom: 75px;
-            }
-
-            .chatbot-widget {
-                bottom: 15px;
-                right: 15px;
-            }
-
-            .chatbot-toggle {
-                width: 60px;
-                height: 60px;
-                font-size: 24px;
-            }
-
-            .chatbot-header {
-                padding: 20px;
-            }
-
-            .chatbot-messages {
-                padding: 20px;
-            }
-
-            .chatbot-input-area {
-                padding: 20px;
-            }
         }
 
         @media (min-width: 640px) {
@@ -1656,7 +1607,7 @@
             }
         }
 
-        /* AI Chatbot Widget */
+        /* AI Chatbot Widget - Improved */
         .chatbot-widget {
             position: fixed;
             bottom: min(20px, 3vh);
@@ -1687,9 +1638,12 @@
         }
 
         @keyframes chatbotPulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
             }
+
             50% {
                 box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6), 0 0 0 10px rgba(59, 130, 246, 0.1);
             }
@@ -1699,9 +1653,9 @@
             position: absolute;
             bottom: 80px;
             right: min(20px, 5vw);
-            width: min(1200px, 85vw);
-            height: min(700px, 80vh);
-            max-height: 700px;
+            width: min(400px, 90vw);
+            height: min(600px, 80vh);
+            max-height: 600px;
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(20px);
             border-radius: 20px;
@@ -1722,6 +1676,7 @@
                 opacity: 0;
                 transform: translateY(20px) scale(0.9);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -1729,16 +1684,17 @@
         }
 
         .chatbot-header {
-            padding: min(24px, 4vw);
+            padding: min(18px, 3.5vw);
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-radius: 20px 20px 0 0;
         }
 
         .chatbot-header h3 {
-            font-size: clamp(18px, 4vw, 22px);
+            font-size: clamp(16px, 3.5vw, 20px);
             font-weight: 700;
             margin: 0;
         }
@@ -1752,6 +1708,11 @@
             padding: 5px;
             border-radius: 50%;
             transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
         }
 
         .chatbot-close:hover {
@@ -1760,20 +1721,25 @@
 
         .chatbot-messages {
             flex: 1;
-            padding: min(24px, 4vw);
+            padding: min(20px, 3.5vw);
             overflow-y: auto;
             display: flex;
             flex-direction: column;
             gap: min(16px, 3vh);
         }
 
+        * {
+            max-width: 550%;
+        }
+
         .message {
             max-width: 80%;
-            padding: min(16px, 3vw) min(20px, 4vw);
+            padding: min(14px, 2.5vw) min(18px, 3.5vw);
             border-radius: 18px;
-            font-size: clamp(14px, 3.2vw, 16px);
+            font-size: clamp(14px, 3vw, 16px);
             line-height: 1.5;
             animation: messageSlideIn 0.3s ease-out;
+            word-wrap: break-word;
         }
 
         @keyframes messageSlideIn {
@@ -1781,6 +1747,7 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -1792,29 +1759,33 @@
             color: #f8fafc;
             align-self: flex-start;
             border: 1px solid rgba(59, 130, 246, 0.2);
+            border-bottom-left-radius: 4px;
         }
 
         .message.user {
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             color: white;
             align-self: flex-end;
+            border-bottom-right-radius: 4px;
         }
 
         .chatbot-input-area {
-            padding: min(24px, 4vw);
+            padding: min(18px, 3.5vw);
             border-top: 1px solid rgba(59, 130, 246, 0.2);
             display: flex;
             gap: min(12px, 2.5vw);
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 0 0 20px 20px;
         }
 
         .chatbot-input {
             flex: 1;
-            padding: min(16px, 3vw) min(20px, 4vw);
+            padding: min(14px, 2.5vw) min(18px, 3.5vw);
             border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: 25px;
             background: rgba(248, 250, 252, 0.05);
             color: #f8fafc;
-            font-size: clamp(14px, 3.2vw, 16px);
+            font-size: clamp(14px, 3vw, 16px);
             outline: none;
             transition: all 0.3s ease;
         }
@@ -1822,6 +1793,7 @@
         .chatbot-input:focus {
             border-color: #3b82f6;
             background: rgba(248, 250, 252, 0.1);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
         }
 
         .chatbot-input::placeholder {
@@ -1829,15 +1801,18 @@
         }
 
         .chatbot-send {
-            padding: min(16px, 3vw) min(20px, 4vw);
+            padding: min(14px, 2.5vw) min(18px, 3.5vw);
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             border: none;
             border-radius: 25px;
             color: white;
             cursor: pointer;
-            font-size: clamp(14px, 3.2vw, 16px);
+            font-size: clamp(14px, 3vw, 16px);
             transition: all 0.3s ease;
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .chatbot-send:hover {
@@ -1857,6 +1832,7 @@
             font-size: 14px;
             align-self: flex-start;
             max-width: 80%;
+            border-bottom-left-radius: 4px;
         }
 
         .typing-dots {
@@ -1881,20 +1857,65 @@
         }
 
         @keyframes typingAnimation {
-            0%, 60%, 100% {
+
+            0%,
+            60%,
+            100% {
                 opacity: 0.3;
                 transform: scale(0.8);
             }
+
             30% {
                 opacity: 1;
                 transform: scale(1);
             }
         }
 
-        @media (max-width: 400px) {
+        /* Chatbot responsive adjustments */
+        @media (max-width: 480px) {
             .chatbot-window {
                 width: calc(100vw - 40px);
                 right: -10px;
+                height: min(500px, 70vh);
+                max-height: 500px;
+            }
+
+            .chatbot-header {
+                padding: 14px;
+            }
+
+            .chatbot-header h3 {
+                font-size: 16px;
+            }
+
+            .chatbot-messages {
+                padding: 14px;
+            }
+
+            .message {
+                padding: 12px 14px;
+                font-size: 14px;
+            }
+
+            .chatbot-input-area {
+                padding: 14px;
+            }
+
+            .chatbot-input {
+                padding: 12px 14px;
+                font-size: 14px;
+            }
+
+            .chatbot-send {
+                padding: 12px 14px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .chatbot-window {
+                width: calc(100vw - 30px);
+                right: -5px;
             }
         }
     </style>
@@ -1909,10 +1930,8 @@
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
     </div>
-
     <!-- Particles -->
     <div class="particles" id="particles"></div>
-
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <a href="#features" class="nav-link">Features</a>
@@ -1921,7 +1940,6 @@
         <a href="cognitive.html" class="nav-link">Brain Training</a>
         <a href="#cta" class="nav-cta">Get Started</a>
     </div>
-
     <!-- Navigation -->
     <nav id="navbar" class="navbar">
         <div class="nav-container">
@@ -1930,11 +1948,11 @@
                 <span class="brand-text">HealVerse</span>
             </div>
             <div class="nav-links">
-                <a href="#features" class="nav-link">Features</a>
+
                 <a href="about.html" class="nav-link">About</a>
                 <a href="#testimonials" class="nav-link">Testimonials</a>
-                <a href="cognitive.html" class="nav-link">Brain Training</a>
-                <a href="#cta" class="nav-cta">Get Started</a>
+
+                <a href="#features" class="nav-cta">Features</a>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <span></span>
@@ -1943,23 +1961,16 @@
             </button>
         </div>
     </nav>
-
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-badge">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" />
-                    </svg>
-                    New: AI-Powered Health Analytics Dashboard
-                </div>
                 <h1 class="hero-title">
                     Build the <span class="gradient-text">Future</span> of Your Health
                 </h1>
                 <p class="hero-description">
-                    Transform your healthcare journey with our cutting-edge AI platform. Streamline health monitoring,
+                    Transform your healthcare journey with our cutting-edge AI platform. Streamline health
+                    monitoring,
                     boost wellness productivity, and scale your health management with intelligent automation.
                 </p>
                 <div class="hero-buttons">
@@ -1987,7 +1998,6 @@
             </div>
         </div>
     </section>
-
     <!-- Features Section -->
     <section id="features" class="features">
         <div class="container">
@@ -2005,12 +2015,13 @@
                     <div class="feature-icon blue-gradient">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
                         </svg>
                     </div>
                     <h3 class="feature-title">Health Education Hub</h3>
-                    <p class="feature-description">Access comprehensive health articles, medical insights, and evidence-based
+                    <p class="feature-description">Access comprehensive health articles, medical insights, and
+                        evidence-based
                         wellness information.</p>
                 </a>
                 <a href="medication.html" class="feature-card">
@@ -2079,7 +2090,6 @@
             </div>
         </div>
     </section>
-
     <!-- Health Analytics Preview -->
     <section class="analytics-preview">
         <div class="container">
@@ -2166,17 +2176,14 @@
             </div>
             <!-- Call to action -->
             <div class="analytics-cta">
-                <a href="#cta" class="btn-gradient">
-                    Explore Analytics Dashboard
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" />
-                    </svg>
+
+
+                <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" />
+                </svg>
                 </a>
             </div>
         </div>
     </section>
-
     <!-- Testimonials -->
     <section id="testimonials" class="testimonials">
         <div class="container">
@@ -2227,7 +2234,6 @@
             </div>
         </div>
     </section>
-
     <!-- CTA Section -->
     <section id="cta" class="cta">
         <div class="container">
@@ -2236,11 +2242,10 @@
                 <p class="cta-description">
                     Join thousands of users who trust HealVerse for their health and wellness needs.
                 </p>
-                <a href="#" class="btn-cta" onclick="showSignup()">Start Your Free Trial Today</a>
+
             </div>
         </div>
     </section>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -2279,8 +2284,8 @@
                         <h4>Contact</h4>
                         <ul>
                             <li>support@healverse.com</li>
-                            <li>+1 (555) 123-4567</li>
-                            <li>123 Healthcare Ave<br>San Francisco, CA 94102</li>
+                            <li>99999999</li>
+                            <li>Headquarters - In New Delhi</li>
                         </ul>
                     </div>
                 </div>
@@ -2290,13 +2295,11 @@
             </div>
         </div>
     </footer>
-
     <script>
         // Create Particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = window.innerWidth < 768 ? 15 : 40;
-
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
@@ -2306,7 +2309,6 @@
                 particlesContainer.appendChild(particle);
             }
         }
-
         // Navigation scroll effect
         window.addEventListener('scroll', function () {
             const navbar = document.getElementById('navbar');
@@ -2316,11 +2318,9 @@
                 navbar.classList.remove('scrolled');
             }
         });
-
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
-
         if (mobileMenuBtn) {
             mobileMenuBtn.addEventListener('click', function () {
                 mobileMenu.classList.toggle('active');
@@ -2328,7 +2328,6 @@
                 document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
             });
         }
-
         // Close mobile menu when clicking on links
         document.querySelectorAll('.mobile-menu .nav-link, .mobile-menu .nav-cta').forEach(link => {
             link.addEventListener('click', function () {
@@ -2337,7 +2336,6 @@
                 document.body.style.overflow = '';
             });
         });
-
         // Close mobile menu when clicking outside
         document.addEventListener('click', function (event) {
             if (!mobileMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
@@ -2346,7 +2344,6 @@
                 document.body.style.overflow = '';
             }
         });
-
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -2360,84 +2357,66 @@
                 }
             });
         });
-
         // Demo and other functions
         function showDemo() {
             alert('🎬 Demo video would play here! This showcases the HealVerse platform in action with real user scenarios.');
         }
-
         function showSignup() {
             alert('🚀 Sign up form would appear here! Join thousands of users transforming their healthcare journey.');
         }
-
         function showPrivacy() {
             alert('📋 Privacy Policy: We protect your health data with enterprise-grade security and never share personal information.');
         }
-
         function showTerms() {
             alert('📄 Terms of Service: Our platform is designed to supplement, not replace, professional medical care.');
         }
-
         function showContact() {
             alert('📞 Contact Us:\n\nEmail: support@healverse.com\nPhone: +1 (555) 123-4567\nAddress: 123 Healthcare Ave, San Francisco, CA 94102');
         }
-
         // Health Analytics Chart - Fully Mobile Optimized
         let healthChart = null;
         let chartData = [];
         let chartUpdateInterval = null;
-
         function generateHealthData() {
             const now = new Date();
             const labels = [];
             const bpData = [];
             const hrData = [];
             const sugarData = [];
-
             // Generate 7 days of data
             for (let i = 6; i >= 0; i--) {
                 const date = new Date(now);
                 date.setDate(date.getDate() - i);
-
                 // Use very short labels for mobile
                 const label = window.innerWidth < 480
                     ? date.toLocaleDateString('en-US', { day: 'numeric' })
                     : window.innerWidth < 768
                         ? date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
                         : date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-
                 labels.push(label);
-
                 // Generate realistic health data with some variation
                 const baseBP = 120 + Math.sin(i * 0.5) * 10;
                 const baseHR = 72 + Math.sin(i * 0.3) * 8;
                 const baseSugar = 95 + Math.sin(i * 0.7) * 15;
-
                 bpData.push(Math.round(baseBP + (Math.random() - 0.5) * 10));
                 hrData.push(Math.round(baseHR + (Math.random() - 0.5) * 12));
                 sugarData.push(Math.round(baseSugar + (Math.random() - 0.5) * 20));
             }
-
             return { labels, bpData, hrData, sugarData };
         }
-
         function initHealthChart() {
             const ctx = document.getElementById('healthChart');
             if (!ctx) return;
-
             // Generate initial data
             const data = generateHealthData();
             chartData = data;
-
             // Destroy existing chart if it exists
             if (healthChart) {
                 healthChart.destroy();
             }
-
             // Mobile-responsive chart configuration
             const isMobile = window.innerWidth < 768;
             const isSmallMobile = window.innerWidth < 480;
-
             healthChart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -2577,48 +2556,38 @@
                     }
                 }
             });
-
             // Update stats display
             updateHealthStats();
             // Start real-time updates
             startRealTimeUpdates();
         }
-
         function updateHealthStats() {
             if (!chartData.bpData || !chartData.hrData || !chartData.sugarData) return;
-
             const avgBP = Math.round(chartData.bpData.reduce((a, b) => a + b, 0) / chartData.bpData.length);
             const avgHR = Math.round(chartData.hrData.reduce((a, b) => a + b, 0) / chartData.hrData.length);
             const avgSugar = Math.round(chartData.sugarData.reduce((a, b) => a + b, 0) / chartData.sugarData.length);
-
             const avgBPElement = document.getElementById('avgBP');
             const avgHRElement = document.getElementById('avgHR');
             const avgSugarElement = document.getElementById('avgSugar');
-
             if (avgBPElement) avgBPElement.textContent = avgBP;
             if (avgHRElement) avgHRElement.textContent = avgHR;
             if (avgSugarElement) avgSugarElement.textContent = avgSugar;
         }
-
         function startRealTimeUpdates() {
             // Clear existing interval
             if (chartUpdateInterval) {
                 clearInterval(chartUpdateInterval);
             }
-
             // Update chart every 5 seconds with new data point
             chartUpdateInterval = setInterval(() => {
                 if (!healthChart || !chartData) return;
-
                 // Generate new data point
                 const lastBP = chartData.bpData[chartData.bpData.length - 1];
                 const lastHR = chartData.hrData[chartData.hrData.length - 1];
                 const lastSugar = chartData.sugarData[chartData.sugarData.length - 1];
-
                 const newBP = Math.round(lastBP + (Math.random() - 0.5) * 6);
                 const newHR = Math.round(lastHR + (Math.random() - 0.5) * 8);
                 const newSugar = Math.round(lastSugar + (Math.random() - 0.5) * 10);
-
                 // Add new data point
                 const now = new Date();
                 const newLabel = window.innerWidth < 480
@@ -2626,7 +2595,6 @@
                     : window.innerWidth < 768
                         ? now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
                         : now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-
                 // Keep only last 7 data points
                 if (healthChart.data.labels.length >= 7) {
                     healthChart.data.labels.shift();
@@ -2637,29 +2605,24 @@
                     chartData.hrData.shift();
                     chartData.sugarData.shift();
                 }
-
                 // Add new data
                 healthChart.data.labels.push(newLabel);
                 healthChart.data.datasets[0].data.push(Math.max(90, Math.min(140, newBP)));
                 healthChart.data.datasets[1].data.push(Math.max(60, Math.min(100, newHR)));
                 healthChart.data.datasets[2].data.push(Math.max(70, Math.min(130, newSugar)));
-
                 chartData.bpData.push(Math.max(90, Math.min(140, newBP)));
                 chartData.hrData.push(Math.max(60, Math.min(100, newHR)));
                 chartData.sugarData.push(Math.max(70, Math.min(130, newSugar)));
-
                 // Update chart
                 healthChart.update('none');
                 updateHealthStats();
             }, 5000);
         }
-
         // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
-
         const observer = new IntersectionObserver(function (entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -2667,7 +2630,6 @@
                 }
             });
         }, observerOptions);
-
         // Animate elements on scroll
         function initScrollAnimations() {
             const animateElements = document.querySelectorAll('.stat-card, .feature-card, .testimonial-card, .analytics-feature, .chart-container');
@@ -2676,7 +2638,6 @@
                 observer.observe(el);
             });
         }
-
         // Counter animation for stats
         function animateCounters() {
             const counters = document.querySelectorAll('.stat-value');
@@ -2699,13 +2660,11 @@
                 }
             });
         }
-
         // Mouse parallax effect (disabled on mobile for performance)
         if (window.innerWidth >= 768) {
             document.addEventListener('mousemove', function (e) {
                 const mouseX = e.clientX / window.innerWidth;
                 const mouseY = e.clientY / window.innerHeight;
-
                 // Parallax for floating elements
                 document.querySelectorAll('.floating-element').forEach((element, index) => {
                     const speed = (index + 1) * 0.5;
@@ -2713,7 +2672,6 @@
                     const y = (mouseY - 0.5) * speed * 20;
                     element.style.transform = `translate(${x}px, ${y}px)`;
                 });
-
                 // Parallax for background shapes
                 document.querySelectorAll('.bg-shape').forEach((shape, index) => {
                     const speed = (index + 1) * 0.3;
@@ -2723,31 +2681,25 @@
                 });
             });
         }
-
         // Handle window resize for chart responsiveness
         function handleResize() {
             if (healthChart) {
                 // Reinitialize chart with new responsive settings
                 initHealthChart();
             }
-
             // Recreate particles for mobile
             const particlesContainer = document.getElementById('particles');
             particlesContainer.innerHTML = '';
             createParticles();
         }
-
         // Initialize everything when DOM is loaded
         document.addEventListener('DOMContentLoaded', function () {
             createParticles();
-
             // Initialize chart after a short delay to ensure DOM is ready
             setTimeout(() => {
                 initHealthChart();
             }, 500);
-
             initScrollAnimations();
-
             // Animate counters when stats section is visible
             const statsSection = document.querySelector('.stats-grid');
             if (statsSection) {
@@ -2762,26 +2714,22 @@
                 statsObserver.observe(statsSection);
             }
         });
-
         // Handle window resize with debouncing
         let resizeTimeout;
         window.addEventListener('resize', function () {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(handleResize, 250);
         });
-
         // Handle orientation change on mobile
         window.addEventListener('orientationchange', function () {
             setTimeout(handleResize, 100);
         });
-
         // Clean up intervals when page is unloaded
         window.addEventListener('beforeunload', function () {
             if (chartUpdateInterval) {
                 clearInterval(chartUpdateInterval);
             }
         });
-
         // Add loading state for buttons
         document.querySelectorAll('.btn-primary, .btn-gradient, .btn-cta').forEach(button => {
             button.addEventListener('click', function (e) {
@@ -2794,7 +2742,6 @@
                 }, 1000);
             });
         });
-
         // Enhanced hover effects for feature cards (desktop only)
         if (window.innerWidth >= 768) {
             document.querySelectorAll('.feature-card').forEach(card => {
@@ -2806,7 +2753,6 @@
                 });
             });
         }
-
         // Prevent zoom on double tap for iOS
         let lastTouchEnd = 0;
         document.addEventListener('touchend', function (event) {
@@ -2816,7 +2762,6 @@
             }
             lastTouchEnd = now;
         }, false);
-
         // Optimize scroll performance on mobile
         let ticking = false;
         function updateScrollEffects() {
@@ -2829,9 +2774,7 @@
                 ticking = true;
             }
         }
-
         window.addEventListener('scroll', updateScrollEffects, { passive: true });
-
         // Prevent horizontal scrolling issues
         document.addEventListener('touchmove', function (e) {
             if (e.touches.length > 1) {
@@ -2839,7 +2782,6 @@
             }
         }, { passive: false });
     </script>
-
     <!-- AI Chatbot Widget -->
     <div class="chatbot-widget">
         <div class="chatbot-window" id="chatbotWindow">
@@ -2849,7 +2791,8 @@
             </div>
             <div class="chatbot-messages" id="chatbotMessages">
                 <div class="message bot">
-                    👋 Hello! I'm your HealVerse AI assistant. I can help you with health questions, explain medical terms, or guide you through our platform. How can I assist you today?
+                    👋 Hello! I'm your HealVerse AI assistant. I can help you with health questions, explain medical
+                    terms, or guide you through our platform. How can I assist you today?
                 </div>
             </div>
             <div class="typing-indicator" id="typingIndicator">
@@ -2861,7 +2804,8 @@
                 </div>
             </div>
             <div class="chatbot-input-area">
-                <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Type your health question..." maxlength="500">
+                <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Type your health question..."
+                    maxlength="500">
                 <button class="chatbot-send" onclick="sendMessage()">Send</button>
             </div>
         </div>
@@ -2869,15 +2813,14 @@
             <i class="fas fa-robot"></i>
         </button>
     </div>
-
     <script>
         // Chatbot functionality
         let chatbotOpen = false;
-        
+
         function toggleChatbot() {
             const window = document.getElementById('chatbotWindow');
             chatbotOpen = !chatbotOpen;
-            
+
             if (chatbotOpen) {
                 window.classList.add('active');
                 document.getElementById('chatbotInput').focus();
@@ -2885,20 +2828,19 @@
                 window.classList.remove('active');
             }
         }
-
         function sendMessage() {
             const input = document.getElementById('chatbotInput');
             const message = input.value.trim();
-            
+
             if (!message) return;
-            
+
             // Add user message
             addMessage(message, 'user');
             input.value = '';
-            
+
             // Show typing indicator
             showTypingIndicator();
-            
+
             // Simulate AI response
             setTimeout(() => {
                 hideTypingIndicator();
@@ -2906,17 +2848,15 @@
                 addMessage(response, 'bot');
             }, Math.random() * 2000 + 1000);
         }
-
         function addMessage(text, type) {
             const messagesContainer = document.getElementById('chatbotMessages');
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${type}`;
             messageDiv.textContent = text;
-            
+
             messagesContainer.appendChild(messageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
-
         function showTypingIndicator() {
             const indicator = document.getElementById('typingIndicator');
             const messagesContainer = document.getElementById('chatbotMessages');
@@ -2924,52 +2864,50 @@
             messagesContainer.appendChild(indicator);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
-
         function hideTypingIndicator() {
             const indicator = document.getElementById('typingIndicator');
             indicator.style.display = 'none';
         }
-
         function generateAIResponse(userMessage) {
             const message = userMessage.toLowerCase();
-            
+
             // Health-related responses
             if (message.includes('symptom') || message.includes('pain') || message.includes('hurt')) {
                 return "I understand you're experiencing symptoms. While I can provide general information, it's important to consult with a healthcare professional for proper diagnosis. You can use our Symptoms Checker for preliminary assessment.";
             }
-            
+
             if (message.includes('medication') || message.includes('medicine') || message.includes('drug')) {
                 return "For medication-related questions, I recommend using our Medication Manager feature. It can help track your prescriptions, set reminders, and check for interactions. Always consult your doctor before making changes to medications.";
             }
-            
+
             if (message.includes('diet') || message.includes('nutrition') || message.includes('food')) {
                 return "Nutrition is crucial for health! Check out our Health Education Hub for evidence-based dietary information. For personalized nutrition advice, consider consulting with a registered dietitian.";
             }
-            
+
             if (message.includes('exercise') || message.includes('fitness') || message.includes('workout')) {
                 return "Regular exercise is wonderful for your health! Our Habit Tracker can help you build and maintain fitness routines. Start with activities you enjoy and gradually increase intensity.";
             }
-            
+
             if (message.includes('mental health') || message.includes('stress') || message.includes('anxiety') || message.includes('depression')) {
                 return "Mental health is just as important as physical health. Our Cognitive Fitness zone offers brain training exercises. For professional support, please reach out to a mental health professional or counselor.";
             }
-            
+
             if (message.includes('sleep') || message.includes('tired') || message.includes('insomnia')) {
                 return "Good sleep is essential for health! Try maintaining a consistent sleep schedule, avoiding screens before bed, and creating a relaxing bedtime routine. Our Habit Tracker can help monitor sleep patterns.";
             }
-            
+
             if (message.includes('feature') || message.includes('how to use') || message.includes('help')) {
                 return "HealVerse offers several powerful features: Health Education Hub for learning, Medication Manager for prescriptions, Symptoms Checker for assessment, Habit Tracker for wellness goals, and Cognitive Fitness for brain training. Which would you like to explore?";
             }
-            
+
             if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
                 return "Hello! 👋 I'm here to help with any health-related questions or guide you through HealVerse features. What would you like to know about?";
             }
-            
+
             if (message.includes('thank') || message.includes('thanks')) {
                 return "You're very welcome! 😊 I'm always here to help with your health and wellness journey. Feel free to ask anything else!";
             }
-            
+
             // Default responses
             const defaultResponses = [
                 "That's an interesting question! For detailed health information, I recommend checking our Health Education Hub or consulting with a healthcare professional.",
@@ -2977,22 +2915,20 @@
                 "For the most accurate and personalized health advice, please consult with a qualified healthcare provider. I can help you navigate our platform features though!",
                 "Great question! While I can provide general information, our Health Education Hub has comprehensive articles that might be helpful for your inquiry."
             ];
-            
+
             return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
         }
-
         // Enter key support
-        document.getElementById('chatbotInput').addEventListener('keypress', function(e) {
+        document.getElementById('chatbotInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 sendMessage();
             }
         });
-
         // Close chatbot when clicking outside
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             const widget = document.querySelector('.chatbot-widget');
             const toggle = document.querySelector('.chatbot-toggle');
-            
+
             if (chatbotOpen && !widget.contains(e.target)) {
                 toggleChatbot();
             }
