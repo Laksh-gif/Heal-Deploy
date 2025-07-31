@@ -560,28 +560,49 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             margin: 24px 0;
-            border: 2px solid rgba(59, 130, 246, 0.1);
+            border: 3px solid rgba(59, 130, 246, 0.1);
+            text-align: center;
+            user-select: none;
         }
         .reaction-waiting {
             background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 127, 0.2) 100%);
             color: #ef4444;
             border-color: rgba(239, 68, 68, 0.3);
         }
+        .reaction-waiting:hover {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3) 0%, rgba(220, 38, 127, 0.3) 100%);
+            border-color: rgba(239, 68, 68, 0.5);
+            transform: scale(1.02);
+        }
         .reaction-ready {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
-            color: #10b981;
-            border-color: rgba(16, 185, 129, 0.4);
-            animation: pulse 1s infinite;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.4) 0%, rgba(6, 182, 212, 0.4) 100%);
+            color: #ffffff;
+            border-color: rgba(16, 185, 129, 0.6);
+            animation: greenPulse 0.8s infinite;
+            font-size: 2rem;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
         }
         .reaction-clicked {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
-            color: #3b82f6;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(139, 92, 246, 0.3) 100%);
+            color: #ffffff;
             border-color: rgba(59, 130, 246, 0.4);
+            font-size: 1.8rem;
+        }
+
+        @keyframes greenPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 50px rgba(16, 185, 129, 0.8);
+            }
         }
         /* Stroop Test Styles */
         .stroop-container {
@@ -1743,7 +1764,7 @@
             
             // Reset game state
             reactionTest = {
-                round: 0,
+                round: 1,
                 times: [],
                 startTime: null,
                 timeout: null,
@@ -1758,7 +1779,7 @@
             // Reset area
             const area = document.getElementById('reactionArea');
             area.className = 'reaction-area reaction-waiting';
-            area.textContent = 'Click here when ready, then wait for GREEN!';
+            area.textContent = 'Round 1/5: Click here when ready, then wait for GREEN!';
         }
 
         function handleReactionClick() {
@@ -1769,7 +1790,7 @@
                 reactionTest.state = 'waiting';
                 reactionTest.isWaiting = true;
                 area.className = 'reaction-area reaction-waiting';
-                area.textContent = 'Wait for it... Don\'t click yet!';
+                area.textContent = `Round ${reactionTest.round}/5: Wait for GREEN... DON'T CLICK YET!`;
                 
                 // Set random delay (2-6 seconds)
                 const delay = Math.random() * 4000 + 2000;
@@ -1778,7 +1799,7 @@
                         reactionTest.state = 'green';
                         reactionTest.startTime = Date.now();
                         area.className = 'reaction-area reaction-ready';
-                        area.textContent = 'CLICK NOW!';
+                        area.textContent = '🟢 CLICK NOW! 🟢';
                     }
                 }, delay);
                 
@@ -1787,50 +1808,77 @@
                 clearTimeout(reactionTest.timeout);
                 reactionTest.state = 'ready';
                 area.className = 'reaction-area reaction-waiting';
-                area.textContent = 'Too early! Click to try again.';
+                area.textContent = `Round ${reactionTest.round}/5: Too early! Click to try again.`;
                 
             } else if (reactionTest.state === 'green') {
                 // Good reaction
                 const reactionTime = Date.now() - reactionTest.startTime;
                 reactionTest.times.push(reactionTime);
-                reactionTest.round++;
                 
                 area.className = 'reaction-area reaction-clicked';
-                area.textContent = `${reactionTime}ms - Great!`;
+                area.textContent = `${reactionTime}ms - ${getReactionFeedback(reactionTime)}`;
                 
                 // Update UI
-                document.getElementById('reactionRound').textContent = reactionTest.round + 1;
-                const best = Math.min(...reactionTest.times);
+                const best = reactionTest.times.length > 0 ? Math.min(...reactionTest.times) : reactionTime;
                 document.getElementById('reactionBest').textContent = best + 'ms';
                 
                 // Check if done
                 if (reactionTest.round >= 5) {
-                    setTimeout(endReactionTest, 2000);
+                    setTimeout(endReactionTest, 2500);
                 } else {
                     setTimeout(() => {
+                        reactionTest.round++;
                         reactionTest.state = 'ready';
+                        document.getElementById('reactionRound').textContent = reactionTest.round;
                         area.className = 'reaction-area reaction-waiting';
-                        area.textContent = 'Click here when ready, then wait for GREEN!';
-                    }, 2000);
+                        area.textContent = `Round ${reactionTest.round}/5: Click here when ready for next round!`;
+                    }, 2500);
                 }
             }
         }
 
+        function getReactionFeedback(time) {
+            if (time < 200) return "Lightning fast! ⚡";
+            if (time < 250) return "Excellent! 🎯";
+            if (time < 300) return "Great! 👍";
+            if (time < 400) return "Good! 👌";
+            if (time < 500) return "Not bad! 🙂";
+            return "Keep practicing! 💪";
+        }
+
         function endReactionTest() {
-            const average = Math.round(reactionTest.times.reduce((a, b) => a + b, 0) / reactionTest.times.length);
-            
-            // Update stats
-            gameState.stats.reactionTimes = [...gameState.stats.reactionTimes, ...reactionTest.times];
-            if (gameState.stats.reactionTimes.length > 50) {
-                gameState.stats.reactionTimes = gameState.stats.reactionTimes.slice(-50);
+            if (reactionTest.times.length === 0) {
+                // Handle case where no valid reactions were recorded
+                document.getElementById('reactionAverage').textContent = '0ms';
+                document.getElementById('reactionStars').textContent = '';
+                document.getElementById('reactionQuote').textContent = 'Keep practicing! Every attempt makes you faster! 💪';
+            } else {
+                const average = Math.round(reactionTest.times.reduce((a, b) => a + b, 0) / reactionTest.times.length);
+                const best = Math.min(...reactionTest.times);
+                
+                // Update stats
+                gameState.stats.reactionTimes = [...gameState.stats.reactionTimes, ...reactionTest.times];
+                if (gameState.stats.reactionTimes.length > 50) {
+                    gameState.stats.reactionTimes = gameState.stats.reactionTimes.slice(-50);
+                }
+                
+                // Show results
+                document.getElementById('reactionAverage').textContent = average + 'ms avg';
+                document.getElementById('reactionStars').textContent = getStars(Math.max(0, 500 - average), 200);
+                
+                let quote = quotes[Math.floor(Math.random() * quotes.length)];
+                if (average < 250) {
+                    quote = "🚀 Incredible reflexes! You're in the top 10% of reaction speeds!";
+                } else if (average < 300) {
+                    quote = "⚡ Excellent reaction time! Your reflexes are sharp and ready!";
+                } else if (average < 400) {
+                    quote = "👍 Good work! Keep training to sharpen those lightning-fast reflexes!";
+                }
+                document.getElementById('reactionQuote').textContent = quote;
             }
+            
             gameState.stats.totalGames++;
             saveStats();
-            
-            // Show results
-            document.getElementById('reactionAverage').textContent = average + 'ms';
-            document.getElementById('reactionStars').textContent = getStars(400 - average, 200);
-            document.getElementById('reactionQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
             document.getElementById('reactionResults').style.display = 'block';
         }
 
