@@ -28,7 +28,6 @@
             min-height: 100vh;
         }
 
-        /* Animated Background */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -87,7 +86,7 @@
             }
         }
 
-        /* Particle System */
+        
         .particles {
             position: fixed;
             top: 80px;
@@ -127,7 +126,7 @@
             }
         }
 
-        /* Navigation */
+      
         .navbar {
             position: fixed;
             top: 0;
@@ -237,7 +236,7 @@
             box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
         }
 
-        /* Hero Section */
+       
         .hero {
             padding: min(150px, 20vh) 0 min(100px, 12vh);
             background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
@@ -370,7 +369,7 @@
             box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
         }
 
-        /* Section Styles */
+        
         section {
             padding: min(80px, 10vh) 0;
             max-width: 1200px;
@@ -439,7 +438,7 @@
             animation: fadeInUp 1s ease-out 0.3s both;
         }
 
-        /* Blog Section */
+   
         .blog-controls {
             display: flex;
             flex-direction: column;
@@ -710,7 +709,7 @@
             box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
         }
 
-        /* Blog Modal */
+        
         .blog-modal {
             position: fixed;
             top: 0;
@@ -899,7 +898,6 @@
             color: #3b82f6;
         }
 
-        /* About Section */
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -992,7 +990,7 @@
             filter: brightness(1.1);
         }
 
-        /* Contact Section */
+        
         .contact-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1152,7 +1150,6 @@
             box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
         }
 
-        /* Animations */
         @keyframes slideInLeft {
             from {
                 opacity: 0;
@@ -1177,7 +1174,7 @@
             }
         }
 
-        /* Responsive */
+      
         @media (max-width: 992px) {
 
             .about-content,
@@ -1224,7 +1221,7 @@
             }
         }
 
-        /* Custom scrollbar */
+        
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -1242,7 +1239,6 @@
             background: linear-gradient(135deg, #2563eb, #7c3aed);
         }
 
-        /* Loading animation for blog cards */
         .blog-card.loading {
             animation: pulse 1.5s ease-in-out infinite;
         }
@@ -1269,14 +1265,14 @@
 </head>
 
 <body>
-    <!-- Animated Background -->
+   
     <div class="animated-bg">
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
     </div>
 
-    <!-- Navigation -->
+   
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
@@ -1290,7 +1286,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
 
@@ -1301,7 +1296,7 @@
         </div>
     </section>
 
-    <!-- Latest Blogs Section -->
+    
     <section id="latest-blogs">
         <div class="container">
             <h2 class="section-title">Latest Blogs</h2>
@@ -1322,12 +1317,12 @@
                 </div>
             </div>
             <div class="blog-grid" id="blog-grid">
-                <!-- Blog cards will be dynamically generated here -->
+           
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
+ 
     <section id="about">
         <div class="container">
             <h2 class="section-title">About Education Hub</h2>
@@ -1357,7 +1352,6 @@
 
 
 
-    <!-- Blog Modal -->
     <div class="blog-modal" id="blog-modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1374,14 +1368,14 @@
                 </div>
                 <div class="modal-tags" id="modal-tags"></div>
                 <div class="blog-content-section" id="blog-content">
-                    <!-- Blog content will be dynamically inserted here -->
+             
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Blog data with detailed content
+       
         const blogData = [
             {
                 id: 1,
@@ -2370,19 +2364,15 @@
             }
         ];
 
-        // DOM Elements
+  
         const searchInput = document.getElementById('search-input');
         const filterTags = document.querySelectorAll('.filter-tag');
         const blogGrid = document.getElementById('blog-grid');
         const contactForm = document.getElementById('contact-form');
         const blogModal = document.getElementById('blog-modal');
         const modalClose = document.getElementById('modal-close');
-
-        // State
         let activeFilter = 'all';
         let searchTerm = '';
-
-        // Create Particles System
         function createParticles() {
             const particlesContainer = document.createElement('div');
             particlesContainer.className = 'particles';
@@ -2401,13 +2391,11 @@
             }
         }
 
-        // Mouse parallax effect (disabled on mobile for performance)
         if (window.innerWidth >= 768) {
             document.addEventListener('mousemove', function (e) {
                 const mouseX = e.clientX / window.innerWidth;
                 const mouseY = e.clientY / window.innerHeight;
 
-                // Parallax for floating elements
                 document.querySelectorAll('.bg-shape').forEach((element, index) => {
                     const speed = (index + 1) * 0.3;
                     const x = (mouseX - 0.5) * speed * 30;
@@ -2417,7 +2405,6 @@
             });
         }
 
-        // Initialize particles when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
             renderBlogs();
@@ -2425,7 +2412,7 @@
             setupBlogModal();
         });
 
-        // Blog rendering
+     
         function renderBlogs() {
             const filteredBlogs = filterBlogs();
             blogGrid.innerHTML = '';
@@ -2439,7 +2426,7 @@
                 const blogCard = createBlogCard(blog);
                 blogGrid.appendChild(blogCard);
 
-                // Stagger animation
+              
                 setTimeout(() => {
                     blogCard.classList.add('visible');
                 }, index * 100);
@@ -2483,13 +2470,11 @@
             });
         }
 
-        // Search functionality
         searchInput.addEventListener('input', (e) => {
             searchTerm = e.target.value;
             renderBlogs();
         });
 
-        // Filter functionality
         filterTags.forEach(tag => {
             tag.addEventListener('click', () => {
                 filterTags.forEach(t => t.classList.remove('active'));
@@ -2499,26 +2484,20 @@
             });
         });
 
-        // Blog modal functionality
+   
         function setupBlogModal() {
-            // Close modal when clicking close button
+           
             modalClose.addEventListener('click', closeBlogModal);
-
-            // Close modal when clicking outside
             blogModal.addEventListener('click', (e) => {
                 if (e.target === blogModal) {
                     closeBlogModal();
                 }
             });
-
-            // Close modal with Escape key
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && blogModal.classList.contains('active')) {
                     closeBlogModal();
                 }
             });
-
-            // Handle read more clicks
             document.addEventListener('click', (e) => {
                 if (e.target.classList.contains('read-more')) {
                     e.preventDefault();
@@ -2532,22 +2511,21 @@
             const blog = blogData.find(b => b.id === blogId);
             if (!blog) return;
 
-            // Populate modal content
+            
             document.getElementById('modal-image').src = blog.image;
             document.getElementById('modal-title').textContent = blog.title;
             document.getElementById('modal-date').textContent = blog.date;
             document.getElementById('modal-read-time').textContent = blog.readTime;
 
-            // Populate tags
+         
             const modalTags = document.getElementById('modal-tags');
             modalTags.innerHTML = blog.tags.map(tag =>
                 `<span class="modal-tag">${tag.replace('-', ' ')}</span>`
             ).join('');
 
-            // Populate blog content
             document.getElementById('blog-content').innerHTML = blog.content;
 
-            // Show modal
+       
             blogModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -2557,7 +2535,7 @@
             document.body.style.overflow = '';
         }
 
-        // Scroll animations
+     
         function setupScrollAnimations() {
             const observerOptions = {
                 threshold: 0.1,
@@ -2572,46 +2550,40 @@
                 });
             }, observerOptions);
 
-            // Observe all sections
+        
             document.querySelectorAll('section').forEach(section => {
                 observer.observe(section);
             });
 
-            // Observe section titles and subtitles
+        
             document.querySelectorAll('.section-title, .section-subtitle').forEach(element => {
                 observer.observe(element);
             });
 
-            // Observe blog controls
+            
             document.querySelectorAll('.blog-controls').forEach(element => {
                 observer.observe(element);
             });
 
-            // Observe about elements
             document.querySelectorAll('.about-text h3, .about-text p, .about-features, .about-image').forEach(element => {
                 observer.observe(element);
             });
 
-            // Observe contact elements
             document.querySelectorAll('.contact-item, .contact-form').forEach(element => {
                 observer.observe(element);
             });
         }
 
-        // Contact form submission
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            // Get form values
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
 
-            // In a real application, you would send this data to a server
             console.log({ name, email, subject, message });
 
-            // Show success message
             const successMessage = document.createElement('div');
             successMessage.style.cssText = `
                 position: fixed;
@@ -2626,13 +2598,8 @@
                 font-weight: 600;
                 animation: slideInRight 0.3s ease-out;
             `;
-            successMessage.textContent = '✅ Your message has been sent successfully!';
-            document.body.appendChild(successMessage);
+            
 
-            // Reset form
-            contactForm.reset();
-
-            // Remove message after 4 seconds
             setTimeout(() => {
                 successMessage.style.opacity = '0';
                 successMessage.style.transition = 'opacity 0.5s ease';
@@ -2644,7 +2611,6 @@
             }, 4000);
         });
 
-        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -2658,7 +2624,6 @@
             });
         });
 
-        // Enhanced hover effects for cards (desktop only)
         if (window.innerWidth >= 768) {
             document.querySelectorAll('.blog-card, .contact-item').forEach(card => {
                 card.addEventListener('mouseenter', function () {
@@ -2669,8 +2634,6 @@
                 });
             });
         }
-
-        // Add button ripple effect
         document.querySelectorAll('.cta-button, .read-more, .btn-submit, .nav-cta').forEach(button => {
             button.addEventListener('click', function (e) {
                 const ripple = document.createElement('span');
@@ -2704,9 +2667,8 @@
             });
         });
 
-        // Add loading animation for better UX
         window.addEventListener('load', () => {
-            // Initialize particles after page load
+          
             if (!document.getElementById('particles')) {
                 createParticles();
             }
