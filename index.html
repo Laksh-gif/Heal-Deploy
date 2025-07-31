@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* Reset and Base Styles */
-        * {
+        
+         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -40,7 +40,6 @@
             min-height: 100vh;
         }
 
-        /* Animated Background */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -128,7 +127,7 @@
             width: 100%;
         }
 
-        /* Navigation */
+      
         .navbar {
             position: fixed;
             top: 0;
@@ -304,7 +303,7 @@
             transform: rotate(45deg) translate(-5px, -6px);
         }
 
-        /* Mobile Menu */
+        
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -337,7 +336,7 @@
             padding: min(16px, 3vw) min(32px, 6vw);
         }
 
-        /* Hero Section */
+        
         .hero {
             padding: max(100px, 15vh) 0 max(60px, 10vh);
             text-align: center;
@@ -566,7 +565,7 @@
             margin-right: min(8px, 2vw);
         }
 
-        /* Stats Grid */
+        
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(min(150px, 25vw), 1fr));
@@ -645,7 +644,6 @@
             font-size: clamp(11px, 2.5vw, 16px);
         }
 
-        /* Features Section */
         .features {
             padding: min(60px, 10vh) 0;
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
@@ -812,7 +810,7 @@
             z-index: 1;
         }
 
-        /* Analytics Preview */
+       
         .analytics-preview {
             padding: min(60px, 10vh) 0;
             background: rgba(15, 23, 42, 0.95);
@@ -906,7 +904,6 @@
             font-size: clamp(12px, 2.8vw, 16px);
         }
 
-        /* Chart Container */
         .chart-container {
             position: relative;
             animation: slideInRight 1s ease-out;
@@ -1051,7 +1048,7 @@
             font-weight: 600;
         }
 
-        /* Floating Elements */
+        
         .floating-element {
             position: absolute;
             border-radius: 50%;
@@ -1133,7 +1130,6 @@
             box-shadow: 0 20px 45px rgba(59, 130, 246, 0.6);
         }
 
-        /* Testimonials */
         .testimonials {
             padding: min(60px, 10vh) 0;
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.9) 100%);
@@ -1225,7 +1221,6 @@
             font-weight: 500;
         }
 
-        /* CTA Section */
         .cta {
             padding: min(60px, 10vh) 0;
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
@@ -1295,7 +1290,6 @@
             box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
         }
 
-        /* Footer */
         .footer {
             background: #0f172a;
             color: white;
@@ -1386,7 +1380,7 @@
             font-size: clamp(10px, 2.2vw, 16px);
         }
 
-        /* Responsive Design */
+        
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -1462,7 +1456,7 @@
             }
         }
 
-        /* Scroll Animations */
+        
         .fade-in-up {
             opacity: 0;
             transform: translateY(30px);
@@ -1474,7 +1468,7 @@
             transform: translateY(0);
         }
 
-        /* Touch optimizations for mobile */
+        
         @media (hover: none) and (pointer: coarse) {
 
             .feature-card:hover,
@@ -1490,7 +1484,7 @@
             }
         }
 
-        /* Prevent zoom on input focus on iOS */
+        
         @media screen and (-webkit-min-device-pixel-ratio: 0) {
 
             select,
@@ -1513,12 +1507,12 @@
             }
         }
 
-        /* Ensure no horizontal overflow */
+       
         * {
             max-width: 100%;
         }
 
-        /* Fix for very small screens */
+       
         @media (max-width: 320px) {
             .container {
                 padding: 0 10px;
@@ -1547,7 +1541,7 @@
             }
         }
 
-        /* Landscape orientation fixes */
+       
         @media (max-height: 500px) and (orientation: landscape) {
             .hero {
                 min-height: auto;
@@ -1566,7 +1560,7 @@
 </head>
 
 <body>
-    <!-- Animated Background -->
+   
     <div class="animated-bg">
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
@@ -1574,7 +1568,7 @@
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
     </div>
-    <!-- Mobile Menu -->
+   
     <div class="mobile-menu" id="mobileMenu">
         <a href="#features" class="nav-link">Features</a>
         <a href="about.html" class="nav-link">About</a>
@@ -1582,7 +1576,7 @@
         <a href="cognitive.html" class="nav-link">Brain Training</a>
         <a href="#cta" class="nav-cta">Get Started</a>
     </div>
-    <!-- Navigation -->
+   
     <nav id="navbar" class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
@@ -1603,7 +1597,7 @@
             </button>
         </div>
     </nav>
-    <!-- Hero Section -->
+    
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -1622,7 +1616,7 @@
                     </button>
                 </div>
             </div>
-            <!-- Stats -->
+           
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-value">10K+</div>
@@ -1639,7 +1633,7 @@
             </div>
         </div>
     </section>
-    <!-- Features Section -->
+  
     <section id="features" class="features">
         <div class="container">
             <div class="section-header">
@@ -1731,7 +1725,7 @@
             </div>
         </div>
     </section>
-    <!-- Health Analytics Preview -->
+    
     <section class="analytics-preview">
         <div class="container">
             <div class="section-header">
@@ -1743,7 +1737,7 @@
                 </p>
             </div>
             <div class="analytics-content">
-                <!-- Left side - Features list -->
+                
                 <div class="analytics-features">
                     <div class="analytics-feature">
                         <div class="analytics-feature-icon blue-bg">
@@ -1782,7 +1776,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Right side - Chart -->
+                
                 <div class="chart-container">
                     <div class="chart-wrapper">
                         <div class="chart-header">
@@ -1810,12 +1804,12 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Floating elements -->
+                    
                     <div class="floating-element floating-1"></div>
                     <div class="floating-element floating-2"></div>
                 </div>
             </div>
-            <!-- Call to action -->
+            
             <div class="analytics-cta">
 
 
@@ -1825,7 +1819,7 @@
             </div>
         </div>
     </section>
-    <!-- Testimonials -->
+    
     <section id="testimonials" class="testimonials">
         <div class="container">
             <div class="section-header">
@@ -1875,7 +1869,7 @@
             </div>
         </div>
     </section>
-    <!-- CTA Section -->
+   
     <section id="cta" class="cta">
         <div class="container">
             <div class="cta-content">
@@ -1887,7 +1881,7 @@
             </div>
         </div>
     </section>
-    <!-- Footer -->
+   
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -1937,7 +1931,7 @@
         </div>
     </footer>
     <script>
-        // Navigation scroll effect
+       
         window.addEventListener('scroll', function () {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -1946,7 +1940,7 @@
                 navbar.classList.remove('scrolled');
             }
         });
-        // Mobile menu toggle
+        
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         if (mobileMenuBtn) {
@@ -1956,7 +1950,7 @@
                 document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
             });
         }
-        // Close mobile menu when clicking on links
+        
         document.querySelectorAll('.mobile-menu .nav-link, .mobile-menu .nav-cta').forEach(link => {
             link.addEventListener('click', function () {
                 mobileMenu.classList.remove('active');
@@ -1964,7 +1958,7 @@
                 document.body.style.overflow = '';
             });
         });
-        // Close mobile menu when clicking outside
+        
         document.addEventListener('click', function (event) {
             if (!mobileMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
                 mobileMenu.classList.remove('active');
@@ -1972,7 +1966,7 @@
                 document.body.style.overflow = '';
             }
         });
-        // Smooth scrolling for anchor links
+        
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1985,9 +1979,9 @@
                 }
             });
         });
-        // Demo and other functions
+       
         function showDemo() {
-            alert('🎬 Demo video would play here! This showcases the HealVerse platform in action with real user scenarios.');
+            window.open('https://www.youtube.com/watch?v=vx0YQcJ9nTE', '_blank');
         }
         function showSignup() {
             alert('🚀 Sign up form would appear here! Join thousands of users transforming their healthcare journey.');
@@ -2001,7 +1995,7 @@
         function showContact() {
             alert('📞 Contact Us:\n\nEmail: support@healverse.com\nPhone: +1 (555) 123-4567\nAddress: 123 Healthcare Ave, San Francisco, CA 94102');
         }
-        // Health Analytics Chart - Fully Mobile Optimized
+       
         let healthChart = null;
         let chartData = [];
         let chartUpdateInterval = null;
@@ -2011,18 +2005,18 @@
             const bpData = [];
             const hrData = [];
             const sugarData = [];
-            // Generate 7 days of data
+            
             for (let i = 6; i >= 0; i--) {
                 const date = new Date(now);
                 date.setDate(date.getDate() - i);
-                // Use very short labels for mobile
+                
                 const label = window.innerWidth < 480
                     ? date.toLocaleDateString('en-US', { day: 'numeric' })
                     : window.innerWidth < 768
                         ? date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
                         : date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
                 labels.push(label);
-                // Generate realistic health data with some variation
+                
                 const baseBP = 120 + Math.sin(i * 0.5) * 10;
                 const baseHR = 72 + Math.sin(i * 0.3) * 8;
                 const baseSugar = 95 + Math.sin(i * 0.7) * 15;
@@ -2035,14 +2029,14 @@
         function initHealthChart() {
             const ctx = document.getElementById('healthChart');
             if (!ctx) return;
-            // Generate initial data
+            
             const data = generateHealthData();
             chartData = data;
-            // Destroy existing chart if it exists
+            
             if (healthChart) {
                 healthChart.destroy();
             }
-            // Mobile-responsive chart configuration
+            
             const isMobile = window.innerWidth < 768;
             const isSmallMobile = window.innerWidth < 480;
             healthChart = new Chart(ctx, {
@@ -2184,9 +2178,9 @@
                     }
                 }
             });
-            // Update stats display
+            
             updateHealthStats();
-            // Start real-time updates
+            
             startRealTimeUpdates();
         }
         function updateHealthStats() {
@@ -2202,28 +2196,26 @@
             if (avgSugarElement) avgSugarElement.textContent = avgSugar;
         }
         function startRealTimeUpdates() {
-            // Clear existing interval
+            
             if (chartUpdateInterval) {
                 clearInterval(chartUpdateInterval);
             }
-            // Update chart every 5 seconds with new data point
+            
             chartUpdateInterval = setInterval(() => {
                 if (!healthChart || !chartData) return;
-                // Generate new data point
                 const lastBP = chartData.bpData[chartData.bpData.length - 1];
                 const lastHR = chartData.hrData[chartData.hrData.length - 1];
                 const lastSugar = chartData.sugarData[chartData.sugarData.length - 1];
                 const newBP = Math.round(lastBP + (Math.random() - 0.5) * 6);
                 const newHR = Math.round(lastHR + (Math.random() - 0.5) * 8);
                 const newSugar = Math.round(lastSugar + (Math.random() - 0.5) * 10);
-                // Add new data point
                 const now = new Date();
                 const newLabel = window.innerWidth < 480
                     ? now.getMinutes().toString().padStart(2, '0')
                     : window.innerWidth < 768
                         ? now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
                         : now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-                // Keep only last 7 data points
+               
                 if (healthChart.data.labels.length >= 7) {
                     healthChart.data.labels.shift();
                     healthChart.data.datasets[0].data.shift();
@@ -2233,7 +2225,7 @@
                     chartData.hrData.shift();
                     chartData.sugarData.shift();
                 }
-                // Add new data
+                
                 healthChart.data.labels.push(newLabel);
                 healthChart.data.datasets[0].data.push(Math.max(90, Math.min(140, newBP)));
                 healthChart.data.datasets[1].data.push(Math.max(60, Math.min(100, newHR)));
@@ -2241,12 +2233,12 @@
                 chartData.bpData.push(Math.max(90, Math.min(140, newBP)));
                 chartData.hrData.push(Math.max(60, Math.min(100, newHR)));
                 chartData.sugarData.push(Math.max(70, Math.min(130, newSugar)));
-                // Update chart
+                
                 healthChart.update('none');
                 updateHealthStats();
             }, 5000);
         }
-        // Intersection Observer for animations
+        
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -2258,7 +2250,7 @@
                 }
             });
         }, observerOptions);
-        // Animate elements on scroll
+        
         function initScrollAnimations() {
             const animateElements = document.querySelectorAll('.stat-card, .feature-card, .testimonial-card, .analytics-feature, .chart-container');
             animateElements.forEach(el => {
@@ -2266,7 +2258,7 @@
                 observer.observe(el);
             });
         }
-        // Counter animation for stats
+        
         function animateCounters() {
             const counters = document.querySelectorAll('.stat-value');
             counters.forEach(counter => {
@@ -2288,19 +2280,19 @@
                 }
             });
         }
-        // Mouse parallax effect (disabled on mobile for performance)
+        
         if (window.innerWidth >= 768) {
             document.addEventListener('mousemove', function (e) {
                 const mouseX = e.clientX / window.innerWidth;
                 const mouseY = e.clientY / window.innerHeight;
-                // Parallax for floating elements
+                
                 document.querySelectorAll('.floating-element').forEach((element, index) => {
                     const speed = (index + 1) * 0.5;
                     const x = (mouseX - 0.5) * speed * 20;
                     const y = (mouseY - 0.5) * speed * 20;
                     element.style.transform = `translate(${x}px, ${y}px)`;
                 });
-                // Parallax for background shapes
+                
                 document.querySelectorAll('.bg-shape').forEach((shape, index) => {
                     const speed = (index + 1) * 0.3;
                     const x = (mouseX - 0.5) * speed * 30;
@@ -2309,21 +2301,21 @@
                 });
             });
         }
-        // Handle window resize for chart responsiveness
+        
         function handleResize() {
             if (healthChart) {
-                // Reinitialize chart with new responsive settings
+                
                 initHealthChart();
             }
         }
-        // Initialize everything when DOM is loaded
+
         document.addEventListener('DOMContentLoaded', function () {
-            // Initialize chart after a short delay to ensure DOM is ready
+           
             setTimeout(() => {
                 initHealthChart();
             }, 500);
             initScrollAnimations();
-            // Animate counters when stats section is visible
+           
             const statsSection = document.querySelector('.stats-grid');
             if (statsSection) {
                 const statsObserver = new IntersectionObserver(function (entries) {
@@ -2337,23 +2329,23 @@
                 statsObserver.observe(statsSection);
             }
         });
-        // Handle window resize with debouncing
+       
         let resizeTimeout;
         window.addEventListener('resize', function () {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(handleResize, 250);
         });
-        // Handle orientation change on mobile
+
         window.addEventListener('orientationchange', function () {
             setTimeout(handleResize, 100);
         });
-        // Clean up intervals when page is unloaded
+      
         window.addEventListener('beforeunload', function () {
             if (chartUpdateInterval) {
                 clearInterval(chartUpdateInterval);
             }
         });
-        // Add loading state for buttons
+      
         document.querySelectorAll('.btn-primary, .btn-gradient, .btn-cta').forEach(button => {
             button.addEventListener('click', function (e) {
                 const originalText = this.textContent;
@@ -2365,7 +2357,7 @@
                 }, 1000);
             });
         });
-        // Enhanced hover effects for feature cards (desktop only)
+      
         if (window.innerWidth >= 768) {
             document.querySelectorAll('.feature-card').forEach(card => {
                 card.addEventListener('mouseenter', function () {
@@ -2376,7 +2368,7 @@
                 });
             });
         }
-        // Prevent zoom on double tap for iOS
+     
         let lastTouchEnd = 0;
         document.addEventListener('touchend', function (event) {
             const now = (new Date()).getTime();
@@ -2385,20 +2377,19 @@
             }
             lastTouchEnd = now;
         }, false);
-        // Optimize scroll performance on mobile
+      
         let ticking = false;
         function updateScrollEffects() {
-            // Throttled scroll effects
             if (!ticking) {
                 requestAnimationFrame(function () {
-                    // Add any scroll-based animations here
+                    
                     ticking = false;
                 });
                 ticking = true;
             }
         }
         window.addEventListener('scroll', updateScrollEffects, { passive: true });
-        // Prevent horizontal scrolling issues
+      
         document.addEventListener('touchmove', function (e) {
             if (e.touches.length > 1) {
                 e.preventDefault();
