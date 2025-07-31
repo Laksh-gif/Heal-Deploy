@@ -9,6 +9,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -1804,24 +1805,172 @@
 
 
         downloadBtn.addEventListener("click", () => {
-            const reportData = {
-                medications: medications,
-                takenLog: takenLog,
-                generatedAt: new Date().toISOString(),
-                totalMedications: medications.length,
-                totalDosesTaken: Object.values(takenLog).reduce((sum, arr) => sum + arr.length, 0)
-            };
-
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(reportData, null, 2));
-            const downloadAnchorNode = document.createElement('a');
-            downloadAnchorNode.setAttribute("href", dataStr);
-            downloadAnchorNode.setAttribute("download", `HealVerse_Medication_Report_${new Date().toISOString().split('T')[0]}.json`);
-            document.body.appendChild(downloadAnchorNode);
-            downloadAnchorNode.click();
-            downloadAnchorNode.remove();
-
-            showAlert("Report downloaded successfully! 📊", "success");
+            generatePDFReport();
         });
+
+        function generatePDFReport() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Calculate statistics
+            const totalMeds = medications.length;
+            const totalTaken = Object.values(takenLog).reduce((sum, arr) => sum + arr.length, 0);
+            const adherenceRate = totalMeds > 0 ? Math.round((totalTaken / totalMeds) * 100) : 0;
+            const currentDate = new Date().toLocaleDateString("en-US", { 
+                year: "numeric", month: "long", day: "numeric" 
+            });
+
+            // Set up colors
+            const primaryColor = [59, 130, 246]; // Blue
+            const textColor = [31, 41, 59]; // Dark gray
+            const lightGray = [203, 213, 225];
+
+            // Header
+            doc.setFillColor(...primaryColor);
+            doc.rect(0, 0, 210, 30, 'F');
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(24);
+            doc.setFont(undefined, 'bold');
+            doc.text('HealVerse', 20, 20);
+            
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'normal');
+            doc.text('Medication Management Report', 120, 15);
+            doc.text(`Generated: ${currentDate}`, 120, 22);
+
+            // Title
+            doc.setTextColor(...textColor);
+            doc.setFontSize(18);
+            doc.setFont(undefined, 'bold');
+            doc.text('Medication Report Summary', 20, 50);
+
+            // Summary statistics
+            let yPos = 65;
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'normal');
+            
+            const summaryData = [
+                ['Total Active Medications:', totalMeds],
+                ['Total Doses Taken:', totalTaken],
+                ['Adherence Rate:', `${adherenceRate}%`],
+                ['Report Period:', 'All Time']
+            ];
+
+            summaryData.forEach(([label, value]) => {
+                doc.setFont(undefined, 'bold');
+                doc.text(label, 20, yPos);
+                doc.setFont(undefined, 'normal');
+                doc.text(String(value), 100, yPos);
+                yPos += 8;
+            });
+
+            // Medication List Section
+            yPos += 15;
+            doc.setFontSize(16);
+            doc.setFont(undefined, 'bold');
+            doc.text('Medication Inventory', 20, yPos);
+            yPos += 10;
+
+            if (medications.length === 0) {
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'italic');
+                doc.setTextColor(128, 128, 128);
+                doc.text('No medications currently added to your profile.', 20, yPos);
+            } else {
+                medications.forEach((med, index) => {
+                    if (yPos > 250) { // Start new page if needed
+                        doc.addPage();
+                        yPos = 30;
+                    }
+
+                    const takenCount = takenLog[med.id]?.length || 0;
+                    
+                    // Medication card background
+                    doc.setFillColor(248, 250, 252);
+                    doc.rect(15, yPos - 5, 180, 25, 'F');
+                    
+                    doc.setTextColor(...textColor);
+                    doc.setFontSize(12);
+                    doc.setFont(undefined, 'bold');
+                    doc.text(`${index + 1}. ${med.name}`, 20, yPos + 5);
+                    
+                    doc.setFontSize(10);
+                    doc.setFont(undefined, 'normal');
+                    doc.text(`Dosage: ${med.dose}`, 20, yPos + 12);
+                    doc.text(`Type: ${med.type || 'Not specified'}`, 85, yPos + 12);
+                    doc.text(`Schedule: ${formatDate(med.date)} at ${med.time}`, 20, yPos + 18);
+                    doc.text(`Times taken: ${takenCount}`, 120, yPos + 18);
+                    
+                    yPos += 30;
+                });
+            }
+
+            // Today's Schedule Section
+            if (yPos > 220) {
+                doc.addPage();
+                yPos = 30;
+            }
+
+            yPos += 15;
+            doc.setFontSize(16);
+            doc.setFont(undefined, 'bold');
+            doc.text('Today\'s Schedule', 20, yPos);
+            yPos += 10;
+
+            const today = new Date().toISOString().split("T")[0];
+            const todaysMeds = medications.filter((m) => m.date === today);
+
+            if (todaysMeds.length === 0) {
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'italic');
+                doc.setTextColor(128, 128, 128);
+                doc.text('No medications scheduled for today.', 20, yPos);
+            } else {
+                todaysMeds.forEach((med) => {
+                    if (yPos > 250) {
+                        doc.addPage();
+                        yPos = 30;
+                    }
+
+                    const isTaken = takenLog[med.id]?.includes(today);
+                    const statusColor = isTaken ? [16, 185, 129] : [245, 158, 11];
+                    const statusText = isTaken ? 'TAKEN' : 'PENDING';
+                    
+                    doc.setTextColor(...textColor);
+                    doc.setFontSize(11);
+                    doc.setFont(undefined, 'bold');
+                    doc.text(`${med.time} - ${med.name}`, 20, yPos);
+                    
+                    doc.setTextColor(...statusColor);
+                    doc.setFontSize(9);
+                    doc.text(statusText, 150, yPos);
+                    
+                    doc.setTextColor(...textColor);
+                    doc.setFontSize(9);
+                    doc.setFont(undefined, 'normal');
+                    doc.text(`${med.dose}`, 20, yPos + 6);
+                    
+                    yPos += 15;
+                });
+            }
+
+            // Footer
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFontSize(8);
+                doc.setTextColor(128, 128, 128);
+                doc.text('Confidential Medical Report - HealVerse Platform', 20, 285);
+                doc.text(`Page ${i} of ${pageCount}`, 170, 285);
+            }
+
+            // Save the PDF
+            const fileName = `HealVerse_Medication_Report_${new Date().toISOString().split('T')[0]}.pdf`;
+            doc.save(fileName);
+            
+            showAlert("PDF report downloaded successfully! 📊", "success");
+        }
 
 
         function formatDate(dateString) {
