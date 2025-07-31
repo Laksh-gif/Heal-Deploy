@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health Education Hub - HealVerse</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <style>
         * {
@@ -45,6 +44,7 @@
             border-radius: 50%;
             background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
             animation: float 20s infinite linear;
+            filter: blur(40px);
         }
 
         .bg-shape:nth-child(1) {
@@ -72,9 +72,59 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-30px) rotate(120deg); }
-            66% { transform: translateY(20px) rotate(240deg); }
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            33% {
+                transform: translateY(-30px) rotate(120deg);
+            }
+
+            66% {
+                transform: translateY(20px) rotate(240deg);
+            }
+        }
+
+        /* Particle System */
+        .particles {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 80px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(59, 130, 246, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 15s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
         }
 
         /* Navigation */
@@ -83,7 +133,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(59, 130, 246, 0.2);
             z-index: 1000;
@@ -119,22 +169,38 @@
         }
 
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scale(1);
             }
+
             50% {
                 transform: scale(1.1);
             }
         }
 
         .brand-text {
-            font-size: 28px;
+            font-size: clamp(20px, 4vw, 28px);
             font-weight: 800;
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+            animation: textShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes textShimmer {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .nav-cta {
@@ -144,7 +210,7 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 16px;
+            font-size: clamp(14px, 2.5vw, 16px);
             transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
             position: relative;
@@ -167,7 +233,7 @@
         }
 
         .nav-cta:hover {
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.05);
             box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
         }
 
@@ -177,6 +243,9 @@
             background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
             position: relative;
             overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
 
         .container {
@@ -189,6 +258,19 @@
             text-align: center;
             max-width: 800px;
             margin: 0 auto;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero-badge {
@@ -203,17 +285,44 @@
             font-weight: 600;
             color: #93c5fd;
             margin-bottom: min(30px, 5vh);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            }
+
+            to {
+                box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+            }
         }
 
         .hero h1 {
-            font-size: clamp(32px, 8vw, 64px);
+            font-size: clamp(2.5rem, 8vw, 5rem);
             font-weight: 900;
             line-height: 1.1;
             margin-bottom: min(24px, 4vh);
-            background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%);
+            background: linear-gradient(135deg, #f8fafc 0%, #3b82f6 50%, #8b5cf6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: titleGlow 3s ease-in-out infinite;
+            text-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
+        }
+
+        @keyframes titleGlow {
+
+            0%,
+            100% {
+                filter: brightness(1);
+                text-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
+            }
+
+            50% {
+                filter: brightness(1.2);
+                text-shadow: 0 0 80px rgba(59, 130, 246, 0.5);
+            }
         }
 
         .hero p {
@@ -222,6 +331,7 @@
             max-width: 600px;
             margin: 0 auto min(40px, 6vh);
             line-height: 1.7;
+            animation: fadeInUp 1s ease-out 0.3s both;
         }
 
         .cta-button {
@@ -233,12 +343,30 @@
             border-radius: 50px;
             font-weight: 600;
             font-size: clamp(14px, 3vw, 16px);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.05);
             box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
         }
 
@@ -252,14 +380,51 @@
         }
 
         .section-title {
-            font-size: clamp(28px, 6vw, 48px);
+            font-size: clamp(2rem, 6vw, 3.5rem);
             font-weight: 800;
             margin-bottom: min(20px, 3vh);
             text-align: center;
-            background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%);
+            background: linear-gradient(135deg, #f8fafc 0%, #3b82f6 50%, #8b5cf6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: titleSlideIn 1s ease-out;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 2px;
+            animation: underlineExpand 1s ease-out 0.5s both;
+        }
+
+        @keyframes titleSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes underlineExpand {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 80px;
+            }
         }
 
         .section-subtitle {
@@ -271,6 +436,7 @@
             margin-right: auto;
             font-size: clamp(16px, 3vw, 18px);
             line-height: 1.6;
+            animation: fadeInUp 1s ease-out 0.3s both;
         }
 
         /* Blog Section */
@@ -279,6 +445,7 @@
             flex-direction: column;
             gap: 1.5rem;
             margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.6s both;
         }
 
         .search-container {
@@ -304,6 +471,7 @@
             border-color: #3b82f6;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
             background: rgba(248, 250, 252, 0.1);
+            transform: scale(1.02);
         }
 
         .search-input::placeholder {
@@ -316,6 +484,12 @@
             top: 50%;
             transform: translateY(-50%);
             color: #94a3b8;
+            transition: all 0.3s ease;
+        }
+
+        .search-container:focus-within .search-icon {
+            color: #3b82f6;
+            transform: translateY(-50%) scale(1.1);
         }
 
         .filter-tags {
@@ -335,43 +509,95 @@
             font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .filter-tag:hover::before {
+            left: 100%;
         }
 
         .filter-tag:hover {
             color: white;
             border-color: #3b82f6;
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.05);
             background: rgba(59, 130, 246, 0.1);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
         }
 
         .filter-tag.active {
-            background: #3b82f6;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             color: white;
             border-color: #3b82f6;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+            transform: scale(1.05);
         }
 
         .blog-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 2rem;
+            animation: fadeInUp 1s ease-out 0.9s both;
         }
 
         .blog-card {
             background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(248, 250, 252, 0.1);
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
             cursor: pointer;
+            position: relative;
+            animation: cardSlideIn 0.6s ease-out;
+        }
+
+        @keyframes cardSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .blog-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 20px;
+        }
+
+        .blog-card:hover::before {
+            opacity: 1;
         }
 
         .blog-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.3);
             border-color: #3b82f6;
         }
 
@@ -379,11 +605,12 @@
             width: 100%;
             height: 200px;
             object-fit: cover;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
         }
 
         .blog-card:hover .blog-image {
-            transform: scale(1.05);
+            transform: scale(1.1);
+            filter: brightness(1.1);
         }
 
         .blog-content {
@@ -391,6 +618,8 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            position: relative;
+            z-index: 1;
         }
 
         .blog-title {
@@ -399,10 +628,12 @@
             margin-bottom: 0.8rem;
             color: #f8fafc;
             transition: all 0.3s ease;
+            line-height: 1.3;
         }
 
         .blog-card:hover .blog-title {
             color: #3b82f6;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
         }
 
         .blog-description {
@@ -435,29 +666,48 @@
             font-size: 0.75rem;
             color: #94a3b8;
             transition: all 0.3s ease;
+            border: 1px solid rgba(248, 250, 252, 0.1);
         }
 
         .blog-tag:hover {
-            background: #3b82f6;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             color: white;
             transform: scale(1.05);
+            border-color: #3b82f6;
         }
 
         .read-more {
             display: inline-block;
-            padding: 0.6rem 1.2rem;
-            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             color: white;
             text-decoration: none;
-            border-radius: 6px;
-            font-weight: 500;
+            border-radius: 50px;
+            font-weight: 600;
             text-align: center;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .read-more::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .read-more:hover::before {
+            left: 100%;
         }
 
         .read-more:hover {
-            background: linear-gradient(135deg, #1e40af, #3b82f6);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
         }
 
         /* Blog Modal */
@@ -475,6 +725,17 @@
             justify-content: center;
             padding: 2rem;
             overflow-y: auto;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .blog-modal.active {
@@ -491,25 +752,40 @@
             overflow-y: auto;
             position: relative;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            animation: modalSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .modal-header {
             position: relative;
             height: 300px;
             overflow: hidden;
+            border-radius: 20px 20px 0 0;
         }
 
         .modal-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: all 0.3s ease;
         }
 
         .modal-close {
             position: absolute;
             top: 1rem;
             right: 1rem;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.7);
             color: white;
             border: none;
             border-radius: 50%;
@@ -519,11 +795,12 @@
             cursor: pointer;
             transition: all 0.3s ease;
             z-index: 10;
+            backdrop-filter: blur(10px);
         }
 
         .modal-close:hover {
             background: rgba(239, 68, 68, 0.8);
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(90deg);
         }
 
         .modal-body {
@@ -535,6 +812,10 @@
             margin-bottom: 1rem;
             color: #f8fafc;
             font-weight: 700;
+            background: linear-gradient(135deg, #f8fafc 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .modal-meta {
@@ -555,12 +836,18 @@
         }
 
         .modal-tag {
-            padding: 0.3rem 0.8rem;
+            padding: 0.4rem 1rem;
             background: rgba(59, 130, 246, 0.1);
             border-radius: 20px;
             font-size: 0.85rem;
             color: #3b82f6;
             border: 1px solid rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .modal-tag:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: scale(1.05);
         }
 
         .blog-content-section {
@@ -574,6 +861,10 @@
             margin-bottom: 1rem;
             color: #f8fafc;
             font-weight: 600;
+            background: linear-gradient(135deg, #f8fafc 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .blog-content-section p {
@@ -586,6 +877,12 @@
             border-radius: 12px;
             margin: 1.5rem 0;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .blog-content-section img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.2);
         }
 
         .blog-content-section ul {
@@ -595,6 +892,11 @@
 
         .blog-content-section li {
             margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .blog-content-section li::marker {
+            color: #3b82f6;
         }
 
         /* About Section */
@@ -606,11 +908,14 @@
         }
 
         .about-text h3 {
-            font-family: 'Poppins', sans-serif;
             font-size: 1.8rem;
             margin-bottom: 1rem;
             opacity: 0;
             transform: translateX(-30px);
+            background: linear-gradient(135deg, #f8fafc 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .about-text h3.visible {
@@ -618,7 +923,7 @@
         }
 
         .about-text p {
-            color: var(--text-secondary);
+            color: #94a3b8;
             margin-bottom: 1.5rem;
             opacity: 0;
             transform: translateX(-30px);
@@ -643,26 +948,30 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            transition: var(--transition);
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
         }
 
         .about-features li:hover {
             transform: translateX(10px);
+            background: rgba(59, 130, 246, 0.1);
         }
 
         .about-features i {
-            color: var(--primary);
-            transition: var(--transition);
+            color: #3b82f6;
+            transition: all 0.3s ease;
         }
 
         .about-features li:hover i {
             transform: scale(1.2) rotate(10deg);
+            filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.5));
         }
 
         .about-image {
-            border-radius: var(--border-radius);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: var(--shadow);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
             opacity: 0;
             transform: translateX(30px);
         }
@@ -675,7 +984,7 @@
             width: 100%;
             height: auto;
             display: block;
-            transition: var(--transition);
+            transition: all 0.4s ease;
         }
 
         .about-image:hover img {
@@ -700,14 +1009,31 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(10px);
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: var(--transition);
+            border-radius: 16px;
+            border: 1px solid rgba(248, 250, 252, 0.1);
+            transition: all 0.4s ease;
             opacity: 0;
             transform: translateY(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .contact-item:hover::before {
+            left: 100%;
         }
 
         .contact-item.visible {
@@ -715,35 +1041,37 @@
         }
 
         .contact-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(74, 107, 255, 0.2);
-            border-color: var(--primary);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
         }
 
         .contact-icon {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 1.2rem;
-            transition: var(--transition);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
         }
 
         .contact-item:hover .contact-icon {
             transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
         }
 
         .contact-form {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(20px);
             padding: 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(248, 250, 252, 0.1);
             opacity: 0;
             transform: translateY(20px);
         }
@@ -760,25 +1088,26 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
-            font-family: 'Poppins', sans-serif;
+            color: #f8fafc;
         }
 
         .form-control {
             width: 100%;
-            padding: 0.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
-            background: rgba(255, 255, 255, 0.05);
+            padding: 0.8rem 1rem;
+            border: 1px solid rgba(248, 250, 252, 0.1);
+            border-radius: 8px;
+            background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(10px);
-            color: var(--text-primary);
-            transition: var(--transition);
+            color: #f8fafc;
+            transition: all 0.3s ease;
         }
 
         .form-control:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
-            background: rgba(255, 255, 255, 0.1);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+            background: rgba(248, 250, 252, 0.1);
+            transform: scale(1.02);
         }
 
         textarea.form-control {
@@ -787,16 +1116,17 @@
         }
 
         .btn-submit {
-            padding: 0.8rem 2rem;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            width: 100%;
         }
 
         .btn-submit::before {
@@ -818,123 +1148,11 @@
         }
 
         .btn-submit:hover {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            transform: translateY(-2px);
-        }
-
-        /* Footer */
-        .footer {
-            background: #0f172a;
-            color: white;
-            padding: min(50px, 8vh) 0 min(20px, 3vh);
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-            width: 100%;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 3fr;
-            gap: min(60px, 8vw);
-            margin-bottom: min(30px, 5vh);
-            width: 100%;
-            align-items: start;
-        }
-
-        .footer-brand {
-            text-align: left;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: min(12px, 2.5vw);
-            margin-bottom: min(16px, 3vh);
-            justify-content: flex-start;
-        }
-
-        .footer-logo span {
-            font-size: clamp(18px, 4vw, 28px);
-            font-weight: 800;
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .footer-description {
-            color: #cbd5e1;
-            line-height: 1.7;
-            font-size: clamp(12px, 2.8vw, 16px);
-            text-align: left;
-            margin-bottom: min(24px, 4vh);
-        }
-
-        .footer-links {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: min(40px, 6vw);
-            text-align: left;
-            width: 100%;
-        }
-
-        .footer-column h4 {
-            font-size: clamp(13px, 3vw, 18px);
-            font-weight: 700;
-            margin-bottom: min(12px, 2vh);
-            color: #f8fafc;
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column li {
-            margin-bottom: min(6px, 1vh);
-        }
-
-        .footer-column a {
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: clamp(11px, 2.5vw, 16px);
-        }
-
-        .footer-column a:hover {
-            color: #3b82f6;
-            transform: translateX(5px);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-            padding-top: min(20px, 3vh);
-            text-align: center;
-            color: #cbd5e1;
-            font-size: clamp(10px, 2.2vw, 16px);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
         }
 
         /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
         @keyframes slideInLeft {
             from {
                 opacity: 0;
@@ -965,104 +1183,99 @@
             .about-content,
             .contact-container {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
             .hero h1 {
-                font-size: 2.8rem;
+                font-size: clamp(2rem, 6vw, 2.8rem);
             }
         }
 
         @media (max-width: 768px) {
-            .nav-menu {
-                position: fixed;
-                left: -100%;
-                top: 70px;
-                flex-direction: column;
-                background: rgba(0, 0, 0, 0.9);
-                backdrop-filter: blur(20px);
-                width: 100%;
-                text-align: center;
-                transition: 0.3s;
-                box-shadow: var(--shadow);
-                padding: 2rem 0;
-            }
-
-            .nav-menu.active {
-                left: 0;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .hamburger.active span:nth-child(2) {
-                opacity: 0;
-            }
-
-            .hamburger.active span:nth-child(1) {
-                transform: translateY(8px) rotate(45deg);
-            }
-
-            .hamburger.active span:nth-child(3) {
-                transform: translateY(-8px) rotate(-45deg);
-            }
-
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: clamp(1.8rem, 5vw, 2.2rem);
             }
 
             .section-title {
-                font-size: 2rem;
+                font-size: clamp(1.5rem, 4vw, 2rem);
             }
 
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: min(30px, 5vh);
-                text-align: center;
-            }
-
-            .footer-brand {
-                text-align: center;
-            }
-
-            .footer-logo {
-                justify-content: center;
-            }
-
-            .footer-description {
-                text-align: center;
-            }
-
-            .footer-links {
-                grid-template-columns: 1fr;
-                gap: min(24px, 4vh);
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 576px) {
-
-            .blog-grid,
-            .categories-grid {
+            .blog-grid {
                 grid-template-columns: 1fr;
             }
 
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
+            .filter-tags {
+                justify-content: flex-start;
             }
 
             .modal-title {
                 font-size: 1.5rem;
             }
         }
+
+        @media (max-width: 576px) {
+            .modal-content {
+                margin: 1rem;
+                max-height: calc(100vh - 2rem);
+            }
+
+            .modal-body {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(248, 250, 252, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+        }
+
+        /* Loading animation for blog cards */
+        .blog-card.loading {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -1079,13 +1292,8 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="animated-bg">
-            <div class="floating-shape"></div>
-            <div class="floating-shape"></div>
-            <div class="floating-shape"></div>
-        </div>
-
         <div class="hero-content">
+
             <h1>Health Education Hub</h1>
             <p>Your ultimate destination for reliable healthcare information, wellness tips, and medical insights from
                 experts around the world.</p>
@@ -1095,190 +1303,65 @@
 
     <!-- Latest Blogs Section -->
     <section id="latest-blogs">
-        <h2 class="section-title">Latest Blogs</h2>
-        <p class="section-subtitle">Discover the most recent articles on health, wellness, and medical advancements</p>
-
-        <div class="blog-controls">
-            <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" id="search-input" placeholder="Search blogs...">
+        <div class="container">
+            <h2 class="section-title">Latest Blogs</h2>
+            <p class="section-subtitle">Discover the most recent articles on health, wellness, and medical advancements
+            </p>
+            <div class="blog-controls">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" id="search-input" placeholder="Search blogs...">
+                </div>
+                <div class="filter-tags">
+                    <div class="filter-tag active" data-filter="all">All</div>
+                    <div class="filter-tag" data-filter="nutrition">Nutrition</div>
+                    <div class="filter-tag" data-filter="fitness">Fitness</div>
+                    <div class="filter-tag" data-filter="mental-health">Mental Health</div>
+                    <div class="filter-tag" data-filter="medical">Medical</div>
+                    <div class="filter-tag" data-filter="wellness">Wellness</div>
+                </div>
             </div>
-
-            <div class="filter-tags">
-                <div class="filter-tag active" data-filter="all">All</div>
-                <div class="filter-tag" data-filter="nutrition">Nutrition</div>
-                <div class="filter-tag" data-filter="fitness">Fitness</div>
-                <div class="filter-tag" data-filter="mental-health">Mental Health</div>
-                <div class="filter-tag" data-filter="medical">Medical</div>
-                <div class="filter-tag" data-filter="wellness">Wellness</div>
+            <div class="blog-grid" id="blog-grid">
+                <!-- Blog cards will be dynamically generated here -->
             </div>
-        </div>
-
-        <div class="blog-grid" id="blog-grid">
-            <!-- Blog cards will be dynamically generated here -->
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about">
-        <h2 class="section-title">About HealthVerse</h2>
-        <p class="section-subtitle">Our mission is to provide reliable, accessible, and comprehensive healthcare
-            information</p>
-
-        <div class="about-content">
-            <div class="about-text">
-                <h3>Your Trusted Health Resource</h3>
-                <p>HealthVerse is a comprehensive healthcare education platform designed to empower individuals with
-                    knowledge about health, wellness, and medical advancements.</p>
-                <p>We collaborate with healthcare professionals, researchers, and wellness experts to bring you
-                    evidence-based information that you can trust.</p>
-
-                <ul class="about-features">
-                    <li><i class="fas fa-check-circle"></i> Expert-vetted content</li>
-                    <li><i class="fas fa-check-circle"></i> Regularly updated articles</li>
-                    <li><i class="fas fa-check-circle"></i> Diverse health topics</li>
-                    <li><i class="fas fa-check-circle"></i> Community-driven approach</li>
-                </ul>
-            </div>
-
-            <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
-                    alt="Healthcare professionals">
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <h2 class="section-title">Contact Us</h2>
-        <p class="section-subtitle">Have questions or suggestions? We'd love to hear from you</p>
-
-        <div class="contact-container">
-            <div class="contact-info">
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div>
-                        <h4>Our Location</h4>
-                        <p>123 Health Street, Medical District, CA 90210</p>
-                    </div>
-                </div>
-
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-phone-alt"></i>
-                    </div>
-                    <div>
-                        <h4>Phone Number</h4>
-                        <p>+1 (555) 123-4567</p>
-                    </div>
-                </div>
-
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div>
-                        <h4>Email Address</h4>
-                        <p>info@healthverse.com</p>
-                    </div>
-                </div>
-
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div>
-                        <h4>Working Hours</h4>
-                        <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="contact-form">
-                <form id="contact-form">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" class="form-control" id="name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Your Email</label>
-                        <input type="email" class="form-control" id="email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" class="form-control" id="subject" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea class="form-control" id="message" required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn-submit">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <i class="fas fa-heart" style="font-size: 32px; color: #3b82f6;"></i>
-                        <span>HealVerse</span>
-                    </div>
-                    <p class="footer-description">
-                        Empowering healthcare with intelligence. Join thousands who trust HealVerse.
-                    </p>
+            <h2 class="section-title">About Education Hub</h2>
+            <p class="section-subtitle">Our mission is to provide reliable, accessible, and comprehensive healthcare
+                information</p>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Your Trusted Health Resource</h3>
+                    <p>HealVerse is a comprehensive healthcare education platform designed to empower individuals with
+                        knowledge about health, wellness, and medical advancements.</p>
+                    <p>We collaborate with healthcare professionals, researchers, and wellness experts to bring you
+                        evidence-based information that you can trust.</p>
+                    <ul class="about-features">
+                        <li><i class="fas fa-check-circle"></i> Expert-vetted content</li>
+                        <li><i class="fas fa-check-circle"></i> Regularly updated articles</li>
+                        <li><i class="fas fa-check-circle"></i> Diverse health topics</li>
+                        <li><i class="fas fa-check-circle"></i> Community-driven approach</li>
+                    </ul>
                 </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Features</h4>
-                        <ul>
-                            <li><a href="ai-assistant.html">AI Assistant</a></li>
-                            <li><a href="medication.html">Medication Manager</a></li>
-                            <li><a href="predictive.html">Health Analytics</a></li>
-                            <li><a href="newhabit.html">Habit Tracker</a></li>
-                            <li><a href="cognitive.html">Cognitive Fitness</a></li>
-                            <li><a href="Symptoms.html">Symptoms Checker</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms of Service</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Contact</h4>
-                        <ul>
-                            <li>support@healverse.com</li>
-                            <li>+1 (555) 123-4567</li>
-                            <li>123 Healthcare Ave<br>San Francisco, CA 94102</li>
-                        </ul>
-                    </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                        alt="Healthcare professionals">
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 HealVerse. All rights reserved. | Designed with ❤ for better healthcare</p>
             </div>
         </div>
-    </footer>
+    </section>
+
+
 
     <!-- Blog Modal -->
     <div class="blog-modal" id="blog-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <img src="" alt="" class="modal-image" id="modal-image">
+                <img src="/placeholder.svg" alt="" class="modal-image" id="modal-image">
                 <button class="modal-close" id="modal-close">
                     <i class="fas fa-times"></i>
                 </button>
@@ -1305,7 +1388,7 @@
                 title: "The Science of Intermittent Fasting",
                 description: "Explore how intermittent fasting affects metabolism, cellular repair, and overall health with evidence-based insights.",
                 image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                date: "Oct 15, 2023",
+                date: "May 15, 2025",
                 readTime: "5 min read",
                 tags: ["nutrition", "wellness"],
                 url: "#",
@@ -1369,7 +1452,7 @@
                 title: "Strength Training for Beginners",
                 description: "A comprehensive guide to starting your strength training journey with proper form and progression.",
                 image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                date: "Oct 12, 2023",
+                date: "May 12, 2025",
                 readTime: "7 min read",
                 tags: ["fitness", "wellness"],
                 url: "#",
@@ -1469,7 +1552,7 @@
                     
                     <ul>
                         <li>Sacrificing form for heavier weights</li>
-                        <li>Skiping warm-up and cool-down</li>
+                        <li>Skipping warm-up and cool-down</li>
                         <li>Not allowing enough recovery time</li>
                         <li>Inconsistent training schedule</li>
                         <li>Neglecting proper nutrition</li>
@@ -1493,7 +1576,7 @@
                 title: "Understanding Anxiety Disorders",
                 description: "Learn about the different types of anxiety disorders, their symptoms, and evidence-based treatment approaches.",
                 image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                date: "Oct 10, 2023",
+                date: "Feb 10, 2025",
                 readTime: "8 min read",
                 tags: ["mental-health", "medical"],
                 url: "#",
@@ -1547,47 +1630,6 @@
                         <li>Using public restrooms</li>
                     </ul>
                     
-                    <h4>4. Specific Phobias</h4>
-                    <p>Specific phobias involve intense, irrational fears of specific objects or situations. The fear is disproportionate to the actual danger posed by the object or situation.</p>
-                    
-                    <p><strong>Common phobias include:</strong></p>
-                    <ul>
-                        <li>Acrophobia (fear of heights)</li>
-                        <li>Arachnophobia (fear of spiders)</li>
-                        <li>Claustrophobia (fear of enclosed spaces)</li>
-                        <li>Aerophobia (fear of flying)</li>
-                    </ul>
-                    
-                    <h4>5. Agoraphobia</h4>
-                    <p>Agoraphobia is an anxiety disorder involving fear and avoidance of situations where escape might be difficult or help might not be available if panic-like symptoms occur. People often avoid public transportation, open spaces, shopping malls, or simply being outside their home alone.</p>
-                    
-                    <h3>Causes and Risk Factors</h3>
-                    <p>Anxiety disorders develop from a complex set of risk factors, including:</p>
-                    
-                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Brain scan showing anxiety">
-                    
-                    <h4>Genetic Factors</h4>
-                    <p>Research suggests that anxiety disorders can run in families. If you have a close relative with an anxiety disorder, you may be more likely to develop one yourself.</p>
-                    
-                    <h4>Brain Chemistry</h4>
-                    <p>Anxiety disorders have been linked to faulty circuits in the brain that control fear and emotions. Neurotransmitters like serotonin, dopamine, and norepinephrine play a role in anxiety regulation.</p>
-                    
-                    <h4>Environmental Factors</h4>
-                    <p>Trauma, stress, and adverse life events can trigger anxiety disorders in people who are already predisposed. Childhood abuse, neglect, or witnessing traumatic events are significant risk factors.</p>
-                    
-                    <h4>Personality Factors</h4>
-                    <p>Certain personality traits, such as shyness or behavioral inhibition in childhood, may increase the risk of developing anxiety disorders.</p>
-                    
-                    <h3>Diagnosis and Assessment</h3>
-                    <p>Diagnosing anxiety disorders typically involves:</p>
-                    
-                    <ul>
-                        <li><strong>Clinical interview:</strong> A mental health professional will ask about your symptoms, medical history, and life circumstances.</li>
-                        <li><strong>Physical examination:</strong> To rule out other medical conditions that could be causing symptoms.</li>
-                        <li><strong>Psychological questionnaires:</strong> Standardized assessments to evaluate symptom severity.</li>
-                        <li><strong>Diagnostic criteria:</strong> Using criteria from the DSM-5 (Diagnostic and Statistical Manual of Mental Disorders).</li>
-                    </ul>
-                    
                     <h3>Treatment Approaches</h3>
                     <p>Anxiety disorders are highly treatable, and most people can significantly reduce or eliminate their symptoms with proper treatment. The most effective approaches typically include:</p>
                     
@@ -1598,7 +1640,6 @@
                         <li><strong>Cognitive Behavioral Therapy (CBT):</strong> The gold standard for anxiety treatment. CBT helps identify and change negative thought patterns and behaviors.</li>
                         <li><strong>Exposure Therapy:</strong> Gradually exposing people to feared objects or situations in a safe environment.</li>
                         <li><strong>Acceptance and Commitment Therapy (ACT):</strong> Helps people accept difficult thoughts and feelings without judgment.</li>
-                        <li><strong>Dialectical Behavior Therapy (DBT):</strong> Teaches skills for emotional regulation and distress tolerance.</li>
                     </ul>
                     
                     <h4>2. Medication</h4>
@@ -1608,7 +1649,6 @@
                         <li><strong>SSRIs (Selective Serotonin Reuptake Inhibitors):</strong> First-line medications for most anxiety disorders.</li>
                         <li><strong>SNRIs (Serotonin-Norepinephrine Reuptake Inhibitors):</strong> Another first-line option.</li>
                         <li><strong>Benzodiazepines:</strong> Fast-acting for acute anxiety, but risk of dependence.</li>
-                        <li><strong>Beta-blockers:</strong> Can help manage physical symptoms of anxiety.</li>
                     </ul>
                     
                     <img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Therapy session">
@@ -1624,17 +1664,6 @@
                         <li><strong>Limiting caffeine and alcohol:</strong> Both can trigger or worsen anxiety.</li>
                     </ul>
                     
-                    <h3>Living with Anxiety</h3>
-                    <p>Managing anxiety is an ongoing process. Here are strategies for daily living:</p>
-                    
-                    <ul>
-                        <li><strong>Practice self-compassion:</strong> Be kind to yourself on difficult days.</li>
-                        <li><strong>Build a support network:</strong> Connect with understanding friends and family.</li>
-                        <li><strong>Learn your triggers:</strong> Identify situations that worsen your anxiety.</li>
-                        <li><strong>Develop coping skills:</strong> Find techniques that work for you.</li>
-                        <li><strong>Stay consistent with treatment:</strong> Continue therapy and medication as prescribed.</li>
-                    </ul>
-                    
                     <h3>When to Seek Help</h3>
                     <p>If anxiety is interfering with your daily life, relationships, or work, it's time to seek professional help. Remember, anxiety disorders are medical conditions that require treatment, just like any other health issue.</p>
                     
@@ -1645,8 +1674,8 @@
                 id: 4,
                 title: "The Gut-Brain Connection",
                 description: "Discover how your gut health influences mental well-being and cognitive function through the microbiome.",
-                image: "https://images.unsplash.com/photo-1607623814075-fc4a893a9c6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                date: "Oct 8, 2023",
+                image: "https://images.unsplash.com/photo-1617791160536-598cf32026fb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                date: "June 8, 2025",
                 readTime: "6 min read",
                 tags: ["nutrition", "mental-health"],
                 url: "#",
@@ -1654,7 +1683,7 @@
                     <h3>The Fascinating Gut-Brain Axis</h3>
                     <p>The gut-brain connection is one of the most exciting areas of modern medical research. Scientists are discovering that the health of your gut directly impacts your mental well-being, cognitive function, and even your mood. This bidirectional communication system, known as the gut-brain axis, involves complex interactions between your digestive system and your brain.</p>
                     
-                    <img src="https://images.unsplash.com/photo-1607623814075-fc4a893a9c6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Microbiome visualization">
+                    <img src="https://images.unsplash.com/photo-1617791160536-598cf32026fb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
                     
                     <p>At the center of this connection is the gut microbiome - the trillions of microorganisms living in your digestive tract. These tiny organisms play a crucial role in everything from digestion to immune function, and increasingly, we're learning they have a profound impact on mental health.</p>
                     
@@ -1688,26 +1717,7 @@
                     <h4>3. Immune System</h4>
                     <p>The gut houses about 70% of your immune system. Gut bacteria help regulate immune function, and inflammation in the gut can trigger inflammation in the brain, affecting mood and cognitive function.</p>
                     
-                    <h4>4. Short-Chain Fatty Acids (SCFAs)</h4>
-                    <p>When gut bacteria ferment dietary fiber, they produce SCFAs like butyrate, propionate, and acetate. These compounds can cross the blood-brain barrier and influence brain function, reducing inflammation and supporting the growth of new brain cells.</p>
-                    
                     <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Healthy gut foods">
-                    
-                    <h3>Gut Health and Mental Health Conditions</h3>
-                    <p>Research has established strong links between gut health and various mental health conditions:</p>
-                    
-                    <h4>Depression</h4>
-                    <p>People with depression often have different gut microbiome compositions compared to healthy individuals. They typically have lower levels of beneficial bacteria like Faecalibacterium and Coprococcus, which produce anti-inflammatory compounds.</p>
-                    
-                    <p>Studies show that probiotic supplementation can reduce depressive symptoms, particularly when combined with traditional treatments.</p>
-                    
-                    <h4>Anxiety</h4>
-                    <p>Anxiety disorders are also associated with gut dysbiosis - an imbalance in gut bacteria. The gut microbiome influences the hypothalamic-pituitary-adrenal (HPA) axis, which controls the body's stress response.</p>
-                    
-                    <p>Animal studies show that transferring gut bacteria from anxious mice to calm mice can induce anxiety-like behaviors, demonstrating the direct influence of gut microbes on mood.</p>
-                    
-                    <h4>Autism Spectrum Disorder (ASD)</h4>
-                    <p>Many individuals with ASD experience gastrointestinal issues, and research suggests a connection between gut health and ASD symptoms. Some studies show that probiotic interventions can improve both GI symptoms and behavioral issues in children with ASD.</p>
                     
                     <h3>Nourishing Your Microbiome</h3>
                     <p>Supporting a healthy gut microbiome is one of the most powerful things you can do for your mental health. Here are key strategies:</p>
@@ -1745,14 +1755,6 @@
                         <li>Apples</li>
                     </ul>
                     
-                    <h4>4. Limit Processed Foods and Sugar</h4>
-                    <p>Processed foods and excess sugar can feed harmful bacteria and promote inflammation. Focus on whole, unprocessed foods instead.</p>
-                    
-                    <h4>5. Stay Hydrated</h4>
-                    <p>Water is essential for maintaining the mucosal lining of the intestines and supporting overall gut health.</p>
-                    
-                    <img src="https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Meditation for gut health">
-                    
                     <h3>Lifestyle Factors That Support Gut-Brain Health</h3>
                     <p>Beyond diet, several lifestyle factors influence the gut-brain axis:</p>
                     
@@ -1764,33 +1766,6 @@
                     
                     <h4>3. Quality Sleep</h4>
                     <p>Sleep deprivation disrupts the gut microbiome and increases intestinal permeability ("leaky gut"). Aim for 7-9 hours of quality sleep per night.</p>
-                    
-                    <h4>4. Social Connection</h4>
-                    <p>Positive social interactions support both mental health and gut health. Social connection reduces stress and promotes a healthy microbiome.</p>
-                    
-                    <h3>Signs of an Unhealthy Gut</h3>
-                    <p>Be aware of these signs that your gut health may need attention:</p>
-                    
-                    <ul>
-                        <li>Digestive issues (bloating, gas, diarrhea, constipation)</li>
-                        <li>Food intolerances</li>
-                        <li>Unintentional weight changes</li>
-                        <li>Sleep disturbances</li>
-                        <li>Chronic fatigue</li>
-                        <li>Skin irritations</li>
-                        <li>Autoimmune conditions</li>
-                        <li>Mood disorders</li>
-                    </ul>
-                    
-                    <h3>The Future of Gut-Brain Medicine</h3>
-                    <p>The field of gut-brain research is rapidly evolving. Future treatments may include:</p>
-                    
-                    <ul>
-                        <li><strong>Personalized probiotics:</strong> Tailored to individual microbiome profiles</li>
-                        <li><strong>Psychobiotics:</strong> Probiotics specifically targeting mental health</li>
-                        <li><strong>Fecal microbiota transplantation (FMT):</strong> For severe dysbiosis</li>
-                        <li><strong>Dietary interventions:</strong> Prescribed based on microbiome analysis</li>
-                    </ul>
                     
                     <h3>Taking Action for Gut-Brain Health</h3>
                     <p>Supporting your gut-brain axis doesn't require drastic changes. Start with these simple steps:</p>
@@ -1812,7 +1787,7 @@
                 title: "Advances in Cancer Immunotherapy",
                 description: "Explore the latest breakthroughs in cancer treatment using the body's immune system to fight cancer cells.",
                 image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                date: "Oct 5, 2023",
+                date: "July 5, 2025",
                 readTime: "10 min read",
                 tags: ["medical"],
                 url: "#",
@@ -1823,29 +1798,6 @@
                     <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Cancer research laboratory">
                     
                     <p>The immune system is naturally equipped to detect and eliminate abnormal cells, including cancer cells. However, cancer cells have evolved sophisticated mechanisms to evade immune detection. Immunotherapy works by overcoming these evasion tactics and empowering the immune system to mount an effective anti-cancer response.</p>
-                    
-                    <h3>Understanding the Immune System's Role</h3>
-                    <p>To appreciate how immunotherapy works, it's essential to understand the immune system's natural anti-cancer mechanisms:</p>
-                    
-                    <h4>Immune Surveillance</h4>
-                    <p>The immune system constantly patrols the body, identifying and eliminating potentially harmful cells, including cancer cells. This process, known as immune surveillance, involves various immune cells:</p>
-                    
-                    <ul>
-                        <li><strong>T cells:</strong> Recognize specific antigens on cancer cells</li>
-                        <li><strong>Natural Killer (NK) cells:</strong> Detect and kill abnormal cells without prior sensitization</li>
-                        <li><strong>Dendritic cells:</strong> Present cancer antigens to T cells, initiating an immune response</li>
-                        <li><strong>Macrophages:</strong> Engulf and destroy cancer cells</li>
-                    </ul>
-                    
-                    <h4>Cancer's Evasion Tactics</h4>
-                    <p>Cancer cells employ several strategies to avoid immune detection:</p>
-                    
-                    <ul>
-                        <li><strong>Antigen masking:</strong> Reducing the expression of molecules that make them recognizable to immune cells</li>
-                        <li><strong>Immune checkpoint activation:</strong> Expressing proteins that inhibit T cell activity</li>
-                        <li><strong>Creating an immunosuppressive microenvironment:</strong> Releasing substances that suppress immune function</li>
-                        <li><strong>T cell exhaustion:</strong> Causing T cells to become dysfunctional over time</li>
-                    </ul>
                     
                     <h3>Types of Immunotherapy</h3>
                     <p>Several types of immunotherapy have been developed, each targeting different aspects of the immune response:</p>
@@ -1887,25 +1839,6 @@
                         <li><strong>mRNA vaccines:</strong> Similar to COVID-19 vaccines, but encoding tumor antigens</li>
                     </ul>
                     
-                    <h4>4. Cytokine Therapy</h4>
-                    <p>Cytokines are signaling molecules that help regulate immune responses. Cytokine therapy involves administering high doses of these proteins to boost the immune system's ability to fight cancer.</p>
-                    
-                    <p><strong>Common cytokines used in cancer treatment:</strong></p>
-                    <ul>
-                        <li><strong>Interleukin-2 (IL-2):</strong> Stimulates T cell and NK cell activity</li>
-                        <li><strong>Interferon-alpha:</strong> Enhances immune cell function and has direct anti-tumor effects</li>
-                    </ul>
-                    
-                    <h4>5. Oncolytic Virus Therapy</h4>
-                    <p>Oncolytic viruses are viruses that have been modified to selectively infect and kill cancer cells while sparing normal cells. These viruses can also stimulate an immune response against the tumor.</p>
-                    
-                    <p><strong>Mechanisms of action:</strong></p>
-                    <ul>
-                        <li>Directly infecting and lysing cancer cells</li>
-                        <li>Releasing tumor antigens that stimulate immune responses</li>
-                        <li>Stimulating the production of interferons and other immune-stimulating molecules</li>
-                    </ul>
-                    
                     <h3>Recent Breakthroughs and Advances</h3>
                     <p>The field of cancer immunotherapy is rapidly evolving, with several exciting recent advances:</p>
                     
@@ -1927,40 +1860,7 @@
                         <li><strong>Microsatellite instability (MSI):</strong> MSI-high tumors respond well to checkpoint inhibitors</li>
                     </ul>
                     
-                    <h4>Overcoming Resistance</h4>
-                    <p>Many patients don't respond to immunotherapy or develop resistance over time. Researchers are developing strategies to overcome this:</p>
-                    
-                    <ul>
-                        <li><strong>Targeting alternative immune checkpoints:</strong> LAG-3, TIM-3, TIGIT</li>
-                        <li><strong>Modifying the tumor microenvironment:</strong> Targeting immunosuppressive cells and molecules</li>
-                        <li><strong>Epigenetic modifiers:</strong> Drugs that alter gene expression to make tumors more visible to the immune system</li>
-                    </ul>
-                    
                     <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Advanced cancer treatment">
-                    
-                    <h3>Managing Side Effects</h3>
-                    <p>While immunotherapy is generally better tolerated than traditional chemotherapy, it can cause unique side effects related to immune system activation:</p>
-                    
-                    <h4>Immune-Related Adverse Events (irAEs)</h4>
-                    <p>irAEs occur when the immune system attacks healthy tissues. Common irAEs include:</p>
-                    
-                    <ul>
-                        <li><strong>Skin reactions:</strong> Rash, itching, vitiligo</li>
-                        <li><strong>Gastrointestinal issues:</strong> Colitis, diarrhea</li>
-                        <li><strong>Endocrine problems:</strong> Thyroiditis, hypophysitis</li>
-                        <li><strong>Lung inflammation:</strong> Pneumonitis</li>
-                        <li><strong>Liver inflammation:</strong> Hepatitis</li>
-                    </ul>
-                    
-                    <h4>Management Strategies</h4>
-                    <p>Managing irAEs requires:</p>
-                    
-                    <ul>
-                        <li>Patient education about potential side effects</li>
-                        <li>Early recognition and intervention</li>
-                        <li>Corticosteroids to suppress immune activity</li>
-                        <li>Temporary or permanent discontinuation of immunotherapy</li>
-                    </ul>
                     
                     <h3>The Future of Cancer Immunotherapy</h3>
                     <p>The future of cancer immunotherapy is incredibly promising, with several exciting developments on the horizon:</p>
@@ -1982,15 +1882,6 @@
                         <li><strong>Dual-targeting CAR T cells:</strong> Engineered to recognize two different tumor antigens</li>
                     </ul>
                     
-                    <h4>Microbiome Modulation</h4>
-                    <p>Emerging research suggests that the gut microbiome influences immunotherapy response. Future treatments may include:</p>
-                    
-                    <ul>
-                        <li>Probiotics to enhance immunotherapy efficacy</li>
-                        <li>Fecal microbiota transplantation from responders</li>
-                        <li>Dietary interventions to optimize the microbiome</li>
-                    </ul>
-                    
                     <h4>Artificial Intelligence in Immunotherapy</h4>
                     <p>AI is transforming immunotherapy research and treatment:</p>
                     
@@ -1999,16 +1890,6 @@
                         <li>Identifying new immunotherapy targets</li>
                         <li>Optimizing combination therapies</li>
                         <li>Personalizing treatment regimens</li>
-                    </ul>
-                    
-                    <h3>Challenges and Considerations</h3>
-                    <p>Despite the tremendous promise of immunotherapy, several challenges remain:</p>
-                    
-                    <ul>
-                        <li><strong>Cost:</strong> Many immunotherapies are extremely expensive</li>
-                        <li><strong>Access:</strong> Not all patients have access to these cutting-edge treatments</li>
-                        <li><strong>Response rates:</strong> Only a subset of patients respond to current immunotherapies</li>
-                        <li><strong>Toxicity management:</strong> Requires specialized expertise</li>
                     </ul>
                     
                     <h3>Conclusion</h3>
@@ -2021,8 +1902,8 @@
                 id: 6,
                 title: "Mindfulness Meditation Techniques",
                 description: "Learn practical mindfulness techniques to reduce stress, improve focus, and enhance emotional well-being.",
-                image: "https://images.unsplash.com/photo-1506126613408-cca07d5b1561?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                date: "Oct 3, 2023",
+                image: "https://images.unsplash.com/photo-1547223326-0ca115a6d09b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                date: "April 3, 2025",
                 readTime: "7 min read",
                 tags: ["mental-health", "wellness"],
                 url: "#",
@@ -2030,7 +1911,7 @@
                     <h3>The Power of Mindfulness</h3>
                     <p>In our fast-paced, constantly connected world, finding moments of peace and clarity has become increasingly important. Mindfulness meditation offers a powerful antidote to the stress and overwhelm of modern life, providing practical tools to cultivate presence, awareness, and emotional balance.</p>
                     
-                    <img src="https://images.unsplash.com/photo-1506126613408-cca07d5b1561?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Person meditating peacefully">
+                    <img src="https://images.unsplash.com/photo-1547223326-0ca115a6d09b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Person meditating peacefully">
                     
                     <p>Mindfulness is the practice of purposely bringing your attention to the present moment without judgment. It involves observing your thoughts, feelings, and sensations with curiosity and acceptance, rather than getting caught up in them or trying to change them.</p>
                     
@@ -2047,16 +1928,6 @@
                         <li><strong>Thicker cortex:</strong> In areas responsible for attention and sensory processing</li>
                     </ul>
                     
-                    <h4>Physiological Benefits</h4>
-                    <p>Mindfulness practice positively impacts physical health:</p>
-                    
-                    <ul>
-                        <li><strong>Reduced inflammation:</strong> Lower levels of inflammatory markers</li>
-                        <li><strong>Improved immune function:</strong> Enhanced response to vaccines and infections</li>
-                        <li><strong>Better cardiovascular health:</strong> Lower blood pressure and improved heart rate variability</li>
-                        <li><strong>Enhanced sleep quality:</strong> Deeper, more restorative sleep</li>
-                    </ul>
-                    
                     <h4>Mental Health Benefits</h4>
                     <p>The psychological benefits of mindfulness are well-documented:</p>
                     
@@ -2067,20 +1938,6 @@
                         <li><strong>Increased emotional regulation:</strong> Better ability to manage difficult emotions</li>
                         <li><strong>Greater self-awareness:</strong> Improved understanding of thoughts and behaviors</li>
                     </ul>
-                    
-                    <h3>Getting Started with Mindfulness</h3>
-                    <p>Beginning a mindfulness practice is simpler than you might think. Here's how to get started:</p>
-                    
-                    <h4>Creating the Right Environment</h4>
-                    <p>Choose a quiet space where you won't be disturbed. You don't need special equipment - just a comfortable place to sit or lie down. Some people prefer to use cushions or meditation benches, but a chair works perfectly well too.</p>
-                    
-                    <h4>Starting Small</h4>
-                    <p>Begin with short sessions - just 3-5 minutes is enough to start. It's better to practice consistently for short periods than to attempt long sessions sporadically.</p>
-                    
-                    <h4>Basic Posture</h4>
-                    <p>Sit with your back straight but not stiff, shoulders relaxed, hands resting on your knees or in your lap. Close your eyes or soften your gaze, focusing on a spot on the floor in front of you.</p>
-                    
-                    <img src="https://images.unsplash.com/photo-1545205597-5d04d86d30ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Mindfulness meditation setup">
                     
                     <h3>Core Mindfulness Techniques</h3>
                     <p>Here are several foundational mindfulness techniques you can practice:</p>
@@ -2121,6 +1978,8 @@
                     
                     <p><strong>When to practice:</strong> Perfect for walking from your car to the office, or during a lunch break.</p>
                     
+                    <img src="https://images.unsplash.com/photo-1545205597-5d04d86d30ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Mindfulness meditation setup">
+                    
                     <h4>4. Loving-Kindness Meditation (Metta)</h4>
                     <p>This practice cultivates compassion and positive emotions:</p>
                     
@@ -2132,52 +1991,6 @@
                     </ul>
                     
                     <p><strong>Benefits:</strong> Increases positive emotions, reduces self-criticism, improves relationships.</p>
-                    
-                    <h4>5. Mindful Eating</h4>
-                    <p>Transform mealtime into a mindfulness practice:</p>
-                    
-                    <ul>
-                        <li>Look at your food - notice colors, shapes, textures</li>
-                        <li>Smell the aromas before taking a bite</li>
-                        <li>Chew slowly, noticing flavors and textures</li>
-                        <li>Put down utensils between bites</li>
-                        <li>Notice when you feel satisfied, not just full</li>
-                    </ul>
-                    
-                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Mindful eating">
-                    
-                    <h3>Advanced Mindfulness Practices</h3>
-                    <p>Once you're comfortable with basic techniques, you can explore more advanced practices:</p>
-                    
-                    <h4>1. Open Awareness Meditation</h4>
-                    <p>Instead of focusing on one object (like the breath), open your awareness to all experiences:</p>
-                    
-                    <ul>
-                        <li>Notice sounds, thoughts, feelings, and sensations as they arise</li>
-                        <li>Observe them without getting caught up in any particular one</li>
-                        <li>Rest in open, spacious awareness</li>
-                        <li>Notice the space between thoughts and sensations</li>
-                    </ul>
-                    
-                    <h4>2. Noting Practice</h4>
-                    <p>This technique helps you observe your thoughts without getting entangled in them:</p>
-                    
-                    <ul>
-                        <li>When a thought arises, silently note "thinking"</li>
-                        <li>For emotions, note "feeling" or the specific emotion</li>
-                        <li>For physical sensations, note "sensing"</li>
-                        <li>Return to your breath or open awareness</li>
-                    </ul>
-                    
-                    <h4>3. Self-Inquiry Meditation</h4>
-                    <p>This practice explores the nature of awareness itself:</p>
-                    
-                    <ul>
-                        <li>Ask "Who am I?" or "What is aware?"</li>
-                        <li>Look for the "I" that thinks thoughts and feels emotions</li>
-                        <li>Notice the space of awareness in which everything arises</li>
-                        <li>Rest in that awareness</li>
-                    </ul>
                     
                     <h3>Integrating Mindfulness into Daily Life</h3>
                     <p>The real power of mindfulness comes from bringing it into everyday activities:</p>
@@ -2206,23 +2019,6 @@
                         <li>Notice the impact of your words on others</li>
                     </ul>
                     
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Mindful communication">
-                    
-                    <h3>Overcoming Common Challenges</h3>
-                    <p>Many people encounter obstacles when establishing a mindfulness practice. Here's how to work with them:</p>
-                    
-                    <h4>"I Can't Clear My Mind"</h4>
-                    <p>This is perhaps the most common misconception about meditation. The goal isn't to stop thoughts, but to observe them without getting caught up. Every time you notice your mind has wandered and gently return your attention, you're practicing mindfulness.</p>
-                    
-                    <h4>"I Don't Have Time"</h4>
-                    <p>Start small - even 1-2 minutes of mindful breathing counts. You can practice mindfulness while doing routine activities like washing dishes or waiting in line.</p>
-                    
-                    <h4>"I Keep Falling Asleep"</h4>
-                    <p>This is common, especially when meditating lying down. Try sitting up straighter, practicing with eyes open, or meditating at a different time of day when you're more alert.</p>
-                    
-                    <h4>"I'm Not Doing It Right"</h4>
-                    <p>There's no "right" way to do mindfulness. The practice is about showing up with curiosity and kindness, not achieving a particular state.</p>
-                    
                     <h3>Building a Sustainable Practice</h3>
                     <p>Consistency is more important than duration. Here are tips for maintaining your practice:</p>
                     
@@ -2232,44 +2028,6 @@
                         <li><strong>Use reminders:</strong> Set phone alerts or place notes where you'll see them</li>
                         <li><strong>Find a community:</strong> Join a meditation group or use apps with communities</li>
                         <li><strong>Be flexible:</strong> Adapt your practice to your current needs and circumstances</li>
-                    </ul>
-                    
-                    <h3>Measuring Progress</h3>
-                    <p>Mindfulness isn't about achieving specific outcomes, but you may notice these changes over time:</p>
-                    
-                    <ul>
-                        <li>Less reactivity to stressful situations</li>
-                        <li>Greater awareness of your thoughts and emotions</li>
-                        <li>Improved ability to focus and concentrate</li>
-                        <li>More compassion for yourself and others</li>
-                        <li>Greater appreciation for simple pleasures</li>
-                        <li>Better sleep and overall well-being</li>
-                    </ul>
-                    
-                    <h3>Resources for Deepening Your Practice</h3>
-                    <p>Many resources are available to support your mindfulness journey:</p>
-                    
-                    <h4>Apps</h4>
-                    <ul>
-                        <li><strong>Headspace:</strong> Great for beginners with guided meditations</li>
-                        <li><strong>Calm:</strong> Offers sleep stories and nature sounds</li>
-                        <li><strong>Insight Timer:</strong> Large library of free guided meditations</li>
-                        <li><strong>Ten Percent Happier:</strong> Practical, secular approach</li>
-                    </ul>
-                    
-                    <h4>Books</h4>
-                    <ul>
-                        <li><strong>"Wherever You Go, There You Are" by Jon Kabat-Zinn</strong></li>
-                        <li><strong>"The Miracle of Mindfulness" by Thich Nhat Hanh</strong></li>
-                        <li><strong>"Full Catastrophe Living" by Jon Kabat-Zinn</strong></li>
-                        <li><strong>"Mindfulness in Plain English" by Henepola Gunaratana</strong></li>
-                    </ul>
-                    
-                    <h4>Online Courses</h4>
-                    <ul>
-                        <li><strong>MBSR (Mindfulness-Based Stress Reduction):</strong> The original 8-week program</li>
-                        <li><strong>MBCT (Mindfulness-Based Cognitive Therapy):</strong> For preventing depression relapse</li>
-                        <li><strong>Various university programs:</strong> Many offer online mindfulness courses</li>
                     </ul>
                     
                     <h3>Conclusion</h3>
@@ -2285,7 +2043,7 @@
                 title: "Plant-Based Nutrition Essentials",
                 description: "A complete guide to plant-based eating, including nutrient sources and meal planning strategies.",
                 image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                date: "Oct 1, 2023",
+                date: "Jan 1, 2025",
                 readTime: "9 min read",
                 tags: ["nutrition"],
                 url: "#",
@@ -2306,9 +2064,6 @@
                     <h4>Vegetarian</h4>
                     <p>Excludes meat and fish but may include dairy (lacto-vegetarian), eggs (ovo-vegetarian), or both (lacto-ovo vegetarian).</p>
                     
-                    <h4>Pescatarian</h4>
-                    <p>Excludes meat and poultry but includes fish and seafood, along with plant foods.</p>
-                    
                     <h4>Flexitarian</h4>
                     <p>Primarily plant-based but occasionally includes animal products in small amounts.</p>
                     
@@ -2323,12 +2078,6 @@
                     
                     <h4>Type 2 Diabetes Prevention</h4>
                     <p>Plant-based diets can improve insulin sensitivity and help prevent and manage type 2 diabetes. The high fiber content helps regulate blood sugar levels.</p>
-                    
-                    <h4>Cancer Risk Reduction</h4>
-                    <p>Some studies suggest plant-based diets may reduce the risk of certain cancers, particularly colorectal cancer. The protective effects are attributed to fiber, antioxidants, and phytochemicals in plant foods.</p>
-                    
-                    <h4>Gut Health</h4>
-                    <p>The fiber in plant foods feeds beneficial gut bacteria, promoting a healthy microbiome. This supports digestion, immune function, and even mental health through the gut-brain axis.</p>
                     
                     <h3>Essential Nutrients in Plant-Based Diets</h3>
                     <p>One common concern about plant-based eating is getting all necessary nutrients. With proper planning, a plant-based diet can provide everything your body needs:</p>
@@ -2359,59 +2108,12 @@
                     
                     <p><strong>Plant iron sources:</strong> Lentils, spinach, tofu, quinoa, pumpkin seeds, fortified cereals</p>
                     
-                    <h4>Calcium</h4>
-                    <p>Essential for bone health, calcium is abundant in many plant foods:</p>
-                    
-                    <ul>
-                        <li><strong>Leafy greens:</strong> Kale, collard greens, bok choy</li>
-                        <li><strong>Fortified foods:</strong> Plant milks, orange juice, cereals</li>
-                        <li><strong>Tofu made with calcium sulfate</strong></li>
-                        <li><strong>Almonds, sesame seeds (tahini)</strong></li>
-                    </ul>
-                    
                     <h4>Vitamin B12</h4>
                     <p>B12 is not naturally present in plant foods, so supplementation is essential for vegans and vegetarians. Sources include:</p>
                     
                     <ul>
                         <li><strong>Fortified foods:</strong> Nutritional yeast, plant milks, cereals</li>
                         <li><strong>Supplements:</strong> B12 tablets or sprays</li>
-                    </ul>
-                    
-                    <h4>Omega-3 Fatty Acids</h4>
-                    <p>Essential for brain health, omega-3s can be obtained from:</p>
-                    
-                    <ul>
-                        <li><strong>Flaxseeds and chia seeds</strong></li>
-                        <li><strong>Walnuts</strong></li>
-                        <li><strong>Hemp seeds</strong></li>
-                        <li><strong>Algae-based supplements</strong></li>
-                    </ul>
-                    
-                    <h4>Vitamin D</h4>
-                    <p>Often called the "sunshine vitamin," vitamin D can be obtained from:</p>
-                    
-                    <ul>
-                        <li><strong>Sunlight exposure</strong></li>
-                        <li><strong>Fortified foods:</strong> Plant milks, orange juice</li>
-                        <li><strong>Supplements:</strong> D2 or D3 (vegan D3 from lichen)</li>
-                    </ul>
-                    
-                    <h4>Zinc</h4>
-                    <p>Important for immune function and wound healing:</p>
-                    
-                    <ul>
-                        <li><strong>Legumes, nuts, seeds</strong></li>
-                        <li><strong>Whole grains</strong></li>
-                        <li><strong>Tofu</strong></li>
-                    </ul>
-                    
-                    <h4>Iodine</h4>
-                    <p>Essential for thyroid function:</p>
-                    
-                    <ul>
-                        <li><strong>Seaweed</strong></li>
-                        <li><strong>Iodized salt</strong></li>
-                        <li><strong>Fortified plant milks</strong></li>
                     </ul>
                     
                     <h3>Building a Balanced Plant-Based Plate</h3>
@@ -2458,179 +2160,6 @@
                     
                     <img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Balanced plant-based meal">
                     
-                    <h3>Meal Planning Strategies</h3>
-                    <p>Successful plant-based eating requires some planning. Here are effective strategies:</p>
-                    
-                    <h4>Weekly Meal Prep</h4>
-                    <ul>
-                        <li>Cook grains and beans in batches</li>
-                        <li>Chop vegetables for easy access</li>
-                        <li>Prepare sauces and dressings</li>
-                        <li>Portion out lunches for the week</li>
-                    </ul>
-                    
-                    <h4>Batch Cooking</h4>
-                    <ul>
-                        <li>Make large pots of soups and stews</li>
-                        <li>Prepare grain bowls with various toppings</li>
-                        <li>Casseroles and bakes that reheat well</li>
-                        <li>Energy balls and snacks</li>
-                    </ul>
-                    
-                    <h4>Smart Shopping</h4>
-                    <ul>
-                        <li>Shop the perimeter of the store (produce section)</li>
-                        <li>Stock up on pantry staples (beans, grains, nuts)</li>
-                        <li>Buy frozen fruits and vegetables for convenience</li>
-                        <li>Read labels for hidden animal products</li>
-                    </ul>
-                    
-                    <h4>Flavor Building</h4>
-                    <p>Plant-based meals can be incredibly flavorful with the right techniques:</p>
-                    
-                    <ul>
-                        <li><strong>Herbs and spices:</strong> Experiment with different combinations</li>
-                        <li><strong>Umami flavors:</strong> Mushrooms, tomatoes, soy sauce, nutritional yeast</li>
-                        <li><strong>Acidity:</strong> Lemon juice, vinegar, fermented foods</li>
-                        <li><strong>Texture contrast:</strong> Crunchy toppings, creamy sauces</li>
-                    </ul>
-                    
-                    <h3>Sample Day of Plant-Based Eating</h3>
-                    <h4>Breakfast</h4>
-                    <p><strong>Overnight Oats:</strong> Rolled oats soaked in plant milk with chia seeds, berries, and nuts.</p>
-                    
-                    <h4>Lunch</h4>
-                    <p><strong>Mediterranean Quinoa Bowl:</strong> Quinoa with roasted vegetables, chickpeas, olives, and tahini dressing.</p>
-                    
-                    <h4>Snack</h4>
-                    <p><strong>Apple with almond butter</strong> or <strong>hummus with vegetable sticks</strong>.</p>
-                    
-                    <h4>Dinner</h4>
-                    <p><strong>Lentil Curry:</strong> Red lentils in coconut milk with spinach, served over brown rice.</p>
-                    
-                    <h4>Dessert</h4>
-                    <p><strong>Chia seed pudding</strong> with mango and coconut flakes.</p>
-                    
-                    <h3>Plant-Based on a Budget</h3>
-                    <p>Eating plant-based doesn't have to be expensive:</p>
-                    
-                    <ul>
-                        <li><strong>Buy dry beans and lentils:</strong> Cheaper than canned and more nutritious</li>
-                        <li><strong>Shop seasonal produce:</strong> Often less expensive and fresher</li>
-                        <li><strong>Buy in bulk:</strong> Grains, nuts, and seeds</li>
-                        <li><strong>Grow your own:</strong> Herbs, tomatoes, lettuce in containers</li>
-                        <li><strong>Reduce waste:</strong> Use vegetable scraps for broth, freeze leftovers</li>
-                    </ul>
-                    
-                    <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Budget plant-based shopping">
-                    
-                    <h3>Eating Out Plant-Based</h3>
-                    <p>Navigating restaurants as a plant-based eater:</p>
-                    
-                    <ul>
-                        <li><strong>Research menus online</strong> before going</li>
-                        <li><strong>Call ahead</strong> to ask about plant-based options</li>
-                        <li><strong>Be specific</strong> about your dietary needs</li>
-                        <li><strong>Customize dishes:</strong> Ask for modifications</li>
-                        <li><strong>Ethnic cuisines</strong> often have naturally plant-based options</li>
-                    </ul>
-                    
-                    <h3>Common Challenges and Solutions</h3>
-                    <h4>Cravings for Familiar Foods</h4>
-                    <p>Many people crave familiar comfort foods when transitioning to plant-based eating. Solutions:</p>
-                    
-                    <ul>
-                        <li>Find plant-based versions of favorite foods</li>
-                        <li>Experiment with spices and flavors</li>
-                        <li>Give your taste buds time to adjust</li>
-                        <li>Focus on what you can eat, not what you're avoiding</li>
-                    </ul>
-                    
-                    <h4>Social Situations</h4>
-                    <p>Navigating social events can be challenging:</p>
-                    
-                    <ul>
-                        <li>Eat before attending events</li>
-                        <li>Bring a plant-based dish to share</li>
-                        <li>Focus on the social aspect, not just the food</li>
-                        <li>Communicate your dietary needs politely</li>
-                    </ul>
-                    
-                    <h4>Digestive Changes</h4>
-                    <p>Increasing fiber intake can cause temporary digestive issues:</p>
-                    
-                    <ul>
-                        <li>Increase fiber gradually</li>
-                        <li>Drink plenty of water</li>
-                        <li>Chew food thoroughly</li>
-                        <li>Consider digestive enzymes temporarily</li>
-                    </ul>
-                    
-                    <h3>Supplementation Considerations</h3>
-                    <p>While a well-planned plant-based diet can provide most nutrients, some supplements may be beneficial:</p>
-                    
-                    <ul>
-                        <li><strong>Vitamin B12:</strong> Essential for everyone on plant-based diets</li>
-                        <li><strong>Vitamin D:</strong> Especially in winter months or with limited sun exposure</li>
-                        <li><strong>Omega-3 (DHA/EPA):</strong> From algae sources</li>
-                        <li><strong>Iodine:</strong> If not using iodized salt regularly</li>
-                        <li><strong>Vitamin K2:</strong> For bone health (from natto or supplements)</li>
-                    </ul>
-                    
-                    <h3>Special Considerations</h3>
-                    <h4>Athletes</h4>
-                    <p>Plant-based athletes can thrive with proper planning:</p>
-                    
-                    <ul>
-                        <li>Ensure adequate protein intake</li>
-                        <li>Pay attention to timing of nutrients around workouts</li>
-                        <li>Consider creatine supplementation</li>
-                        <li>Monitor iron and B12 status</li>
-                    </ul>
-                    
-                    <h4>Pregnancy and Breastfeeding</h4>
-                    <p>Plant-based diets can be healthy during pregnancy with careful planning:</p>
-                    
-                    <ul>
-                        <li>Work with a healthcare provider or dietitian</li>
-                        <li>Ensure adequate protein, iron, calcium, and B12</li>
-                        <li>Consider prenatal vitamins</li>
-                        <li>Monitor weight gain and nutrient levels</li>
-                    </ul>
-                    
-                    <h4>Children</h4>
-                    <p>Plant-based diets can be appropriate for children:</p>
-                    
-                    <ul>
-                        <li>Ensure adequate calories for growth</li>
-                        <li>Focus on nutrient-dense foods</li>
-                        <li>Consider supplementation as needed</li>
-                        <li>Regular pediatric check-ups</li>
-                    </ul>
-                    
-                    <h3>Environmental and Ethical Benefits</h3>
-                    <p>Beyond personal health, plant-based eating offers broader benefits:</p>
-                    
-                    <h4>Environmental Impact</h4>
-                    <p>Plant-based diets generally have a lower environmental footprint:</p>
-                    
-                    <ul>
-                        <li>Reduced greenhouse gas emissions</li>
-                        <li>Less water usage</li>
-                        <li>Less land degradation</li>
-                        <li>Reduced deforestation</li>
-                    </ul>
-                    
-                    <h4>Ethical Considerations</h4>
-                    <p>Many people choose plant-based eating for ethical reasons:</p>
-                    
-                    <ul>
-                        <li>Animal welfare concerns</li>
-                        <li>Worker rights in animal agriculture</li>
-                        <li>Food justice and accessibility</li>
-                        <li>Sustainability for future generations</li>
-                    </ul>
-                    
                     <h3>Getting Started</h3>
                     <p>Ready to transition to more plant-based eating? Here's how to start:</p>
                     
@@ -2639,20 +2168,6 @@
                         <li>Try Meatless Mondays</li>
                         <li>Replace one meal a day with plant-based options</li>
                         <li>Focus on addition rather than restriction</li>
-                    </ul>
-                    
-                    <h4>Educate Yourself</h4>
-                    <ul>
-                        <li>Read books and reputable websites</li>
-                        <li>Watch documentaries</li>
-                        <li>Follow plant-based nutrition experts</li>
-                    </ul>
-                    
-                    <h4>Build a Support System</h4>
-                    <ul>
-                        <li>Connect with other plant-based eaters</li>
-                        <li>Join online communities</li>
-                        <li>Involve friends and family in your journey</li>
                     </ul>
                     
                     <h4>Experiment and Have Fun</h4>
@@ -2674,7 +2189,7 @@
                 title: "Cardiovascular Health: Prevention & Care",
                 description: "Essential strategies for maintaining heart health and preventing cardiovascular diseases.",
                 image: "https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                date: "Sep 28, 2023",
+                date: "July 28, 2025",
                 readTime: "8 min read",
                 tags: ["medical", "wellness"],
                 url: "#",
@@ -2686,39 +2201,6 @@
                     
                     <p>This comprehensive guide will help you understand the essentials of cardiovascular health, from risk factors and prevention strategies to the latest in cardiac care. By taking control of your heart health today, you're investing in a longer, healthier, and more vibrant future.</p>
                     
-                    <h3>The Cardiovascular System: A Brief Overview</h3>
-                    <p>Before diving into prevention and care, let's understand how your cardiovascular system works:</p>
-                    
-                    <h4>The Heart</h4>
-                    <p>Your heart is a muscular organ about the size of your fist, located slightly left of center in your chest. It functions as a powerful pump, beating about 100,000 times per day to circulate blood throughout your body.</p>
-                    
-                    <p>The heart has four chambers:</p>
-                    <ul>
-                        <li><strong>Right atrium:</strong> Receives deoxygenated blood from the body</li>
-                        <li><strong>Right ventricle:</strong> Pumps blood to the lungs for oxygenation</li>
-                        <li><strong>Left atrium:</strong> Receives oxygenated blood from the lungs</li>
-                        <li><strong>Left ventricle:</strong> Pumps oxygen-rich blood to the body</li>
-                    </ul>
-                    
-                    <h4>Blood Vessels</h4>
-                    <p>Your body contains approximately 60,000 miles of blood vessels, including:</p>
-                    
-                    <ul>
-                        <li><strong>Arteries:</strong> Carry oxygen-rich blood away from the heart</li>
-                        <li><strong>Veins:</strong> Return oxygen-poor blood to the heart</li>
-                        <li><strong>Capillaries:</strong> Tiny vessels where oxygen and nutrient exchange occurs</li>
-                    </ul>
-                    
-                    <h4>Blood</h4>
-                    <p>Blood is the transport medium of your cardiovascular system, consisting of:</p>
-                    
-                    <ul>
-                        <li><strong>Red blood cells:</strong> Carry oxygen using hemoglobin</li>
-                        <li><strong>White blood cells:</strong> Part of the immune system</li>
-                        <li><strong>Platelets:</strong> Help with blood clotting</li>
-                        <li><strong>Plasma:</strong> The liquid component carrying nutrients, hormones, and waste</li>
-                    </ul>
-                    
                     <h3>Common Cardiovascular Conditions</h3>
                     <p>Understanding common heart conditions can help with prevention and early detection:</p>
                     
@@ -2728,16 +2210,8 @@
                     <h4>Heart Failure</h4>
                     <p>Heart failure doesn't mean the heart has stopped working, but rather that it can't pump blood effectively. This can result from various conditions that damage or overwork the heart muscle.</p>
                     
-                    <h4>Arrhythmias</h4>
-                    <p>These are abnormal heart rhythms that can cause the heart to beat too fast, too slow, or irregularly. While some arrhythmias are harmless, others can be life-threatening.</p>
-                    
                     <h4>High Blood Pressure (Hypertension)</h4>
                     <p>Often called the "silent killer," hypertension occurs when blood pressure remains consistently elevated. It significantly increases the risk of heart disease and stroke.</p>
-                    
-                    <h4>Stroke</h4>
-                    <p>A stroke occurs when blood flow to part of the brain is interrupted, either by a blockage (ischemic stroke) or bleeding (hemorrhagic stroke). Immediate medical attention is crucial.</p>
-                    
-                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Cardiovascular examination">
                     
                     <h3>Risk Factors for Cardiovascular Disease</h3>
                     <p>Several factors increase your risk of developing cardiovascular disease. Some you can control, others you cannot:</p>
@@ -2782,13 +2256,6 @@
                         <li><strong>Limit added sugars:</strong> Especially in beverages and processed foods</li>
                     </ul>
                     
-                    <p><strong>Recommended dietary patterns:</strong></p>
-                    <ul>
-                        <li><strong>Mediterranean diet:</strong> Rich in olive oil, fish, vegetables, and whole grains</li>
-                        <li><strong>DASH diet:</strong> Designed to lower blood pressure</li>
-                        <li><strong>Plant-based diets:</strong> Focus on whole, unprocessed plant foods</li>
-                    </ul>
-                    
                     <h4>Regular Physical Activity</h4>
                     <p>Exercise is one of the most effective ways to protect your heart:</p>
                     
@@ -2808,6 +2275,8 @@
                         <li>Even modest weight loss (5-10% of body weight) can significantly improve heart health</li>
                     </ul>
                     
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Healthy heart lifestyle">
+                    
                     <h4>Smoking Cessation</h4>
                     <p>Smoking is one of the most significant risk factors for cardiovascular disease:</p>
                     
@@ -2817,8 +2286,6 @@
                         <li>Avoid secondhand smoke exposure</li>
                     </ul>
                     
-                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Healthy heart lifestyle">
-                    
                     <h4>Stress Management</h4>
                     <p>Chronic stress can damage your cardiovascular system:</p>
                     
@@ -2827,25 +2294,6 @@
                         <li>Get adequate sleep (7-9 hours per night)</li>
                         <li>Maintain social connections</li>
                         <li>Seek professional help for chronic stress or anxiety</li>
-                    </ul>
-                    
-                    <h4>Limit Alcohol</h4>
-                    <p>Excessive alcohol consumption can raise blood pressure and contribute to heart disease:</p>
-                    
-                    <ul>
-                        <li>Limit to moderate consumption: up to 1 drink per day for women, 2 for men</li>
-                        <li>Consider alcohol-free days</li>
-                        <li>Choose red wine in moderation if you drink</li>
-                    </ul>
-                    
-                    <h4>Regular Health Screenings</h4>
-                    <p>Regular check-ups can detect problems early:</p>
-                    
-                    <ul>
-                        <li>Blood pressure checks: At least annually</li>
-                        <li>Cholesterol screening: Every 4-6 years for adults</li>
-                        <li>Blood sugar tests: Especially if you have risk factors for diabetes</li>
-                        <li>Discuss family history and personal risk factors with your doctor</li>
                     </ul>
                     
                     <h3>Understanding Key Numbers</h3>
@@ -2865,19 +2313,6 @@
                         <li><strong>LDL ("bad") cholesterol:</strong> Less than 100 mg/dL</li>
                         <li><strong>HDL ("good") cholesterol:</strong> 60 mg/dL or higher</li>
                         <li><strong>Triglycerides:</strong> Less than 150 mg/dL</li>
-                    </ul>
-                    
-                    <h4>Blood Sugar</h4>
-                    <ul>
-                        <li><strong>Fasting blood sugar:</strong> Less than 100 mg/dL</li>
-                        <li><strong>Hemoglobin A1c:</strong> Less than 5.7%</li>
-                    </ul>
-                    
-                    <h4>Body Mass Index (BMI)</h4>
-                    <ul>
-                        <li><strong>Normal:</strong> 18.5-24.9</li>
-                        <li><strong>Overweight:</strong> 25-29.9</li>
-                        <li><strong>Obese:</strong> 30 or higher</li>
                     </ul>
                     
                     <h3>Warning Signs of Heart Problems</h3>
@@ -2900,113 +2335,6 @@
                         <li><strong>S</strong>peech difficulty</li>
                         <li><strong>T</strong>ime to call emergency services</li>
                     </ul>
-                    
-                    <h4>Heart Failure Symptoms</h4>
-                    <ul>
-                        <li>Shortness of breath, especially when lying down</li>
-                        <li>Persistent coughing or wheezing</li>
-                        <li>Swelling in legs, ankles, or feet</li>
-                        <li>Fatigue and weakness</li>
-                        <li>Rapid or irregular heartbeat</li>
-                    </ul>
-                    
-                    <h4>Arrhythmia Symptoms</h4>
-                    <ul>
-                        <li>Fluttering in the chest</li>
-                        <li>Racing heartbeat</li>
-                        <li>Slow heartbeat</li>
-                        <li>Chest pain</li>
-                        <li>Dizziness or lightheadedness</li>
-                        <li>Shortness of breath</li>
-                    </ul>
-                    
-                    <img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Emergency heart care">
-                    
-                    <h3>Medical Treatments and Interventions</h3>
-                    <p>When lifestyle changes aren't enough, medical treatments can help manage cardiovascular conditions:</p>
-                    
-                    <h4>Medications</h4>
-                    <p>Common medications for cardiovascular disease include:</p>
-                    
-                    <ul>
-                        <li><strong>Statins:</strong> Lower cholesterol</li>
-                        <li><strong>Blood pressure medications:</strong> ACE inhibitors, beta-blockers, calcium channel blockers</li>
-                        <li><strong>Antiplatelet agents:</strong> Aspirin, clopidogrel to prevent blood clots</li>
-                        <li><strong>Anticoagulants:</strong> Warfarin, newer agents to prevent clots</li>
-                        <li><strong>Diabetes medications:</strong> To control blood sugar</li>
-                    </ul>
-                    
-                    <h4>Procedures and Surgeries</h4>
-                    <p>For more severe cardiovascular conditions, interventions may include:</p>
-                    
-                    <ul>
-                        <li><strong>Angioplasty and stenting:</strong> Opens blocked arteries</li>
-                        <li><strong>Coronary artery bypass surgery:</strong> Creates new routes for blood flow</li>
-                        <li><strong>Valve repair or replacement:</strong> For damaged heart valves</li>
-                        <li><strong>Pacemakers and defibrillators:</strong> For abnormal heart rhythms</li>
-                        <li><strong>Heart transplant:</strong> For end-stage heart failure</li>
-                    </ul>
-                    
-                    <h3>Cardiac Rehabilitation</h3>
-                    <p>After a cardiac event or procedure, rehabilitation is crucial for recovery:</p>
-                    
-                    <ul>
-                        <li><strong>Supervised exercise programs</strong></li>
-                        <li><strong>Education on heart-healthy living</strong></li>
-                        <li><strong>Counseling to reduce stress</strong></li>
-                        <li><strong>Support for making lifestyle changes</strong></li>
-                    </ul>
-                    
-                    <h3>Special Considerations</h3>
-                    <h4>Women and Heart Disease</h4>
-                    <p>Heart disease is often thought of as a man's disease, but it's the leading cause of death for women too:</p>
-                    
-                    <ul>
-                        <li>Women may have different symptoms than men</li>
-                        <li>Risk increases after menopause</li>
-                        <li>Conditions like pregnancy complications and autoimmune disorders can increase risk</li>
-                        <li>Women are often underdiagnosed and undertreated</li>
-                    </ul>
-                    
-                    <h4>Children and Heart Health</h4>
-                    <p>Building heart-healthy habits early is crucial:</p>
-                    
-                    <ul>
-                        <li>Encourage physical activity and limit screen time</li>
-                        <li>Promote healthy eating habits</li>
-                        <li>Address childhood obesity</li>
-                        <li>Be aware of congenital heart conditions</li>
-                    </ul>
-                    
-                    <h4>Older Adults</h4>
-                    <p>Cardiovascular health needs change with age:</p>
-                    
-                    <ul>
-                        <li>Regular monitoring becomes more important</li>
-                        <li>Medication management may be complex</li>
-                        <li>Exercise should be adapted to ability level</li>
-                        <li>Social support is crucial for adherence to treatment plans</li>
-                    </ul>
-                    
-                    <h3>The Future of Cardiovascular Medicine</h3>
-                    <p>Exciting advances are changing how we prevent and treat heart disease:</p>
-                    
-                    <h4>Precision Medicine</h4>
-                    <p>Tailoring prevention and treatment based on individual genetic makeup, lifestyle, and environment.</p>
-                    
-                    <h4>Wearable Technology</h4>
-                    <p>Devices that monitor heart rate, rhythm, and activity levels, providing real-time data for early intervention.</p>
-                    
-                    <h4>Artificial Intelligence</h4>
-                    <p>AI algorithms that can predict heart disease risk, interpret imaging studies, and personalize treatment plans.</p>
-                    
-                    <h4>Minimally Invasive Procedures</h4>
-                    <p>New techniques that reduce recovery time and complications for cardiac interventions.</p>
-                    
-                    <h4>Regenerative Medicine</h4>
-                    <p>Research into stem cells and tissue engineering to repair damaged heart tissue.</p>
-                    
-                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Future of heart medicine">
                     
                     <h3>Taking Action for Your Heart Health</h3>
                     <p>Protecting your cardiovascular health is a lifelong commitment. Here's how to start today:</p>
@@ -3032,13 +2360,6 @@
                         <li>Work with healthcare professionals</li>
                     </ul>
                     
-                    <h4>Stay Informed</h4>
-                    <ul>
-                        <li>Keep up with the latest heart health research</li>
-                        <li>Ask questions during medical appointments</li>
-                        <li>Be your own health advocate</li>
-                    </ul>
-                    
                     <h3>Conclusion</h3>
                     <p>Your heart works tirelessly for you every moment of every day. By understanding cardiovascular health, recognizing risk factors, and implementing prevention strategies, you can protect this vital organ and enjoy a longer, healthier life.</p>
                     
@@ -3050,13 +2371,10 @@
         ];
 
         // DOM Elements
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.querySelector('.nav-menu');
         const searchInput = document.getElementById('search-input');
         const filterTags = document.querySelectorAll('.filter-tag');
         const blogGrid = document.getElementById('blog-grid');
         const contactForm = document.getElementById('contact-form');
-        const navLinks = document.querySelectorAll('.nav-link');
         const blogModal = document.getElementById('blog-modal');
         const modalClose = document.getElementById('modal-close');
 
@@ -3064,49 +2382,47 @@
         let activeFilter = 'all';
         let searchTerm = '';
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            renderBlogs();
-            setupScrollAnimations();
-            setupBlogModal();
-        });
+        // Create Particles System
+        function createParticles() {
+            const particlesContainer = document.createElement('div');
+            particlesContainer.className = 'particles';
+            particlesContainer.id = 'particles';
+            document.body.appendChild(particlesContainer);
 
-        // Mobile menu toggle
-        if (document.querySelector('.hamburger')) {
-            const hamburger = document.querySelector('.hamburger');
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
-        }
+            const particleCount = window.innerWidth < 768 ? 15 : 40;
 
-        // Close mobile menu when clicking on a link
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
-        });
-
-        // Theme toggle
-        // Smooth scrolling function
-        function scrollToSection(sectionId) {
-            const targetSection = document.getElementById(sectionId);
-            if (targetSection) {
-                window.scrollTo({
-                    top: targetSection.offsetTop - 70,
-                    behavior: 'smooth'
-                });
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
             }
         }
 
-        // Smooth scrolling for nav links
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href').substring(1);
-                scrollToSection(targetId);
+        // Mouse parallax effect (disabled on mobile for performance)
+        if (window.innerWidth >= 768) {
+            document.addEventListener('mousemove', function (e) {
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+
+                // Parallax for floating elements
+                document.querySelectorAll('.bg-shape').forEach((element, index) => {
+                    const speed = (index + 1) * 0.3;
+                    const x = (mouseX - 0.5) * speed * 30;
+                    const y = (mouseY - 0.5) * speed * 30;
+                    element.style.transform = `translate(${x}px, ${y}px)`;
+                });
             });
+        }
+
+        // Initialize particles when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            renderBlogs();
+            setupScrollAnimations();
+            setupBlogModal();
         });
 
         // Blog rendering
@@ -3115,7 +2431,7 @@
             blogGrid.innerHTML = '';
 
             if (filteredBlogs.length === 0) {
-                blogGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-secondary);">No blogs found matching your criteria.</p>';
+                blogGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; font-size: 1.2rem; padding: 2rem;">No blogs found matching your criteria.</p>';
                 return;
             }
 
@@ -3134,7 +2450,9 @@
             const card = document.createElement('div');
             card.className = 'blog-card';
 
-            const tagsHTML = blog.tags.map(tag => `<span class="blog-tag">${tag.replace('-', ' ')}</span>`).join('');
+            const tagsHTML = blog.tags.map(tag =>
+                `<span class="blog-tag">${tag.replace('-', ' ')}</span>`
+            ).join('');
 
             card.innerHTML = `
                 <img src="${blog.image}" alt="${blog.title}" class="blog-image">
@@ -3176,7 +2494,6 @@
             tag.addEventListener('click', () => {
                 filterTags.forEach(t => t.classList.remove('active'));
                 tag.classList.add('active');
-
                 activeFilter = tag.getAttribute('data-filter');
                 renderBlogs();
             });
@@ -3270,11 +2587,6 @@
                 observer.observe(element);
             });
 
-            // Observe category cards
-            document.querySelectorAll('.category-card').forEach(card => {
-                observer.observe(card);
-            });
-
             // Observe about elements
             document.querySelectorAll('.about-text h3, .about-text p, .about-features, .about-image').forEach(element => {
                 observer.observe(element);
@@ -3301,31 +2613,160 @@
 
             // Show success message
             const successMessage = document.createElement('div');
-            successMessage.style.position = 'fixed';
-            successMessage.style.top = '20px';
-            successMessage.style.right = '20px';
-            successMessage.style.padding = '1rem 1.5rem';
-            successMessage.style.backgroundColor = 'var(--primary)';
-            successMessage.style.color = 'white';
-            successMessage.style.borderRadius = '6px';
-            successMessage.style.boxShadow = 'var(--shadow)';
-            successMessage.style.zIndex = '1001';
-            successMessage.textContent = 'Your message has been sent successfully!';
-
+            successMessage.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                background: linear-gradient(135deg, #10b981, #059669);
+                color: white;
+                border-radius: 12px;
+                box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+                z-index: 1001;
+                font-weight: 600;
+                animation: slideInRight 0.3s ease-out;
+            `;
+            successMessage.textContent = '✅ Your message has been sent successfully!';
             document.body.appendChild(successMessage);
 
             // Reset form
             contactForm.reset();
 
-            // Remove message after 3 seconds
+            // Remove message after 4 seconds
             setTimeout(() => {
                 successMessage.style.opacity = '0';
                 successMessage.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    if (document.body.contains(successMessage)) {
+                        document.body.removeChild(successMessage);
+                    }
+                }, 500);
+            }, 4000);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Enhanced hover effects for cards (desktop only)
+        if (window.innerWidth >= 768) {
+            document.querySelectorAll('.blog-card, .contact-item').forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                card.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Add button ripple effect
+        document.querySelectorAll('.cta-button, .read-more, .btn-submit, .nav-cta').forEach(button => {
+            button.addEventListener('click', function (e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple 0.6s ease-out;
+                    pointer-events: none;
+                `;
+
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
 
                 setTimeout(() => {
-                    document.body.removeChild(successMessage);
+                    if (this.contains(ripple)) {
+                        this.removeChild(ripple);
+                    }
+                }, 600);
+            });
+        });
+
+        // Add loading animation for better UX
+        window.addEventListener('load', () => {
+            // Initialize particles after page load
+            if (!document.getElementById('particles')) {
+                createParticles();
+            }
+
+            const loader = document.createElement('div');
+            loader.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                opacity: 1;
+                transition: opacity 0.5s ease;
+            `;
+
+            const spinner = document.createElement('div');
+            spinner.style.cssText = `
+                width: 50px;
+                height: 50px;
+                border: 3px solid rgba(59, 130, 246, 0.3);
+                border-top: 3px solid #3b82f6;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            `;
+
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                @keyframes slideInRight {
+                    from {
+                        opacity: 0;
+                        transform: translateX(100px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            loader.appendChild(spinner);
+            document.body.appendChild(loader);
+
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    if (document.body.contains(loader)) {
+                        document.body.removeChild(loader);
+                    }
                 }, 500);
-            }, 3000);
+            }, 1000);
         });
     </script>
 </body>
