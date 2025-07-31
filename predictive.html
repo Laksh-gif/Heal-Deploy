@@ -13,7 +13,6 @@
     <script
         src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
     <style>
-        /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -34,7 +33,7 @@
             min-height: 100vh;
         }
 
-        /* Animated Background */
+
         .animated-bg {
             position: fixed;
             top: 0;
@@ -104,7 +103,7 @@
             }
         }
 
-        /* Particle System */
+
         .particles {
             position: fixed;
             top: 0;
@@ -152,7 +151,6 @@
             z-index: 1;
         }
 
-        /* Navigation */
         .navbar {
             position: fixed;
             top: 0;
@@ -268,7 +266,7 @@
             box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
         }
 
-        /* Mobile Menu */
+
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -297,7 +295,6 @@
             display: flex;
         }
 
-        /* Header Section */
         .header {
             padding: 120px 0 40px;
             text-align: center;
@@ -354,7 +351,7 @@
             padding: 0 20px;
         }
 
-        /* Stats Grid */
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -436,7 +433,7 @@
             color: #6b7280;
         }
 
-        /* Dashboard Layout */
+
         .dashboard {
             display: grid;
             grid-template-columns: 1fr;
@@ -489,7 +486,7 @@
             flex-shrink: 0;
         }
 
-        /* Form Styles */
+
         form {
             display: flex;
             flex-direction: column;
@@ -592,7 +589,6 @@
             box-shadow: 0 20px 45px rgba(59, 130, 246, 0.6);
         }
 
-        /* Chart Container */
         .chart-container {
             position: relative;
             height: 350px;
@@ -603,7 +599,7 @@
             box-shadow: inset 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        /* Table Styles */
+
         .table-container {
             background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(20px);
@@ -705,7 +701,7 @@
             font-weight: 500;
         }
 
-        /* Loading Animation */
+
         .loading {
             opacity: 0.7;
             pointer-events: none;
@@ -735,7 +731,7 @@
             }
         }
 
-        /* Fade in animation */
+
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -747,7 +743,7 @@
             transform: translateY(0);
         }
 
-        /* Responsive Design */
+
         @media (max-width: 1024px) {
             .dashboard {
                 grid-template-columns: 1fr;
@@ -963,7 +959,6 @@
             }
         }
 
-        /* High DPI displays */
         @media (-webkit-min-device-pixel-ratio: 2),
         (min-resolution: 192dpi) {
             .card {
@@ -971,7 +966,6 @@
             }
         }
 
-        /* Landscape orientation on mobile */
         @media (max-height: 500px) and (orientation: landscape) {
             .header {
                 padding: 80px 0 20px;
@@ -994,7 +988,7 @@
 </head>
 
 <body>
-    <!-- Animated Background -->
+
     <div class="animated-bg">
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
@@ -1002,10 +996,10 @@
         <div class="bg-shape"></div>
     </div>
 
-    <!-- Particles -->
+
     <div class="particles" id="particles"></div>
 
-    <!-- Navigation -->
+
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand" onclick="window.location.href='index.html'">
@@ -1025,12 +1019,11 @@
             </button>
             <div class="mobile-menu" id="mobileMenu">
                 <a href="#dashboard" class="nav-link" onclick="toggleMobileMenu()">Dashboard</a>
-                <a href="blue-landingpage.html" class="nav-cta" onclick="toggleMobileMenu()">Home</a>
+                <a href="index.html" class="nav-cta" onclick="toggleMobileMenu()">Home</a>
             </div>
         </div>
     </nav>
 
-    <!-- Header Section -->
     <section class="header">
         <div class="container">
             <div class="header-badge">
@@ -1038,7 +1031,7 @@
                     stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" />
                 </svg>
-                AI-Powered Health Analytics Dashboard
+
             </div>
             <h1 class="header-title">
                 Monitor Your <span class="gradient-text">Health Journey</span>
@@ -1047,7 +1040,7 @@
                 Track your vital signs, analyze trends, and get predictive insights with our advanced AI-powered health
                 analytics platform.
             </p>
-            <!-- Stats Grid -->
+
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-label">Average BP</div>
@@ -1086,10 +1079,10 @@
         </div>
     </section>
 
-    <!-- Dashboard Section -->
+
     <section id="dashboard" class="container">
         <div class="dashboard">
-            <!-- Form Card -->
+
             <div class="card fade-in">
                 <h2 class="card-title">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -1148,7 +1141,6 @@
                 </form>
             </div>
 
-            <!-- Chart Card -->
             <div class="card fade-in">
                 <h2 class="card-title">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -1163,7 +1155,7 @@
             </div>
         </div>
 
-        <!-- Table Section -->
+
         <div class="table-container fade-in">
             <h2 class="card-title">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -1209,13 +1201,12 @@
     </section>
 
     <script>
-        // Mobile menu toggle
+
         function toggleMobileMenu() {
             const mobileMenu = document.getElementById('mobileMenu');
             mobileMenu.classList.toggle('active');
         }
 
-        // Close mobile menu when clicking outside
         document.addEventListener('click', function (event) {
             const mobileMenu = document.getElementById('mobileMenu');
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -1225,7 +1216,6 @@
             }
         });
 
-        // Create Particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = window.innerWidth < 768 ? 20 : 50;
@@ -1240,11 +1230,11 @@
             }
         }
 
-        // Initialize Chart with empty data
+
         const ctx = document.getElementById('healthChart').getContext('2d');
         let entries = [];
 
-        // Clear any existing data
+
         localStorage.removeItem('healthEntries');
         Chart.register(ChartDataLabels);
 
@@ -1433,7 +1423,7 @@
             }
         });
 
-        // Set default date/time to current
+
         document.getElementById('date').valueAsDate = new Date();
         const now = new Date();
         const hours = String(now.getHours()).padStart(2, '0');
@@ -1441,11 +1431,10 @@
         document.getElementById('time').value = `${hours}:${minutes}`;
         document.getElementById('period').value = now.getHours() >= 12 ? 'PM' : 'AM';
 
-        // Form submission with validation
         document.getElementById('healthForm').addEventListener('submit', (e) => {
             e.preventDefault();
 
-            // Reset error messages
+
             document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
 
             const date = document.getElementById('date').value;
@@ -1455,7 +1444,7 @@
             const hr = +document.getElementById('hr').value;
             const sugar = +document.getElementById('sugar').value;
 
-            // Validation
+
             let isValid = true;
 
             if (!date || !time || !period) {
@@ -1488,12 +1477,12 @@
             updateTable();
             updateStats();
 
-            // Reset form inputs (except date/time)
+
             document.getElementById('bp').value = '';
             document.getElementById('hr').value = '';
             document.getElementById('sugar').value = '';
 
-            // Show success animation
+
             const button = e.target.querySelector('button[type="submit"]');
             button.classList.add('loading');
             setTimeout(() => {
@@ -1675,7 +1664,7 @@
                 format: 'a4'
             });
 
-            // Header
+
             doc.setFont('Inter', 'bold');
             doc.setFontSize(24);
             doc.setTextColor(59, 130, 246);
@@ -1685,7 +1674,7 @@
             doc.setTextColor(107, 114, 128);
             doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 105, 28, { align: 'center' });
 
-            // Summary Statistics
+
             doc.setFontSize(18);
             doc.setTextColor(0, 0, 0);
             doc.text('Summary Statistics', 20, 45);
@@ -1714,7 +1703,7 @@
             }
 
             if (validEntries.length > 0) {
-                // Health Trends Chart
+
                 doc.setFontSize(18);
                 doc.text('Health Trends Over Time', 20, 95);
                 const tempCanvas = document.createElement('canvas');
@@ -1770,7 +1759,7 @@
                 const chartImg = tempCanvas.toDataURL('image/png');
                 doc.addImage(chartImg, 'PNG', 20, 100, 170, 80);
 
-                // Status Distribution
+
                 doc.setFontSize(18);
                 doc.text('Health Status Distribution', 20, 195);
                 const statusCounts = {
@@ -1785,11 +1774,11 @@
                 doc.text(`Low Readings: ${statusCounts.low} (${Math.round(statusCounts.low / validEntries.length * 100)}%)`, 20, 219);
             }
 
-            // Detailed Records
+
             doc.setFontSize(18);
             doc.text('Detailed Health Records', 20, validEntries.length > 0 ? 240 : 100);
             if (validEntries.length > 0) {
-                // Table header
+
                 doc.setFontSize(12);
                 doc.setTextColor(255, 255, 255);
                 doc.setFillColor(59, 130, 246);
@@ -1801,14 +1790,14 @@
                 doc.text('Sugar', 130, 250);
                 doc.text('Status', 155, 250);
 
-                // Table rows
+
                 doc.setTextColor(0, 0, 0);
                 let y = 255;
                 validEntries.slice().reverse().forEach((entry, index) => {
                     if (index > 0 && index % 25 === 0) {
                         doc.addPage();
                         y = 20;
-                        // Header on new page
+
                         doc.setFillColor(59, 130, 246);
                         doc.rect(20, y, 170, 8, 'F');
                         doc.setTextColor(255, 255, 255);
@@ -1829,7 +1818,7 @@
                     doc.text(entry.hr.toString(), 105, y);
                     doc.text(entry.sugar.toString(), 130, y);
 
-                    // Color code status
+
                     if (status.text === 'High') {
                         doc.setTextColor(239, 68, 68);
                     } else if (status.text === 'Low') {
@@ -1846,16 +1835,16 @@
                 doc.text('No health records available', 20, 110);
             }
 
-            // Footer
+
             doc.setFontSize(10);
             doc.setTextColor(107, 114, 128);
             doc.text('Generated by HealVerse AI-Powered Health Analytics Dashboard', 105, 285, { align: 'center' });
 
-            // Save the PDF
+
             doc.save('HealVerse_Health_Report.pdf');
         }
 
-        // Fade in animation
+
         function initFadeInAnimation() {
             const fadeElements = document.querySelectorAll('.fade-in');
             const observer = new IntersectionObserver((entries) => {
@@ -1873,10 +1862,10 @@
             });
         }
 
-        // Handle window resize for chart responsiveness
+
         function handleResize() {
             if (chart) {
-                // Update chart options for mobile
+
                 const isMobile = window.innerWidth < 768;
 
                 chart.options.plugins.legend.labels.font.size = isMobile ? 10 : 12;
@@ -1898,20 +1887,18 @@
                 chart.update();
             }
 
-            // Recreate particles for mobile
             const particlesContainer = document.getElementById('particles');
             particlesContainer.innerHTML = '';
             createParticles();
         }
 
-        // Initialize everything when DOM is loaded
         document.addEventListener('DOMContentLoaded', function () {
             createParticles();
             updateTable();
             updateStats();
             initFadeInAnimation();
 
-            // Trigger fade in for elements already in view
+
             setTimeout(() => {
                 document.querySelectorAll('.fade-in').forEach(el => {
                     el.classList.add('appear');
@@ -1919,10 +1906,10 @@
             }, 100);
         });
 
-        // Handle window resize
+
         window.addEventListener('resize', handleResize);
 
-        // Handle orientation change on mobile
+
         window.addEventListener('orientationchange', function () {
             setTimeout(handleResize, 100);
         });
