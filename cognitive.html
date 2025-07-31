@@ -19,7 +19,7 @@
             overflow-x: hidden;
             position: relative;
         }
-        /* Animated Background - Same as HealVerse */
+       
         .animated-bg {
             position: fixed;
             top: 0;
@@ -89,7 +89,7 @@
             position: relative;
             z-index: 1;
         }
-        /* Navigation - Same as HealVerse */
+      
         .navbar {
             position: fixed;
             top: 0;
@@ -192,7 +192,7 @@
             transform: translateY(-3px);
             box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
         }
-        /* Main Content */
+     
         .main-content {
             padding-top: 120px;
             min-height: 100vh;
@@ -238,7 +238,7 @@
             margin: 0 auto;
             line-height: 1.7;
         }
-        /* Dashboard Section */
+   
         .dashboard {
             background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(20px);
@@ -299,7 +299,6 @@
             font-weight: 600;
             font-size: 14px;
         }
-        /* Games Grid */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -429,7 +428,7 @@
             border-color: rgba(59, 130, 246, 0.4);
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
         }
-        /* Game Screens */
+      
         .game-screen {
             display: none;
             background: rgba(248, 250, 252, 0.05);
@@ -468,7 +467,7 @@
             color: #3b82f6;
             border: 1px solid rgba(59, 130, 246, 0.2);
         }
-        /* Memory Game Styles */
+       
         .memory-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -506,7 +505,7 @@
             color: #10b981;
             border-color: rgba(16, 185, 129, 0.4);
         }
-        /* Math Quiz Styles */
+       
         .question-container {
             text-align: center;
             margin-bottom: 40px;
@@ -552,7 +551,7 @@
             color: #ef4444;
             border-color: rgba(239, 68, 68, 0.4);
         }
-        /* Reaction Test Styles */
+   
         .reaction-area {
             width: 100%;
             height: 320px;
@@ -604,7 +603,7 @@
                 box-shadow: 0 0 50px rgba(16, 185, 129, 0.8);
             }
         }
-        /* Stroop Test Styles */
+       
         .stroop-container {
             text-align: center;
             margin-bottom: 40px;
@@ -698,7 +697,7 @@
             background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 127, 0.2) 100%);
             box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
         }
-        /* Pattern Recognition Styles */
+        
         .pattern-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -729,7 +728,7 @@
             color: #3b82f6;
             border-color: rgba(59, 130, 246, 0.4);
         }
-        /* Word Association Styles */
+
         .word-display {
             font-size: 3rem;
             font-weight: 900;
@@ -760,7 +759,7 @@
             border-color: #3b82f6;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
-        /* Results Styles */
+     
         .results {
             text-align: center;
             padding: 40px;
@@ -800,7 +799,7 @@
             font-size: 16px;
             line-height: 1.6;
         }
-        /* Progress Bar */
+    
         .progress-bar {
             width: 100%;
             height: 8px;
@@ -814,7 +813,7 @@
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             transition: width 0.3s ease;
         }
-        /* Animations */
+     
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -833,7 +832,7 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.02); }
         }
-        /* Responsive Design */
+   
         @media (max-width: 768px) {
             .container {
                 padding: 0 15px;
@@ -899,13 +898,13 @@
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
+
     <div class="animated-bg">
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
     </div>
-    <!-- Navigation - Same as HealVerse -->
+ 
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-brand">
@@ -920,7 +919,7 @@
     </nav>
     <div class="container">
         <main class="main-content">
-            <!-- Page Header -->
+    
             <div class="page-header">
                 <h1 class="page-title">
                     Train Your <span class="gradient-text">Mind</span>
@@ -929,7 +928,7 @@
                     Enhance your cognitive abilities with scientifically-designed brain training games. Improve memory, focus, and mental agility through engaging challenges.
                 </p>
             </div>
-            <!-- Dashboard -->
+
             <div id="dashboard" class="dashboard">
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -999,7 +998,6 @@
                     <button class="btn btn-secondary" onclick="resetStats()">Reset Progress</button>
                 </div>
             </div>
-            <!-- Memory Game Screen -->
             <div id="memoryGame" class="game-screen">
                 <div class="game-header">
                     <h2>🧠 Memory Match Training</h2>
@@ -1020,7 +1018,7 @@
                     <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
                 </div>
             </div>
-            <!-- Math Quiz Screen -->
+      
             <div id="mathQuiz" class="game-screen">
                 <div class="game-header">
                     <h2>🔢 Quick Math Training</h2>
@@ -1047,7 +1045,7 @@
                     <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
                 </div>
             </div>
-            <!-- Stroop Test Screen -->
+         
             <div id="stroopTest" class="game-screen">
                 <div class="game-header">
                     <h2>🎨 Stroop Test Training</h2>
@@ -1083,7 +1081,7 @@
                     <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
                 </div>
             </div>
-            <!-- Reaction Test Screen -->
+       
             <div id="reactionTest" class="game-screen">
                 <div class="game-header">
                     <h2>⚡ Reaction Speed Training</h2>
@@ -1105,7 +1103,7 @@
                     <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
                 </div>
             </div>
-            <!-- Pattern Recognition Screen -->
+        
             <div id="patternGame" class="game-screen">
                 <div class="game-header">
                     <h2>🔍 Pattern Recognition Training</h2>
@@ -1132,7 +1130,7 @@
                     <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
                 </div>
             </div>
-            <!-- Word Association Screen -->
+     
             <div id="wordGame" class="game-screen">
                 <div class="game-header">
                     <h2>📝 Word Association Training</h2>
@@ -1164,7 +1162,7 @@
     </div>
 
     <script>
-        // Game State Management
+        
         let gameState = {
             currentGame: 'dashboard',
             stats: {
@@ -1178,7 +1176,7 @@
             }
         };
 
-        // Memory Game Variables
+        
         let memoryGame = {
             cards: [],
             flippedCards: [],
@@ -1188,7 +1186,6 @@
             timer: null
         };
 
-        // Math Quiz Variables
         let mathQuiz = {
             questions: [],
             currentQuestion: 0,
@@ -1198,7 +1195,7 @@
             startTime: null
         };
 
-        // Stroop Test Variables
+       
         let stroopTest = {
             round: 0,
             score: 0,
@@ -1218,17 +1215,17 @@
             }
         };
 
-        // Reaction Test Variables
+        
         let reactionTest = {
             round: 0,
             times: [],
             startTime: null,
             timeout: null,
             isWaiting: false,
-            state: 'ready' // ready, waiting, green, clicked
+            state: 'ready' 
         };
 
-        // Pattern Game Variables
+        
         let patternGame = {
             round: 0,
             score: 0,
@@ -1249,7 +1246,7 @@
             ]
         };
 
-        // Word Game Variables
+    
         let wordGame = {
             round: 0,
             score: 0,
@@ -1271,7 +1268,7 @@
             }
         };
 
-        // Motivational Quotes
+       
         const quotes = [
             "Excellent work! Your cognitive fitness is improving with every session! 🧠✨",
             "Outstanding performance! Keep challenging your mind to reach new heights! 🚀",
@@ -1285,14 +1282,14 @@
             "Perfect! Your cognitive fitness journey is inspiring and effective! 🌈"
         ];
 
-        // Initialize App
+      
         function init() {
             loadStats();
             updateDashboard();
             showDashboard();
         }
 
-        // Local Storage Functions
+     
         function saveStats() {
             localStorage.setItem('healverseCognitiveStats', JSON.stringify(gameState.stats));
         }
@@ -1320,7 +1317,7 @@
             }
         }
 
-        // Dashboard Functions
+  
         function showDashboard() {
             hideAllScreens();
             document.getElementById('dashboard').style.display = 'block';
@@ -1348,13 +1345,12 @@
             });
         }
 
-        // Memory Game Functions
         function startMemoryGame() {
             hideAllScreens();
             document.getElementById('memoryGame').style.display = 'block';
             document.getElementById('memoryResults').style.display = 'none';
             
-            // Reset game state
+         
             memoryGame = {
                 cards: [],
                 flippedCards: [],
@@ -1364,17 +1360,17 @@
                 timer: null
             };
 
-            // Create card pairs
+            
             const symbols = ['🎯', '🌟', '🔥', '💎', '🚀', '⚡', '🎨', '🎵'];
             const cardPairs = [...symbols, ...symbols];
             
-            // Shuffle cards
+           
             for (let i = cardPairs.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [cardPairs[i], cardPairs[j]] = [cardPairs[j], cardPairs[i]];
             }
 
-            // Create card objects
+           
             memoryGame.cards = cardPairs.map((symbol, index) => ({
                 id: index,
                 symbol: symbol,
@@ -1382,13 +1378,12 @@
                 matched: false
             }));
 
-            // Render cards
+     
             renderMemoryCards();
             
-            // Start timer
+          
             memoryGame.timer = setInterval(updateMemoryTimer, 1000);
-            
-            // Update UI
+ 
             updateMemoryUI();
         }
 
@@ -1413,12 +1408,12 @@
         function flipCard(cardId) {
             const card = memoryGame.cards[cardId];
             
-            // Can't flip if already flipped, matched, or two cards are already flipped
+           
             if (card.flipped || card.matched || memoryGame.flippedCards.length >= 2) {
                 return;
             }
 
-            // Flip the card
+      
             card.flipped = true;
             memoryGame.flippedCards.push(card);
             memoryGame.moves++;
@@ -1426,7 +1421,6 @@
             renderMemoryCards();
             updateMemoryUI();
 
-            // Check for match when two cards are flipped
             if (memoryGame.flippedCards.length === 2) {
                 setTimeout(checkMemoryMatch, 1000);
             }
@@ -1436,17 +1430,16 @@
             const [card1, card2] = memoryGame.flippedCards;
             
             if (card1.symbol === card2.symbol) {
-                // Match found
+               
                 card1.matched = true;
                 card2.matched = true;
                 memoryGame.matchedPairs++;
                 
-                // Check if game is complete
                 if (memoryGame.matchedPairs === 8) {
                     endMemoryGame();
                 }
             } else {
-                // No match, flip cards back
+                
                 card1.flipped = false;
                 card2.flipped = false;
             }
@@ -1470,30 +1463,25 @@
             clearInterval(memoryGame.timer);
             const timeElapsed = Math.floor((Date.now() - memoryGame.startTime) / 1000);
             
-            // Calculate score (lower moves and time = higher score)
             const score = Math.max(1000 - (memoryGame.moves * 10) - (timeElapsed * 5), 100);
             
-            // Update stats
             if (score > gameState.stats.bestMemoryScore) {
                 gameState.stats.bestMemoryScore = score;
             }
             gameState.stats.totalGames++;
             saveStats();
             
-            // Show results
             document.getElementById('memoryScore').textContent = score;
             document.getElementById('memoryStars').textContent = getStars(score, 800);
             document.getElementById('memoryQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
             document.getElementById('memoryResults').style.display = 'block';
         }
 
-        // Math Quiz Functions
         function startMathQuiz() {
             hideAllScreens();
             document.getElementById('mathQuiz').style.display = 'block';
             document.getElementById('mathResults').style.display = 'none';
-            
-            // Reset game state
+           
             mathQuiz = {
                 questions: [],
                 currentQuestion: 0,
@@ -1502,14 +1490,9 @@
                 timeLeft: 30,
                 startTime: Date.now()
             };
-
-            // Generate questions
             generateMathQuestions();
-            
-            // Start timer
             mathQuiz.timer = setInterval(updateMathTimer, 1000);
-            
-            // Show first question
+        
             showMathQuestion();
         }
 
@@ -1540,7 +1523,7 @@
                         break;
                 }
                 
-                // Generate wrong answers
+        
                 const wrongAnswers = [];
                 while (wrongAnswers.length < 3) {
                     const wrong = answer + Math.floor(Math.random() * 20) - 10;
@@ -1549,7 +1532,6 @@
                     }
                 }
                 
-                // Shuffle options
                 const options = [answer, ...wrongAnswers];
                 for (let j = options.length - 1; j > 0; j--) {
                     const k = Math.floor(Math.random() * (j + 1));
@@ -1584,11 +1566,11 @@
                 optionsContainer.appendChild(button);
             });
             
-            // Update UI
+         
             document.getElementById('mathQuestion').textContent = mathQuiz.currentQuestion + 1;
             document.getElementById('mathScore').textContent = mathQuiz.score;
             
-            // Update progress
+            
             const progress = ((mathQuiz.currentQuestion + 1) / mathQuiz.questions.length) * 100;
             document.getElementById('mathProgress').style.width = progress + '%';
         }
@@ -1629,27 +1611,25 @@
             clearInterval(mathQuiz.timer);
             const percentage = Math.round((mathQuiz.score / mathQuiz.questions.length) * 100);
             
-            // Update stats
             if (percentage > gameState.stats.bestMathScore) {
                 gameState.stats.bestMathScore = percentage;
             }
             gameState.stats.totalGames++;
             saveStats();
-            
-            // Show results
+          
             document.getElementById('mathFinalScore').textContent = percentage + '%';
             document.getElementById('mathStars').textContent = getStars(percentage, 70);
             document.getElementById('mathQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
             document.getElementById('mathResults').style.display = 'block';
         }
 
-        // Stroop Test Functions
+        
         function startStroopTest() {
             hideAllScreens();
             document.getElementById('stroopTest').style.display = 'block';
             document.getElementById('stroopResults').style.display = 'none';
             
-            // Reset game state
+            
             stroopTest = {
                 round: 0,
                 score: 0,
@@ -1669,10 +1649,8 @@
                 }
             };
 
-            // Start timer
             stroopTest.timer = setInterval(updateStroopTimer, 1000);
             
-            // Show first word
             showStroopWord();
         }
 
@@ -1682,28 +1660,26 @@
                 return;
             }
             
-            // Generate random word and color
+            
             stroopTest.currentWord = stroopTest.words[Math.floor(Math.random() * stroopTest.words.length)];
             stroopTest.currentColor = stroopTest.colors[Math.floor(Math.random() * stroopTest.colors.length)];
             stroopTest.correctColor = stroopTest.currentColor;
-            
-            // Display word with color
+           
             const wordElement = document.getElementById('stroopWord');
             wordElement.textContent = stroopTest.currentWord;
             wordElement.style.color = stroopTest.colorMap[stroopTest.currentColor];
             
-            // Reset button states
             document.querySelectorAll('.color-btn').forEach(btn => {
                 btn.classList.remove('correct', 'incorrect');
                 btn.disabled = false;
             });
             
-            // Update UI
+       
             stroopTest.round++;
             document.getElementById('stroopRound').textContent = stroopTest.round;
             document.getElementById('stroopScore').textContent = stroopTest.score;
             
-            // Update progress
+          
             const progress = (stroopTest.round / 15) * 100;
             document.getElementById('stroopProgress').style.width = progress + '%';
         }
@@ -1742,27 +1718,27 @@
             clearInterval(stroopTest.timer);
             const percentage = Math.round((stroopTest.score / stroopTest.round) * 100);
             
-            // Update stats
+           
             if (percentage > gameState.stats.bestStroopScore) {
                 gameState.stats.bestStroopScore = percentage;
             }
             gameState.stats.totalGames++;
             saveStats();
             
-            // Show results
+            
             document.getElementById('stroopFinalScore').textContent = percentage + '%';
             document.getElementById('stroopStars').textContent = getStars(percentage, 70);
             document.getElementById('stroopQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
             document.getElementById('stroopResults').style.display = 'block';
         }
 
-        // Reaction Test Functions
+      
         function startReactionTest() {
             hideAllScreens();
             document.getElementById('reactionTest').style.display = 'block';
             document.getElementById('reactionResults').style.display = 'none';
             
-            // Reset game state
+           
             reactionTest = {
                 round: 1,
                 times: [],
@@ -1772,11 +1748,9 @@
                 state: 'ready'
             };
 
-            // Update UI
             document.getElementById('reactionRound').textContent = '1';
             document.getElementById('reactionBest').textContent = '0ms';
             
-            // Reset area
             const area = document.getElementById('reactionArea');
             area.className = 'reaction-area reaction-waiting';
             area.textContent = 'Round 1/5: Click here when ready, then wait for GREEN!';
@@ -1786,13 +1760,11 @@
             const area = document.getElementById('reactionArea');
             
             if (reactionTest.state === 'ready') {
-                // Start waiting phase
                 reactionTest.state = 'waiting';
                 reactionTest.isWaiting = true;
                 area.className = 'reaction-area reaction-waiting';
                 area.textContent = `Round ${reactionTest.round}/5: Wait for GREEN... DON'T CLICK YET!`;
                 
-                // Set random delay (2-6 seconds)
                 const delay = Math.random() * 4000 + 2000;
                 reactionTest.timeout = setTimeout(() => {
                     if (reactionTest.state === 'waiting') {
@@ -1804,25 +1776,23 @@
                 }, delay);
                 
             } else if (reactionTest.state === 'waiting') {
-                // Clicked too early
+                
                 clearTimeout(reactionTest.timeout);
                 reactionTest.state = 'ready';
                 area.className = 'reaction-area reaction-waiting';
                 area.textContent = `Round ${reactionTest.round}/5: Too early! Click to try again.`;
                 
             } else if (reactionTest.state === 'green') {
-                // Good reaction
+                
                 const reactionTime = Date.now() - reactionTest.startTime;
                 reactionTest.times.push(reactionTime);
                 
                 area.className = 'reaction-area reaction-clicked';
                 area.textContent = `${reactionTime}ms - ${getReactionFeedback(reactionTime)}`;
-                
-                // Update UI
+            
                 const best = reactionTest.times.length > 0 ? Math.min(...reactionTest.times) : reactionTime;
                 document.getElementById('reactionBest').textContent = best + 'ms';
-                
-                // Check if done
+         
                 if (reactionTest.round >= 5) {
                     setTimeout(endReactionTest, 2500);
                 } else {
@@ -1848,21 +1818,19 @@
 
         function endReactionTest() {
             if (reactionTest.times.length === 0) {
-                // Handle case where no valid reactions were recorded
+            
                 document.getElementById('reactionAverage').textContent = '0ms';
                 document.getElementById('reactionStars').textContent = '';
                 document.getElementById('reactionQuote').textContent = 'Keep practicing! Every attempt makes you faster! 💪';
             } else {
                 const average = Math.round(reactionTest.times.reduce((a, b) => a + b, 0) / reactionTest.times.length);
                 const best = Math.min(...reactionTest.times);
-                
-                // Update stats
+     
                 gameState.stats.reactionTimes = [...gameState.stats.reactionTimes, ...reactionTest.times];
                 if (gameState.stats.reactionTimes.length > 50) {
                     gameState.stats.reactionTimes = gameState.stats.reactionTimes.slice(-50);
                 }
-                
-                // Show results
+      
                 document.getElementById('reactionAverage').textContent = average + 'ms avg';
                 document.getElementById('reactionStars').textContent = getStars(Math.max(0, 500 - average), 200);
                 
@@ -1882,13 +1850,12 @@
             document.getElementById('reactionResults').style.display = 'block';
         }
 
-        // Pattern Game Functions
+
         function startPatternGame() {
             hideAllScreens();
             document.getElementById('patternGame').style.display = 'block';
             document.getElementById('patternResults').style.display = 'none';
-            
-            // Reset game state
+        
             patternGame = {
                 round: 0,
                 score: 0,
@@ -1909,10 +1876,8 @@
                 ]
             };
 
-            // Start timer
             patternGame.timer = setInterval(updatePatternTimer, 1000);
-            
-            // Show first pattern
+         
             showPattern();
         }
 
@@ -1926,7 +1891,7 @@
             const grid = document.getElementById('patternGrid');
             grid.innerHTML = '';
             
-            // Show sequence + empty slot for answer
+           
             const allItems = [...pattern.sequence, '?'];
             
             allItems.forEach((item, index) => {
@@ -1942,7 +1907,7 @@
                 grid.appendChild(element);
             });
             
-            // Generate options (correct answer + 2 wrong ones)
+           
             const options = [pattern.answer];
             const allSymbols = ['🔴', '🔵', '🟢', '🟡', '⭐', '🔺', '🔻', '🌙', '🔥', '💧', '🎯', '🟦', '🟨', '⚡', '💎'];
             
@@ -1953,7 +1918,7 @@
                 }
             }
             
-            // Shuffle options
+          
             for (let i = options.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [options[i], options[j]] = [options[j], options[i]];
@@ -1962,12 +1927,12 @@
             patternGame.currentOptions = options;
             patternGame.correctAnswer = pattern.answer;
             
-            // Update UI
+     
             patternGame.round++;
             document.getElementById('patternRound').textContent = patternGame.round;
             document.getElementById('patternScore').textContent = patternGame.score;
             
-            // Update progress
+           
             const progress = (patternGame.round / patternGame.patterns.length) * 100;
             document.getElementById('patternProgress').style.width = progress + '%';
         }
@@ -1976,7 +1941,7 @@
             const grid = document.getElementById('patternGrid');
             const questionMark = grid.querySelector('.pattern-item:last-child');
             
-            // Create option buttons
+      
             questionMark.innerHTML = '';
             questionMark.style.display = 'flex';
             questionMark.style.flexDirection = 'column';
@@ -2020,27 +1985,25 @@
             clearInterval(patternGame.timer);
             const percentage = Math.round((patternGame.score / patternGame.round) * 100);
             
-            // Update stats
             if (percentage > gameState.stats.bestPatternScore) {
                 gameState.stats.bestPatternScore = percentage;
             }
             gameState.stats.totalGames++;
             saveStats();
-            
-            // Show results
+          
             document.getElementById('patternFinalScore').textContent = percentage + '%';
             document.getElementById('patternStars').textContent = getStars(percentage, 70);
             document.getElementById('patternQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
             document.getElementById('patternResults').style.display = 'block';
         }
 
-        // Word Game Functions
+
         function startWordGame() {
             hideAllScreens();
             document.getElementById('wordGame').style.display = 'block';
             document.getElementById('wordResults').style.display = 'none';
             
-            // Reset game state
+         
             wordGame = {
                 round: 0,
                 score: 0,
@@ -2062,13 +2025,13 @@
                 }
             };
 
-            // Start timer
+            
             wordGame.timer = setInterval(updateWordTimer, 1000);
             
-            // Show first word
+        
             showWord();
             
-            // Setup input
+
             const input = document.getElementById('wordInput');
             input.value = '';
             input.addEventListener('keypress', function(e) {
@@ -2089,12 +2052,12 @@
             document.getElementById('wordInput').value = '';
             document.getElementById('wordInput').focus();
             
-            // Update UI
+           
             wordGame.round++;
             document.getElementById('wordRound').textContent = wordGame.round;
             document.getElementById('wordScore').textContent = wordGame.score;
             
-            // Update progress
+            
             const progress = (wordGame.round / wordGame.words.length) * 100;
             document.getElementById('wordProgress').style.width = progress + '%';
         }
@@ -2104,8 +2067,7 @@
             const userWord = input.value.toLowerCase().trim();
             
             if (userWord.length === 0) return;
-            
-            // Check if word is associated
+          
             const associations = wordGame.associations[wordGame.currentWord];
             if (associations.includes(userWord) || userWord === wordGame.currentWord.toLowerCase()) {
                 wordGame.score++;
@@ -2129,18 +2091,16 @@
             clearInterval(wordGame.timer);
             const percentage = Math.round((wordGame.score / wordGame.round) * 100);
             
-            // Update stats
+          
             gameState.stats.totalGames++;
             saveStats();
             
-            // Show results
             document.getElementById('wordFinalScore').textContent = percentage + '%';
             document.getElementById('wordStars').textContent = getStars(percentage, 60);
             document.getElementById('wordQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
             document.getElementById('wordResults').style.display = 'block';
         }
 
-        // Utility Functions
         function getStars(score, threshold) {
             if (score >= threshold + 20) return '⭐⭐⭐';
             if (score >= threshold) return '⭐⭐';
@@ -2148,7 +2108,6 @@
             return '';
         }
 
-        // Initialize when page loads
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
