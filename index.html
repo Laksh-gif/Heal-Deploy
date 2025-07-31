@@ -119,46 +119,6 @@
             }
         }
 
-        /* Particle System */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: rgba(59, 130, 246, 0.6);
-            border-radius: 50%;
-            animation: particleFloat 15s linear infinite;
-        }
-
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 1;
-            }
-
-            90% {
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(-100vh) scale(1);
-                opacity: 0;
-            }
-        }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -1441,10 +1401,6 @@
                 gap: 16px;
             }
 
-            .particles {
-                display: none;
-            }
-
             .stats-grid {
                 grid-template-columns: 1fr;
                 gap: 16px;
@@ -1930,8 +1886,6 @@
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
     </div>
-    <!-- Particles -->
-    <div class="particles" id="particles"></div>
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <a href="#features" class="nav-link">Features</a>
@@ -2296,19 +2250,6 @@
         </div>
     </footer>
     <script>
-        // Create Particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = window.innerWidth < 768 ? 15 : 40;
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                particlesContainer.appendChild(particle);
-            }
-        }
         // Navigation scroll effect
         window.addEventListener('scroll', function () {
             const navbar = document.getElementById('navbar');
@@ -2687,14 +2628,9 @@
                 // Reinitialize chart with new responsive settings
                 initHealthChart();
             }
-            // Recreate particles for mobile
-            const particlesContainer = document.getElementById('particles');
-            particlesContainer.innerHTML = '';
-            createParticles();
         }
         // Initialize everything when DOM is loaded
         document.addEventListener('DOMContentLoaded', function () {
-            createParticles();
             // Initialize chart after a short delay to ensure DOM is ready
             setTimeout(() => {
                 initHealthChart();
@@ -2841,12 +2777,12 @@
             // Show typing indicator
             showTypingIndicator();
 
-            // Simulate AI response
-            setTimeout(() => {
+            // Simulate AI response with Google Gemini API
+            setTimeout(async () => {
                 hideTypingIndicator();
-                const response = generateAIResponse(message);
+                const response = await generateAIResponse(message);
                 addMessage(response, 'bot');
-            }, Math.random() * 2000 + 1000);
+            }, Math.random() * 1000 + 500);
         }
         function addMessage(text, type) {
             const messagesContainer = document.getElementById('chatbotMessages');
@@ -2868,55 +2804,108 @@
             const indicator = document.getElementById('typingIndicator');
             indicator.style.display = 'none';
         }
-        function generateAIResponse(userMessage) {
-            const message = userMessage.toLowerCase();
+        
+        // Google Gemini AI Integration
+        const GEMINI_API_KEY = 'AIzaSyBtm4eV5H8A3US8PWYZfJHQiQSOKR-tvc4';
+        const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
 
-            // Health-related responses
-            if (message.includes('symptom') || message.includes('pain') || message.includes('hurt')) {
-                return "I understand you're experiencing symptoms. While I can provide general information, it's important to consult with a healthcare professional for proper diagnosis. You can use our Symptoms Checker for preliminary assessment.";
+        async function generateAIResponse(userMessage) {
+            try {
+                const healthPrompt = `You are a helpful healthcare assistant for HealVerse, a digital health platform. 
+                
+                IMPORTANT: Always remind users that your responses are for informational purposes only and should not replace professional medical advice. Encourage users to consult healthcare professionals for medical concerns.
+
+                HealVerse Features you can mention:
+                - Health Education Hub: Comprehensive health articles and medical insights
+                - Medication Manager: Smart reminders and interaction checking
+                - Symptoms Checker: AI-powered symptom analysis 
+                - Habit Tracker: Building healthy routines with AI guidance
+                - Cognitive Fitness: Brain training games and exercises
+                - Health Analytics: Predictive insights and vital tracking
+
+                Guidelines:
+                - Be helpful, empathetic, and professional
+                - Provide general health information when appropriate
+                - Always emphasize consulting healthcare professionals for medical advice
+                - Mention relevant HealVerse features that could help
+                - Keep responses concise but informative
+                - Use a friendly, supportive tone
+
+                User Question: ${userMessage}
+
+                Please provide a helpful response:`;
+
+                const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: healthPrompt
+                            }]
+                        }],
+                        generationConfig: {
+                            temperature: 0.7,
+                            topK: 40,
+                            topP: 0.95,
+                            maxOutputTokens: 300,
+                        },
+                        safetySettings: [
+                            {
+                                category: 'HARM_CATEGORY_MEDICAL',
+                                threshold: 'BLOCK_NONE'
+                            }
+                        ]
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API request failed: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+                    return data.candidates[0].content.parts[0].text;
+                } else {
+                    throw new Error('Invalid response format');
+                }
+
+            } catch (error) {
+                console.error('Gemini API Error:', error);
+                
+                // Fallback responses for health-related queries
+                const message = userMessage.toLowerCase();
+                
+                if (message.includes('symptom') || message.includes('pain') || message.includes('hurt')) {
+                    return "I understand you're experiencing symptoms. While I can provide general information, it's important to consult with a healthcare professional for proper diagnosis. You can use our Symptoms Checker for preliminary assessment.";
+                }
+
+                if (message.includes('medication') || message.includes('medicine') || message.includes('drug')) {
+                    return "For medication-related questions, I recommend using our Medication Manager feature. It can help track your prescriptions, set reminders, and check for interactions. Always consult your doctor before making changes to medications.";
+                }
+
+                if (message.includes('diet') || message.includes('nutrition') || message.includes('food')) {
+                    return "Nutrition is crucial for health! Check out our Health Education Hub for evidence-based dietary information. For personalized nutrition advice, consider consulting with a registered dietitian.";
+                }
+
+                if (message.includes('exercise') || message.includes('fitness') || message.includes('workout')) {
+                    return "Regular exercise is wonderful for your health! Our Habit Tracker can help you build and maintain fitness routines. Start with activities you enjoy and gradually increase intensity.";
+                }
+
+                if (message.includes('mental health') || message.includes('stress') || message.includes('anxiety') || message.includes('depression')) {
+                    return "Mental health is just as important as physical health. Our Cognitive Fitness zone offers brain training exercises. For professional support, please reach out to a mental health professional or counselor.";
+                }
+
+                if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
+                    return "Hello! 👋 I'm here to help with any health-related questions or guide you through HealVerse features. What would you like to know about?";
+                }
+
+                // Default fallback
+                return "I'm here to help with health-related questions and guide you through HealVerse features. For the best experience, please ensure you have a stable internet connection. How can I assist you with your health journey today?";
             }
-
-            if (message.includes('medication') || message.includes('medicine') || message.includes('drug')) {
-                return "For medication-related questions, I recommend using our Medication Manager feature. It can help track your prescriptions, set reminders, and check for interactions. Always consult your doctor before making changes to medications.";
-            }
-
-            if (message.includes('diet') || message.includes('nutrition') || message.includes('food')) {
-                return "Nutrition is crucial for health! Check out our Health Education Hub for evidence-based dietary information. For personalized nutrition advice, consider consulting with a registered dietitian.";
-            }
-
-            if (message.includes('exercise') || message.includes('fitness') || message.includes('workout')) {
-                return "Regular exercise is wonderful for your health! Our Habit Tracker can help you build and maintain fitness routines. Start with activities you enjoy and gradually increase intensity.";
-            }
-
-            if (message.includes('mental health') || message.includes('stress') || message.includes('anxiety') || message.includes('depression')) {
-                return "Mental health is just as important as physical health. Our Cognitive Fitness zone offers brain training exercises. For professional support, please reach out to a mental health professional or counselor.";
-            }
-
-            if (message.includes('sleep') || message.includes('tired') || message.includes('insomnia')) {
-                return "Good sleep is essential for health! Try maintaining a consistent sleep schedule, avoiding screens before bed, and creating a relaxing bedtime routine. Our Habit Tracker can help monitor sleep patterns.";
-            }
-
-            if (message.includes('feature') || message.includes('how to use') || message.includes('help')) {
-                return "HealVerse offers several powerful features: Health Education Hub for learning, Medication Manager for prescriptions, Symptoms Checker for assessment, Habit Tracker for wellness goals, and Cognitive Fitness for brain training. Which would you like to explore?";
-            }
-
-            if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
-                return "Hello! 👋 I'm here to help with any health-related questions or guide you through HealVerse features. What would you like to know about?";
-            }
-
-            if (message.includes('thank') || message.includes('thanks')) {
-                return "You're very welcome! 😊 I'm always here to help with your health and wellness journey. Feel free to ask anything else!";
-            }
-
-            // Default responses
-            const defaultResponses = [
-                "That's an interesting question! For detailed health information, I recommend checking our Health Education Hub or consulting with a healthcare professional.",
-                "I'm here to help with general health information and guide you through HealVerse features. Could you tell me more about what you're looking for?",
-                "For the most accurate and personalized health advice, please consult with a qualified healthcare provider. I can help you navigate our platform features though!",
-                "Great question! While I can provide general information, our Health Education Hub has comprehensive articles that might be helpful for your inquiry."
-            ];
-
-            return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
         }
         // Enter key support
         document.getElementById('chatbotInput').addEventListener('keypress', function (e) {
