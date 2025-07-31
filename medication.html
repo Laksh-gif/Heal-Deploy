@@ -516,6 +516,47 @@
             color: #cbd5e1;
             z-index: 1;
             font-size: 16px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #cbd5e1;
+            z-index: 1;
+            font-size: 16px;
+        }
+
+        input[type="date"],
+        input[type="time"] {
+            padding-left: 50px;
+
+            width: 100%;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator,
+        input[type="time"]::-webkit-calendar-picker-indicator {
+            position: absolute;
+            left: 10px;
+
+            transform: translateY(-50%);
+            top: 50%;
+            filter: invert(1) hue-rotate(180deg);
+
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        input[type="date"]::-moz-calendar-picker-indicator,
+        input[type="time"]::-moz-calendar-picker-indicator {
+            position: absolute;
+            left: 10px;
+            transform: translateY(-50%);
+            top: 50%;
+            filter: invert(1) hue-rotate(180deg);
+            opacity: 1;
+            cursor: pointer;
         }
 
         input,
