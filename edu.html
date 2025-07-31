@@ -1,0 +1,3324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Education Hub - HealVerse</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
+            color: #f8fafc;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            animation: float 20s infinite linear;
+        }
+
+        .bg-shape:nth-child(1) {
+            width: min(300px, 50vw);
+            height: min(300px, 50vw);
+            top: -150px;
+            left: -150px;
+            animation-delay: 0s;
+        }
+
+        .bg-shape:nth-child(2) {
+            width: min(200px, 35vw);
+            height: min(200px, 35vw);
+            top: 60%;
+            right: -100px;
+            animation-delay: -7s;
+        }
+
+        .bg-shape:nth-child(3) {
+            width: min(150px, 25vw);
+            height: min(150px, 25vw);
+            bottom: -75px;
+            left: 30%;
+            animation-delay: -14s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(20px) rotate(240deg); }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            z-index: 1000;
+            padding: min(20px, 3vh) 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 min(30px, 5vw);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-icon {
+            color: #3b82f6;
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .brand-text {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+        }
+
+        .nav-back {
+            background: rgba(248, 250, 252, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(248, 250, 252, 0.2);
+            color: #f8fafc;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-back:hover {
+            background: rgba(248, 250, 252, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: min(150px, 20vh) 0 min(100px, 12vh);
+            background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 min(30px, 5vw);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: clamp(12px, 2.5vw, 14px);
+            font-weight: 600;
+            color: #93c5fd;
+            margin-bottom: min(30px, 5vh);
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 8vw, 64px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: min(24px, 4vh);
+            background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 3.5vw, 20px);
+            color: #cbd5e1;
+            max-width: 600px;
+            margin: 0 auto min(40px, 6vh);
+            line-height: 1.7;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: min(16px, 3vw) min(32px, 6vw);
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: clamp(14px, 3vw, 16px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Section Styles */
+        section {
+            padding: min(80px, 10vh) 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: 800;
+            margin-bottom: min(20px, 3vh);
+            text-align: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: min(60px, 8vh);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: clamp(16px, 3vw, 18px);
+            line-height: 1.6;
+        }
+
+        /* Blog Section */
+        .blog-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 3rem;
+            border: 1px solid rgba(248, 250, 252, 0.1);
+            border-radius: 50px;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(10px);
+            color: #f8fafc;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+            background: rgba(248, 250, 252, 0.1);
+        }
+
+        .search-input::placeholder {
+            color: #94a3b8;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .filter-tag {
+            padding: 0.5rem 1.2rem;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(248, 250, 252, 0.1);
+            border-radius: 50px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tag:hover {
+            color: white;
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .filter-tag.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(248, 250, 252, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+            border-color: #3b82f6;
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover .blog-image {
+            transform: scale(1.05);
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: #f8fafc;
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover .blog-title {
+            color: #3b82f6;
+        }
+
+        .blog-description {
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            line-height: 1.6;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .blog-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-tag {
+            padding: 0.3rem 0.8rem;
+            background: rgba(248, 250, 252, 0.1);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            transition: all 0.3s ease;
+        }
+
+        .blog-tag:hover {
+            background: #3b82f6;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .read-more {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            transform: translateY(-2px);
+        }
+
+        /* Blog Modal */
+        .blog-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .blog-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: rgba(239, 68, 68, 0.8);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #f8fafc;
+            font-weight: 700;
+        }
+
+        .modal-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            color: #94a3b8;
+        }
+
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .modal-tag {
+            padding: 0.3rem 0.8rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .blog-content-section {
+            margin-bottom: 2rem;
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+
+        .blog-content-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #f8fafc;
+            font-weight: 600;
+        }
+
+        .blog-content-section p {
+            margin-bottom: 1rem;
+        }
+
+        .blog-content-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .blog-content-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-content-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        .about-text h3.visible {
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        .about-text p.visible {
+            animation: slideInLeft 0.8s ease 0.2s forwards;
+        }
+
+        .about-features {
+            list-style: none;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        .about-features.visible {
+            animation: slideInLeft 0.8s ease 0.4s forwards;
+        }
+
+        .about-features li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .about-features li:hover {
+            transform: translateX(10px);
+        }
+
+        .about-features i {
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .about-features li:hover i {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .about-image {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateX(30px);
+        }
+
+        .about-image.visible {
+            animation: slideInRight 0.8s ease 0.6s forwards;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .contact-item.visible {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(74, 107, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .contact-form.visible {
+            animation: fadeInUp 0.8s ease 0.8s forwards;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-submit:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #0f172a;
+            color: white;
+            padding: min(50px, 8vh) 0 min(20px, 3vh);
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            width: 100%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            gap: min(60px, 8vw);
+            margin-bottom: min(30px, 5vh);
+            width: 100%;
+            align-items: start;
+        }
+
+        .footer-brand {
+            text-align: left;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: min(12px, 2.5vw);
+            margin-bottom: min(16px, 3vh);
+            justify-content: flex-start;
+        }
+
+        .footer-logo span {
+            font-size: clamp(18px, 4vw, 28px);
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-description {
+            color: #cbd5e1;
+            line-height: 1.7;
+            font-size: clamp(12px, 2.8vw, 16px);
+            text-align: left;
+            margin-bottom: min(24px, 4vh);
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: min(40px, 6vw);
+            text-align: left;
+            width: 100%;
+        }
+
+        .footer-column h4 {
+            font-size: clamp(13px, 3vw, 18px);
+            font-weight: 700;
+            margin-bottom: min(12px, 2vh);
+            color: #f8fafc;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: min(6px, 1vh);
+        }
+
+        .footer-column a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: clamp(11px, 2.5vw, 16px);
+        }
+
+        .footer-column a:hover {
+            color: #3b82f6;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            padding-top: min(20px, 3vh);
+            text-align: center;
+            color: #cbd5e1;
+            font-size: clamp(10px, 2.2vw, 16px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+
+            .about-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.9);
+                backdrop-filter: blur(20px);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: var(--shadow);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: min(30px, 5vh);
+                text-align: center;
+            }
+
+            .footer-brand {
+                text-align: center;
+            }
+
+            .footer-logo {
+                justify-content: center;
+            }
+
+            .footer-description {
+                text-align: center;
+            }
+
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: min(24px, 4vh);
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+
+            .blog-grid,
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-heart nav-icon" style="font-size: 32px; color: #3b82f6;"></i>
+                <span class="brand-text">HealVerse</span>
+            </div>
+            <a href="index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m12 19-7-7 7-7" />
+                    <path d="M19 12H5" />
+                </svg>
+                Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="animated-bg">
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+        </div>
+
+        <div class="hero-content">
+            <h1>Health Education Hub</h1>
+            <p>Your ultimate destination for reliable healthcare information, wellness tips, and medical insights from
+                experts around the world.</p>
+            <a href="#latest-blogs" class="cta-button">Explore Articles</a>
+        </div>
+    </section>
+
+    <!-- Latest Blogs Section -->
+    <section id="latest-blogs">
+        <h2 class="section-title">Latest Blogs</h2>
+        <p class="section-subtitle">Discover the most recent articles on health, wellness, and medical advancements</p>
+
+        <div class="blog-controls">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" id="search-input" placeholder="Search blogs...">
+            </div>
+
+            <div class="filter-tags">
+                <div class="filter-tag active" data-filter="all">All</div>
+                <div class="filter-tag" data-filter="nutrition">Nutrition</div>
+                <div class="filter-tag" data-filter="fitness">Fitness</div>
+                <div class="filter-tag" data-filter="mental-health">Mental Health</div>
+                <div class="filter-tag" data-filter="medical">Medical</div>
+                <div class="filter-tag" data-filter="wellness">Wellness</div>
+            </div>
+        </div>
+
+        <div class="blog-grid" id="blog-grid">
+            <!-- Blog cards will be dynamically generated here -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About HealthVerse</h2>
+        <p class="section-subtitle">Our mission is to provide reliable, accessible, and comprehensive healthcare
+            information</p>
+
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Your Trusted Health Resource</h3>
+                <p>HealthVerse is a comprehensive healthcare education platform designed to empower individuals with
+                    knowledge about health, wellness, and medical advancements.</p>
+                <p>We collaborate with healthcare professionals, researchers, and wellness experts to bring you
+                    evidence-based information that you can trust.</p>
+
+                <ul class="about-features">
+                    <li><i class="fas fa-check-circle"></i> Expert-vetted content</li>
+                    <li><i class="fas fa-check-circle"></i> Regularly updated articles</li>
+                    <li><i class="fas fa-check-circle"></i> Diverse health topics</li>
+                    <li><i class="fas fa-check-circle"></i> Community-driven approach</li>
+                </ul>
+            </div>
+
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                    alt="Healthcare professionals">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-subtitle">Have questions or suggestions? We'd love to hear from you</p>
+
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <h4>Our Location</h4>
+                        <p>123 Health Street, Medical District, CA 90210</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div>
+                        <h4>Phone Number</h4>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h4>Email Address</h4>
+                        <p>info@healthverse.com</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <h4>Working Hours</h4>
+                        <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" class="form-control" id="subject" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea class="form-control" id="message" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-heart" style="font-size: 32px; color: #3b82f6;"></i>
+                        <span>HealVerse</span>
+                    </div>
+                    <p class="footer-description">
+                        Empowering healthcare with intelligence. Join thousands who trust HealVerse.
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Features</h4>
+                        <ul>
+                            <li><a href="ai-assistant.html">AI Assistant</a></li>
+                            <li><a href="medication.html">Medication Manager</a></li>
+                            <li><a href="predictive.html">Health Analytics</a></li>
+                            <li><a href="newhabit.html">Habit Tracker</a></li>
+                            <li><a href="cognitive.html">Cognitive Fitness</a></li>
+                            <li><a href="Symptoms.html">Symptoms Checker</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contact</h4>
+                        <ul>
+                            <li>support@healverse.com</li>
+                            <li>+1 (555) 123-4567</li>
+                            <li>123 Healthcare Ave<br>San Francisco, CA 94102</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 HealVerse. All rights reserved. | Designed with ❤ for better healthcare</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Blog Modal -->
+    <div class="blog-modal" id="blog-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="" alt="" class="modal-image" id="modal-image">
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2 class="modal-title" id="modal-title"></h2>
+                <div class="modal-meta">
+                    <span id="modal-date"></span>
+                    <span id="modal-read-time"></span>
+                </div>
+                <div class="modal-tags" id="modal-tags"></div>
+                <div class="blog-content-section" id="blog-content">
+                    <!-- Blog content will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Blog data with detailed content
+        const blogData = [
+            {
+                id: 1,
+                title: "The Science of Intermittent Fasting",
+                description: "Explore how intermittent fasting affects metabolism, cellular repair, and overall health with evidence-based insights.",
+                image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                date: "Oct 15, 2023",
+                readTime: "5 min read",
+                tags: ["nutrition", "wellness"],
+                url: "#",
+                content: `
+                    <h3>Understanding Intermittent Fasting</h3>
+                    <p>Intermittent fasting (IF) has gained tremendous popularity in recent years as a powerful approach to improve health, lose weight, and potentially extend lifespan. But what exactly is intermittent fasting, and how does it work at the biological level?</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Healthy meal preparation">
+                    
+                    <h3>The Biological Mechanisms</h3>
+                    <p>When you fast, several important things happen in your body on the cellular and molecular level. Your body adjusts hormone levels to make stored body fat more accessible. Your cells also initiate important repair processes and change the expression of genes.</p>
+                    
+                    <p>Here are some of the key changes that occur during fasting:</p>
+                    <ul>
+                        <li><strong>Human Growth Hormone (HGH):</strong> Levels of HGH can skyrocket, increasing as much as 5-fold. This has benefits for fat loss and muscle gain.</li>
+                        <li><strong>Insulin:</strong> Insulin sensitivity improves and levels of insulin drop dramatically. Lower insulin levels make stored body fat more accessible.</li>
+                        <li><strong>Cellular repair:</strong> The body induces important cellular repair processes, such as autophagy, where cells digest and remove old and dysfunctional proteins that build up inside cells.</li>
+                        <li><strong>Gene expression:</strong> There are changes in the function of genes related to longevity and protection against disease.</li>
+                    </ul>
+                    
+                    <h3>Popular Intermittent Fasting Methods</h3>
+                    <p>There are several different ways to do intermittent fasting — all of which involve splitting the day or week into eating and fasting periods. During the fasting periods, you eat either very little or nothing at all.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Intermittent fasting schedule">
+                    
+                    <p>The most popular methods include:</p>
+                    <ul>
+                        <li><strong>The 16/8 Method:</strong> Also called the Leangains protocol, it involves skipping breakfast and restricting your daily eating period to 8 hours, such as 1–9 p.m. Then you fast for 16 hours in between.</li>
+                        <li><strong>Eat-Stop-Eat:</strong> This involves fasting for 24 hours, once or twice a week, for example by not eating from dinner one day until dinner the next day.</li>
+                        <li><strong>The 5:2 Diet:</strong> With this method, you consume only 500–600 calories on two non-consecutive days of the week, but eat normally the other 5 days.</li>
+                    </ul>
+                    
+                    <h3>Health Benefits of Intermittent Fasting</h3>
+                    <p>Intermittent fasting has been studied extensively, and the research shows it can have powerful benefits for your body and brain. Some of the most impressive benefits include:</p>
+                    
+                    <ul>
+                        <li><strong>Weight loss:</strong> Intermittent fasting can help you lose weight and belly fat, without having to consciously restrict calories.</li>
+                        <li><strong>Insulin resistance:</strong> IF can reduce insulin resistance, lowering blood sugar by 3-6% and fasting insulin levels by 20-31%.</li>
+                        <li><strong>Inflammation:</strong> Some studies show reductions in markers of inflammation, a key driver of many chronic diseases.</li>
+                        <li><strong>Heart health:</strong> IF may reduce LDL cholesterol, blood triglycerides, inflammatory markers, blood sugar, and insulin resistance.</li>
+                        <li><strong>Brain health:</strong> IF increases the brain hormone BDNF and may aid the growth of new nerve cells. It may also protect against Alzheimer's disease.</li>
+                        <li><strong>Anti-aging:</strong> IF can activate repair processes that may help protect against various diseases.</li>
+                    </ul>
+                    
+                    <h3>Getting Started with Intermittent Fasting</h3>
+                    <p>If you're new to intermittent fasting, it's best to start gradually. Here are some tips to help you get started:</p>
+                    
+                    <ul>
+                        <li>Start with a simple 12-hour fast overnight and gradually extend it</li>
+                        <li>Stay hydrated by drinking plenty of water, herbal tea, or black coffee</li>
+                        <li>Listen to your body and adjust your fasting schedule as needed</li>
+                        <li>Break your fast with nutrient-dense foods</li>
+                        <li>Be consistent with your fasting schedule</li>
+                    </ul>
+                    
+                    <p>Remember, intermittent fasting isn't for everyone. If you have a medical condition or are pregnant, breastfeeding, or have a history of eating disorders, consult with your healthcare provider before starting any fasting regimen.</p>
+                `
+            },
+            {
+                id: 2,
+                title: "Strength Training for Beginners",
+                description: "A comprehensive guide to starting your strength training journey with proper form and progression.",
+                image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                date: "Oct 12, 2023",
+                readTime: "7 min read",
+                tags: ["fitness", "wellness"],
+                url: "#",
+                content: `
+                    <h3>Why Strength Training Matters</h3>
+                    <p>Strength training is one of the most effective forms of exercise for improving overall health, building muscle, increasing metabolism, and enhancing functional fitness. Whether you're looking to lose weight, build muscle, or simply feel stronger and more energetic, incorporating strength training into your routine can deliver remarkable results.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Strength training equipment">
+                    
+                    <h3>Benefits of Strength Training</h3>
+                    <p>The benefits of regular strength training extend far beyond just building muscle:</p>
+                    
+                    <ul>
+                        <li><strong>Increased muscle mass:</strong> Regular strength training helps build and maintain muscle tissue, which naturally declines with age.</li>
+                        <li><strong>Improved metabolism:</strong> Muscle tissue burns more calories at rest than fat tissue, helping to boost your metabolism.</li>
+                        <li><strong>Better bone density:</strong> Weight-bearing exercises help increase bone density, reducing the risk of osteoporosis.</li>
+                        <li><strong>Enhanced functional fitness:</strong> Strength training improves your ability to perform daily activities with ease.</li>
+                        <li><strong>Improved posture:</strong> Strengthening your core and back muscles can help improve posture and reduce back pain.</li>
+                        <li><strong>Better mental health:</strong> Exercise has been shown to reduce symptoms of depression and anxiety.</li>
+                    </ul>
+                    
+                    <h3>Getting Started: The Basics</h3>
+                    <p>Before you begin your strength training journey, it's important to understand some fundamental principles:</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Person lifting weights">
+                    
+                    <h4>1. Start with Bodyweight Exercises</h4>
+                    <p>If you're new to strength training, begin with bodyweight exercises to build a foundation of strength and proper form. Some excellent starting exercises include:</p>
+                    <ul>
+                        <li>Squats</li>
+                        <li>Push-ups</li>
+                        <li>Lunges</li>
+                        <li>Planks</li>
+                        <li>Glute bridges</li>
+                    </ul>
+                    
+                    <h4>2. Focus on Proper Form</h4>
+                    <p>Proper form is crucial to prevent injury and ensure you're targeting the right muscles. Consider working with a certified personal trainer initially to learn correct form, or use reputable online resources and videos as guides.</p>
+                    
+                    <h4>3. Start Light and Progress Gradually</h4>
+                    <p>Begin with lighter weights or fewer repetitions and gradually increase as you become stronger. This principle of progressive overload is key to continued improvement.</p>
+                    
+                    <h3>Essential Strength Training Exercises</h3>
+                    <p>Once you've mastered bodyweight exercises, you can incorporate these fundamental strength training movements:</p>
+                    
+                    <h4>Upper Body Exercises</h4>
+                    <ul>
+                        <li><strong>Bench Press:</strong> Targets chest, shoulders, and triceps</li>
+                        <li><strong>Overhead Press:</strong> Works shoulders and triceps</li>
+                        <li><strong>Bent-Over Rows:</strong> Strengthens back and biceps</li>
+                        <li><strong>Pull-ups/Chin-ups:</strong> Excellent for back and biceps</li>
+                        <li><strong>Bicep Curls:</strong> Isolates biceps</li>
+                    </ul>
+                    
+                    <h4>Lower Body Exercises</h4>
+                    <ul>
+                        <li><strong>Squats:</strong> The king of leg exercises</li>
+                        <li><strong>Deadlifts:</strong> Works entire posterior chain</li>
+                        <li><strong>Lunges:</strong> Great for leg strength and balance</li>
+                        <li><strong>Leg Press:</strong> Isolates quadriceps</li>
+                        <li><strong>Calf Raises:</strong> Strengthens calves</li>
+                    </ul>
+                    
+                    <h4>Core Exercises</h4>
+                    <ul>
+                        <li><strong>Planks:</strong> Builds core stability</li>
+                        <li><strong>Russian Twists:</strong> Targets obliques</li>
+                        <li><strong>Hanging Leg Raises:</strong> Works lower abs</li>
+                        <li><strong>Bicycle Crunches:</strong> Engages entire core</li>
+                    </ul>
+                    
+                    <h3>Creating Your Workout Plan</h3>
+                    <p>A well-structured workout plan should include:</p>
+                    
+                    <ul>
+                        <li><strong>Warm-up (5-10 minutes):</strong> Light cardio and dynamic stretching</li>
+                        <li><strong>Strength training (30-45 minutes):</strong> Focus on compound movements</li>
+                        <li><strong>Cool-down (5-10 minutes):</strong> Static stretching and foam rolling</li>
+                    </ul>
+                    
+                    <p>For beginners, aim for 2-3 strength training sessions per week, allowing at least 48 hours between sessions for muscle recovery.</p>
+                    
+                    <h3>Nutrition for Strength Training</h3>
+                    <p>Proper nutrition is essential for muscle growth and recovery:</p>
+                    
+                    <ul>
+                        <li><strong>Protein:</strong> Aim for 1.6-2.2g of protein per kg of body weight daily</li>
+                        <li><strong>Carbohydrates:</strong> Fuel your workouts with complex carbs</li>
+                        <li><strong>Healthy Fats:</strong> Support hormone production and overall health</li>
+                        <li><strong>Hydration:</strong> Drink plenty of water throughout the day</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1490312278390-ab64016e0e9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Healthy protein meal">
+                    
+                    <h3>Common Mistakes to Avoid</h3>
+                    <p>As a beginner, be aware of these common mistakes:</p>
+                    
+                    <ul>
+                        <li>Sacrificing form for heavier weights</li>
+                        <li>Skiping warm-up and cool-down</li>
+                        <li>Not allowing enough recovery time</li>
+                        <li>Inconsistent training schedule</li>
+                        <li>Neglecting proper nutrition</li>
+                    </ul>
+                    
+                    <h3>Tracking Your Progress</h3>
+                    <p>Keep track of your progress to stay motivated and ensure you're making improvements:</p>
+                    
+                    <ul>
+                        <li>Keep a workout log of exercises, weights, and reps</li>
+                        <li>Take progress photos monthly</li>
+                        <li>Track body measurements</li>
+                        <li>Monitor strength gains by testing your one-rep max periodically</li>
+                    </ul>
+                    
+                    <p>Remember, strength training is a journey, not a destination. Be patient with yourself, celebrate small victories, and stay consistent. With time and dedication, you'll build strength, confidence, and a healthier body.</p>
+                `
+            },
+            {
+                id: 3,
+                title: "Understanding Anxiety Disorders",
+                description: "Learn about the different types of anxiety disorders, their symptoms, and evidence-based treatment approaches.",
+                image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                date: "Oct 10, 2023",
+                readTime: "8 min read",
+                tags: ["mental-health", "medical"],
+                url: "#",
+                content: `
+                    <h3>What Are Anxiety Disorders?</h3>
+                    <p>Anxiety disorders are the most common mental health conditions, affecting millions of people worldwide. While it's normal to feel anxious in stressful situations, anxiety disorders involve excessive, persistent fear and worry that interferes with daily activities.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1543429776-2782fc177b30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Person experiencing anxiety">
+                    
+                    <p>These conditions can cause significant distress and impairment in social, occupational, and other important areas of functioning. Understanding the different types of anxiety disorders is crucial for proper diagnosis and treatment.</p>
+                    
+                    <h3>Types of Anxiety Disorders</h3>
+                    <p>Anxiety disorders encompass several distinct conditions, each with unique characteristics:</p>
+                    
+                    <h4>1. Generalized Anxiety Disorder (GAD)</h4>
+                    <p>GAD is characterized by chronic, exaggerated worry about everyday life. People with GAD experience persistent and excessive anxiety and worry about various things, even when there is little or no reason to worry about them.</p>
+                    
+                    <p><strong>Common symptoms include:</strong></p>
+                    <ul>
+                        <li>Constant worrying or anxiety about various things</li>
+                        <li>Feeling restless, wound-up, or on edge</li>
+                        <li>Being easily fatigued</li>
+                        <li>Difficulty concentrating</li>
+                        <li>Irritability</li>
+                        <li>Muscle tension</li>
+                        <li>Sleep disturbances</li>
+                    </ul>
+                    
+                    <h4>2. Panic Disorder</h4>
+                    <p>Panic disorder involves recurrent, unexpected panic attacks. These are sudden periods of intense fear that come on quickly and reach their peak within minutes. Attacks can occur unexpectedly or can be brought on by a trigger.</p>
+                    
+                    <p><strong>During a panic attack, people may experience:</strong></p>
+                    <ul>
+                        <li>Pounding heart or palpitations</li>
+                        <li>Sweating</li>
+                        <li>Trembling or shaking</li>
+                        <li>Shortness of breath</li>
+                        <li>Feelings of impending doom</li>
+                        <li>Feelings of being out of control</li>
+                    </ul>
+                    
+                    <h4>3. Social Anxiety Disorder</h4>
+                    <p>Social anxiety disorder (formerly called social phobia) is an intense fear of being judged, negatively evaluated, or rejected in social or performance situations. People with social anxiety disorder worry about acting or appearing visibly anxious.</p>
+                    
+                    <p><strong>Common triggers include:</strong></p>
+                    <ul>
+                        <li>Meeting new people</li>
+                        <li>Public speaking</li>
+                        <li>Eating in front of others</li>
+                        <li>Making phone calls</li>
+                        <li>Using public restrooms</li>
+                    </ul>
+                    
+                    <h4>4. Specific Phobias</h4>
+                    <p>Specific phobias involve intense, irrational fears of specific objects or situations. The fear is disproportionate to the actual danger posed by the object or situation.</p>
+                    
+                    <p><strong>Common phobias include:</strong></p>
+                    <ul>
+                        <li>Acrophobia (fear of heights)</li>
+                        <li>Arachnophobia (fear of spiders)</li>
+                        <li>Claustrophobia (fear of enclosed spaces)</li>
+                        <li>Aerophobia (fear of flying)</li>
+                    </ul>
+                    
+                    <h4>5. Agoraphobia</h4>
+                    <p>Agoraphobia is an anxiety disorder involving fear and avoidance of situations where escape might be difficult or help might not be available if panic-like symptoms occur. People often avoid public transportation, open spaces, shopping malls, or simply being outside their home alone.</p>
+                    
+                    <h3>Causes and Risk Factors</h3>
+                    <p>Anxiety disorders develop from a complex set of risk factors, including:</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Brain scan showing anxiety">
+                    
+                    <h4>Genetic Factors</h4>
+                    <p>Research suggests that anxiety disorders can run in families. If you have a close relative with an anxiety disorder, you may be more likely to develop one yourself.</p>
+                    
+                    <h4>Brain Chemistry</h4>
+                    <p>Anxiety disorders have been linked to faulty circuits in the brain that control fear and emotions. Neurotransmitters like serotonin, dopamine, and norepinephrine play a role in anxiety regulation.</p>
+                    
+                    <h4>Environmental Factors</h4>
+                    <p>Trauma, stress, and adverse life events can trigger anxiety disorders in people who are already predisposed. Childhood abuse, neglect, or witnessing traumatic events are significant risk factors.</p>
+                    
+                    <h4>Personality Factors</h4>
+                    <p>Certain personality traits, such as shyness or behavioral inhibition in childhood, may increase the risk of developing anxiety disorders.</p>
+                    
+                    <h3>Diagnosis and Assessment</h3>
+                    <p>Diagnosing anxiety disorders typically involves:</p>
+                    
+                    <ul>
+                        <li><strong>Clinical interview:</strong> A mental health professional will ask about your symptoms, medical history, and life circumstances.</li>
+                        <li><strong>Physical examination:</strong> To rule out other medical conditions that could be causing symptoms.</li>
+                        <li><strong>Psychological questionnaires:</strong> Standardized assessments to evaluate symptom severity.</li>
+                        <li><strong>Diagnostic criteria:</strong> Using criteria from the DSM-5 (Diagnostic and Statistical Manual of Mental Disorders).</li>
+                    </ul>
+                    
+                    <h3>Treatment Approaches</h3>
+                    <p>Anxiety disorders are highly treatable, and most people can significantly reduce or eliminate their symptoms with proper treatment. The most effective approaches typically include:</p>
+                    
+                    <h4>1. Psychotherapy</h4>
+                    <p>Several types of therapy have proven effective for anxiety disorders:</p>
+                    
+                    <ul>
+                        <li><strong>Cognitive Behavioral Therapy (CBT):</strong> The gold standard for anxiety treatment. CBT helps identify and change negative thought patterns and behaviors.</li>
+                        <li><strong>Exposure Therapy:</strong> Gradually exposing people to feared objects or situations in a safe environment.</li>
+                        <li><strong>Acceptance and Commitment Therapy (ACT):</strong> Helps people accept difficult thoughts and feelings without judgment.</li>
+                        <li><strong>Dialectical Behavior Therapy (DBT):</strong> Teaches skills for emotional regulation and distress tolerance.</li>
+                    </ul>
+                    
+                    <h4>2. Medication</h4>
+                    <p>Several types of medications can help manage anxiety symptoms:</p>
+                    
+                    <ul>
+                        <li><strong>SSRIs (Selective Serotonin Reuptake Inhibitors):</strong> First-line medications for most anxiety disorders.</li>
+                        <li><strong>SNRIs (Serotonin-Norepinephrine Reuptake Inhibitors):</strong> Another first-line option.</li>
+                        <li><strong>Benzodiazepines:</strong> Fast-acting for acute anxiety, but risk of dependence.</li>
+                        <li><strong>Beta-blockers:</strong> Can help manage physical symptoms of anxiety.</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Therapy session">
+                    
+                    <h4>3. Lifestyle Modifications</h4>
+                    <p>Lifestyle changes can significantly impact anxiety levels:</p>
+                    
+                    <ul>
+                        <li><strong>Regular exercise:</strong> Reduces anxiety and improves mood.</li>
+                        <li><strong>Healthy diet:</strong> Balanced nutrition supports mental health.</li>
+                        <li><strong>Adequate sleep:</strong> Poor sleep exacerbates anxiety.</li>
+                        <li><strong>Stress management:</strong> Mindfulness, meditation, and relaxation techniques.</li>
+                        <li><strong>Limiting caffeine and alcohol:</strong> Both can trigger or worsen anxiety.</li>
+                    </ul>
+                    
+                    <h3>Living with Anxiety</h3>
+                    <p>Managing anxiety is an ongoing process. Here are strategies for daily living:</p>
+                    
+                    <ul>
+                        <li><strong>Practice self-compassion:</strong> Be kind to yourself on difficult days.</li>
+                        <li><strong>Build a support network:</strong> Connect with understanding friends and family.</li>
+                        <li><strong>Learn your triggers:</strong> Identify situations that worsen your anxiety.</li>
+                        <li><strong>Develop coping skills:</strong> Find techniques that work for you.</li>
+                        <li><strong>Stay consistent with treatment:</strong> Continue therapy and medication as prescribed.</li>
+                    </ul>
+                    
+                    <h3>When to Seek Help</h3>
+                    <p>If anxiety is interfering with your daily life, relationships, or work, it's time to seek professional help. Remember, anxiety disorders are medical conditions that require treatment, just like any other health issue.</p>
+                    
+                    <p>With proper treatment and support, people with anxiety disorders can lead fulfilling, productive lives. Recovery is possible, and you don't have to face anxiety alone.</p>
+                `
+            },
+            {
+                id: 4,
+                title: "The Gut-Brain Connection",
+                description: "Discover how your gut health influences mental well-being and cognitive function through the microbiome.",
+                image: "https://images.unsplash.com/photo-1607623814075-fc4a893a9c6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                date: "Oct 8, 2023",
+                readTime: "6 min read",
+                tags: ["nutrition", "mental-health"],
+                url: "#",
+                content: `
+                    <h3>The Fascinating Gut-Brain Axis</h3>
+                    <p>The gut-brain connection is one of the most exciting areas of modern medical research. Scientists are discovering that the health of your gut directly impacts your mental well-being, cognitive function, and even your mood. This bidirectional communication system, known as the gut-brain axis, involves complex interactions between your digestive system and your brain.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1607623814075-fc4a893a9c6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Microbiome visualization">
+                    
+                    <p>At the center of this connection is the gut microbiome - the trillions of microorganisms living in your digestive tract. These tiny organisms play a crucial role in everything from digestion to immune function, and increasingly, we're learning they have a profound impact on mental health.</p>
+                    
+                    <h3>Understanding the Microbiome</h3>
+                    <p>Your gut is home to a complex ecosystem of bacteria, viruses, fungi, and other microorganisms. Collectively, these microbes weigh about 2-3 pounds and contain more genetic material than the rest of your body combined.</p>
+                    
+                    <p>A healthy microbiome is diverse and balanced, with beneficial bacteria outnumbering harmful ones. This balance is essential for:</p>
+                    
+                    <ul>
+                        <li>Digesting food and absorbing nutrients</li>
+                        <li>Producing essential vitamins and neurotransmitters</li>
+                        <li>Regulating the immune system</li>
+                        <li>Protecting against harmful pathogens</li>
+                        <li>Influencing brain function and mood</li>
+                    </ul>
+                    
+                    <h3>How the Gut Communicates with the Brain</h3>
+                    <p>The gut and brain communicate through multiple pathways:</p>
+                    
+                    <h4>1. The Vagus Nerve</h4>
+                    <p>The vagus nerve is the primary highway connecting the gut and brain. This cranial nerve sends signals in both directions, allowing your gut to influence your brain and vice versa. About 90% of the signals travel from gut to brain, highlighting the gut's significant influence.</p>
+                    
+                    <h4>2. Neurotransmitters</h4>
+                    <p>Many neurotransmitters are produced in the gut, including:</p>
+                    <ul>
+                        <li><strong>Serotonin:</strong> About 95% of your body's serotonin is produced in the gut. This "feel-good" neurotransmitter regulates mood, sleep, and appetite.</li>
+                        <li><strong>Dopamine:</strong> Involved in reward, motivation, and pleasure.</li>
+                        <li><strong>GABA:</strong> Helps control fear and anxiety.</li>
+                    </ul>
+                    
+                    <h4>3. Immune System</h4>
+                    <p>The gut houses about 70% of your immune system. Gut bacteria help regulate immune function, and inflammation in the gut can trigger inflammation in the brain, affecting mood and cognitive function.</p>
+                    
+                    <h4>4. Short-Chain Fatty Acids (SCFAs)</h4>
+                    <p>When gut bacteria ferment dietary fiber, they produce SCFAs like butyrate, propionate, and acetate. These compounds can cross the blood-brain barrier and influence brain function, reducing inflammation and supporting the growth of new brain cells.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Healthy gut foods">
+                    
+                    <h3>Gut Health and Mental Health Conditions</h3>
+                    <p>Research has established strong links between gut health and various mental health conditions:</p>
+                    
+                    <h4>Depression</h4>
+                    <p>People with depression often have different gut microbiome compositions compared to healthy individuals. They typically have lower levels of beneficial bacteria like Faecalibacterium and Coprococcus, which produce anti-inflammatory compounds.</p>
+                    
+                    <p>Studies show that probiotic supplementation can reduce depressive symptoms, particularly when combined with traditional treatments.</p>
+                    
+                    <h4>Anxiety</h4>
+                    <p>Anxiety disorders are also associated with gut dysbiosis - an imbalance in gut bacteria. The gut microbiome influences the hypothalamic-pituitary-adrenal (HPA) axis, which controls the body's stress response.</p>
+                    
+                    <p>Animal studies show that transferring gut bacteria from anxious mice to calm mice can induce anxiety-like behaviors, demonstrating the direct influence of gut microbes on mood.</p>
+                    
+                    <h4>Autism Spectrum Disorder (ASD)</h4>
+                    <p>Many individuals with ASD experience gastrointestinal issues, and research suggests a connection between gut health and ASD symptoms. Some studies show that probiotic interventions can improve both GI symptoms and behavioral issues in children with ASD.</p>
+                    
+                    <h3>Nourishing Your Microbiome</h3>
+                    <p>Supporting a healthy gut microbiome is one of the most powerful things you can do for your mental health. Here are key strategies:</p>
+                    
+                    <h4>1. Eat a Diverse, Plant-Rich Diet</h4>
+                    <p>Diversity in your diet promotes diversity in your microbiome. Aim for:</p>
+                    <ul>
+                        <li>30+ different plant foods per week</li>
+                        <li>Colorful fruits and vegetables</li>
+                        <li>Whole grains</li>
+                        <li>Legumes</li>
+                        <li>Nuts and seeds</li>
+                    </ul>
+                    
+                    <h4>2. Include Fermented Foods</h4>
+                    <p>Fermented foods contain live beneficial bacteria (probiotics):</p>
+                    <ul>
+                        <li>Yogurt (with live cultures)</li>
+                        <li>Kefir</li>
+                        <li>Sauerkraut</li>
+                        <li>Kimchi</li>
+                        <li>Kombucha</li>
+                        <li>Miso</li>
+                    </ul>
+                    
+                    <h4>3. Consume Prebiotic Foods</h4>
+                    <p>Prebiotics are fibers that feed beneficial bacteria:</p>
+                    <ul>
+                        <li>Garlic</li>
+                        <li>Onions</li>
+                        <li>Leeks</li>
+                        <li>Asparagus</li>
+                        <li>Bananas</li>
+                        <li>Oats</li>
+                        <li>Apples</li>
+                    </ul>
+                    
+                    <h4>4. Limit Processed Foods and Sugar</h4>
+                    <p>Processed foods and excess sugar can feed harmful bacteria and promote inflammation. Focus on whole, unprocessed foods instead.</p>
+                    
+                    <h4>5. Stay Hydrated</h4>
+                    <p>Water is essential for maintaining the mucosal lining of the intestines and supporting overall gut health.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Meditation for gut health">
+                    
+                    <h3>Lifestyle Factors That Support Gut-Brain Health</h3>
+                    <p>Beyond diet, several lifestyle factors influence the gut-brain axis:</p>
+                    
+                    <h4>1. Regular Exercise</h4>
+                    <p>Exercise increases microbial diversity and promotes the growth of beneficial bacteria. It also reduces inflammation and supports brain health.</p>
+                    
+                    <h4>2. Stress Management</h4>
+                    <p>Chronic stress negatively impacts gut health by altering gut motility, secretion, and permeability. Practices like meditation, deep breathing, and yoga can help manage stress.</p>
+                    
+                    <h4>3. Quality Sleep</h4>
+                    <p>Sleep deprivation disrupts the gut microbiome and increases intestinal permeability ("leaky gut"). Aim for 7-9 hours of quality sleep per night.</p>
+                    
+                    <h4>4. Social Connection</h4>
+                    <p>Positive social interactions support both mental health and gut health. Social connection reduces stress and promotes a healthy microbiome.</p>
+                    
+                    <h3>Signs of an Unhealthy Gut</h3>
+                    <p>Be aware of these signs that your gut health may need attention:</p>
+                    
+                    <ul>
+                        <li>Digestive issues (bloating, gas, diarrhea, constipation)</li>
+                        <li>Food intolerances</li>
+                        <li>Unintentional weight changes</li>
+                        <li>Sleep disturbances</li>
+                        <li>Chronic fatigue</li>
+                        <li>Skin irritations</li>
+                        <li>Autoimmune conditions</li>
+                        <li>Mood disorders</li>
+                    </ul>
+                    
+                    <h3>The Future of Gut-Brain Medicine</h3>
+                    <p>The field of gut-brain research is rapidly evolving. Future treatments may include:</p>
+                    
+                    <ul>
+                        <li><strong>Personalized probiotics:</strong> Tailored to individual microbiome profiles</li>
+                        <li><strong>Psychobiotics:</strong> Probiotics specifically targeting mental health</li>
+                        <li><strong>Fecal microbiota transplantation (FMT):</strong> For severe dysbiosis</li>
+                        <li><strong>Dietary interventions:</strong> Prescribed based on microbiome analysis</li>
+                    </ul>
+                    
+                    <h3>Taking Action for Gut-Brain Health</h3>
+                    <p>Supporting your gut-brain axis doesn't require drastic changes. Start with these simple steps:</p>
+                    
+                    <ul>
+                        <li>Add one new plant food to your diet each week</li>
+                        <li>Incorporate fermented foods regularly</li>
+                        <li>Practice stress-reduction techniques daily</li>
+                        <li>Prioritize sleep</li>
+                        <li>Stay physically active</li>
+                        <li>Consider a high-quality probiotic supplement</li>
+                    </ul>
+                    
+                    <p>Remember, your gut is often called your "second brain" for good reason. By nurturing your microbiome, you're not just supporting digestive health - you're investing in your mental well-being, cognitive function, and overall quality of life.</p>
+                `
+            },
+            {
+                id: 5,
+                title: "Advances in Cancer Immunotherapy",
+                description: "Explore the latest breakthroughs in cancer treatment using the body's immune system to fight cancer cells.",
+                image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                date: "Oct 5, 2023",
+                readTime: "10 min read",
+                tags: ["medical"],
+                url: "#",
+                content: `
+                    <h3>The Immunotherapy Revolution</h3>
+                    <p>Cancer immunotherapy represents one of the most significant breakthroughs in cancer treatment in recent decades. Unlike traditional treatments that directly target cancer cells, immunotherapy harnesses the power of the body's immune system to recognize and destroy cancer cells. This approach has transformed the treatment landscape for many types of cancer, offering new hope to patients who previously had limited options.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Cancer research laboratory">
+                    
+                    <p>The immune system is naturally equipped to detect and eliminate abnormal cells, including cancer cells. However, cancer cells have evolved sophisticated mechanisms to evade immune detection. Immunotherapy works by overcoming these evasion tactics and empowering the immune system to mount an effective anti-cancer response.</p>
+                    
+                    <h3>Understanding the Immune System's Role</h3>
+                    <p>To appreciate how immunotherapy works, it's essential to understand the immune system's natural anti-cancer mechanisms:</p>
+                    
+                    <h4>Immune Surveillance</h4>
+                    <p>The immune system constantly patrols the body, identifying and eliminating potentially harmful cells, including cancer cells. This process, known as immune surveillance, involves various immune cells:</p>
+                    
+                    <ul>
+                        <li><strong>T cells:</strong> Recognize specific antigens on cancer cells</li>
+                        <li><strong>Natural Killer (NK) cells:</strong> Detect and kill abnormal cells without prior sensitization</li>
+                        <li><strong>Dendritic cells:</strong> Present cancer antigens to T cells, initiating an immune response</li>
+                        <li><strong>Macrophages:</strong> Engulf and destroy cancer cells</li>
+                    </ul>
+                    
+                    <h4>Cancer's Evasion Tactics</h4>
+                    <p>Cancer cells employ several strategies to avoid immune detection:</p>
+                    
+                    <ul>
+                        <li><strong>Antigen masking:</strong> Reducing the expression of molecules that make them recognizable to immune cells</li>
+                        <li><strong>Immune checkpoint activation:</strong> Expressing proteins that inhibit T cell activity</li>
+                        <li><strong>Creating an immunosuppressive microenvironment:</strong> Releasing substances that suppress immune function</li>
+                        <li><strong>T cell exhaustion:</strong> Causing T cells to become dysfunctional over time</li>
+                    </ul>
+                    
+                    <h3>Types of Immunotherapy</h3>
+                    <p>Several types of immunotherapy have been developed, each targeting different aspects of the immune response:</p>
+                    
+                    <h4>1. Immune Checkpoint Inhibitors</h4>
+                    <p>Immune checkpoint inhibitors are perhaps the most well-known form of immunotherapy. They work by blocking proteins that prevent T cells from attacking cancer cells.</p>
+                    
+                    <p><strong>Key checkpoint inhibitors include:</strong></p>
+                    <ul>
+                        <li><strong>PD-1/PD-L1 inhibitors:</strong> Block the PD-1 receptor on T cells or PD-L1 on cancer cells, preventing the "off switch" for T cells</li>
+                        <li><strong>CTLA-4 inhibitors:</strong> Block CTLA-4, another protein that inhibits T cell activation</li>
+                    </ul>
+                    
+                    <p>These drugs have shown remarkable success in treating melanoma, lung cancer, kidney cancer, and several other cancer types. Some patients experience durable responses that last for years.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Cancer treatment research">
+                    
+                    <h4>2. CAR T-Cell Therapy</h4>
+                    <p>Chimeric Antigen Receptor (CAR) T-cell therapy is a revolutionary approach that involves genetically engineering a patient's own T cells to recognize and attack cancer cells.</p>
+                    
+                    <p><strong>The process involves:</strong></p>
+                    <ul>
+                        <li>Collecting T cells from the patient's blood</li>
+                        <li>Genetically modifying them in the lab to express CARs that recognize specific cancer antigens</li>
+                        <li>Expanding the modified T cells in large numbers</li>
+                        <li>Infusing them back into the patient</li>
+                    </ul>
+                    
+                    <p>CAR T-cell therapy has shown remarkable success in treating certain blood cancers, particularly acute lymphoblastic leukemia and diffuse large B-cell lymphoma. Research is ongoing to expand its use to solid tumors.</p>
+                    
+                    <h4>3. Cancer Vaccines</h4>
+                    <p>Cancer vaccines work by training the immune system to recognize and attack cancer cells. Unlike preventive vaccines, most cancer vaccines are therapeutic, designed to treat existing cancer.</p>
+                    
+                    <p><strong>Types of cancer vaccines include:</strong></p>
+                    <ul>
+                        <li><strong>Peptide vaccines:</strong> Contain specific tumor antigens</li>
+                        <li><strong>Dendritic cell vaccines:</strong> Use the patient's own dendritic cells loaded with tumor antigens</li>
+                        <li><strong>Whole tumor cell vaccines:</strong> Use killed cancer cells or tumor lysates</li>
+                        <li><strong>mRNA vaccines:</strong> Similar to COVID-19 vaccines, but encoding tumor antigens</li>
+                    </ul>
+                    
+                    <h4>4. Cytokine Therapy</h4>
+                    <p>Cytokines are signaling molecules that help regulate immune responses. Cytokine therapy involves administering high doses of these proteins to boost the immune system's ability to fight cancer.</p>
+                    
+                    <p><strong>Common cytokines used in cancer treatment:</strong></p>
+                    <ul>
+                        <li><strong>Interleukin-2 (IL-2):</strong> Stimulates T cell and NK cell activity</li>
+                        <li><strong>Interferon-alpha:</strong> Enhances immune cell function and has direct anti-tumor effects</li>
+                    </ul>
+                    
+                    <h4>5. Oncolytic Virus Therapy</h4>
+                    <p>Oncolytic viruses are viruses that have been modified to selectively infect and kill cancer cells while sparing normal cells. These viruses can also stimulate an immune response against the tumor.</p>
+                    
+                    <p><strong>Mechanisms of action:</strong></p>
+                    <ul>
+                        <li>Directly infecting and lysing cancer cells</li>
+                        <li>Releasing tumor antigens that stimulate immune responses</li>
+                        <li>Stimulating the production of interferons and other immune-stimulating molecules</li>
+                    </ul>
+                    
+                    <h3>Recent Breakthroughs and Advances</h3>
+                    <p>The field of cancer immunotherapy is rapidly evolving, with several exciting recent advances:</p>
+                    
+                    <h4>Combination Therapies</h4>
+                    <p>Researchers are discovering that combining different immunotherapies or combining immunotherapy with other treatments can enhance effectiveness:</p>
+                    
+                    <ul>
+                        <li><strong>Immunotherapy + chemotherapy:</strong> Chemotherapy can release tumor antigens and reduce immunosuppressive cells</li>
+                        <li><strong>Immunotherapy + radiation:</strong> Radiation can make tumors more visible to the immune system</li>
+                        <li><strong>Dual checkpoint inhibition:</strong> Combining PD-1 and CTLA-4 inhibitors</li>
+                    </ul>
+                    
+                    <h4>Biomarkers for Patient Selection</h4>
+                    <p>Identifying biomarkers that predict response to immunotherapy is crucial for personalized treatment:</p>
+                    
+                    <ul>
+                        <li><strong>PD-L1 expression:</strong> Higher levels may predict better response to PD-1/PD-L1 inhibitors</li>
+                        <li><strong>Tumor mutational burden (TMB):</strong> Higher TMB correlates with better immunotherapy response</li>
+                        <li><strong>Microsatellite instability (MSI):</strong> MSI-high tumors respond well to checkpoint inhibitors</li>
+                    </ul>
+                    
+                    <h4>Overcoming Resistance</h4>
+                    <p>Many patients don't respond to immunotherapy or develop resistance over time. Researchers are developing strategies to overcome this:</p>
+                    
+                    <ul>
+                        <li><strong>Targeting alternative immune checkpoints:</strong> LAG-3, TIM-3, TIGIT</li>
+                        <li><strong>Modifying the tumor microenvironment:</strong> Targeting immunosuppressive cells and molecules</li>
+                        <li><strong>Epigenetic modifiers:</strong> Drugs that alter gene expression to make tumors more visible to the immune system</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Advanced cancer treatment">
+                    
+                    <h3>Managing Side Effects</h3>
+                    <p>While immunotherapy is generally better tolerated than traditional chemotherapy, it can cause unique side effects related to immune system activation:</p>
+                    
+                    <h4>Immune-Related Adverse Events (irAEs)</h4>
+                    <p>irAEs occur when the immune system attacks healthy tissues. Common irAEs include:</p>
+                    
+                    <ul>
+                        <li><strong>Skin reactions:</strong> Rash, itching, vitiligo</li>
+                        <li><strong>Gastrointestinal issues:</strong> Colitis, diarrhea</li>
+                        <li><strong>Endocrine problems:</strong> Thyroiditis, hypophysitis</li>
+                        <li><strong>Lung inflammation:</strong> Pneumonitis</li>
+                        <li><strong>Liver inflammation:</strong> Hepatitis</li>
+                    </ul>
+                    
+                    <h4>Management Strategies</h4>
+                    <p>Managing irAEs requires:</p>
+                    
+                    <ul>
+                        <li>Patient education about potential side effects</li>
+                        <li>Early recognition and intervention</li>
+                        <li>Corticosteroids to suppress immune activity</li>
+                        <li>Temporary or permanent discontinuation of immunotherapy</li>
+                    </ul>
+                    
+                    <h3>The Future of Cancer Immunotherapy</h3>
+                    <p>The future of cancer immunotherapy is incredibly promising, with several exciting developments on the horizon:</p>
+                    
+                    <h4>Personalized Immunotherapy</h4>
+                    <p>Advances in genomics and bioinformatics are enabling truly personalized immunotherapy approaches:</p>
+                    
+                    <ul>
+                        <li><strong>Neoantigen vaccines:</strong> Customized vaccines based on a patient's unique tumor mutations</li>
+                        <li><strong>Personalized CAR T cells:</strong> Engineered to target patient-specific antigens</li>
+                    </ul>
+                    
+                    <h4>Next-Generation CAR T Cells</h4>
+                    <p>Researchers are developing improved CAR T cells with enhanced capabilities:</p>
+                    
+                    <ul>
+                        <li><strong>"Armored" CAR T cells:</strong> Engineered to secrete cytokines or express checkpoint inhibitors</li>
+                        <li><strong>Universal CAR T cells:</strong> "Off-the-shelf" products that don't require patient-specific manufacturing</li>
+                        <li><strong>Dual-targeting CAR T cells:</strong> Engineered to recognize two different tumor antigens</li>
+                    </ul>
+                    
+                    <h4>Microbiome Modulation</h4>
+                    <p>Emerging research suggests that the gut microbiome influences immunotherapy response. Future treatments may include:</p>
+                    
+                    <ul>
+                        <li>Probiotics to enhance immunotherapy efficacy</li>
+                        <li>Fecal microbiota transplantation from responders</li>
+                        <li>Dietary interventions to optimize the microbiome</li>
+                    </ul>
+                    
+                    <h4>Artificial Intelligence in Immunotherapy</h4>
+                    <p>AI is transforming immunotherapy research and treatment:</p>
+                    
+                    <ul>
+                        <li>Predicting treatment response using machine learning algorithms</li>
+                        <li>Identifying new immunotherapy targets</li>
+                        <li>Optimizing combination therapies</li>
+                        <li>Personalizing treatment regimens</li>
+                    </ul>
+                    
+                    <h3>Challenges and Considerations</h3>
+                    <p>Despite the tremendous promise of immunotherapy, several challenges remain:</p>
+                    
+                    <ul>
+                        <li><strong>Cost:</strong> Many immunotherapies are extremely expensive</li>
+                        <li><strong>Access:</strong> Not all patients have access to these cutting-edge treatments</li>
+                        <li><strong>Response rates:</strong> Only a subset of patients respond to current immunotherapies</li>
+                        <li><strong>Toxicity management:</strong> Requires specialized expertise</li>
+                    </ul>
+                    
+                    <h3>Conclusion</h3>
+                    <p>Cancer immunotherapy has revolutionized cancer treatment, offering new hope to patients with previously untreatable cancers. While challenges remain, the field is advancing rapidly, with new discoveries and treatments emerging regularly.</p>
+                    
+                    <p>As we continue to unravel the complexities of the immune system and its relationship with cancer, we move closer to the goal of making cancer a manageable chronic condition or even curable disease for more patients. The future of cancer treatment is undoubtedly immunotherapeutic, and the best may be yet to come.</p>
+                `
+            },
+            {
+                id: 6,
+                title: "Mindfulness Meditation Techniques",
+                description: "Learn practical mindfulness techniques to reduce stress, improve focus, and enhance emotional well-being.",
+                image: "https://images.unsplash.com/photo-1506126613408-cca07d5b1561?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                date: "Oct 3, 2023",
+                readTime: "7 min read",
+                tags: ["mental-health", "wellness"],
+                url: "#",
+                content: `
+                    <h3>The Power of Mindfulness</h3>
+                    <p>In our fast-paced, constantly connected world, finding moments of peace and clarity has become increasingly important. Mindfulness meditation offers a powerful antidote to the stress and overwhelm of modern life, providing practical tools to cultivate presence, awareness, and emotional balance.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1506126613408-cca07d5b1561?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Person meditating peacefully">
+                    
+                    <p>Mindfulness is the practice of purposely bringing your attention to the present moment without judgment. It involves observing your thoughts, feelings, and sensations with curiosity and acceptance, rather than getting caught up in them or trying to change them.</p>
+                    
+                    <h3>The Science Behind Mindfulness</h3>
+                    <p>Numerous scientific studies have demonstrated the profound benefits of regular mindfulness practice:</p>
+                    
+                    <h4>Brain Changes</h4>
+                    <p>Neuroimaging studies show that mindfulness meditation can actually change the structure and function of the brain:</p>
+                    
+                    <ul>
+                        <li><strong>Increased gray matter:</strong> In areas associated with learning, memory, and emotional regulation</li>
+                        <li><strong>Decreased amygdala activity:</strong> The brain's fear center becomes less reactive</li>
+                        <li><strong>Enhanced prefrontal cortex:</strong> Improving executive function and decision-making</li>
+                        <li><strong>Thicker cortex:</strong> In areas responsible for attention and sensory processing</li>
+                    </ul>
+                    
+                    <h4>Physiological Benefits</h4>
+                    <p>Mindfulness practice positively impacts physical health:</p>
+                    
+                    <ul>
+                        <li><strong>Reduced inflammation:</strong> Lower levels of inflammatory markers</li>
+                        <li><strong>Improved immune function:</strong> Enhanced response to vaccines and infections</li>
+                        <li><strong>Better cardiovascular health:</strong> Lower blood pressure and improved heart rate variability</li>
+                        <li><strong>Enhanced sleep quality:</strong> Deeper, more restorative sleep</li>
+                    </ul>
+                    
+                    <h4>Mental Health Benefits</h4>
+                    <p>The psychological benefits of mindfulness are well-documented:</p>
+                    
+                    <ul>
+                        <li><strong>Reduced stress and anxiety:</strong> Lower cortisol levels and decreased anxiety symptoms</li>
+                        <li><strong>Improved mood:</strong> Reduced symptoms of depression</li>
+                        <li><strong>Enhanced focus and concentration:</strong> Better attention and working memory</li>
+                        <li><strong>Increased emotional regulation:</strong> Better ability to manage difficult emotions</li>
+                        <li><strong>Greater self-awareness:</strong> Improved understanding of thoughts and behaviors</li>
+                    </ul>
+                    
+                    <h3>Getting Started with Mindfulness</h3>
+                    <p>Beginning a mindfulness practice is simpler than you might think. Here's how to get started:</p>
+                    
+                    <h4>Creating the Right Environment</h4>
+                    <p>Choose a quiet space where you won't be disturbed. You don't need special equipment - just a comfortable place to sit or lie down. Some people prefer to use cushions or meditation benches, but a chair works perfectly well too.</p>
+                    
+                    <h4>Starting Small</h4>
+                    <p>Begin with short sessions - just 3-5 minutes is enough to start. It's better to practice consistently for short periods than to attempt long sessions sporadically.</p>
+                    
+                    <h4>Basic Posture</h4>
+                    <p>Sit with your back straight but not stiff, shoulders relaxed, hands resting on your knees or in your lap. Close your eyes or soften your gaze, focusing on a spot on the floor in front of you.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1545205597-5d04d86d30ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Mindfulness meditation setup">
+                    
+                    <h3>Core Mindfulness Techniques</h3>
+                    <p>Here are several foundational mindfulness techniques you can practice:</p>
+                    
+                    <h4>1. Breath Awareness</h4>
+                    <p>This is the most fundamental mindfulness practice. Simply bring your attention to your breath:</p>
+                    
+                    <ul>
+                        <li>Notice the sensation of the breath entering and leaving your nostrils</li>
+                        <li>Feel the rise and fall of your chest and abdomen</li>
+                        <li>When your mind wanders (which it will), gently return attention to your breath</li>
+                        <li>Don't judge yourself for getting distracted - just notice and return</li>
+                    </ul>
+                    
+                    <p><strong>Tip:</strong> Count your breaths from 1 to 10, then start over. This gives your mind something to focus on.</p>
+                    
+                    <h4>2. Body Scan Meditation</h4>
+                    <p>This practice involves systematically bringing attention to different parts of your body:</p>
+                    
+                    <ul>
+                        <li>Start at the top of your head and slowly move down to your toes</li>
+                        <li>Notice sensations in each body part without trying to change them</li>
+                        <li>Observe tingling, warmth, pressure, or lack of sensation</li>
+                        <li>Spend 30 seconds to 1 minute on each body region</li>
+                    </ul>
+                    
+                    <p><strong>Benefits:</strong> Releases physical tension, improves body awareness, promotes relaxation.</p>
+                    
+                    <h4>3. Mindful Walking</h4>
+                    <p>Transform ordinary walking into a mindfulness practice:</p>
+                    
+                    <ul>
+                        <li>Walk slowly and deliberately, paying attention to each step</li>
+                        <li>Feel your feet touching the ground - heel, ball, toe</li>
+                        <li>Notice the movement of your legs and arms</li>
+                        <li>Observe your surroundings without judgment</li>
+                    </ul>
+                    
+                    <p><strong>When to practice:</strong> Perfect for walking from your car to the office, or during a lunch break.</p>
+                    
+                    <h4>4. Loving-Kindness Meditation (Metta)</h4>
+                    <p>This practice cultivates compassion and positive emotions:</p>
+                    
+                    <ul>
+                        <li>Start by sending loving-kindness to yourself: "May I be happy, may I be healthy, may I be safe"</li>
+                        <li>Extend these wishes to loved ones</li>
+                        <li>Include neutral people (acquaintances, coworkers)</li>
+                        <li>Finally, send loving-kindness to difficult people and all beings</li>
+                    </ul>
+                    
+                    <p><strong>Benefits:</strong> Increases positive emotions, reduces self-criticism, improves relationships.</p>
+                    
+                    <h4>5. Mindful Eating</h4>
+                    <p>Transform mealtime into a mindfulness practice:</p>
+                    
+                    <ul>
+                        <li>Look at your food - notice colors, shapes, textures</li>
+                        <li>Smell the aromas before taking a bite</li>
+                        <li>Chew slowly, noticing flavors and textures</li>
+                        <li>Put down utensils between bites</li>
+                        <li>Notice when you feel satisfied, not just full</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Mindful eating">
+                    
+                    <h3>Advanced Mindfulness Practices</h3>
+                    <p>Once you're comfortable with basic techniques, you can explore more advanced practices:</p>
+                    
+                    <h4>1. Open Awareness Meditation</h4>
+                    <p>Instead of focusing on one object (like the breath), open your awareness to all experiences:</p>
+                    
+                    <ul>
+                        <li>Notice sounds, thoughts, feelings, and sensations as they arise</li>
+                        <li>Observe them without getting caught up in any particular one</li>
+                        <li>Rest in open, spacious awareness</li>
+                        <li>Notice the space between thoughts and sensations</li>
+                    </ul>
+                    
+                    <h4>2. Noting Practice</h4>
+                    <p>This technique helps you observe your thoughts without getting entangled in them:</p>
+                    
+                    <ul>
+                        <li>When a thought arises, silently note "thinking"</li>
+                        <li>For emotions, note "feeling" or the specific emotion</li>
+                        <li>For physical sensations, note "sensing"</li>
+                        <li>Return to your breath or open awareness</li>
+                    </ul>
+                    
+                    <h4>3. Self-Inquiry Meditation</h4>
+                    <p>This practice explores the nature of awareness itself:</p>
+                    
+                    <ul>
+                        <li>Ask "Who am I?" or "What is aware?"</li>
+                        <li>Look for the "I" that thinks thoughts and feels emotions</li>
+                        <li>Notice the space of awareness in which everything arises</li>
+                        <li>Rest in that awareness</li>
+                    </ul>
+                    
+                    <h3>Integrating Mindfulness into Daily Life</h3>
+                    <p>The real power of mindfulness comes from bringing it into everyday activities:</p>
+                    
+                    <h4>Mindful Morning Routine</h4>
+                    <ul>
+                        <li>Before getting out of bed, take three conscious breaths</li>
+                        <li>Notice the sensations of stretching and moving</li>
+                        <li>Pay full attention while brushing your teeth or showering</li>
+                        <li>Savor your morning drink without distractions</li>
+                    </ul>
+                    
+                    <h4>Mindful Work Practices</h4>
+                    <ul>
+                        <li>Take mindful breaks between tasks</li>
+                        <li>Practice single-tasking instead of multitasking</li>
+                        <li>Take three conscious breaths before answering the phone</li>
+                        <li>Notice your posture and adjust it mindfully</li>
+                    </ul>
+                    
+                    <h4>Mindful Communication</h4>
+                    <ul>
+                        <li>Listen fully without planning your response</li>
+                        <li>Notice your own reactions as you listen</li>
+                        <li>Speak mindfully, considering your words carefully</li>
+                        <li>Notice the impact of your words on others</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Mindful communication">
+                    
+                    <h3>Overcoming Common Challenges</h3>
+                    <p>Many people encounter obstacles when establishing a mindfulness practice. Here's how to work with them:</p>
+                    
+                    <h4>"I Can't Clear My Mind"</h4>
+                    <p>This is perhaps the most common misconception about meditation. The goal isn't to stop thoughts, but to observe them without getting caught up. Every time you notice your mind has wandered and gently return your attention, you're practicing mindfulness.</p>
+                    
+                    <h4>"I Don't Have Time"</h4>
+                    <p>Start small - even 1-2 minutes of mindful breathing counts. You can practice mindfulness while doing routine activities like washing dishes or waiting in line.</p>
+                    
+                    <h4>"I Keep Falling Asleep"</h4>
+                    <p>This is common, especially when meditating lying down. Try sitting up straighter, practicing with eyes open, or meditating at a different time of day when you're more alert.</p>
+                    
+                    <h4>"I'm Not Doing It Right"</h4>
+                    <p>There's no "right" way to do mindfulness. The practice is about showing up with curiosity and kindness, not achieving a particular state.</p>
+                    
+                    <h3>Building a Sustainable Practice</h3>
+                    <p>Consistency is more important than duration. Here are tips for maintaining your practice:</p>
+                    
+                    <ul>
+                        <li><strong>Set a regular time:</strong> Practice at the same time each day</li>
+                        <li><strong>Create a dedicated space:</strong> Even a corner of a room can become your meditation spot</li>
+                        <li><strong>Use reminders:</strong> Set phone alerts or place notes where you'll see them</li>
+                        <li><strong>Find a community:</strong> Join a meditation group or use apps with communities</li>
+                        <li><strong>Be flexible:</strong> Adapt your practice to your current needs and circumstances</li>
+                    </ul>
+                    
+                    <h3>Measuring Progress</h3>
+                    <p>Mindfulness isn't about achieving specific outcomes, but you may notice these changes over time:</p>
+                    
+                    <ul>
+                        <li>Less reactivity to stressful situations</li>
+                        <li>Greater awareness of your thoughts and emotions</li>
+                        <li>Improved ability to focus and concentrate</li>
+                        <li>More compassion for yourself and others</li>
+                        <li>Greater appreciation for simple pleasures</li>
+                        <li>Better sleep and overall well-being</li>
+                    </ul>
+                    
+                    <h3>Resources for Deepening Your Practice</h3>
+                    <p>Many resources are available to support your mindfulness journey:</p>
+                    
+                    <h4>Apps</h4>
+                    <ul>
+                        <li><strong>Headspace:</strong> Great for beginners with guided meditations</li>
+                        <li><strong>Calm:</strong> Offers sleep stories and nature sounds</li>
+                        <li><strong>Insight Timer:</strong> Large library of free guided meditations</li>
+                        <li><strong>Ten Percent Happier:</strong> Practical, secular approach</li>
+                    </ul>
+                    
+                    <h4>Books</h4>
+                    <ul>
+                        <li><strong>"Wherever You Go, There You Are" by Jon Kabat-Zinn</strong></li>
+                        <li><strong>"The Miracle of Mindfulness" by Thich Nhat Hanh</strong></li>
+                        <li><strong>"Full Catastrophe Living" by Jon Kabat-Zinn</strong></li>
+                        <li><strong>"Mindfulness in Plain English" by Henepola Gunaratana</strong></li>
+                    </ul>
+                    
+                    <h4>Online Courses</h4>
+                    <ul>
+                        <li><strong>MBSR (Mindfulness-Based Stress Reduction):</strong> The original 8-week program</li>
+                        <li><strong>MBCT (Mindfulness-Based Cognitive Therapy):</strong> For preventing depression relapse</li>
+                        <li><strong>Various university programs:</strong> Many offer online mindfulness courses</li>
+                    </ul>
+                    
+                    <h3>Conclusion</h3>
+                    <p>Mindfulness meditation is a simple yet profound practice that can transform your relationship with yourself and the world. By cultivating present-moment awareness and non-judgmental acceptance, you can reduce stress, enhance well-being, and live with greater clarity and compassion.</p>
+                    
+                    <p>Remember, mindfulness is a journey, not a destination. Be patient and kind with yourself as you explore these practices. The benefits accumulate gradually over time, so consistency is key. Start small, be consistent, and trust the process.</p>
+                    
+                    <p>As you develop your mindfulness practice, you may discover that the peace and clarity you seek have been within you all along - waiting to be uncovered through the simple act of paying attention.</p>
+                `
+            },
+            {
+                id: 7,
+                title: "Plant-Based Nutrition Essentials",
+                description: "A complete guide to plant-based eating, including nutrient sources and meal planning strategies.",
+                image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                date: "Oct 1, 2023",
+                readTime: "9 min read",
+                tags: ["nutrition"],
+                url: "#",
+                content: `
+                    <h3>The Rise of Plant-Based Eating</h3>
+                    <p>Plant-based nutrition has moved from niche to mainstream, with millions of people adopting plant-forward diets for health, environmental, and ethical reasons. Whether you're considering going fully plant-based or simply want to incorporate more plant foods into your diet, understanding the fundamentals is essential for success.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Colorful plant-based foods">
+                    
+                    <p>A well-planned plant-based diet can provide all the nutrients your body needs while offering numerous health benefits, including reduced risk of heart disease, type 2 diabetes, certain cancers, and obesity. Let's explore the essentials of plant-based nutrition.</p>
+                    
+                    <h3>Understanding Plant-Based Diets</h3>
+                    <p>Plant-based eating exists on a spectrum, from vegan to flexitarian:</p>
+                    
+                    <h4>Vegan</h4>
+                    <p>Excludes all animal products, including meat, dairy, eggs, and honey. Focuses entirely on plant foods.</p>
+                    
+                    <h4>Vegetarian</h4>
+                    <p>Excludes meat and fish but may include dairy (lacto-vegetarian), eggs (ovo-vegetarian), or both (lacto-ovo vegetarian).</p>
+                    
+                    <h4>Pescatarian</h4>
+                    <p>Excludes meat and poultry but includes fish and seafood, along with plant foods.</p>
+                    
+                    <h4>Flexitarian</h4>
+                    <p>Primarily plant-based but occasionally includes animal products in small amounts.</p>
+                    
+                    <h3>Health Benefits of Plant-Based Eating</h3>
+                    <p>Research consistently shows the health advantages of plant-forward diets:</p>
+                    
+                    <h4>Heart Health</h4>
+                    <p>Plant-based diets are typically lower in saturated fat and cholesterol and higher in fiber, which supports cardiovascular health. Studies show plant-based eaters have lower rates of heart disease, lower blood pressure, and healthier cholesterol levels.</p>
+                    
+                    <h4>Weight Management</h4>
+                    <p>Plant foods are generally less calorie-dense than animal products, making it easier to maintain a healthy weight. The high fiber content also promotes satiety, reducing overall calorie intake.</p>
+                    
+                    <h4>Type 2 Diabetes Prevention</h4>
+                    <p>Plant-based diets can improve insulin sensitivity and help prevent and manage type 2 diabetes. The high fiber content helps regulate blood sugar levels.</p>
+                    
+                    <h4>Cancer Risk Reduction</h4>
+                    <p>Some studies suggest plant-based diets may reduce the risk of certain cancers, particularly colorectal cancer. The protective effects are attributed to fiber, antioxidants, and phytochemicals in plant foods.</p>
+                    
+                    <h4>Gut Health</h4>
+                    <p>The fiber in plant foods feeds beneficial gut bacteria, promoting a healthy microbiome. This supports digestion, immune function, and even mental health through the gut-brain axis.</p>
+                    
+                    <h3>Essential Nutrients in Plant-Based Diets</h3>
+                    <p>One common concern about plant-based eating is getting all necessary nutrients. With proper planning, a plant-based diet can provide everything your body needs:</p>
+                    
+                    <h4>Protein</h4>
+                    <p>Protein is essential for muscle repair, immune function, and more. Plant-based protein sources include:</p>
+                    
+                    <ul>
+                        <li><strong>Legumes:</strong> Beans, lentils, chickpeas, peas</li>
+                        <li><strong>Soy products:</strong> Tofu, tempeh, edamame</li>
+                        <li><strong>Whole grains:</strong> Quinoa, oats, brown rice</li>
+                        <li><strong>Nuts and seeds:</strong> Almonds, walnuts, chia seeds, hemp seeds</li>
+                        <li><strong>Vegetables:</strong> Broccoli, spinach, asparagus</li>
+                    </ul>
+                    
+                    <p><strong>Tip:</strong> Combine different plant proteins throughout the day to ensure you get all essential amino acids.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Plant-based protein sources">
+                    
+                    <h4>Iron</h4>
+                    <p>Plant-based (non-heme) iron is less easily absorbed than heme iron from animal products. Enhance absorption by:</p>
+                    
+                    <ul>
+                        <li>Pairing iron-rich foods with vitamin C sources</li>
+                        <li>Cooking in cast-iron cookware</li>
+                        <li>Avoiding tea and coffee with meals (they inhibit absorption)</li>
+                    </ul>
+                    
+                    <p><strong>Plant iron sources:</strong> Lentils, spinach, tofu, quinoa, pumpkin seeds, fortified cereals</p>
+                    
+                    <h4>Calcium</h4>
+                    <p>Essential for bone health, calcium is abundant in many plant foods:</p>
+                    
+                    <ul>
+                        <li><strong>Leafy greens:</strong> Kale, collard greens, bok choy</li>
+                        <li><strong>Fortified foods:</strong> Plant milks, orange juice, cereals</li>
+                        <li><strong>Tofu made with calcium sulfate</strong></li>
+                        <li><strong>Almonds, sesame seeds (tahini)</strong></li>
+                    </ul>
+                    
+                    <h4>Vitamin B12</h4>
+                    <p>B12 is not naturally present in plant foods, so supplementation is essential for vegans and vegetarians. Sources include:</p>
+                    
+                    <ul>
+                        <li><strong>Fortified foods:</strong> Nutritional yeast, plant milks, cereals</li>
+                        <li><strong>Supplements:</strong> B12 tablets or sprays</li>
+                    </ul>
+                    
+                    <h4>Omega-3 Fatty Acids</h4>
+                    <p>Essential for brain health, omega-3s can be obtained from:</p>
+                    
+                    <ul>
+                        <li><strong>Flaxseeds and chia seeds</strong></li>
+                        <li><strong>Walnuts</strong></li>
+                        <li><strong>Hemp seeds</strong></li>
+                        <li><strong>Algae-based supplements</strong></li>
+                    </ul>
+                    
+                    <h4>Vitamin D</h4>
+                    <p>Often called the "sunshine vitamin," vitamin D can be obtained from:</p>
+                    
+                    <ul>
+                        <li><strong>Sunlight exposure</strong></li>
+                        <li><strong>Fortified foods:</strong> Plant milks, orange juice</li>
+                        <li><strong>Supplements:</strong> D2 or D3 (vegan D3 from lichen)</li>
+                    </ul>
+                    
+                    <h4>Zinc</h4>
+                    <p>Important for immune function and wound healing:</p>
+                    
+                    <ul>
+                        <li><strong>Legumes, nuts, seeds</strong></li>
+                        <li><strong>Whole grains</strong></li>
+                        <li><strong>Tofu</strong></li>
+                    </ul>
+                    
+                    <h4>Iodine</h4>
+                    <p>Essential for thyroid function:</p>
+                    
+                    <ul>
+                        <li><strong>Seaweed</strong></li>
+                        <li><strong>Iodized salt</strong></li>
+                        <li><strong>Fortified plant milks</strong></li>
+                    </ul>
+                    
+                    <h3>Building a Balanced Plant-Based Plate</h3>
+                    <p>A well-balanced plant-based meal should include:</p>
+                    
+                    <h4>Half Plate: Non-Starchy Vegetables</h4>
+                    <p>Fill half your plate with colorful vegetables and some fruits. Aim for variety to get different nutrients and phytochemicals.</p>
+                    
+                    <ul>
+                        <li><strong>Leafy greens:</strong> Spinach, kale, arugula</li>
+                        <li><strong>Cruciferous vegetables:</strong> Broccoli, cauliflower, Brussels sprouts</li>
+                        <li><strong>Colorful vegetables:</strong> Bell peppers, carrots, beets</li>
+                        <li><strong>Some fruits:</strong> Berries, citrus, apples</li>
+                    </ul>
+                    
+                    <h4>Quarter Plate: Plant Proteins</h4>
+                    <p>Include a variety of protein sources throughout the week:</p>
+                    
+                    <ul>
+                        <li><strong>Beans and lentils:</strong> Black beans, chickpeas, red lentils</li>
+                        <li><strong>Soy products:</strong> Tofu, tempeh, edamame</li>
+                        <li><strong>Seitan (wheat gluten)</strong></li>
+                        <li><strong>Plant-based meats (in moderation)</strong></li>
+                    </ul>
+                    
+                    <h4>Quarter Plate: Whole Grains or Starchy Vegetables</h4>
+                    <p>Choose complex carbohydrates for sustained energy:</p>
+                    
+                    <ul>
+                        <li><strong>Whole grains:</strong> Quinoa, brown rice, oats, barley</li>
+                        <li><strong>Starchy vegetables:</strong> Sweet potatoes, winter squash, corn</li>
+                        <li><strong>Legumes:</strong> Also count as protein</li>
+                    </ul>
+                    
+                    <h4>Healthy Fats</h4>
+                    <p>Include moderate amounts of healthy fats:</p>
+                    
+                    <ul>
+                        <li><strong>Avocado</strong></li>
+                        <li><strong>Nuts and seeds</strong></li>
+                        <li><strong>Olive oil</strong></li>
+                        <li><strong>Coconut (in moderation)</strong></li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Balanced plant-based meal">
+                    
+                    <h3>Meal Planning Strategies</h3>
+                    <p>Successful plant-based eating requires some planning. Here are effective strategies:</p>
+                    
+                    <h4>Weekly Meal Prep</h4>
+                    <ul>
+                        <li>Cook grains and beans in batches</li>
+                        <li>Chop vegetables for easy access</li>
+                        <li>Prepare sauces and dressings</li>
+                        <li>Portion out lunches for the week</li>
+                    </ul>
+                    
+                    <h4>Batch Cooking</h4>
+                    <ul>
+                        <li>Make large pots of soups and stews</li>
+                        <li>Prepare grain bowls with various toppings</li>
+                        <li>Casseroles and bakes that reheat well</li>
+                        <li>Energy balls and snacks</li>
+                    </ul>
+                    
+                    <h4>Smart Shopping</h4>
+                    <ul>
+                        <li>Shop the perimeter of the store (produce section)</li>
+                        <li>Stock up on pantry staples (beans, grains, nuts)</li>
+                        <li>Buy frozen fruits and vegetables for convenience</li>
+                        <li>Read labels for hidden animal products</li>
+                    </ul>
+                    
+                    <h4>Flavor Building</h4>
+                    <p>Plant-based meals can be incredibly flavorful with the right techniques:</p>
+                    
+                    <ul>
+                        <li><strong>Herbs and spices:</strong> Experiment with different combinations</li>
+                        <li><strong>Umami flavors:</strong> Mushrooms, tomatoes, soy sauce, nutritional yeast</li>
+                        <li><strong>Acidity:</strong> Lemon juice, vinegar, fermented foods</li>
+                        <li><strong>Texture contrast:</strong> Crunchy toppings, creamy sauces</li>
+                    </ul>
+                    
+                    <h3>Sample Day of Plant-Based Eating</h3>
+                    <h4>Breakfast</h4>
+                    <p><strong>Overnight Oats:</strong> Rolled oats soaked in plant milk with chia seeds, berries, and nuts.</p>
+                    
+                    <h4>Lunch</h4>
+                    <p><strong>Mediterranean Quinoa Bowl:</strong> Quinoa with roasted vegetables, chickpeas, olives, and tahini dressing.</p>
+                    
+                    <h4>Snack</h4>
+                    <p><strong>Apple with almond butter</strong> or <strong>hummus with vegetable sticks</strong>.</p>
+                    
+                    <h4>Dinner</h4>
+                    <p><strong>Lentil Curry:</strong> Red lentils in coconut milk with spinach, served over brown rice.</p>
+                    
+                    <h4>Dessert</h4>
+                    <p><strong>Chia seed pudding</strong> with mango and coconut flakes.</p>
+                    
+                    <h3>Plant-Based on a Budget</h3>
+                    <p>Eating plant-based doesn't have to be expensive:</p>
+                    
+                    <ul>
+                        <li><strong>Buy dry beans and lentils:</strong> Cheaper than canned and more nutritious</li>
+                        <li><strong>Shop seasonal produce:</strong> Often less expensive and fresher</li>
+                        <li><strong>Buy in bulk:</strong> Grains, nuts, and seeds</li>
+                        <li><strong>Grow your own:</strong> Herbs, tomatoes, lettuce in containers</li>
+                        <li><strong>Reduce waste:</strong> Use vegetable scraps for broth, freeze leftovers</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Budget plant-based shopping">
+                    
+                    <h3>Eating Out Plant-Based</h3>
+                    <p>Navigating restaurants as a plant-based eater:</p>
+                    
+                    <ul>
+                        <li><strong>Research menus online</strong> before going</li>
+                        <li><strong>Call ahead</strong> to ask about plant-based options</li>
+                        <li><strong>Be specific</strong> about your dietary needs</li>
+                        <li><strong>Customize dishes:</strong> Ask for modifications</li>
+                        <li><strong>Ethnic cuisines</strong> often have naturally plant-based options</li>
+                    </ul>
+                    
+                    <h3>Common Challenges and Solutions</h3>
+                    <h4>Cravings for Familiar Foods</h4>
+                    <p>Many people crave familiar comfort foods when transitioning to plant-based eating. Solutions:</p>
+                    
+                    <ul>
+                        <li>Find plant-based versions of favorite foods</li>
+                        <li>Experiment with spices and flavors</li>
+                        <li>Give your taste buds time to adjust</li>
+                        <li>Focus on what you can eat, not what you're avoiding</li>
+                    </ul>
+                    
+                    <h4>Social Situations</h4>
+                    <p>Navigating social events can be challenging:</p>
+                    
+                    <ul>
+                        <li>Eat before attending events</li>
+                        <li>Bring a plant-based dish to share</li>
+                        <li>Focus on the social aspect, not just the food</li>
+                        <li>Communicate your dietary needs politely</li>
+                    </ul>
+                    
+                    <h4>Digestive Changes</h4>
+                    <p>Increasing fiber intake can cause temporary digestive issues:</p>
+                    
+                    <ul>
+                        <li>Increase fiber gradually</li>
+                        <li>Drink plenty of water</li>
+                        <li>Chew food thoroughly</li>
+                        <li>Consider digestive enzymes temporarily</li>
+                    </ul>
+                    
+                    <h3>Supplementation Considerations</h3>
+                    <p>While a well-planned plant-based diet can provide most nutrients, some supplements may be beneficial:</p>
+                    
+                    <ul>
+                        <li><strong>Vitamin B12:</strong> Essential for everyone on plant-based diets</li>
+                        <li><strong>Vitamin D:</strong> Especially in winter months or with limited sun exposure</li>
+                        <li><strong>Omega-3 (DHA/EPA):</strong> From algae sources</li>
+                        <li><strong>Iodine:</strong> If not using iodized salt regularly</li>
+                        <li><strong>Vitamin K2:</strong> For bone health (from natto or supplements)</li>
+                    </ul>
+                    
+                    <h3>Special Considerations</h3>
+                    <h4>Athletes</h4>
+                    <p>Plant-based athletes can thrive with proper planning:</p>
+                    
+                    <ul>
+                        <li>Ensure adequate protein intake</li>
+                        <li>Pay attention to timing of nutrients around workouts</li>
+                        <li>Consider creatine supplementation</li>
+                        <li>Monitor iron and B12 status</li>
+                    </ul>
+                    
+                    <h4>Pregnancy and Breastfeeding</h4>
+                    <p>Plant-based diets can be healthy during pregnancy with careful planning:</p>
+                    
+                    <ul>
+                        <li>Work with a healthcare provider or dietitian</li>
+                        <li>Ensure adequate protein, iron, calcium, and B12</li>
+                        <li>Consider prenatal vitamins</li>
+                        <li>Monitor weight gain and nutrient levels</li>
+                    </ul>
+                    
+                    <h4>Children</h4>
+                    <p>Plant-based diets can be appropriate for children:</p>
+                    
+                    <ul>
+                        <li>Ensure adequate calories for growth</li>
+                        <li>Focus on nutrient-dense foods</li>
+                        <li>Consider supplementation as needed</li>
+                        <li>Regular pediatric check-ups</li>
+                    </ul>
+                    
+                    <h3>Environmental and Ethical Benefits</h3>
+                    <p>Beyond personal health, plant-based eating offers broader benefits:</p>
+                    
+                    <h4>Environmental Impact</h4>
+                    <p>Plant-based diets generally have a lower environmental footprint:</p>
+                    
+                    <ul>
+                        <li>Reduced greenhouse gas emissions</li>
+                        <li>Less water usage</li>
+                        <li>Less land degradation</li>
+                        <li>Reduced deforestation</li>
+                    </ul>
+                    
+                    <h4>Ethical Considerations</h4>
+                    <p>Many people choose plant-based eating for ethical reasons:</p>
+                    
+                    <ul>
+                        <li>Animal welfare concerns</li>
+                        <li>Worker rights in animal agriculture</li>
+                        <li>Food justice and accessibility</li>
+                        <li>Sustainability for future generations</li>
+                    </ul>
+                    
+                    <h3>Getting Started</h3>
+                    <p>Ready to transition to more plant-based eating? Here's how to start:</p>
+                    
+                    <h4>Start Small</h4>
+                    <ul>
+                        <li>Try Meatless Mondays</li>
+                        <li>Replace one meal a day with plant-based options</li>
+                        <li>Focus on addition rather than restriction</li>
+                    </ul>
+                    
+                    <h4>Educate Yourself</h4>
+                    <ul>
+                        <li>Read books and reputable websites</li>
+                        <li>Watch documentaries</li>
+                        <li>Follow plant-based nutrition experts</li>
+                    </ul>
+                    
+                    <h4>Build a Support System</h4>
+                    <ul>
+                        <li>Connect with other plant-based eaters</li>
+                        <li>Join online communities</li>
+                        <li>Involve friends and family in your journey</li>
+                    </ul>
+                    
+                    <h4>Experiment and Have Fun</h4>
+                    <ul>
+                        <li>Try new recipes and ingredients</li>
+                        <li>Visit ethnic restaurants with plant-based options</li>
+                        <li>Host plant-based dinner parties</li>
+                        <li>Celebrate your progress, not perfection</li>
+                    </ul>
+                    
+                    <h3>Conclusion</h3>
+                    <p>Plant-based nutrition offers a path to better health, environmental sustainability, and ethical alignment with personal values. By understanding the essentials of plant-based eating - from nutrient sources to meal planning strategies - you can thrive on a diet that's good for you and the planet.</p>
+                    
+                    <p>Remember that transitioning to plant-based eating is a journey, not a destination. Be patient with yourself, celebrate small victories, and focus on progress rather than perfection. With the knowledge and strategies outlined in this guide, you're well-equipped to embrace the benefits of plant-based nutrition and create eating habits that support your health and values for years to come.</p>
+                `
+            },
+            {
+                id: 8,
+                title: "Cardiovascular Health: Prevention & Care",
+                description: "Essential strategies for maintaining heart health and preventing cardiovascular diseases.",
+                image: "https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                date: "Sep 28, 2023",
+                readTime: "8 min read",
+                tags: ["medical", "wellness"],
+                url: "#",
+                content: `
+                    <h3>Understanding Cardiovascular Health</h3>
+                    <p>Cardiovascular health is the foundation of overall wellness. Your heart and blood vessels work tirelessly to deliver oxygen and nutrients throughout your body, making their health crucial for every aspect of your life. Cardiovascular diseases remain the leading cause of death globally, but the good news is that many heart conditions are preventable through lifestyle choices and proactive care.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Heart health illustration">
+                    
+                    <p>This comprehensive guide will help you understand the essentials of cardiovascular health, from risk factors and prevention strategies to the latest in cardiac care. By taking control of your heart health today, you're investing in a longer, healthier, and more vibrant future.</p>
+                    
+                    <h3>The Cardiovascular System: A Brief Overview</h3>
+                    <p>Before diving into prevention and care, let's understand how your cardiovascular system works:</p>
+                    
+                    <h4>The Heart</h4>
+                    <p>Your heart is a muscular organ about the size of your fist, located slightly left of center in your chest. It functions as a powerful pump, beating about 100,000 times per day to circulate blood throughout your body.</p>
+                    
+                    <p>The heart has four chambers:</p>
+                    <ul>
+                        <li><strong>Right atrium:</strong> Receives deoxygenated blood from the body</li>
+                        <li><strong>Right ventricle:</strong> Pumps blood to the lungs for oxygenation</li>
+                        <li><strong>Left atrium:</strong> Receives oxygenated blood from the lungs</li>
+                        <li><strong>Left ventricle:</strong> Pumps oxygen-rich blood to the body</li>
+                    </ul>
+                    
+                    <h4>Blood Vessels</h4>
+                    <p>Your body contains approximately 60,000 miles of blood vessels, including:</p>
+                    
+                    <ul>
+                        <li><strong>Arteries:</strong> Carry oxygen-rich blood away from the heart</li>
+                        <li><strong>Veins:</strong> Return oxygen-poor blood to the heart</li>
+                        <li><strong>Capillaries:</strong> Tiny vessels where oxygen and nutrient exchange occurs</li>
+                    </ul>
+                    
+                    <h4>Blood</h4>
+                    <p>Blood is the transport medium of your cardiovascular system, consisting of:</p>
+                    
+                    <ul>
+                        <li><strong>Red blood cells:</strong> Carry oxygen using hemoglobin</li>
+                        <li><strong>White blood cells:</strong> Part of the immune system</li>
+                        <li><strong>Platelets:</strong> Help with blood clotting</li>
+                        <li><strong>Plasma:</strong> The liquid component carrying nutrients, hormones, and waste</li>
+                    </ul>
+                    
+                    <h3>Common Cardiovascular Conditions</h3>
+                    <p>Understanding common heart conditions can help with prevention and early detection:</p>
+                    
+                    <h4>Coronary Artery Disease (CAD)</h4>
+                    <p>The most common type of heart disease, CAD occurs when the coronary arteries that supply blood to the heart become narrowed or blocked by plaque buildup (atherosclerosis). This can lead to chest pain (angina) or heart attacks.</p>
+                    
+                    <h4>Heart Failure</h4>
+                    <p>Heart failure doesn't mean the heart has stopped working, but rather that it can't pump blood effectively. This can result from various conditions that damage or overwork the heart muscle.</p>
+                    
+                    <h4>Arrhythmias</h4>
+                    <p>These are abnormal heart rhythms that can cause the heart to beat too fast, too slow, or irregularly. While some arrhythmias are harmless, others can be life-threatening.</p>
+                    
+                    <h4>High Blood Pressure (Hypertension)</h4>
+                    <p>Often called the "silent killer," hypertension occurs when blood pressure remains consistently elevated. It significantly increases the risk of heart disease and stroke.</p>
+                    
+                    <h4>Stroke</h4>
+                    <p>A stroke occurs when blood flow to part of the brain is interrupted, either by a blockage (ischemic stroke) or bleeding (hemorrhagic stroke). Immediate medical attention is crucial.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Cardiovascular examination">
+                    
+                    <h3>Risk Factors for Cardiovascular Disease</h3>
+                    <p>Several factors increase your risk of developing cardiovascular disease. Some you can control, others you cannot:</p>
+                    
+                    <h4>Non-Modifiable Risk Factors</h4>
+                    <p>These are factors you cannot change:</p>
+                    
+                    <ul>
+                        <li><strong>Age:</strong> Risk increases with age</li>
+                        <li><strong>Gender:</strong> Men generally have higher risk earlier in life; women's risk increases after menopause</li>
+                        <li><strong>Family history:</strong> Genetics play a role in heart disease risk</li>
+                        <li><strong>Race/ethnicity:</strong> Some groups have higher risk</li>
+                    </ul>
+                    
+                    <h4>Modifiable Risk Factors</h4>
+                    <p>These are factors you can change through lifestyle and medical care:</p>
+                    
+                    <ul>
+                        <li><strong>High blood pressure</strong></li>
+                        <li><strong>High cholesterol</strong></li>
+                        <li><strong>Smoking</strong></li>
+                        <li><strong>Physical inactivity</strong></li>
+                        <li><strong>Obesity</strong></li>
+                        <li><strong>Diabetes</strong></li>
+                        <li><strong>Stress</strong></li>
+                        <li><strong>Poor diet</strong></li>
+                        <li><strong>Excessive alcohol consumption</strong></li>
+                    </ul>
+                    
+                    <h3>Prevention Strategies</h3>
+                    <p>Prevention is the most powerful tool against cardiovascular disease. Here are evidence-based strategies to protect your heart:</p>
+                    
+                    <h4>Heart-Healthy Diet</h4>
+                    <p>What you eat directly impacts your cardiovascular health. Follow these dietary guidelines:</p>
+                    
+                    <ul>
+                        <li><strong>Emphasize plant-based foods:</strong> Fruits, vegetables, whole grains, legumes, nuts, and seeds</li>
+                        <li><strong>Choose healthy fats:</strong> Olive oil, avocados, nuts, and fatty fish</li>
+                        <li><strong>Limit saturated and trans fats:</strong> Found in red meat, butter, and processed foods</li>
+                        <li><strong>Reduce sodium intake:</strong> Aim for less than 2,300 mg per day</li>
+                        <li><strong>Increase fiber:</strong> Aim for 25-30 grams daily</li>
+                        <li><strong>Limit added sugars:</strong> Especially in beverages and processed foods</li>
+                    </ul>
+                    
+                    <p><strong>Recommended dietary patterns:</strong></p>
+                    <ul>
+                        <li><strong>Mediterranean diet:</strong> Rich in olive oil, fish, vegetables, and whole grains</li>
+                        <li><strong>DASH diet:</strong> Designed to lower blood pressure</li>
+                        <li><strong>Plant-based diets:</strong> Focus on whole, unprocessed plant foods</li>
+                    </ul>
+                    
+                    <h4>Regular Physical Activity</h4>
+                    <p>Exercise is one of the most effective ways to protect your heart:</p>
+                    
+                    <ul>
+                        <li><strong>Aerobic exercise:</strong> At least 150 minutes of moderate-intensity activity per week</li>
+                        <li><strong>Strength training:</strong> At least 2 days per week</li>
+                        <li><strong>Break up sitting time:</strong> Stand or move every 30 minutes</li>
+                        <li><strong>Find activities you enjoy:</strong> You're more likely to stick with them</li>
+                    </ul>
+                    
+                    <h4>Weight Management</h4>
+                    <p>Maintaining a healthy weight reduces strain on your heart:</p>
+                    
+                    <ul>
+                        <li>Know your Body Mass Index (BMI) and waist circumference</li>
+                        <li>Focus on sustainable lifestyle changes rather than fad diets</li>
+                        <li>Even modest weight loss (5-10% of body weight) can significantly improve heart health</li>
+                    </ul>
+                    
+                    <h4>Smoking Cessation</h4>
+                    <p>Smoking is one of the most significant risk factors for cardiovascular disease:</p>
+                    
+                    <ul>
+                        <li>Quitting smoking rapidly reduces heart attack risk</li>
+                        <li>Seek support through counseling, medications, or support groups</li>
+                        <li>Avoid secondhand smoke exposure</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Healthy heart lifestyle">
+                    
+                    <h4>Stress Management</h4>
+                    <p>Chronic stress can damage your cardiovascular system:</p>
+                    
+                    <ul>
+                        <li>Practice relaxation techniques: meditation, deep breathing, yoga</li>
+                        <li>Get adequate sleep (7-9 hours per night)</li>
+                        <li>Maintain social connections</li>
+                        <li>Seek professional help for chronic stress or anxiety</li>
+                    </ul>
+                    
+                    <h4>Limit Alcohol</h4>
+                    <p>Excessive alcohol consumption can raise blood pressure and contribute to heart disease:</p>
+                    
+                    <ul>
+                        <li>Limit to moderate consumption: up to 1 drink per day for women, 2 for men</li>
+                        <li>Consider alcohol-free days</li>
+                        <li>Choose red wine in moderation if you drink</li>
+                    </ul>
+                    
+                    <h4>Regular Health Screenings</h4>
+                    <p>Regular check-ups can detect problems early:</p>
+                    
+                    <ul>
+                        <li>Blood pressure checks: At least annually</li>
+                        <li>Cholesterol screening: Every 4-6 years for adults</li>
+                        <li>Blood sugar tests: Especially if you have risk factors for diabetes</li>
+                        <li>Discuss family history and personal risk factors with your doctor</li>
+                    </ul>
+                    
+                    <h3>Understanding Key Numbers</h3>
+                    <p>Knowing your cardiovascular health numbers helps you track your progress:</p>
+                    
+                    <h4>Blood Pressure</h4>
+                    <ul>
+                        <li><strong>Normal:</strong> Less than 120/80 mmHg</li>
+                        <li><strong>Elevated:</strong> 120-129/<80 mmHg</li>
+                        <li><strong>Hypertension Stage 1:</strong> 130-139/80-89 mmHg</li>
+                        <li><strong>Hypertension Stage 2:</strong> 140/90 mmHg or higher</li>
+                    </ul>
+                    
+                    <h4>Cholesterol</h4>
+                    <ul>
+                        <li><strong>Total cholesterol:</strong> Less than 200 mg/dL</li>
+                        <li><strong>LDL ("bad") cholesterol:</strong> Less than 100 mg/dL</li>
+                        <li><strong>HDL ("good") cholesterol:</strong> 60 mg/dL or higher</li>
+                        <li><strong>Triglycerides:</strong> Less than 150 mg/dL</li>
+                    </ul>
+                    
+                    <h4>Blood Sugar</h4>
+                    <ul>
+                        <li><strong>Fasting blood sugar:</strong> Less than 100 mg/dL</li>
+                        <li><strong>Hemoglobin A1c:</strong> Less than 5.7%</li>
+                    </ul>
+                    
+                    <h4>Body Mass Index (BMI)</h4>
+                    <ul>
+                        <li><strong>Normal:</strong> 18.5-24.9</li>
+                        <li><strong>Overweight:</strong> 25-29.9</li>
+                        <li><strong>Obese:</strong> 30 or higher</li>
+                    </ul>
+                    
+                    <h3>Warning Signs of Heart Problems</h3>
+                    <p>Recognizing the signs of cardiovascular problems can save lives:</p>
+                    
+                    <h4>Heart Attack Symptoms</h4>
+                    <ul>
+                        <li>Chest pain or discomfort (pressure, squeezing, fullness)</li>
+                        <li>Pain or discomfort in one or both arms, back, neck, jaw, or stomach</li>
+                        <li>Shortness of breath</li>
+                        <li>Cold sweat</li>
+                        <li>Nausea or lightheadedness</li>
+                        <li><strong>Women may experience different symptoms:</strong> More likely to have shortness of breath, nausea/vomiting, and back or jaw pain</li>
+                    </ul>
+                    
+                    <h4>Stroke Symptoms (FAST)</h4>
+                    <ul>
+                        <li><strong>F</strong>ace drooping</li>
+                        <li><strong>A</strong>rm weakness</li>
+                        <li><strong>S</strong>peech difficulty</li>
+                        <li><strong>T</strong>ime to call emergency services</li>
+                    </ul>
+                    
+                    <h4>Heart Failure Symptoms</h4>
+                    <ul>
+                        <li>Shortness of breath, especially when lying down</li>
+                        <li>Persistent coughing or wheezing</li>
+                        <li>Swelling in legs, ankles, or feet</li>
+                        <li>Fatigue and weakness</li>
+                        <li>Rapid or irregular heartbeat</li>
+                    </ul>
+                    
+                    <h4>Arrhythmia Symptoms</h4>
+                    <ul>
+                        <li>Fluttering in the chest</li>
+                        <li>Racing heartbeat</li>
+                        <li>Slow heartbeat</li>
+                        <li>Chest pain</li>
+                        <li>Dizziness or lightheadedness</li>
+                        <li>Shortness of breath</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Emergency heart care">
+                    
+                    <h3>Medical Treatments and Interventions</h3>
+                    <p>When lifestyle changes aren't enough, medical treatments can help manage cardiovascular conditions:</p>
+                    
+                    <h4>Medications</h4>
+                    <p>Common medications for cardiovascular disease include:</p>
+                    
+                    <ul>
+                        <li><strong>Statins:</strong> Lower cholesterol</li>
+                        <li><strong>Blood pressure medications:</strong> ACE inhibitors, beta-blockers, calcium channel blockers</li>
+                        <li><strong>Antiplatelet agents:</strong> Aspirin, clopidogrel to prevent blood clots</li>
+                        <li><strong>Anticoagulants:</strong> Warfarin, newer agents to prevent clots</li>
+                        <li><strong>Diabetes medications:</strong> To control blood sugar</li>
+                    </ul>
+                    
+                    <h4>Procedures and Surgeries</h4>
+                    <p>For more severe cardiovascular conditions, interventions may include:</p>
+                    
+                    <ul>
+                        <li><strong>Angioplasty and stenting:</strong> Opens blocked arteries</li>
+                        <li><strong>Coronary artery bypass surgery:</strong> Creates new routes for blood flow</li>
+                        <li><strong>Valve repair or replacement:</strong> For damaged heart valves</li>
+                        <li><strong>Pacemakers and defibrillators:</strong> For abnormal heart rhythms</li>
+                        <li><strong>Heart transplant:</strong> For end-stage heart failure</li>
+                    </ul>
+                    
+                    <h3>Cardiac Rehabilitation</h3>
+                    <p>After a cardiac event or procedure, rehabilitation is crucial for recovery:</p>
+                    
+                    <ul>
+                        <li><strong>Supervised exercise programs</strong></li>
+                        <li><strong>Education on heart-healthy living</strong></li>
+                        <li><strong>Counseling to reduce stress</strong></li>
+                        <li><strong>Support for making lifestyle changes</strong></li>
+                    </ul>
+                    
+                    <h3>Special Considerations</h3>
+                    <h4>Women and Heart Disease</h4>
+                    <p>Heart disease is often thought of as a man's disease, but it's the leading cause of death for women too:</p>
+                    
+                    <ul>
+                        <li>Women may have different symptoms than men</li>
+                        <li>Risk increases after menopause</li>
+                        <li>Conditions like pregnancy complications and autoimmune disorders can increase risk</li>
+                        <li>Women are often underdiagnosed and undertreated</li>
+                    </ul>
+                    
+                    <h4>Children and Heart Health</h4>
+                    <p>Building heart-healthy habits early is crucial:</p>
+                    
+                    <ul>
+                        <li>Encourage physical activity and limit screen time</li>
+                        <li>Promote healthy eating habits</li>
+                        <li>Address childhood obesity</li>
+                        <li>Be aware of congenital heart conditions</li>
+                    </ul>
+                    
+                    <h4>Older Adults</h4>
+                    <p>Cardiovascular health needs change with age:</p>
+                    
+                    <ul>
+                        <li>Regular monitoring becomes more important</li>
+                        <li>Medication management may be complex</li>
+                        <li>Exercise should be adapted to ability level</li>
+                        <li>Social support is crucial for adherence to treatment plans</li>
+                    </ul>
+                    
+                    <h3>The Future of Cardiovascular Medicine</h3>
+                    <p>Exciting advances are changing how we prevent and treat heart disease:</p>
+                    
+                    <h4>Precision Medicine</h4>
+                    <p>Tailoring prevention and treatment based on individual genetic makeup, lifestyle, and environment.</p>
+                    
+                    <h4>Wearable Technology</h4>
+                    <p>Devices that monitor heart rate, rhythm, and activity levels, providing real-time data for early intervention.</p>
+                    
+                    <h4>Artificial Intelligence</h4>
+                    <p>AI algorithms that can predict heart disease risk, interpret imaging studies, and personalize treatment plans.</p>
+                    
+                    <h4>Minimally Invasive Procedures</h4>
+                    <p>New techniques that reduce recovery time and complications for cardiac interventions.</p>
+                    
+                    <h4>Regenerative Medicine</h4>
+                    <p>Research into stem cells and tissue engineering to repair damaged heart tissue.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Future of heart medicine">
+                    
+                    <h3>Taking Action for Your Heart Health</h3>
+                    <p>Protecting your cardiovascular health is a lifelong commitment. Here's how to start today:</p>
+                    
+                    <h4>Assess Your Risk</h4>
+                    <ul>
+                        <li>Know your family history</li>
+                        <li>Get regular check-ups</li>
+                        <li>Understand your key health numbers</li>
+                    </ul>
+                    
+                    <h4>Make Gradual Changes</h4>
+                    <ul>
+                        <li>Start with one healthy habit at a time</li>
+                        <li>Set realistic, achievable goals</li>
+                        <li>Celebrate small victories</li>
+                    </ul>
+                    
+                    <h4>Build a Support System</h4>
+                    <ul>
+                        <li>Involve family and friends in your heart-healthy journey</li>
+                        <li>Join support groups or fitness classes</li>
+                        <li>Work with healthcare professionals</li>
+                    </ul>
+                    
+                    <h4>Stay Informed</h4>
+                    <ul>
+                        <li>Keep up with the latest heart health research</li>
+                        <li>Ask questions during medical appointments</li>
+                        <li>Be your own health advocate</li>
+                    </ul>
+                    
+                    <h3>Conclusion</h3>
+                    <p>Your heart works tirelessly for you every moment of every day. By understanding cardiovascular health, recognizing risk factors, and implementing prevention strategies, you can protect this vital organ and enjoy a longer, healthier life.</p>
+                    
+                    <p>Remember that cardiovascular health is not about perfection but about progress. Every healthy choice you make - whether it's choosing a nutritious meal, taking a walk, quitting smoking, or managing stress - contributes to a stronger, healthier heart.</p>
+                    
+                    <p>Take charge of your cardiovascular health today. Your future self will thank you for the care and attention you give your heart now. With knowledge, prevention, and proactive care, you can significantly reduce your risk of cardiovascular disease and enjoy the benefits of optimal heart health for years to come.</p>
+                `
+            }
+        ];
+
+        // DOM Elements
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        const searchInput = document.getElementById('search-input');
+        const filterTags = document.querySelectorAll('.filter-tag');
+        const blogGrid = document.getElementById('blog-grid');
+        const contactForm = document.getElementById('contact-form');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const blogModal = document.getElementById('blog-modal');
+        const modalClose = document.getElementById('modal-close');
+
+        // State
+        let activeFilter = 'all';
+        let searchTerm = '';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderBlogs();
+            setupScrollAnimations();
+            setupBlogModal();
+        });
+
+        // Mobile menu toggle
+        if (document.querySelector('.hamburger')) {
+            const hamburger = document.querySelector('.hamburger');
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // Close mobile menu when clicking on a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Theme toggle
+        // Smooth scrolling function
+        function scrollToSection(sectionId) {
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Smooth scrolling for nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                scrollToSection(targetId);
+            });
+        });
+
+        // Blog rendering
+        function renderBlogs() {
+            const filteredBlogs = filterBlogs();
+            blogGrid.innerHTML = '';
+
+            if (filteredBlogs.length === 0) {
+                blogGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-secondary);">No blogs found matching your criteria.</p>';
+                return;
+            }
+
+            filteredBlogs.forEach((blog, index) => {
+                const blogCard = createBlogCard(blog);
+                blogGrid.appendChild(blogCard);
+
+                // Stagger animation
+                setTimeout(() => {
+                    blogCard.classList.add('visible');
+                }, index * 100);
+            });
+        }
+
+        function createBlogCard(blog) {
+            const card = document.createElement('div');
+            card.className = 'blog-card';
+
+            const tagsHTML = blog.tags.map(tag => `<span class="blog-tag">${tag.replace('-', ' ')}</span>`).join('');
+
+            card.innerHTML = `
+                <img src="${blog.image}" alt="${blog.title}" class="blog-image">
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span>${blog.date}</span>
+                        <span>${blog.readTime}</span>
+                    </div>
+                    <h3 class="blog-title">${blog.title}</h3>
+                    <p class="blog-description">${blog.description}</p>
+                    <div class="blog-tags">${tagsHTML}</div>
+                    <a href="#" class="read-more" data-blog-id="${blog.id}">Read More</a>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function filterBlogs() {
+            return blogData.filter(blog => {
+                const matchesFilter = activeFilter === 'all' || blog.tags.includes(activeFilter);
+                const matchesSearch = searchTerm === '' ||
+                    blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    blog.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    blog.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+
+                return matchesFilter && matchesSearch;
+            });
+        }
+
+        // Search functionality
+        searchInput.addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            renderBlogs();
+        });
+
+        // Filter functionality
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                filterTags.forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+
+                activeFilter = tag.getAttribute('data-filter');
+                renderBlogs();
+            });
+        });
+
+        // Blog modal functionality
+        function setupBlogModal() {
+            // Close modal when clicking close button
+            modalClose.addEventListener('click', closeBlogModal);
+
+            // Close modal when clicking outside
+            blogModal.addEventListener('click', (e) => {
+                if (e.target === blogModal) {
+                    closeBlogModal();
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && blogModal.classList.contains('active')) {
+                    closeBlogModal();
+                }
+            });
+
+            // Handle read more clicks
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('read-more')) {
+                    e.preventDefault();
+                    const blogId = parseInt(e.target.getAttribute('data-blog-id'));
+                    openBlogModal(blogId);
+                }
+            });
+        }
+
+        function openBlogModal(blogId) {
+            const blog = blogData.find(b => b.id === blogId);
+            if (!blog) return;
+
+            // Populate modal content
+            document.getElementById('modal-image').src = blog.image;
+            document.getElementById('modal-title').textContent = blog.title;
+            document.getElementById('modal-date').textContent = blog.date;
+            document.getElementById('modal-read-time').textContent = blog.readTime;
+
+            // Populate tags
+            const modalTags = document.getElementById('modal-tags');
+            modalTags.innerHTML = blog.tags.map(tag =>
+                `<span class="modal-tag">${tag.replace('-', ' ')}</span>`
+            ).join('');
+
+            // Populate blog content
+            document.getElementById('blog-content').innerHTML = blog.content;
+
+            // Show modal
+            blogModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBlogModal() {
+            blogModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Scroll animations
+        function setupScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all sections
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+
+            // Observe section titles and subtitles
+            document.querySelectorAll('.section-title, .section-subtitle').forEach(element => {
+                observer.observe(element);
+            });
+
+            // Observe blog controls
+            document.querySelectorAll('.blog-controls').forEach(element => {
+                observer.observe(element);
+            });
+
+            // Observe category cards
+            document.querySelectorAll('.category-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            // Observe about elements
+            document.querySelectorAll('.about-text h3, .about-text p, .about-features, .about-image').forEach(element => {
+                observer.observe(element);
+            });
+
+            // Observe contact elements
+            document.querySelectorAll('.contact-item, .contact-form').forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Contact form submission
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // In a real application, you would send this data to a server
+            console.log({ name, email, subject, message });
+
+            // Show success message
+            const successMessage = document.createElement('div');
+            successMessage.style.position = 'fixed';
+            successMessage.style.top = '20px';
+            successMessage.style.right = '20px';
+            successMessage.style.padding = '1rem 1.5rem';
+            successMessage.style.backgroundColor = 'var(--primary)';
+            successMessage.style.color = 'white';
+            successMessage.style.borderRadius = '6px';
+            successMessage.style.boxShadow = 'var(--shadow)';
+            successMessage.style.zIndex = '1001';
+            successMessage.textContent = 'Your message has been sent successfully!';
+
+            document.body.appendChild(successMessage);
+
+            // Reset form
+            contactForm.reset();
+
+            // Remove message after 3 seconds
+            setTimeout(() => {
+                successMessage.style.opacity = '0';
+                successMessage.style.transition = 'opacity 0.5s ease';
+
+                setTimeout(() => {
+                    document.body.removeChild(successMessage);
+                }, 500);
+            }, 3000);
+        });
+    </script>
+</body>
+
+</html>
