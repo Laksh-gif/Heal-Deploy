@@ -1812,7 +1812,7 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
-            // Calculate statistics
+           
             const totalMeds = medications.length;
             const totalTaken = Object.values(takenLog).reduce((sum, arr) => sum + arr.length, 0);
             const adherenceRate = totalMeds > 0 ? Math.round((totalTaken / totalMeds) * 100) : 0;
@@ -1820,12 +1820,12 @@
                 year: "numeric", month: "long", day: "numeric" 
             });
 
-            // Set up colors
-            const primaryColor = [59, 130, 246]; // Blue
-            const textColor = [31, 41, 59]; // Dark gray
+           
+            const primaryColor = [59, 130, 246]; 
+            const textColor = [31, 41, 59]; 
             const lightGray = [203, 213, 225];
 
-            // Header
+           
             doc.setFillColor(...primaryColor);
             doc.rect(0, 0, 210, 30, 'F');
             
@@ -1839,13 +1839,12 @@
             doc.text('Medication Management Report', 120, 15);
             doc.text(`Generated: ${currentDate}`, 120, 22);
 
-            // Title
+            
             doc.setTextColor(...textColor);
             doc.setFontSize(18);
             doc.setFont(undefined, 'bold');
             doc.text('Medication Report Summary', 20, 50);
 
-            // Summary statistics
             let yPos = 65;
             doc.setFontSize(12);
             doc.setFont(undefined, 'normal');
@@ -1865,7 +1864,7 @@
                 yPos += 8;
             });
 
-            // Medication List Section
+            
             yPos += 15;
             doc.setFontSize(16);
             doc.setFont(undefined, 'bold');
@@ -1879,14 +1878,14 @@
                 doc.text('No medications currently added to your profile.', 20, yPos);
             } else {
                 medications.forEach((med, index) => {
-                    if (yPos > 250) { // Start new page if needed
+                    if (yPos > 250) { 
                         doc.addPage();
                         yPos = 30;
                     }
 
                     const takenCount = takenLog[med.id]?.length || 0;
                     
-                    // Medication card background
+                    
                     doc.setFillColor(248, 250, 252);
                     doc.rect(15, yPos - 5, 180, 25, 'F');
                     
@@ -1906,7 +1905,7 @@
                 });
             }
 
-            // Today's Schedule Section
+            
             if (yPos > 220) {
                 doc.addPage();
                 yPos = 30;
@@ -1955,7 +1954,7 @@
                 });
             }
 
-            // Footer
+            
             const pageCount = doc.internal.getNumberOfPages();
             for (let i = 1; i <= pageCount; i++) {
                 doc.setPage(i);
@@ -1965,7 +1964,7 @@
                 doc.text(`Page ${i} of ${pageCount}`, 170, 285);
             }
 
-            // Save the PDF
+            
             const fileName = `HealVerse_Medication_Report_${new Date().toISOString().split('T')[0]}.pdf`;
             doc.save(fileName);
             
