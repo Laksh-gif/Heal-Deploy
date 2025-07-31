@@ -256,8 +256,6 @@
             box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
         }
 
-
-
         /* Main Container */
         .container {
             max-width: 1000px;
@@ -854,10 +852,8 @@
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
     </div>
-
     <!-- Particles -->
     <div class="particles" id="particles"></div>
-
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -865,37 +861,26 @@
                 <i class="fas fa-heart nav-icon" style="font-size: 32px; color: #3b82f6;"></i>
                 <span class="brand-text">HealVerse</span>
             </div>
-
             <div class="nav-links">
-
-
-
                 <label class="switch">
                     <span class="slider"></span>
                 </label>
-
             </div>
             <a href="index.html" class="nav-cta">Back to Home</a>
         </div>
-        </div>
     </nav>
-
     <!-- Main Content -->
     <main class="container">
         <!-- Header -->
         <div class="header">
-
-
             <h1 class="title">
                 Build Better <span class="gradient-text">Health Habits</span>
             </h1>
-
             <p class="subtitle">
                 Track your daily health habits, visualize your progress, and build lasting routines with our intelligent
                 habit tracking system.
             </p>
         </div>
-
         <!-- Manage Habits (Add Habit + Progress) -->
         <div class="card fade-in">
             <h2 class="card-title">
@@ -942,7 +927,6 @@
                 </button>
             </div>
         </div>
-
         <!-- Habits List -->
         <div class="card fade-in" id="habits-section">
             <h2 class="card-title">
@@ -958,7 +942,6 @@
             </h2>
             <div id="habits-list"></div>
         </div>
-
         <!-- Weekly Overview -->
         <div class="card fade-in">
             <h2 class="card-title">
@@ -984,7 +967,6 @@
             </div>
         </div>
     </main>
-
     <!-- Footer -->
     <footer>
         <p>
@@ -992,13 +974,11 @@
             Made with care by HealVerse
         </p>
     </footer>
-
     <script>
         // Create Particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = 50;
-
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
@@ -1008,7 +988,6 @@
                 particlesContainer.appendChild(particle);
             }
         }
-
         // Initialize variables
         const habitForm = document.getElementById("habit-form");
         const habitInput = document.getElementById("habit-input");
@@ -1023,22 +1002,16 @@
         const themeLabel = document.getElementById("theme-label");
         const calendar = document.getElementById("calendar");
         const ctx = document.getElementById("habitChart");
-
         let habits = JSON.parse(localStorage.getItem("habits")) || [];
         let weekOffset = 0; // 0: this week, -1: last week, 1: next week, etc.
         let habitChart;
-
         // Set default date to today and restrict future dates
         dateInput.value = getTodayDateStr();
         dateInput.max = getTodayDateStr();
-
-
-
         // Date Helpers
         function getTodayDateStr() {
             return new Date().toISOString().split("T")[0];
         }
-
         function getWeekDates(offset) {
             const today = new Date();
             const monday = new Date(today.setDate(today.getDate() - today.getDay() + 1 + (offset * 7)));
@@ -1050,7 +1023,6 @@
             }
             return week;
         }
-
         function updateWeekButtons() {
             weekPrev.disabled = weekOffset <= -4;
             weekNext.disabled = weekOffset >= 1;
@@ -1058,16 +1030,13 @@
             weekCurrent.classList.toggle('active', weekOffset === 0);
             weekNext.classList.toggle('active', weekOffset === 1);
         }
-
         // Habit Logic
         function saveHabits() {
             localStorage.setItem("habits", JSON.stringify(habits));
         }
-
         function renderHabits() {
             habitsList.innerHTML = "";
             const today = getTodayDateStr();
-
             if (habits.length === 0) {
                 habitsList.innerHTML = `
                     <div class="empty-state">
@@ -1082,17 +1051,13 @@
                 `;
                 return;
             }
-
             habits.forEach((habit, i) => {
                 if (!habit.history) habit.history = {};
                 const todayDone = habit.history[today] || false;
-
                 const item = document.createElement("div");
                 item.className = "habit-item";
-
                 const left = document.createElement("div");
                 left.className = "habit-left";
-
                 const checkbox = document.createElement("input");
                 checkbox.type = "checkbox";
                 checkbox.id = `habit-${i}`;
@@ -1104,17 +1069,13 @@
                     updateChart();
                     renderCalendar();
                 });
-
                 const label = document.createElement("label");
                 label.textContent = habit.name;
                 label.setAttribute("for", `habit-${i}`);
-
                 left.appendChild(checkbox);
                 left.appendChild(label);
-
                 const actions = document.createElement("div");
                 actions.className = "habit-actions";
-
                 const editBtn = document.createElement("button");
                 editBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
                 editBtn.title = "Edit habit";
@@ -1126,7 +1087,6 @@
                         renderHabits();
                     }
                 };
-
                 const deleteBtn = document.createElement("button");
                 deleteBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`;
                 deleteBtn.title = "Delete habit";
@@ -1139,18 +1099,14 @@
                         renderCalendar();
                     }
                 };
-
                 actions.appendChild(editBtn);
                 actions.appendChild(deleteBtn);
-
                 item.appendChild(left);
                 item.appendChild(actions);
                 habitsList.appendChild(item);
             });
-
             updateProgress();
         }
-
         // Add Habit
         habitForm.addEventListener("submit", (e) => {
             e.preventDefault();
@@ -1160,11 +1116,13 @@
                 console.log("Adding habit:", name, "for date:", date); // Debug log
                 const habit = habits.find(h => h.name === name);
                 if (habit) {
-                    // If habit exists, update its history for the selected date
-                    habit.history[date] = true;
+                    // If habit exists, do not automatically mark as completed
+                    if (!habit.history[date]) {
+                        habit.history[date] = false;
+                    }
                 } else {
-                    // Add new habit with completion for the selected date
-                    habits.push({ name, history: { [date]: true } });
+                    // Add new habit without marking as completed
+                    habits.push({ name, history: {} });
                 }
                 habitInput.value = "";
                 dateInput.value = getTodayDateStr(); // Reset to today
@@ -1172,7 +1130,6 @@
                 renderHabits();
                 updateChart();
                 renderCalendar();
-
                 const button = habitForm.querySelector('button[type="submit"]');
                 button.classList.add('loading');
                 setTimeout(() => {
@@ -1182,7 +1139,6 @@
                 console.log("Invalid input: empty habit name or date");
             }
         });
-
         // Reset Today's Habits
         resetButton.addEventListener("click", () => {
             if (confirm("Are you sure you want to reset all habits for today?")) {
@@ -1194,7 +1150,6 @@
                 renderCalendar();
             }
         });
-
         // Progress Bar
         function updateProgress() {
             const today = getTodayDateStr();
@@ -1203,7 +1158,6 @@
             const percent = (completed / total) * 100;
             progressBar.style.width = `${percent}%`;
         }
-
         // Week Navigation
         weekPrev.addEventListener("click", () => {
             if (weekOffset > -4) {
@@ -1213,14 +1167,12 @@
                 renderCalendar();
             }
         });
-
         weekCurrent.addEventListener("click", () => {
             weekOffset = 0;
             updateWeekButtons();
             updateChart();
             renderCalendar();
         });
-
         weekNext.addEventListener("click", () => {
             if (weekOffset < 1) {
                 weekOffset++;
@@ -1229,7 +1181,6 @@
                 renderCalendar();
             }
         });
-
         // Chart.js
         function updateChart() {
             const weekDates = getWeekDates(weekOffset);
@@ -1239,9 +1190,7 @@
             const data = weekDates.map((date) =>
                 habits.reduce((sum, h) => sum + (h.history[date] ? 1 : 0), 0)
             );
-
             if (habitChart) habitChart.destroy();
-
             habitChart = new Chart(ctx, {
                 type: "bar",
                 data: {
@@ -1300,40 +1249,32 @@
                 },
             });
         }
-
         // Calendar View
         function renderCalendar() {
             calendar.innerHTML = "";
             const weekDates = getWeekDates(weekOffset);
-
             weekDates.forEach((date) => {
                 const div = document.createElement("div");
                 const day = new Date(date).toLocaleDateString("en-US", { weekday: "short" });
                 const dateNum = new Date(date).getDate();
                 const count = habits.reduce((sum, h) => sum + (h.history[date] ? 1 : 0), 0);
-
                 div.innerHTML = `<span>${day}</span><br>${dateNum}`;
-
                 if (count > 0) {
                     div.classList.add("done");
                     div.innerHTML += `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; bottom: 4px; right: 4px;">
                         <path d="M20 6L9 17l-5-5"/>
                     </svg>`;
                 }
-
                 const tooltip = document.createElement("span");
                 tooltip.className = "tooltip";
                 tooltip.textContent = count > 0 ? `${count} habit${count !== 1 ? 's' : ''} completed` : "No habits completed";
                 div.appendChild(tooltip);
-
                 calendar.appendChild(div);
             });
         }
-
         // Fade in animation
         function initFadeInAnimation() {
             const fadeElements = document.querySelectorAll('.fade-in');
-
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1341,10 +1282,8 @@
                     }
                 });
             }, { threshold: 0.1 });
-
             fadeElements.forEach(el => observer.observe(el));
         }
-
         // Initialize everything
         document.addEventListener('DOMContentLoaded', function () {
             createParticles();
@@ -1353,14 +1292,12 @@
             renderCalendar();
             updateWeekButtons();
             initFadeInAnimation();
-
             setTimeout(() => {
                 document.querySelectorAll('.fade-in').forEach(el => {
                     el.classList.add('appear');
                 });
             }, 100);
         });
-
         // Handle window resize for chart
         window.addEventListener('resize', function () {
             if (habitChart) {
