@@ -29,7 +29,7 @@
             overflow-x: hidden;
         }
 
-        /* Animated Background */
+       
         .animated-bg {
             position: fixed;
             top: 0;
@@ -108,7 +108,7 @@
             }
         }
 
-        /* Particle System */
+
         .particles {
             position: fixed;
             top: 0;
@@ -156,7 +156,7 @@
             z-index: 1;
         }
 
-        /* Navigation */
+        
         .navbar {
             position: fixed;
             top: 0;
@@ -239,7 +239,6 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
-        /* Hero Section */
         .hero {
             padding: 140px 0 80px;
             text-align: center;
@@ -321,7 +320,6 @@
             animation: fadeInUp 1s ease-out 0.4s both;
         }
 
-        /* Progress Steps */
         .progress-steps {
             display: flex;
             justify-content: center;
@@ -414,7 +412,6 @@
             color: #10b981;
         }
 
-        /* Main Content */
         .main-content {
             padding: 0 0 100px;
         }
@@ -426,7 +423,7 @@
             align-items: start;
         }
 
-        /* Panel Base Styles */
+       
         .panel {
             background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(20px);
@@ -487,7 +484,7 @@
             text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
         }
 
-        /* Search Section */
+       
         .search-section {
             margin-bottom: 40px;
         }
@@ -533,7 +530,7 @@
             color: #3b82f6;
         }
 
-        /* Symptoms Grid */
+      
         .symptoms-section {
             margin-bottom: 40px;
         }
@@ -670,7 +667,7 @@
             background: rgba(203, 213, 225, 0.2);
         }
 
-        /* Selected Symptoms */
+       
         .selected-section {
             margin-bottom: 40px;
         }
@@ -772,7 +769,7 @@
             font-style: italic;
         }
 
-        /* Action Buttons */
+        
         .action-buttons {
             display: flex;
             gap: 16px;
@@ -862,7 +859,7 @@
             }
         }
 
-        /* Results Panel */
+        
         .results-panel {
             min-height: 700px;
             display: flex;
@@ -1083,7 +1080,7 @@
             font-size: 14px;
         }
 
-        /* Error State */
+     
         .error-message {
             background: rgba(239, 68, 68, 0.1);
             border: 1px solid rgba(239, 68, 68, 0.3);
@@ -1100,7 +1097,7 @@
             font-size: 18px;
         }
 
-        /* Disclaimer */
+     
         .disclaimer {
             background: rgba(249, 115, 22, 0.1);
             border: 1px solid rgba(249, 115, 22, 0.3);
@@ -1130,7 +1127,7 @@
             margin: 0 auto;
         }
 
-        /* Responsive Design */
+
         @media (max-width: 1024px) {
             .content-grid {
                 grid-template-columns: 1fr;
@@ -1181,7 +1178,7 @@
             }
         }
 
-        /* Animations */
+    
         .fade-in {
             animation: fadeInUp 0.6s ease-out;
         }
@@ -1221,7 +1218,7 @@
 </head>
 
 <body>
-    <!-- Animated Background -->
+  
     <div class="animated-bg">
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
@@ -1230,10 +1227,10 @@
         <div class="bg-shape"></div>
     </div>
 
-    <!-- Particles -->
+
     <div class="particles" id="particles"></div>
 
-    <!-- Navigation -->
+  
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
@@ -1251,7 +1248,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+   
     <section class="hero">
         <div class="container">
 
@@ -1265,7 +1262,7 @@
                 professional-grade analysis with treatment recommendations.
             </p>
 
-            <!-- Progress Steps -->
+           
             <div class="progress-steps">
                 <div class="step active" id="step1">
                     <div class="step-icon active">1</div>
@@ -1283,11 +1280,11 @@
         </div>
     </section>
 
-    <!-- Main Content -->
+
     <main class="main-content">
         <div class="container">
             <div class="content-grid">
-                <!-- Symptom Selection Panel -->
+               
                 <div class="panel slide-in-left">
                     <div class="panel-header">
                         <div class="panel-icon">
@@ -1300,7 +1297,6 @@
                         <h2 class="panel-title">Symptom Selection</h2>
                     </div>
 
-                    <!-- Search Section -->
                     <div class="search-section">
                         <div class="search-container">
                             <input type="text" class="search-input" id="symptomSearch"
@@ -1313,7 +1309,7 @@
                         </div>
                     </div>
 
-                    <!-- Symptoms Grid -->
+              
                     <div class="symptoms-section">
                         <h3 class="section-subtitle">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -1323,11 +1319,11 @@
                             Available Symptoms
                         </h3>
                         <div class="symptoms-grid" id="symptomsGrid">
-                            <!-- Symptoms will be populated here -->
+                           
                         </div>
                     </div>
 
-                    <!-- Selected Symptoms -->
+                
                     <div class="selected-section">
                         <div class="selected-header">
                             <h3 class="section-subtitle">Selected Symptoms</h3>
@@ -1345,7 +1341,7 @@
                         </div>
                     </div>
 
-                    <!-- Action Buttons -->
+              
                     <div class="action-buttons">
                         <button class="btn btn-primary" id="analyzeBtn" disabled>
                             <span id="analyzeText">Analyze Symptoms</span>
@@ -1366,7 +1362,7 @@
                     </div>
                 </div>
 
-                <!-- Results Panel -->
+              
                 <div class="panel results-panel slide-in-right">
                     <div class="panel-header">
                         <div class="panel-icon">
@@ -1378,7 +1374,7 @@
                         <h2 class="panel-title">Analysis Results</h2>
                     </div>
 
-                    <!-- Empty State -->
+                  
                     <div class="results-empty" id="resultsEmpty">
                         <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
@@ -1390,23 +1386,21 @@
                             health insights and recommendations.</p>
                     </div>
 
-                    <!-- Loading State -->
                     <div class="loading-spinner" id="loadingSpinner">
                         <div class="spinner"></div>
                         <p class="loading-text">Analyzing your symptoms...</p>
                         <p class="loading-subtext">Our AI is processing your data</p>
                     </div>
 
-                    <!-- Results Content -->
+                 
                     <div class="results-content" id="resultsContent">
-                        <!-- Results will be populated here -->
+                     
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Disclaimer -->
     <div class="container">
         <div class="disclaimer">
             <h3 class="disclaimer-title">
@@ -1428,7 +1422,7 @@
     </div>
 
     <script>
-        // API Configuration
+     
         const API_CONFIG = {
             rapidApiUrl: 'https://priaid-symptom-checker-v1.p.rapidapi.com/diagnosis',
             rapidApiHeaders: {
@@ -1438,9 +1432,9 @@
             }
         };
 
-        // Enhanced symptoms data with categories and severity
+        
         const SAMPLE_SYMPTOMS = [
-            // Common symptoms
+           
             { id: 1, name: 'Headache', category: 'neurological', severity: 'mild', common: true },
             { id: 2, name: 'Fever', category: 'general', severity: 'moderate', common: true },
             { id: 3, name: 'Cough', category: 'respiratory', severity: 'mild', common: true },
@@ -1452,7 +1446,7 @@
             { id: 9, name: 'Chest pain', category: 'cardiovascular', severity: 'severe', common: false },
             { id: 10, name: 'Abdominal pain', category: 'digestive', severity: 'moderate', common: true },
 
-            // Additional symptoms
+         
             { id: 11, name: 'Back pain', category: 'musculoskeletal', severity: 'moderate', common: true },
             { id: 12, name: 'Joint pain', category: 'musculoskeletal', severity: 'moderate', common: true },
             { id: 13, name: 'Muscle aches', category: 'musculoskeletal', severity: 'mild', common: true },
@@ -1464,7 +1458,6 @@
             { id: 19, name: 'Swollen lymph nodes', category: 'immune', severity: 'moderate', common: false },
             { id: 20, name: 'Weight loss', category: 'general', severity: 'moderate', common: false },
 
-            // More specific symptoms
             { id: 21, name: 'Vomiting', category: 'digestive', severity: 'moderate', common: false },
             { id: 22, name: 'Diarrhea', category: 'digestive', severity: 'moderate', common: false },
             { id: 23, name: 'Constipation', category: 'digestive', severity: 'mild', common: false },
@@ -1477,13 +1470,13 @@
             { id: 30, name: 'Memory problems', category: 'neurological', severity: 'moderate', common: false }
         ];
 
-        // Application state
+  
         let selectedSymptoms = [];
         let allSymptoms = SAMPLE_SYMPTOMS;
         let filteredSymptoms = SAMPLE_SYMPTOMS;
         let currentStep = 1;
 
-        // DOM elements
+        
         const symptomSearch = document.getElementById('symptomSearch');
         const symptomsGrid = document.getElementById('symptomsGrid');
         const selectedList = document.getElementById('selectedList');
@@ -1495,7 +1488,7 @@
         const loadingSpinner = document.getElementById('loadingSpinner');
         const resultsContent = document.getElementById('resultsContent');
 
-        // Initialize the application
+    
         function init() {
             createParticles();
             renderSymptoms();
@@ -1503,7 +1496,7 @@
             updateStepProgress();
         }
 
-        // Create particle system
+      
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = 50;
@@ -1518,14 +1511,14 @@
             }
         }
 
-        // Setup event listeners
+     
         function setupEventListeners() {
             symptomSearch.addEventListener('input', handleSearch);
             analyzeBtn.addEventListener('click', analyzeSymptoms);
             clearBtn.addEventListener('click', clearAllSymptoms);
         }
 
-        // Update step progress
+        
         function updateStepProgress() {
             const steps = ['step1', 'step2', 'step3'];
 
@@ -1554,11 +1547,10 @@
             });
         }
 
-        // Render symptoms grid
+       
         function renderSymptoms() {
             symptomsGrid.innerHTML = '';
 
-            // Sort symptoms: common first, then alphabetically
             const sortedSymptoms = [...filteredSymptoms].sort((a, b) => {
                 if (a.common && !b.common) return -1;
                 if (!a.common && b.common) return 1;
@@ -1593,7 +1585,6 @@
             });
         }
 
-        // Handle symptom search
         function handleSearch(e) {
             const query = e.target.value.toLowerCase();
             filteredSymptoms = allSymptoms.filter(symptom =>
@@ -1603,7 +1594,6 @@
             renderSymptoms();
         }
 
-        // Toggle symptom selection
         function toggleSymptom(symptom) {
             const existingIndex = selectedSymptoms.findIndex(s => s.id === symptom.id);
 
@@ -1617,7 +1607,7 @@
             renderSymptoms();
         }
 
-        // Update selected symptoms display
+        
         function updateSelectedSymptoms() {
             selectedCount.textContent = selectedSymptoms.length;
 
@@ -1650,14 +1640,14 @@
             analyzeBtn.disabled = selectedSymptoms.length === 0;
         }
 
-        // Remove symptom from selection
+     
         function removeSymptom(symptomId) {
             selectedSymptoms = selectedSymptoms.filter(s => s.id !== symptomId);
             updateSelectedSymptoms();
             renderSymptoms();
         }
 
-        // Clear all symptoms
+        
         function clearAllSymptoms() {
             selectedSymptoms = [];
             filteredSymptoms = allSymptoms;
@@ -1666,7 +1656,7 @@
             symptomSearch.value = '';
         }
 
-        // Analyze symptoms
+  
         async function analyzeSymptoms() {
             if (selectedSymptoms.length === 0) return;
 
@@ -1684,7 +1674,7 @@
             }
         }
 
-        // Show loading state
+    
         function showLoading() {
             resultsEmpty.style.display = 'none';
             loadingSpinner.style.display = 'flex';
@@ -1698,13 +1688,13 @@
             `;
         }
 
-        // Simulate API call
+      
         async function simulateApiCall() {
             await new Promise(resolve => setTimeout(resolve, 3000));
             return generateEnhancedMockResults();
         }
 
-        // Generate enhanced mock results
+       
         function generateEnhancedMockResults() {
             const conditions = [
                 {
@@ -1741,7 +1731,7 @@
                 }
             ];
 
-            // Filter and score conditions based on selected symptoms
+       
             const relevantConditions = conditions.filter(condition => {
                 const symptomNames = selectedSymptoms.map(s => s.name.toLowerCase());
                 const hasRelevantSymptoms = symptomNames.some(symptom => {
@@ -1758,7 +1748,7 @@
             return relevantConditions.length > 0 ? relevantConditions.slice(0, 3) : [conditions[0]];
         }
 
-        // Display results
+       
         function displayResults(results) {
             loadingSpinner.style.display = 'none';
             resultsContent.style.display = 'block';
@@ -1823,7 +1813,7 @@
                 resultsContent.appendChild(conditionCard);
             });
 
-            // Add reset button
+            
             const resetSection = document.createElement('div');
             resetSection.style.textAlign = 'center';
             resetSection.style.marginTop = '32px';
@@ -1838,7 +1828,7 @@
             `;
             resultsContent.appendChild(resetSection);
 
-            // Reset analyze button
+        
             analyzeBtn.disabled = false;
             analyzeBtn.classList.remove('loading');
             analyzeText.innerHTML = `
@@ -1850,7 +1840,7 @@
             `;
         }
 
-        // Display error
+       
         function displayError(message) {
             loadingSpinner.style.display = 'none';
             resultsContent.style.display = 'block';
@@ -1866,7 +1856,6 @@
                 </div>
             `;
 
-            // Reset analyze button
             analyzeBtn.disabled = false;
             analyzeBtn.classList.remove('loading');
             analyzeText.innerHTML = `
@@ -1878,7 +1867,6 @@
             `;
         }
 
-        // Reset analysis
         function resetAnalysis() {
             selectedSymptoms = [];
             filteredSymptoms = allSymptoms;
@@ -1895,10 +1883,9 @@
             symptomSearch.value = '';
         }
 
-        // Navigation functions
 
 
-        // Mouse parallax effect
+        
         document.addEventListener('mousemove', function (e) {
             const mouseX = e.clientX / window.innerWidth;
             const mouseY = e.clientY / window.innerHeight;
@@ -1911,10 +1898,10 @@
             });
         });
 
-        // Initialize everything when DOM is loaded
+       
         document.addEventListener('DOMContentLoaded', init);
 
-        // Add smooth scrolling for better UX
+       
         window.addEventListener('scroll', function () {
             const scrolled = window.pageYOffset;
             const parallaxElements = document.querySelectorAll('.bg-shape');
