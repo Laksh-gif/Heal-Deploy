@@ -1,38 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About HealVerse - Transforming Healthcare with AI</title>
-    <meta name="description"
-        content="Learn about HealVerse's mission to revolutionize healthcare through AI-powered solutions. Discover our story, values, and commitment to better health outcomes.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <title>Cognitive Fitness Zone - HealVerse</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
-        /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #1f2937;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
+            min-height: 100vh;
+            color: #f8fafc;
             overflow-x: hidden;
             position: relative;
         }
-
-        /* Animated Background */
+        /* Animated Background - Same as HealVerse */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -42,106 +29,59 @@
             z-index: -1;
             overflow: hidden;
         }
-
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 25%, rgba(51, 65, 85, 0.9) 50%, rgba(71, 85, 105, 0.9) 75%, rgba(100, 116, 139, 0.9) 100%);
+        }
         .bg-shape {
             position: absolute;
             border-radius: 50%;
-            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+            filter: blur(60px);
             animation: float 20s ease-in-out infinite;
         }
-
         .bg-shape:nth-child(1) {
-            width: 400px;
-            height: 400px;
-            top: -200px;
-            right: -200px;
-            animation-delay: 0s;
-        }
-
-        .bg-shape:nth-child(2) {
             width: 300px;
             height: 300px;
-            top: 30%;
-            left: -150px;
+            background: rgba(59, 130, 246, 0.1);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        .bg-shape:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            background: rgba(139, 92, 246, 0.1);
+            top: 40%;
+            right: 20%;
             animation-delay: -7s;
         }
-
         .bg-shape:nth-child(3) {
             width: 350px;
             height: 350px;
-            bottom: -175px;
-            right: 20%;
+            background: rgba(6, 182, 212, 0.1);
+            bottom: 20%;
+            left: 30%;
             animation-delay: -14s;
         }
-
-        .bg-shape:nth-child(4) {
-            width: 250px;
-            height: 250px;
-            top: 70%;
-            left: 10%;
-            animation-delay: -21s;
-        }
-
         @keyframes float {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0px) rotate(0deg);
             }
-
             25% {
                 transform: translateY(-30px) rotate(90deg);
             }
-
             50% {
                 transform: translateY(0px) rotate(180deg);
             }
-
             75% {
                 transform: translateY(30px) rotate(270deg);
             }
         }
-
-        /* Particle System */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: rgba(59, 130, 246, 0.4);
-            border-radius: 50%;
-            animation: particleFloat 20s linear infinite;
-        }
-
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 1;
-            }
-
-            90% {
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(-100vh) scale(1);
-                opacity: 0;
-            }
-        }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -149,20 +89,17 @@
             position: relative;
             z-index: 1;
         }
-
-        /* Navigation */
+        /* Navigation - Same as HealVerse */
         .navbar {
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(20px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
-
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -172,40 +109,28 @@
             align-items: center;
             height: 80px;
         }
-
         .nav-brand {
             display: flex;
             align-items: center;
             gap: 12px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
             text-decoration: none;
+            transition: transform 0.3s ease;
         }
-
         .nav-brand:hover {
             transform: scale(1.05);
         }
-
         .nav-icon {
-            color: #3b82f6;
             filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
             animation: pulse 2s ease-in-out infinite;
-            width: 32px;
-            height: 32px;
         }
-
         @keyframes pulse {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: scale(1);
             }
-
             50% {
                 transform: scale(1.1);
             }
         }
-
         .brand-text {
             font-size: 28px;
             font-weight: 800;
@@ -215,13 +140,11 @@
             background-clip: text;
             text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
         }
-
         .nav-links {
             display: flex;
             align-items: center;
             gap: 40px;
         }
-
         .nav-link {
             text-decoration: none;
             color: #e2e8f0;
@@ -231,7 +154,6 @@
             transition: all 0.3s ease;
             padding: 8px 0;
         }
-
         .nav-link::before {
             content: '';
             position: absolute;
@@ -242,24 +164,19 @@
             background: linear-gradient(90deg, #3b82f6, #8b5cf6);
             transition: width 0.3s ease;
         }
-
         .nav-link:hover {
             color: #3b82f6;
             transform: translateY(-2px);
         }
-
         .nav-link:hover::before {
             width: 100%;
         }
-
         .nav-link.active {
             color: #3b82f6;
         }
-
         .nav-link.active::before {
             width: 100%;
         }
-
         .nav-cta {
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             color: white;
@@ -270,66 +187,22 @@
             font-size: 16px;
             transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-            position: relative;
-            overflow: hidden;
         }
-
-        .nav-cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .nav-cta:hover::before {
-            left: 100%;
-        }
-
         .nav-cta:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
         }
-
-        /* Hero Section */
-        .hero {
-            padding: 140px 0 100px;
+        /* Main Content */
+        .main-content {
+            padding-top: 120px;
+            min-height: 100vh;
+        }
+        .page-header {
             text-align: center;
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out;
         }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
-            z-index: -1;
-        }
-
-        .hero-content {
-            animation: fadeInUp 1s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-badge {
+        .page-badge {
             display: inline-flex;
             align-items: center;
             gap: 12px;
@@ -340,123 +213,52 @@
             border-radius: 50px;
             font-size: 14px;
             font-weight: 600;
-            margin-bottom: 40px;
+            margin-bottom: 32px;
             border: 1px solid rgba(59, 130, 246, 0.2);
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
-            animation: glow 2s ease-in-out infinite alternate;
         }
-
-        @keyframes glow {
-            from {
-                box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
-            }
-
-            to {
-                box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-            }
-        }
-
-        .hero-title {
+        .page-title {
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 900;
-            margin-bottom: 40px;
+            margin-bottom: 24px;
             line-height: 1.1;
             color: #f8fafc;
             text-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
-            animation: titleAnimation 1s ease-out 0.3s both;
         }
-
-        @keyframes titleAnimation {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.9);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
         .gradient-text {
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 30%, #06b6d4 60%, #10b981 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientShift 3s ease-in-out infinite;
         }
-
-        @keyframes gradientShift {
-
-            0%,
-            100% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        .hero-description {
+        .page-description {
             font-size: 20px;
             color: #cbd5e1;
             max-width: 700px;
-            margin: 0 auto 60px;
+            margin: 0 auto;
             line-height: 1.7;
-            animation: fadeInUp 1s ease-out 0.6s both;
         }
-
-        /* Mission Section */
-        .mission {
-            padding: 120px 0;
-            background: rgba(15, 23, 42, 0.95);
-            position: relative;
-        }
-
-        .mission::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(59,130,246,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            z-index: -1;
-        }
-
-        .mission-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        .mission-text h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 900;
-            margin-bottom: 32px;
-            color: #f8fafc;
-            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-        }
-
-        .mission-text p {
-            font-size: 18px;
-            color: #cbd5e1;
-            line-height: 1.8;
-            margin-bottom: 24px;
-        }
-
-        .mission-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-        }
-
-        .stat-item {
+        /* Dashboard Section */
+        .dashboard {
             background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(20px);
+            border-radius: 24px;
             padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 30px 20px;
             border-radius: 20px;
             text-align: center;
             border: 1px solid rgba(59, 130, 246, 0.1);
@@ -464,8 +266,7 @@
             position: relative;
             overflow: hidden;
         }
-
-        .stat-item::before {
+        .stat-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -476,80 +277,48 @@
             transform: scaleX(0);
             transition: transform 0.3s ease;
         }
-
-        .stat-item:hover::before {
+        .stat-card:hover::before {
             transform: scaleX(1);
         }
-
-        .stat-item:hover {
+        .stat-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 25px 50px rgba(59, 130, 246, 0.2);
             border-color: rgba(59, 130, 246, 0.3);
         }
-
-        .stat-number {
-            font-size: 48px;
+        .stat-value {
+            font-size: 2.5rem;
             font-weight: 900;
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
-
         .stat-label {
             color: #cbd5e1;
             font-weight: 600;
-            font-size: 16px;
+            font-size: 14px;
         }
-
-        /* Values Section */
-        .values {
-            padding: 120px 0;
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.9) 100%);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .section-title {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 900;
-            margin-bottom: 24px;
-            line-height: 1.2;
-            color: #f8fafc;
-            text-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
-        }
-
-        .section-description {
-            font-size: 20px;
-            color: #cbd5e1;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-
-        .values-grid {
+        /* Games Grid */
+        .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
-
-        .value-card {
+        .game-card {
             background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(20px);
-            padding: 50px 40px;
+            padding: 40px 30px;
             border-radius: 24px;
             text-align: center;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
             position: relative;
             overflow: hidden;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
         }
-
-        .value-card::before {
+        .game-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -560,953 +329,1827 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
-
-        .value-card:hover::before {
+        .game-card:hover::before {
             opacity: 1;
         }
-
-        .value-card:hover {
+        .game-card:hover {
             transform: translateY(-15px) scale(1.02);
             box-shadow: 0 30px 60px rgba(59, 130, 246, 0.3);
             border-color: rgba(59, 130, 246, 0.4);
         }
-
-        .value-icon {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
+        .game-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 32px;
+            margin: 0 auto 24px;
+            font-size: 2.5rem;
             transition: all 0.4s ease;
             position: relative;
             z-index: 1;
         }
-
-        .value-card:hover .value-icon {
+        .game-card:hover .game-icon {
             transform: scale(1.1) rotate(5deg);
         }
-
-        .innovation-gradient {
+        .memory-icon {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%);
             color: #3b82f6;
             box-shadow: 0 15px 35px rgba(59, 130, 246, 0.3);
         }
-
-        .care-gradient {
+        .math-icon {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.2) 100%);
             color: #10b981;
             box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
         }
-
-        .trust-gradient {
+        .reaction-icon {
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(124, 58, 237, 0.2) 100%);
             color: #8b5cf6;
             box-shadow: 0 15px 35px rgba(139, 92, 246, 0.3);
         }
-
-        .value-title {
-            font-size: 28px;
+        .stroop-icon {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(14, 165, 233, 0.2) 100%);
+            color: #06b6d4;
+            box-shadow: 0 15px 35px rgba(6, 182, 212, 0.3);
+        }
+        .pattern-icon {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(234, 88, 12, 0.2) 100%);
+            color: #f97316;
+            box-shadow: 0 15px 35px rgba(249, 115, 22, 0.3);
+        }
+        .word-icon {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.2) 100%);
+            color: #ef4444;
+            box-shadow: 0 15px 35px rgba(239, 68, 68, 0.3);
+        }
+        .game-title {
+            font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             color: #f8fafc;
             position: relative;
             z-index: 1;
         }
-
-        .value-card:hover .value-title {
-            color: #3b82f6;
-        }
-
-        .value-description {
+        .game-description {
             color: #cbd5e1;
-            line-height: 1.7;
+            line-height: 1.6;
             font-size: 16px;
+            margin-bottom: 24px;
             position: relative;
             z-index: 1;
         }
-
-        /* Team Section */
-        .team {
-            padding: 120px 0;
-            background: rgba(15, 23, 42, 0.95);
+        .btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            position: relative;
+            z-index: 1;
         }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
         }
-
-        .team-card {
+        .btn-secondary {
+            background: rgba(248, 250, 252, 0.1);
+            color: #cbd5e1;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .btn-secondary:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+        }
+        /* Game Screens */
+        .game-screen {
+            display: none;
             background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(20px);
-            padding: 40px;
             border-radius: 24px;
-            text-align: center;
+            padding: 40px;
             border: 1px solid rgba(59, 130, 246, 0.1);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease-out;
         }
-
-        .team-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
         }
-
-        .team-card:hover::before {
-            transform: scaleX(1);
+        .game-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f8fafc;
         }
-
-        .team-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.3);
-            border-color: rgba(59, 130, 246, 0.3);
+        .game-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
         }
-
-        .team-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin: 0 auto 24px;
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        .info-item {
+            background: rgba(59, 130, 246, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        /* Memory Game Styles */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .memory-card {
+            aspect-ratio: 1;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 36px;
-            font-weight: 700;
-            color: white;
-            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .team-card:hover .team-avatar {
-            transform: scale(1.1);
-            box-shadow: 0 20px 45px rgba(59, 130, 246, 0.6);
-        }
-
-        .team-name {
-            font-size: 24px;
-            font-weight: 700;
-            color: #f8fafc;
-            margin-bottom: 8px;
-        }
-
-        .team-role {
-            font-size: 16px;
-            color: #3b82f6;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .team-bio {
+            font-size: 2rem;
             color: #cbd5e1;
-            line-height: 1.6;
-            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
         }
-
-        /* Journey Section */
-        .journey {
-            padding: 120px 0;
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.9) 100%);
+        .memory-card:hover {
+            transform: scale(1.05);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
         }
-
-        .journey-timeline {
-            max-width: 800px;
+        .memory-card.flipped {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+            color: #3b82f6;
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+        .memory-card.matched {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            color: #10b981;
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+        /* Math Quiz Styles */
+        .question-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .question {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #f8fafc;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 480px;
             margin: 0 auto;
-            position: relative;
         }
-
-        .journey-timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, #3b82f6, #8b5cf6, #06b6d4);
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 60px;
-            position: relative;
-        }
-
-        .timeline-item:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .timeline-content {
-            flex: 1;
+        .option-btn {
+            padding: 24px;
+            font-size: 1.3rem;
+            border-radius: 16px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
             background: rgba(248, 250, 252, 0.05);
             backdrop-filter: blur(20px);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(59, 130, 246, 0.1);
-            margin: 0 30px;
-            transition: all 0.3s ease;
-        }
-
-        .timeline-content:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
-        }
-
-        .timeline-year {
-            font-size: 24px;
-            font-weight: 800;
-            color: #3b82f6;
-            margin-bottom: 12px;
-        }
-
-        .timeline-title {
-            font-size: 20px;
-            font-weight: 700;
             color: #f8fafc;
-            margin-bottom: 12px;
-        }
-
-        .timeline-description {
-            color: #cbd5e1;
-            line-height: 1.6;
-        }
-
-        .timeline-dot {
-            width: 20px;
-            height: 20px;
-            background: #3b82f6;
-            border-radius: 50%;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-            z-index: 2;
-        }
-
-        /* CTA Section */
-        .cta {
-            padding: 120px 0;
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-        }
-
-        .cta-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-title {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 900;
-            color: white;
-            margin-bottom: 32px;
-            text-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
-        }
-
-        .cta-description {
-            font-size: 22px;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 40px;
-            line-height: 1.7;
-        }
-
-        .btn-cta {
-            background: white;
-            color: #3b82f6;
-            padding: 20px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 700;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            display: inline-block;
-            margin-right: 20px;
-        }
-
-        .btn-cta:hover {
-            background: #f8fafc;
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            padding: 20px 40px;
-            border: 2px solid white;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 700;
+            cursor: pointer;
             transition: all 0.3s ease;
-            display: inline-block;
+            font-weight: 600;
         }
-
-        .btn-secondary:hover {
-            background: white;
-            color: #3b82f6;
+        .option-btn:hover {
             transform: translateY(-3px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
         }
-
-        /* Footer */
-        .footer {
-            background: #0f172a;
-            color: white;
-            padding: 80px 0 40px;
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
+        .option-btn.correct {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            color: #10b981;
+            border-color: rgba(16, 185, 129, 0.4);
         }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 80px;
-            margin-bottom: 60px;
+        .option-btn.incorrect {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 127, 0.2) 100%);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.4);
         }
-
-        .footer-logo {
+        /* Reaction Test Styles */
+        .reaction-area {
+            width: 100%;
+            height: 320px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 24px 0;
+            border: 3px solid rgba(59, 130, 246, 0.1);
+            text-align: center;
+            user-select: none;
+        }
+        .reaction-waiting {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 127, 0.2) 100%);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+        .reaction-waiting:hover {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3) 0%, rgba(220, 38, 127, 0.3) 100%);
+            border-color: rgba(239, 68, 68, 0.5);
+            transform: scale(1.02);
+        }
+        .reaction-ready {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.4) 0%, rgba(6, 182, 212, 0.4) 100%);
+            color: #ffffff;
+            border-color: rgba(16, 185, 129, 0.6);
+            animation: greenPulse 0.8s infinite;
+            font-size: 2rem;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+        }
+        .reaction-clicked {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(139, 92, 246, 0.3) 100%);
+            color: #ffffff;
+            border-color: rgba(59, 130, 246, 0.4);
+            font-size: 1.8rem;
         }
 
-        .footer-logo svg {
+        @keyframes greenPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 50px rgba(16, 185, 129, 0.8);
+            }
+        }
+        /* Stroop Test Styles */
+        .stroop-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .stroop-word {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 40px;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+            user-select: none;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+        .stroop-instructions {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            margin-bottom: 32px;
+            padding: 20px;
+            background: rgba(59, 130, 246, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        .color-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .color-btn {
+            padding: 24px;
+            font-size: 1.3rem;
+            border-radius: 16px;
+            border: 2px solid;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .color-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        .color-btn.red {
+            color: #ef4444;
+            border-color: #ef4444;
+        }
+        .color-btn.red:hover {
+            background: rgba(239, 68, 68, 0.1);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        }
+        .color-btn.blue {
             color: #3b82f6;
+            border-color: #3b82f6;
         }
-
-        .footer-logo span {
-            font-size: 28px;
-            font-weight: 800;
+        .color-btn.blue:hover {
+            background: rgba(59, 130, 246, 0.1);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+        .color-btn.green {
+            color: #10b981;
+            border-color: #10b981;
+        }
+        .color-btn.green:hover {
+            background: rgba(16, 185, 129, 0.1);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+        .color-btn.yellow {
+            color: #f59e0b;
+            border-color: #f59e0b;
+        }
+        .color-btn.yellow:hover {
+            background: rgba(245, 158, 11, 0.1);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+        }
+        .color-btn.correct {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+        .color-btn.incorrect {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 127, 0.2) 100%);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+        }
+        /* Pattern Recognition Styles */
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            max-width: 400px;
+            margin: 0 auto 40px;
+        }
+        .pattern-item {
+            aspect-ratio: 1;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .pattern-item:hover {
+            transform: scale(1.05);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+        }
+        .pattern-item.selected {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+            color: #3b82f6;
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+        /* Word Association Styles */
+        .word-display {
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #f8fafc;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+            padding: 30px;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+        .word-input {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 30px;
+            padding: 20px;
+            font-size: 1.2rem;
+            background: rgba(248, 250, 252, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            color: #f8fafc;
+            text-align: center;
+        }
+        .word-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        /* Results Styles */
+        .results {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            margin: 24px 0;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        .results h3 {
+            font-size: 2.2rem;
+            margin-bottom: 24px;
+            color: #f8fafc;
+        }
+        .score {
+            font-size: 3.5rem;
+            font-weight: 900;
             background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-        }
-
-        .footer-description {
-            color: #cbd5e1;
-            line-height: 1.7;
-            font-size: 16px;
-        }
-
-        .footer-links {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .footer-column h4 {
-            font-size: 18px;
-            font-weight: 700;
             margin-bottom: 20px;
-            color: #f8fafc;
         }
-
-        .footer-column ul {
-            list-style: none;
+        .stars {
+            font-size: 2.5rem;
+            margin-bottom: 24px;
         }
-
-        .footer-column li {
-            margin-bottom: 12px;
-        }
-
-        .footer-column a {
+        .motivational-quote {
+            font-style: italic;
             color: #cbd5e1;
-            text-decoration: none;
-            transition: all 0.3s ease;
+            margin: 24px 0;
+            padding: 24px;
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border-left: 4px solid #3b82f6;
             font-size: 16px;
+            line-height: 1.6;
         }
-
-        .footer-column a:hover {
-            color: #3b82f6;
-            transform: translateX(5px);
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(248, 250, 252, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 16px 0;
         }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-            padding-top: 40px;
-            text-align: center;
-            color: #cbd5e1;
-            font-size: 16px;
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            transition: width 0.3s ease;
         }
-
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
         /* Responsive Design */
         @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
             .nav-links {
                 display: none;
             }
-
-            .mission-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
+            .page-title {
+                font-size: 2.5rem;
             }
-
-            .mission-stats {
+            .games-grid {
                 grid-template-columns: 1fr;
             }
-
-            .footer-content {
+            .memory-grid {
+                max-width: 320px;
+                gap: 12px;
+            }
+            .memory-card {
+                font-size: 1.5rem;
+            }
+            .options-grid, .color-buttons {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                max-width: 320px;
             }
-
-            .footer-links {
-                grid-template-columns: 1fr;
-                gap: 32px;
+            .game-header {
+                flex-direction: column;
+                text-align: center;
             }
-
-            .timeline-item {
-                flex-direction: column !important;
+            .game-info {
+                justify-content: center;
             }
-
-            .timeline-item:nth-child(even) {
-                flex-direction: column !important;
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-
-            .journey-timeline::before {
-                left: 20px;
+            .stroop-word {
+                font-size: 3rem;
             }
-
-            .timeline-dot {
-                left: 20px;
-            }
-
-            .timeline-content {
-                margin-left: 60px;
-                margin-right: 0;
-            }
-
-            .cta-content .btn-cta,
-            .cta-content .btn-secondary {
-                display: block;
-                margin: 10px auto;
-                width: fit-content;
+            .pattern-grid {
+                max-width: 300px;
             }
         }
-
-        /* Scroll Animations */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in-up.visible {
-            opacity: 1;
-            transform: translateY(0);
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .reaction-area {
+                height: 240px;
+                font-size: 1.4rem;
+            }
+            .dashboard {
+                padding: 24px;
+            }
+            .game-screen {
+                padding: 24px;
+            }
+            .stroop-word {
+                font-size: 2.5rem;
+            }
+            .word-display {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
-
 <body>
     <!-- Animated Background -->
     <div class="animated-bg">
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
-        <div class="bg-shape"></div>
     </div>
-
-    <!-- Particles -->
-    <div class="particles" id="particles"></div>
-
-    <!-- Navigation -->
+    <!-- Navigation - Same as HealVerse -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-brand">
-                <i class="fas fa-heart nav-icon"></i>
+                <i class="fas fa-heart nav-icon" style="font-size: 32px; color: #3b82f6;"></i>
                 <span class="brand-text">HealVerse</span>
             </a>
-
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-
-                <a href="#mission" class="nav-link">Mission</a>
-                <a href="#team" class="nav-link">Team</a>
-            </div>
+            <a href="index.html" class="nav-cta">
+                <i class="fas fa-user-md"></i>
+                Home
+            </a>
         </div>
     </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-
-            </div>
-
-            <h1 class="hero-title">
-                About <span class="gradient-text">HealVerse</span>
-            </h1>
-
-            <p class="hero-description">
-                We're on a mission to revolutionize healthcare through intelligent technology, making wellness
-                accessible, personalized, and effortless for everyone. Discover our story, values, and the
-                passionate team behind the future of digital health.
-            </p>
-        </div>
-        </div>
-    </section>
-
-    <!-- Mission Section -->
-    <section id="mission" class="mission">
-        <div class="container">
-            <div class="mission-content">
-                <div class="mission-text">
-                    <h2>Our <span class="gradient-text">Mission</span></h2>
-                    <p>
-                        At HealVerse, we believe healthcare should be intelligent, accessible, and personalized. Our
-                        all-in-one digital health platform combines cutting-edge AI technology with intuitive design to
-                        simplify and enhance your wellness journey.
-                    </p>
-                    <p>
-                        From medication management and smart health assistance to habit tracking and predictive
-                        analytics, we're building the tools that empower individuals to take control of their health
-                        with confidence and ease.
-                    </p>
-                    <p>
-                        Every feature we develop is guided by our commitment to improving health outcomes, reducing
-                        healthcare complexity, and making wellness a natural part of daily life.
-                    </p>
-                </div>
-
-                <div class="mission-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">50K+</div>
-                        <div class="stat-label">Lives Improved</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">99.8%</div>
-                        <div class="stat-label">User Satisfaction</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">AI Support</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">150+</div>
-                        <div class="stat-label">Health Conditions</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Values Section -->
-    <section class="values">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our <span class="gradient-text">Core Values</span></h2>
-                <p class="section-description">
-                    These principles guide everything we do, from product development to customer care, ensuring we
-                    deliver meaningful impact in healthcare.
+    <div class="container">
+        <main class="main-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">
+                    Train Your <span class="gradient-text">Mind</span>
+                </h1>
+                <p class="page-description">
+                    Enhance your cognitive abilities with scientifically-designed brain training games. Improve memory, focus, and mental agility through engaging challenges.
                 </p>
             </div>
-
-            <div class="values-grid">
-                <div class="value-card">
-                    <div class="value-icon innovation-gradient">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M9 12l2 2 4-4" />
-                            <path
-                                d="M21 12c.552 0 1-.448 1-1V5c0-.552-.448-1-1-1H3c-.552 0-1 .448-1 1v6c0 .552.448 1 1 1" />
-                            <path d="M3 12v7c0 .552.448 1 1 1h16c.552 0 1-.448 1-1v-7" />
-                        </svg>
+            <!-- Dashboard -->
+            <div id="dashboard" class="dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalGames">0</div>
+                        <div class="stat-label">Games Completed</div>
                     </div>
-                    <h3 class="value-title">Innovation First</h3>
-                    <p class="value-description">
-                        We continuously push the boundaries of what's possible in healthcare technology, leveraging AI
-                        and machine learning to create solutions that were unimaginable just years ago.
-                    </p>
+                    <div class="stat-card">
+                        <div class="stat-value" id="bestMemory">0</div>
+                        <div class="stat-label">Best Memory Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="bestMath">0%</div>
+                        <div class="stat-label">Best Math Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="bestStroop">0%</div>
+                        <div class="stat-label">Best Stroop Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="avgReaction">0ms</div>
+                        <div class="stat-label">Avg Reaction Time</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="bestPattern">0%</div>
+                        <div class="stat-label">Pattern Recognition</div>
+                    </div>
                 </div>
-
-                <div class="value-card">
-                    <div class="value-icon care-gradient">
-                        <i class="fas fa-heart" style="font-size: 48px;"></i>
+                <div class="games-grid">
+                    <div class="game-card" onclick="startMemoryGame()">
+                        <div class="game-icon memory-icon">🧠</div>
+                        <h3 class="game-title">Memory Match</h3>
+                        <p class="game-description">Challenge your working memory by matching pairs of cards. Improve your recall and concentration skills.</p>
+                        <button class="btn">Start Training</button>
                     </div>
-                    <h3 class="value-title">Patient-Centered Care</h3>
-                    <p class="value-description">
-                        Every decision we make is guided by what's best for our users' health and wellbeing. We design
-                        with empathy, understanding the real challenges people face in managing their health.
-                    </p>
+                    <div class="game-card" onclick="startMathQuiz()">
+                        <div class="game-icon math-icon">🔢</div>
+                        <h3 class="game-title">Quick Math</h3>
+                        <p class="game-description">Boost your mental arithmetic speed with timed math challenges. Enhance your numerical processing abilities.</p>
+                        <button class="btn">Start Training</button>
+                    </div>
+                    <div class="game-card" onclick="startStroopTest()">
+                        <div class="game-icon stroop-icon">🎨</div>
+                        <h3 class="game-title">Stroop Test</h3>
+                        <p class="game-description">Test your cognitive flexibility and attention control. Click the color of the text, not what the word says!</p>
+                        <button class="btn">Start Training</button>
+                    </div>
+                    <div class="game-card" onclick="startReactionTest()">
+                        <div class="game-icon reaction-icon">⚡</div>
+                        <h3 class="game-title">Reaction Speed</h3>
+                        <p class="game-description">Test and improve your reaction time and processing speed. Sharpen your reflexes and response accuracy.</p>
+                        <button class="btn">Start Training</button>
+                    </div>
+                    <div class="game-card" onclick="startPatternGame()">
+                        <div class="game-icon pattern-icon">🔍</div>
+                        <h3 class="game-title">Pattern Recognition</h3>
+                        <p class="game-description">Identify patterns and sequences to enhance visual processing and logical thinking abilities.</p>
+                        <button class="btn">Start Training</button>
+                    </div>
+                    <div class="game-card" onclick="startWordGame()">
+                        <div class="game-icon word-icon">📝</div>
+                        <h3 class="game-title">Word Association</h3>
+                        <p class="game-description">Improve verbal fluency and creative thinking through rapid word association challenges.</p>
+                        <button class="btn">Start Training</button>
+                    </div>
                 </div>
-
-                <div class="value-card">
-                    <div class="value-icon trust-gradient">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                            <path d="M9 12l2 2 4-4" />
-                        </svg>
-                    </div>
-                    <h3 class="value-title">Trust & Security</h3>
-                    <p class="value-description">
-                        We maintain the highest standards of data security and privacy protection. Your health
-                        information is sacred, and we treat it with the utmost care and responsibility.
-                    </p>
+                <div style="text-align: center; margin-top: 40px;">
+                    <button class="btn btn-secondary" onclick="resetStats()">Reset Progress</button>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Team Section -->
-    <section id="team" class="team">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Meet Our <span class="gradient-text">Team</span></h2>
-                <p class="section-description">
-                    Our diverse team of healthcare professionals, AI experts, and technology innovators work together to
-                    create the future of digital health.
-                </p>
-            </div>
-
-            <div class="team-grid">
-                <div class="team-card">
-                    <div class="team-avatar">LG</div>
-                    <h3 class="team-name">Laksh Gandhi</h3>
-                    <p class="team-role">Web-Developer</p>
-                    <p class="team-bio">
-                        Laksh Gandhi, a visionary collaborator, brought strategic direction and creative insight to
-                        <b>HealVerse</b>, shaping its core identity.
-                        With sharp instincts and relentless dedication, he helped transform the project into a powerful
-                        digital health solution.
-                    </p>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-avatar">SS</div>
-                    <h3 class="team-name">Shaurya Shivhare</h3>
-                    <p class="team-role">Web-Developer</p>
-                    <p class="team-bio">
-
-                        Shaurya Shivhare, a skilled web developer, played a pivotal role in bringing HealVerse to life
-                        with sleek, responsive design and smart functionalities.
-                        His expertise turned vision into reality, building a platform that truly redefines digital
-                        healthcare.
-                    </p>
-                </div>
-
-
-
-
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Journey Section -->
-    <section class="journey">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our <span class="gradient-text">Journey</span></h2>
-                <p class="section-description">
-                    From a simple idea to a comprehensive healthcare platform, here's how HealVerse has evolved to serve
-                    thousands of users worldwide.
-                </p>
-            </div>
-
-            <div class="journey-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">2023</div>
-                        <h3 class="timeline-title">The Beginning</h3>
-                        <p class="timeline-description">
-                            Founded by a team of healthcare professionals and tech innovators who experienced firsthand
-                            the challenges of managing health in the digital age.
-                        </p>
+            <!-- Memory Game Screen -->
+            <div id="memoryGame" class="game-screen">
+                <div class="game-header">
+                    <h2>🧠 Memory Match Training</h2>
+                    <div class="game-info">
+                        <div class="info-item">Moves: <span id="memoryMoves">0</span></div>
+                        <div class="info-item">Time: <span id="memoryTime">0</span>s</div>
+                        <div class="info-item">Pairs: <span id="memoryPairs">0</span>/8</div>
                     </div>
-                    <div class="timeline-dot"></div>
+                    <button class="btn btn-secondary" onclick="showDashboard()">← Back</button>
                 </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">Early 2024</div>
-                        <h3 class="timeline-title">First Product Launch</h3>
-                        <p class="timeline-description">
-                            Launched our AI health assistant and medication management system, helping our first 1,000
-                            users better manage their health routines.
-                        </p>
-                    </div>
-                    <div class="timeline-dot"></div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">Mid 2024</div>
-                        <h3 class="timeline-title">Major Platform Expansion</h3>
-                        <p class="timeline-description">
-                            Added habit tracking, predictive analytics, and integrated wearable device support, growing
-                            our user base to over 25,000 active users.
-                        </p>
-                    </div>
-                    <div class="timeline-dot"></div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">Late 2024</div>
-                        <h3 class="timeline-title">AI Breakthrough</h3>
-                        <p class="timeline-description">
-                            Achieved breakthrough in personalized health predictions, with our AI now providing 94%
-                            accurate health trend forecasting for chronic conditions.
-                        </p>
-                    </div>
-                    <div class="timeline-dot"></div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-year">2025</div>
-                        <h3 class="timeline-title">Global Expansion</h3>
-                        <p class="timeline-description">
-                            Expanding internationally and partnering with healthcare providers to integrate HealVerse
-                            into clinical workflows, serving 50,000+ users globally.
-                        </p>
-                    </div>
-                    <div class="timeline-dot"></div>
+                <div class="memory-grid" id="memoryGrid"></div>
+                <div id="memoryResults" class="results" style="display: none;">
+                    <h3>🎉 Training Complete!</h3>
+                    <div class="score" id="memoryScore">0</div>
+                    <div class="stars" id="memoryStars"></div>
+                    <div class="motivational-quote" id="memoryQuote"></div>
+                    <button class="btn" onclick="startMemoryGame()">Train Again</button>
+                    <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
                 </div>
             </div>
-        </div>
-    </section>
-
-
-
-
+            <!-- Math Quiz Screen -->
+            <div id="mathQuiz" class="game-screen">
+                <div class="game-header">
+                    <h2>🔢 Quick Math Training</h2>
+                    <div class="game-info">
+                        <div class="info-item">Question: <span id="mathQuestion">1</span>/10</div>
+                        <div class="info-item">Score: <span id="mathScore">0</span></div>
+                        <div class="info-item">Time: <span id="mathTimer">30</span>s</div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="showDashboard()">← Back</button>
+                </div>
+                <div class="question-container">
+                    <div class="question" id="mathQuestionText">Loading...</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="mathProgress"></div>
+                    </div>
+                    <div class="options-grid" id="mathOptions"></div>
+                </div>
+                <div id="mathResults" class="results" style="display: none;">
+                    <h3>📊 Training Complete!</h3>
+                    <div class="score" id="mathFinalScore">0%</div>
+                    <div class="stars" id="mathStars"></div>
+                    <div class="motivational-quote" id="mathQuote"></div>
+                    <button class="btn" onclick="startMathQuiz()">Train Again</button>
+                    <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
+                </div>
+            </div>
+            <!-- Stroop Test Screen -->
+            <div id="stroopTest" class="game-screen">
+                <div class="game-header">
+                    <h2>🎨 Stroop Test Training</h2>
+                    <div class="game-info">
+                        <div class="info-item">Round: <span id="stroopRound">1</span>/15</div>
+                        <div class="info-item">Score: <span id="stroopScore">0</span></div>
+                        <div class="info-item">Time: <span id="stroopTimer">60</span>s</div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="showDashboard()">← Back</button>
+                </div>
+                <div class="stroop-container">
+                    <div class="stroop-instructions">
+                        <strong>Instructions:</strong> Click the <strong>COLOR</strong> of the text, NOT what the word says!<br>
+                        Focus on the actual color you see, ignore the word meaning.
+                    </div>
+                    <div class="stroop-word" id="stroopWord">Ready?</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="stroopProgress"></div>
+                    </div>
+                    <div class="color-buttons" id="colorButtons">
+                        <button class="color-btn red" onclick="selectColor('red')">Red</button>
+                        <button class="color-btn blue" onclick="selectColor('blue')">Blue</button>
+                        <button class="color-btn green" onclick="selectColor('green')">Green</button>
+                        <button class="color-btn yellow" onclick="selectColor('yellow')">Yellow</button>
+                    </div>
+                </div>
+                <div id="stroopResults" class="results" style="display: none;">
+                    <h3>🎨 Training Complete!</h3>
+                    <div class="score" id="stroopFinalScore">0%</div>
+                    <div class="stars" id="stroopStars"></div>
+                    <div class="motivational-quote" id="stroopQuote"></div>
+                    <button class="btn" onclick="startStroopTest()">Train Again</button>
+                    <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
+                </div>
+            </div>
+            <!-- Reaction Test Screen -->
+            <div id="reactionTest" class="game-screen">
+                <div class="game-header">
+                    <h2>⚡ Reaction Speed Training</h2>
+                    <div class="game-info">
+                        <div class="info-item">Round: <span id="reactionRound">1</span>/5</div>
+                        <div class="info-item">Best: <span id="reactionBest">0ms</span></div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="showDashboard()">← Back</button>
+                </div>
+                <div class="reaction-area reaction-waiting" id="reactionArea" onclick="handleReactionClick()">
+                    Click here when ready, then wait for GREEN!
+                </div>
+                <div id="reactionResults" class="results" style="display: none;">
+                    <h3>⚡ Training Complete!</h3>
+                    <div class="score" id="reactionAverage">0ms</div>
+                    <div class="stars" id="reactionStars"></div>
+                    <div class="motivational-quote" id="reactionQuote"></div>
+                    <button class="btn" onclick="startReactionTest()">Train Again</button>
+                    <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
+                </div>
+            </div>
+            <!-- Pattern Recognition Screen -->
+            <div id="patternGame" class="game-screen">
+                <div class="game-header">
+                    <h2>🔍 Pattern Recognition Training</h2>
+                    <div class="game-info">
+                        <div class="info-item">Round: <span id="patternRound">1</span>/10</div>
+                        <div class="info-item">Score: <span id="patternScore">0</span></div>
+                        <div class="info-item">Time: <span id="patternTimer">45</span>s</div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="showDashboard()">← Back</button>
+                </div>
+                <div class="question-container">
+                    <div class="question">Complete the pattern:</div>
+                    <div class="pattern-grid" id="patternGrid"></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="patternProgress"></div>
+                    </div>
+                </div>
+                <div id="patternResults" class="results" style="display: none;">
+                    <h3>🔍 Training Complete!</h3>
+                    <div class="score" id="patternFinalScore">0%</div>
+                    <div class="stars" id="patternStars"></div>
+                    <div class="motivational-quote" id="patternQuote"></div>
+                    <button class="btn" onclick="startPatternGame()">Train Again</button>
+                    <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
+                </div>
+            </div>
+            <!-- Word Association Screen -->
+            <div id="wordGame" class="game-screen">
+                <div class="game-header">
+                    <h2>📝 Word Association Training</h2>
+                    <div class="game-info">
+                        <div class="info-item">Round: <span id="wordRound">1</span>/10</div>
+                        <div class="info-item">Score: <span id="wordScore">0</span></div>
+                        <div class="info-item">Time: <span id="wordTimer">60</span>s</div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="showDashboard()">← Back</button>
+                </div>
+                <div class="question-container">
+                    <div class="word-display" id="wordDisplay">Ready?</div>
+                    <input type="text" class="word-input" id="wordInput" placeholder="Type a related word..." maxlength="20">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="wordProgress"></div>
+                    </div>
+                    <button class="btn" id="wordSubmit" onclick="submitWord()">Submit</button>
+                </div>
+                <div id="wordResults" class="results" style="display: none;">
+                    <h3>📝 Training Complete!</h3>
+                    <div class="score" id="wordFinalScore">0%</div>
+                    <div class="stars" id="wordStars"></div>
+                    <div class="motivational-quote" id="wordQuote"></div>
+                    <button class="btn" onclick="startWordGame()">Train Again</button>
+                    <button class="btn btn-secondary" onclick="showDashboard()">Dashboard</button>
+                </div>
+            </div>
+        </main>
+    </div>
 
     <script>
-        // Create Particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 60;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
-                particlesContainer.appendChild(particle);
+        // Game State Management
+        let gameState = {
+            currentGame: 'dashboard',
+            stats: {
+                totalGames: 0,
+                bestMemoryScore: 0,
+                bestMathScore: 0,
+                bestStroopScore: 0,
+                bestPatternScore: 0,
+                reactionTimes: [],
+                avgReactionTime: 0
             }
-        }
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
         };
 
-        const observer = new IntersectionObserver(function (entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+        // Memory Game Variables
+        let memoryGame = {
+            cards: [],
+            flippedCards: [],
+            matchedPairs: 0,
+            moves: 0,
+            startTime: null,
+            timer: null
+        };
 
-        // Animate elements on scroll
-        function initScrollAnimations() {
-            const animateElements = document.querySelectorAll('.stat-item, .value-card, .team-card, .timeline-item');
+        // Math Quiz Variables
+        let mathQuiz = {
+            questions: [],
+            currentQuestion: 0,
+            score: 0,
+            timer: null,
+            timeLeft: 30,
+            startTime: null
+        };
 
-            animateElements.forEach(el => {
-                el.classList.add('fade-in-up');
-                observer.observe(el);
-            });
-        }
-
-        // Counter animation for stats
-        function animateCounters() {
-            const counters = document.querySelectorAll('.stat-number');
-
-            counters.forEach(counter => {
-                const target = counter.textContent;
-                const numericValue = parseInt(target.replace(/[^\d]/g, ''));
-
-                if (numericValue) {
-                    let current = 0;
-                    const increment = numericValue / 60;
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= numericValue) {
-                            counter.textContent = target;
-                            clearInterval(timer);
-                        } else {
-                            const suffix = target.includes('%') ? '%' : target.includes('+') ? '+' : '';
-                            counter.textContent = Math.floor(current) + suffix;
-                        }
-                    }, 30);
-                }
-            });
-        }
-
-        // Mouse parallax effect
-        document.addEventListener('mousemove', function (e) {
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
-
-            // Parallax for background shapes
-            document.querySelectorAll('.bg-shape').forEach((shape, index) => {
-                const speed = (index + 1) * 0.2;
-                const x = (mouseX - 0.5) * speed * 40;
-                const y = (mouseY - 0.5) * speed * 40;
-                shape.style.transform = `translate(${x}px, ${y}px)`;
-            });
-        });
-
-        // Interactive functions
-        function showContact() {
-            alert('📞 Contact HealVerse:\n\nEmail: hello@healverse.com\nPhone: +1 (555) 123-4567\nAddress: 123 Healthcare Ave, San Francisco, CA 94102\n\nOur team is available 24/7 to help with your health journey!');
-        }
-
-        function showCareers() {
-            alert('🚀 Join Our Team!\n\nWe\'re always looking for passionate individuals to join our mission of transforming healthcare.\n\nOpen Positions:\n• Senior AI Engineer\n• Healthcare Product Manager\n• Clinical Data Scientist\n• UX Designer\n• DevOps Engineer\n\nSend your resume to careers@healverse.com');
-        }
-
-        function showFeatures() {
-            alert('✨ HealVerse Features:\n\n🤖 AI Health Assistant - 24/7 personalized health guidance\n💊 Medication Manager - Smart reminders and interaction checking\n📊 Health Analytics - Predictive insights and trend analysis\n📅 Habit Tracker - Build healthy routines with AI coaching\n\nExplore all features in our main platform!');
-        }
-
-        function showSecurity() {
-            alert('🔒 Your Data Security:\n\n• End-to-end encryption for all health data\n• HIPAA compliant infrastructure\n• SOC 2 Type II certified\n• Zero-knowledge architecture\n• Regular security audits\n• Granular privacy controls\n\nYour health information is always protected with enterprise-grade security.');
-        }
-
-        function showHelp() {
-            alert('❓ Need Help?\n\nOur comprehensive help center includes:\n• Getting started guides\n• Feature tutorials\n• Troubleshooting tips\n• Video walkthroughs\n• FAQ section\n\nVisit help.healverse.com or contact our 24/7 support team!');
-        }
-
-        function showPrivacy() {
-            alert('🛡️ Privacy Policy:\n\nWe protect your health data with the highest standards:\n• We never sell your personal information\n• You control who sees your data\n• Transparent data usage policies\n• Right to data portability\n• Easy account deletion\n\nRead our full privacy policy at healverse.com/privacy');
-        }
-
-        function showTerms() {
-            alert('📋 Terms of Service:\n\nKey points:\n• HealVerse supplements, not replaces, professional medical care\n• Always consult healthcare providers for medical decisions\n• Our AI provides information, not medical diagnoses\n• User responsibilities and platform guidelines\n\nFull terms available at healverse.com/terms');
-        }
-
-        function showAPI() {
-            alert('🔧 Developer API:\n\nIntegrate HealVerse into your healthcare applications:\n• RESTful API with comprehensive documentation\n• SDKs for popular programming languages\n• Sandbox environment for testing\n• Webhook support for real-time updates\n• Enterprise-grade rate limits\n\nGet started at developers.healverse.com');
-        }
-
-        function showPress() {
-            alert('📰 Press & Media:\n\nPress Kit includes:\n• High-resolution logos and brand assets\n• Company fact sheet\n• Executive bios and photos\n• Product screenshots\n• Recent press releases\n\nDownload at healverse.com/press or contact press@healverse.com');
-        }
-
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function () {
-            createParticles();
-            initScrollAnimations();
-
-            // Animate counters when stats section is visible
-            const statsSection = document.querySelector('.mission-stats');
-            if (statsSection) {
-                const statsObserver = new IntersectionObserver(function (entries) {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            animateCounters();
-                            statsObserver.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.5 });
-
-                statsObserver.observe(statsSection);
+        // Stroop Test Variables
+        let stroopTest = {
+            round: 0,
+            score: 0,
+            currentWord: '',
+            currentColor: '',
+            correctColor: '',
+            timer: null,
+            timeLeft: 60,
+            startTime: null,
+            words: ['RED', 'BLUE', 'GREEN', 'YELLOW'],
+            colors: ['red', 'blue', 'green', 'yellow'],
+            colorMap: {
+                'red': '#ef4444',
+                'blue': '#3b82f6',
+                'green': '#10b981',
+                'yellow': '#f59e0b'
             }
-        });
+        };
 
-        // Enhanced hover effects for cards
-        document.querySelectorAll('.value-card, .team-card').forEach(card => {
-            card.addEventListener('mouseenter', function () {
-                this.style.transform = 'translateY(-15px) scale(1.02)';
+        // Reaction Test Variables
+        let reactionTest = {
+            round: 0,
+            times: [],
+            startTime: null,
+            timeout: null,
+            isWaiting: false,
+            state: 'ready' // ready, waiting, green, clicked
+        };
+
+        // Pattern Game Variables
+        let patternGame = {
+            round: 0,
+            score: 0,
+            currentPattern: [],
+            timer: null,
+            timeLeft: 45,
+            patterns: [
+                {sequence: ['🔴', '🔵', '🔴', '🔵', '🔴', '🔵'], answer: '🔴'},
+                {sequence: ['⭐', '⭐⭐', '⭐⭐⭐', '⭐⭐⭐⭐'], answer: '⭐⭐⭐⭐⭐'},
+                {sequence: ['🟢', '🟡', '🔴', '🟢', '🟡', '🔴'], answer: '🟢'},
+                {sequence: ['1️⃣', '2️⃣', '4️⃣', '8️⃣'], answer: '1️⃣6️⃣'},
+                {sequence: ['🔺', '🔻', '🔺', '🔻', '🔺'], answer: '🔻'},
+                {sequence: ['🌙', '🌙🌙', '🌙🌙🌙'], answer: '🌙🌙🌙🌙'},
+                {sequence: ['🔥', '💧', '🔥', '💧', '🔥'], answer: '💧'},
+                {sequence: ['🎯', '🎯🎯', '🎯🎯🎯', '🎯🎯🎯🎯'], answer: '🎯🎯🎯🎯🎯'},
+                {sequence: ['🟦', '🟨', '🟦', '🟨', '🟦'], answer: '🟨'},
+                {sequence: ['⚡', '⚡⚡', '⚡⚡⚡'], answer: '⚡⚡⚡⚡'}
+            ]
+        };
+
+        // Word Game Variables
+        let wordGame = {
+            round: 0,
+            score: 0,
+            currentWord: '',
+            timer: null,
+            timeLeft: 60,
+            words: ['OCEAN', 'FIRE', 'MOUNTAIN', 'MUSIC', 'BOOK', 'STAR', 'FLOWER', 'RAIN', 'DREAM', 'LIGHT'],
+            associations: {
+                'OCEAN': ['water', 'blue', 'waves', 'sea', 'fish', 'deep', 'salt', 'beach'],
+                'FIRE': ['hot', 'red', 'burn', 'flame', 'heat', 'smoke', 'warm', 'light'],
+                'MOUNTAIN': ['high', 'peak', 'climb', 'snow', 'rock', 'tall', 'summit', 'hill'],
+                'MUSIC': ['sound', 'song', 'melody', 'rhythm', 'note', 'beat', 'harmony', 'dance'],
+                'BOOK': ['read', 'page', 'story', 'word', 'knowledge', 'learn', 'paper', 'text'],
+                'STAR': ['bright', 'night', 'sky', 'shine', 'space', 'twinkle', 'galaxy', 'moon'],
+                'FLOWER': ['bloom', 'petal', 'garden', 'color', 'smell', 'beauty', 'spring', 'rose'],
+                'RAIN': ['water', 'drop', 'cloud', 'wet', 'storm', 'umbrella', 'puddle', 'weather'],
+                'DREAM': ['sleep', 'night', 'imagine', 'fantasy', 'vision', 'hope', 'wish', 'mind'],
+                'LIGHT': ['bright', 'shine', 'lamp', 'sun', 'glow', 'illuminate', 'beam', 'bulb']
+            }
+        };
+
+        // Motivational Quotes
+        const quotes = [
+            "Excellent work! Your cognitive fitness is improving with every session! 🧠✨",
+            "Outstanding performance! Keep challenging your mind to reach new heights! 🚀",
+            "Brilliant! Your mental agility and focus are getting stronger! 💪",
+            "Fantastic progress! Consistent training leads to remarkable results! 🌟",
+            "Impressive! Your brain is adapting and growing with each challenge! 🎯",
+            "Superb effort! You're building powerful cognitive pathways! ⚡",
+            "Amazing! Your dedication to brain training is truly paying off! 🏆",
+            "Wonderful! Every session makes your mind sharper and more resilient! 💎",
+            "Incredible! You're developing the mental strength of a champion! 👑",
+            "Perfect! Your cognitive fitness journey is inspiring and effective! 🌈"
+        ];
+
+        // Initialize App
+        function init() {
+            loadStats();
+            updateDashboard();
+            showDashboard();
+        }
+
+        // Local Storage Functions
+        function saveStats() {
+            localStorage.setItem('healverseCognitiveStats', JSON.stringify(gameState.stats));
+        }
+
+        function loadStats() {
+            const saved = localStorage.getItem('healverseCognitiveStats');
+            if (saved) {
+                gameState.stats = JSON.parse(saved);
+            }
+        }
+
+        function resetStats() {
+            if (confirm('Are you sure you want to reset all your cognitive training progress? This action cannot be undone.')) {
+                gameState.stats = {
+                    totalGames: 0,
+                    bestMemoryScore: 0,
+                    bestMathScore: 0,
+                    bestStroopScore: 0,
+                    bestPatternScore: 0,
+                    reactionTimes: [],
+                    avgReactionTime: 0
+                };
+                saveStats();
+                updateDashboard();
+            }
+        }
+
+        // Dashboard Functions
+        function showDashboard() {
+            hideAllScreens();
+            document.getElementById('dashboard').style.display = 'block';
+            gameState.currentGame = 'dashboard';
+            updateDashboard();
+        }
+
+        function updateDashboard() {
+            document.getElementById('totalGames').textContent = gameState.stats.totalGames;
+            document.getElementById('bestMemory').textContent = gameState.stats.bestMemoryScore;
+            document.getElementById('bestMath').textContent = gameState.stats.bestMathScore + '%';
+            document.getElementById('bestStroop').textContent = gameState.stats.bestStroopScore + '%';
+            document.getElementById('bestPattern').textContent = gameState.stats.bestPatternScore + '%';
+            
+            const avgReaction = gameState.stats.reactionTimes.length > 0
+                ? Math.round(gameState.stats.reactionTimes.reduce((a, b) => a + b, 0) / gameState.stats.reactionTimes.length)
+                : 0;
+            document.getElementById('avgReaction').textContent = avgReaction + 'ms';
+        }
+
+        function hideAllScreens() {
+            const screens = ['dashboard', 'memoryGame', 'mathQuiz', 'stroopTest', 'reactionTest', 'patternGame', 'wordGame'];
+            screens.forEach(screen => {
+                document.getElementById(screen).style.display = 'none';
             });
+        }
 
-            card.addEventListener('mouseleave', function () {
-                this.style.transform = 'translateY(0) scale(1)';
+        // Memory Game Functions
+        function startMemoryGame() {
+            hideAllScreens();
+            document.getElementById('memoryGame').style.display = 'block';
+            document.getElementById('memoryResults').style.display = 'none';
+            
+            // Reset game state
+            memoryGame = {
+                cards: [],
+                flippedCards: [],
+                matchedPairs: 0,
+                moves: 0,
+                startTime: Date.now(),
+                timer: null
+            };
+
+            // Create card pairs
+            const symbols = ['🎯', '🌟', '🔥', '💎', '🚀', '⚡', '🎨', '🎵'];
+            const cardPairs = [...symbols, ...symbols];
+            
+            // Shuffle cards
+            for (let i = cardPairs.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cardPairs[i], cardPairs[j]] = [cardPairs[j], cardPairs[i]];
+            }
+
+            // Create card objects
+            memoryGame.cards = cardPairs.map((symbol, index) => ({
+                id: index,
+                symbol: symbol,
+                flipped: false,
+                matched: false
+            }));
+
+            // Render cards
+            renderMemoryCards();
+            
+            // Start timer
+            memoryGame.timer = setInterval(updateMemoryTimer, 1000);
+            
+            // Update UI
+            updateMemoryUI();
+        }
+
+        function renderMemoryCards() {
+            const grid = document.getElementById('memoryGrid');
+            grid.innerHTML = '';
+            
+            memoryGame.cards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'memory-card';
+                cardElement.dataset.id = card.id;
+                cardElement.textContent = card.flipped || card.matched ? card.symbol : '?';
+                
+                if (card.flipped) cardElement.classList.add('flipped');
+                if (card.matched) cardElement.classList.add('matched');
+                
+                cardElement.addEventListener('click', () => flipCard(card.id));
+                grid.appendChild(cardElement);
             });
-        });
+        }
 
-        // Parallax effect for scroll
-        window.addEventListener('scroll', function () {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.bg-shape');
+        function flipCard(cardId) {
+            const card = memoryGame.cards[cardId];
+            
+            // Can't flip if already flipped, matched, or two cards are already flipped
+            if (card.flipped || card.matched || memoryGame.flippedCards.length >= 2) {
+                return;
+            }
 
-            parallaxElements.forEach((element, index) => {
-                const speed = 0.3 + (index * 0.1);
-                const yPos = -(scrolled * speed);
-                element.style.transform += ` translateY(${yPos}px)`;
+            // Flip the card
+            card.flipped = true;
+            memoryGame.flippedCards.push(card);
+            memoryGame.moves++;
+            
+            renderMemoryCards();
+            updateMemoryUI();
+
+            // Check for match when two cards are flipped
+            if (memoryGame.flippedCards.length === 2) {
+                setTimeout(checkMemoryMatch, 1000);
+            }
+        }
+
+        function checkMemoryMatch() {
+            const [card1, card2] = memoryGame.flippedCards;
+            
+            if (card1.symbol === card2.symbol) {
+                // Match found
+                card1.matched = true;
+                card2.matched = true;
+                memoryGame.matchedPairs++;
+                
+                // Check if game is complete
+                if (memoryGame.matchedPairs === 8) {
+                    endMemoryGame();
+                }
+            } else {
+                // No match, flip cards back
+                card1.flipped = false;
+                card2.flipped = false;
+            }
+            
+            memoryGame.flippedCards = [];
+            renderMemoryCards();
+            updateMemoryUI();
+        }
+
+        function updateMemoryTimer() {
+            const elapsed = Math.floor((Date.now() - memoryGame.startTime) / 1000);
+            document.getElementById('memoryTime').textContent = elapsed;
+        }
+
+        function updateMemoryUI() {
+            document.getElementById('memoryMoves').textContent = memoryGame.moves;
+            document.getElementById('memoryPairs').textContent = memoryGame.matchedPairs;
+        }
+
+        function endMemoryGame() {
+            clearInterval(memoryGame.timer);
+            const timeElapsed = Math.floor((Date.now() - memoryGame.startTime) / 1000);
+            
+            // Calculate score (lower moves and time = higher score)
+            const score = Math.max(1000 - (memoryGame.moves * 10) - (timeElapsed * 5), 100);
+            
+            // Update stats
+            if (score > gameState.stats.bestMemoryScore) {
+                gameState.stats.bestMemoryScore = score;
+            }
+            gameState.stats.totalGames++;
+            saveStats();
+            
+            // Show results
+            document.getElementById('memoryScore').textContent = score;
+            document.getElementById('memoryStars').textContent = getStars(score, 800);
+            document.getElementById('memoryQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('memoryResults').style.display = 'block';
+        }
+
+        // Math Quiz Functions
+        function startMathQuiz() {
+            hideAllScreens();
+            document.getElementById('mathQuiz').style.display = 'block';
+            document.getElementById('mathResults').style.display = 'none';
+            
+            // Reset game state
+            mathQuiz = {
+                questions: [],
+                currentQuestion: 0,
+                score: 0,
+                timer: null,
+                timeLeft: 30,
+                startTime: Date.now()
+            };
+
+            // Generate questions
+            generateMathQuestions();
+            
+            // Start timer
+            mathQuiz.timer = setInterval(updateMathTimer, 1000);
+            
+            // Show first question
+            showMathQuestion();
+        }
+
+        function generateMathQuestions() {
+            mathQuiz.questions = [];
+            
+            for (let i = 0; i < 10; i++) {
+                const operations = ['+', '-', '*'];
+                const operation = operations[Math.floor(Math.random() * operations.length)];
+                
+                let num1, num2, answer;
+                
+                switch (operation) {
+                    case '+':
+                        num1 = Math.floor(Math.random() * 50) + 1;
+                        num2 = Math.floor(Math.random() * 50) + 1;
+                        answer = num1 + num2;
+                        break;
+                    case '-':
+                        num1 = Math.floor(Math.random() * 50) + 25;
+                        num2 = Math.floor(Math.random() * 25) + 1;
+                        answer = num1 - num2;
+                        break;
+                    case '*':
+                        num1 = Math.floor(Math.random() * 12) + 1;
+                        num2 = Math.floor(Math.random() * 12) + 1;
+                        answer = num1 * num2;
+                        break;
+                }
+                
+                // Generate wrong answers
+                const wrongAnswers = [];
+                while (wrongAnswers.length < 3) {
+                    const wrong = answer + Math.floor(Math.random() * 20) - 10;
+                    if (wrong !== answer && wrong > 0 && !wrongAnswers.includes(wrong)) {
+                        wrongAnswers.push(wrong);
+                    }
+                }
+                
+                // Shuffle options
+                const options = [answer, ...wrongAnswers];
+                for (let j = options.length - 1; j > 0; j--) {
+                    const k = Math.floor(Math.random() * (j + 1));
+                    [options[j], options[k]] = [options[k], options[j]];
+                }
+                
+                mathQuiz.questions.push({
+                    question: `${num1} ${operation} ${num2}`,
+                    answer: answer,
+                    options: options
+                });
+            }
+        }
+
+        function showMathQuestion() {
+            if (mathQuiz.currentQuestion >= mathQuiz.questions.length) {
+                endMathQuiz();
+                return;
+            }
+            
+            const question = mathQuiz.questions[mathQuiz.currentQuestion];
+            document.getElementById('mathQuestionText').textContent = question.question + ' = ?';
+            
+            const optionsContainer = document.getElementById('mathOptions');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.onclick = () => selectMathAnswer(option);
+                optionsContainer.appendChild(button);
             });
-        });
+            
+            // Update UI
+            document.getElementById('mathQuestion').textContent = mathQuiz.currentQuestion + 1;
+            document.getElementById('mathScore').textContent = mathQuiz.score;
+            
+            // Update progress
+            const progress = ((mathQuiz.currentQuestion + 1) / mathQuiz.questions.length) * 100;
+            document.getElementById('mathProgress').style.width = progress + '%';
+        }
 
-        // Add loading state for buttons
-        document.querySelectorAll('.btn-cta, .btn-secondary').forEach(button => {
-            button.addEventListener('click', function (e) {
-                if (this.getAttribute('onclick')) {
-                    const originalText = this.textContent;
-                    this.style.opacity = '0.7';
-                    this.style.pointerEvents = 'none';
+        function selectMathAnswer(selectedAnswer) {
+            const question = mathQuiz.questions[mathQuiz.currentQuestion];
+            const buttons = document.querySelectorAll('.option-btn');
+            
+            buttons.forEach(button => {
+                button.disabled = true;
+                if (parseInt(button.textContent) === question.answer) {
+                    button.classList.add('correct');
+                } else if (parseInt(button.textContent) === selectedAnswer && selectedAnswer !== question.answer) {
+                    button.classList.add('incorrect');
+                }
+            });
+            
+            if (selectedAnswer === question.answer) {
+                mathQuiz.score++;
+            }
+            
+            setTimeout(() => {
+                mathQuiz.currentQuestion++;
+                showMathQuestion();
+            }, 1500);
+        }
 
+        function updateMathTimer() {
+            mathQuiz.timeLeft--;
+            document.getElementById('mathTimer').textContent = mathQuiz.timeLeft;
+            
+            if (mathQuiz.timeLeft <= 0) {
+                endMathQuiz();
+            }
+        }
+
+        function endMathQuiz() {
+            clearInterval(mathQuiz.timer);
+            const percentage = Math.round((mathQuiz.score / mathQuiz.questions.length) * 100);
+            
+            // Update stats
+            if (percentage > gameState.stats.bestMathScore) {
+                gameState.stats.bestMathScore = percentage;
+            }
+            gameState.stats.totalGames++;
+            saveStats();
+            
+            // Show results
+            document.getElementById('mathFinalScore').textContent = percentage + '%';
+            document.getElementById('mathStars').textContent = getStars(percentage, 70);
+            document.getElementById('mathQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('mathResults').style.display = 'block';
+        }
+
+        // Stroop Test Functions
+        function startStroopTest() {
+            hideAllScreens();
+            document.getElementById('stroopTest').style.display = 'block';
+            document.getElementById('stroopResults').style.display = 'none';
+            
+            // Reset game state
+            stroopTest = {
+                round: 0,
+                score: 0,
+                currentWord: '',
+                currentColor: '',
+                correctColor: '',
+                timer: null,
+                timeLeft: 60,
+                startTime: Date.now(),
+                words: ['RED', 'BLUE', 'GREEN', 'YELLOW'],
+                colors: ['red', 'blue', 'green', 'yellow'],
+                colorMap: {
+                    'red': '#ef4444',
+                    'blue': '#3b82f6',
+                    'green': '#10b981',
+                    'yellow': '#f59e0b'
+                }
+            };
+
+            // Start timer
+            stroopTest.timer = setInterval(updateStroopTimer, 1000);
+            
+            // Show first word
+            showStroopWord();
+        }
+
+        function showStroopWord() {
+            if (stroopTest.round >= 15 || stroopTest.timeLeft <= 0) {
+                endStroopTest();
+                return;
+            }
+            
+            // Generate random word and color
+            stroopTest.currentWord = stroopTest.words[Math.floor(Math.random() * stroopTest.words.length)];
+            stroopTest.currentColor = stroopTest.colors[Math.floor(Math.random() * stroopTest.colors.length)];
+            stroopTest.correctColor = stroopTest.currentColor;
+            
+            // Display word with color
+            const wordElement = document.getElementById('stroopWord');
+            wordElement.textContent = stroopTest.currentWord;
+            wordElement.style.color = stroopTest.colorMap[stroopTest.currentColor];
+            
+            // Reset button states
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                btn.classList.remove('correct', 'incorrect');
+                btn.disabled = false;
+            });
+            
+            // Update UI
+            stroopTest.round++;
+            document.getElementById('stroopRound').textContent = stroopTest.round;
+            document.getElementById('stroopScore').textContent = stroopTest.score;
+            
+            // Update progress
+            const progress = (stroopTest.round / 15) * 100;
+            document.getElementById('stroopProgress').style.width = progress + '%';
+        }
+
+        function selectColor(selectedColor) {
+            const buttons = document.querySelectorAll('.color-btn');
+            
+            buttons.forEach(button => {
+                button.disabled = true;
+                if (button.classList.contains(stroopTest.correctColor)) {
+                    button.classList.add('correct');
+                } else if (button.classList.contains(selectedColor) && selectedColor !== stroopTest.correctColor) {
+                    button.classList.add('incorrect');
+                }
+            });
+            
+            if (selectedColor === stroopTest.correctColor) {
+                stroopTest.score++;
+            }
+            
+            setTimeout(() => {
+                showStroopWord();
+            }, 1000);
+        }
+
+        function updateStroopTimer() {
+            stroopTest.timeLeft--;
+            document.getElementById('stroopTimer').textContent = stroopTest.timeLeft;
+            
+            if (stroopTest.timeLeft <= 0) {
+                endStroopTest();
+            }
+        }
+
+        function endStroopTest() {
+            clearInterval(stroopTest.timer);
+            const percentage = Math.round((stroopTest.score / stroopTest.round) * 100);
+            
+            // Update stats
+            if (percentage > gameState.stats.bestStroopScore) {
+                gameState.stats.bestStroopScore = percentage;
+            }
+            gameState.stats.totalGames++;
+            saveStats();
+            
+            // Show results
+            document.getElementById('stroopFinalScore').textContent = percentage + '%';
+            document.getElementById('stroopStars').textContent = getStars(percentage, 70);
+            document.getElementById('stroopQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('stroopResults').style.display = 'block';
+        }
+
+        // Reaction Test Functions
+        function startReactionTest() {
+            hideAllScreens();
+            document.getElementById('reactionTest').style.display = 'block';
+            document.getElementById('reactionResults').style.display = 'none';
+            
+            // Reset game state
+            reactionTest = {
+                round: 1,
+                times: [],
+                startTime: null,
+                timeout: null,
+                isWaiting: false,
+                state: 'ready'
+            };
+
+            // Update UI
+            document.getElementById('reactionRound').textContent = '1';
+            document.getElementById('reactionBest').textContent = '0ms';
+            
+            // Reset area
+            const area = document.getElementById('reactionArea');
+            area.className = 'reaction-area reaction-waiting';
+            area.textContent = 'Round 1/5: Click here when ready, then wait for GREEN!';
+        }
+
+        function handleReactionClick() {
+            const area = document.getElementById('reactionArea');
+            
+            if (reactionTest.state === 'ready') {
+                // Start waiting phase
+                reactionTest.state = 'waiting';
+                reactionTest.isWaiting = true;
+                area.className = 'reaction-area reaction-waiting';
+                area.textContent = `Round ${reactionTest.round}/5: Wait for GREEN... DON'T CLICK YET!`;
+                
+                // Set random delay (2-6 seconds)
+                const delay = Math.random() * 4000 + 2000;
+                reactionTest.timeout = setTimeout(() => {
+                    if (reactionTest.state === 'waiting') {
+                        reactionTest.state = 'green';
+                        reactionTest.startTime = Date.now();
+                        area.className = 'reaction-area reaction-ready';
+                        area.textContent = '🟢 CLICK NOW! 🟢';
+                    }
+                }, delay);
+                
+            } else if (reactionTest.state === 'waiting') {
+                // Clicked too early
+                clearTimeout(reactionTest.timeout);
+                reactionTest.state = 'ready';
+                area.className = 'reaction-area reaction-waiting';
+                area.textContent = `Round ${reactionTest.round}/5: Too early! Click to try again.`;
+                
+            } else if (reactionTest.state === 'green') {
+                // Good reaction
+                const reactionTime = Date.now() - reactionTest.startTime;
+                reactionTest.times.push(reactionTime);
+                
+                area.className = 'reaction-area reaction-clicked';
+                area.textContent = `${reactionTime}ms - ${getReactionFeedback(reactionTime)}`;
+                
+                // Update UI
+                const best = reactionTest.times.length > 0 ? Math.min(...reactionTest.times) : reactionTime;
+                document.getElementById('reactionBest').textContent = best + 'ms';
+                
+                // Check if done
+                if (reactionTest.round >= 5) {
+                    setTimeout(endReactionTest, 2500);
+                } else {
                     setTimeout(() => {
-                        this.style.opacity = '1';
-                        this.style.pointerEvents = 'auto';
-                    }, 1000);
+                        reactionTest.round++;
+                        reactionTest.state = 'ready';
+                        document.getElementById('reactionRound').textContent = reactionTest.round;
+                        area.className = 'reaction-area reaction-waiting';
+                        area.textContent = `Round ${reactionTest.round}/5: Click here when ready for next round!`;
+                    }, 2500);
+                }
+            }
+        }
+
+        function getReactionFeedback(time) {
+            if (time < 200) return "Lightning fast! ⚡";
+            if (time < 250) return "Excellent! 🎯";
+            if (time < 300) return "Great! 👍";
+            if (time < 400) return "Good! 👌";
+            if (time < 500) return "Not bad! 🙂";
+            return "Keep practicing! 💪";
+        }
+
+        function endReactionTest() {
+            if (reactionTest.times.length === 0) {
+                // Handle case where no valid reactions were recorded
+                document.getElementById('reactionAverage').textContent = '0ms';
+                document.getElementById('reactionStars').textContent = '';
+                document.getElementById('reactionQuote').textContent = 'Keep practicing! Every attempt makes you faster! 💪';
+            } else {
+                const average = Math.round(reactionTest.times.reduce((a, b) => a + b, 0) / reactionTest.times.length);
+                const best = Math.min(...reactionTest.times);
+                
+                // Update stats
+                gameState.stats.reactionTimes = [...gameState.stats.reactionTimes, ...reactionTest.times];
+                if (gameState.stats.reactionTimes.length > 50) {
+                    gameState.stats.reactionTimes = gameState.stats.reactionTimes.slice(-50);
+                }
+                
+                // Show results
+                document.getElementById('reactionAverage').textContent = average + 'ms avg';
+                document.getElementById('reactionStars').textContent = getStars(Math.max(0, 500 - average), 200);
+                
+                let quote = quotes[Math.floor(Math.random() * quotes.length)];
+                if (average < 250) {
+                    quote = "🚀 Incredible reflexes! You're in the top 10% of reaction speeds!";
+                } else if (average < 300) {
+                    quote = "⚡ Excellent reaction time! Your reflexes are sharp and ready!";
+                } else if (average < 400) {
+                    quote = "👍 Good work! Keep training to sharpen those lightning-fast reflexes!";
+                }
+                document.getElementById('reactionQuote').textContent = quote;
+            }
+            
+            gameState.stats.totalGames++;
+            saveStats();
+            document.getElementById('reactionResults').style.display = 'block';
+        }
+
+        // Pattern Game Functions
+        function startPatternGame() {
+            hideAllScreens();
+            document.getElementById('patternGame').style.display = 'block';
+            document.getElementById('patternResults').style.display = 'none';
+            
+            // Reset game state
+            patternGame = {
+                round: 0,
+                score: 0,
+                currentPattern: [],
+                timer: null,
+                timeLeft: 45,
+                patterns: [
+                    {sequence: ['🔴', '🔵', '🔴', '🔵', '🔴'], answer: '🔵'},
+                    {sequence: ['⭐', '⭐⭐', '⭐⭐⭐'], answer: '⭐⭐⭐⭐'},
+                    {sequence: ['🟢', '🟡', '🔴', '🟢', '🟡'], answer: '🔴'},
+                    {sequence: ['🔺', '🔻', '🔺', '🔻'], answer: '🔺'},
+                    {sequence: ['🌙', '🌙🌙', '🌙🌙🌙'], answer: '🌙🌙🌙🌙'},
+                    {sequence: ['🔥', '💧', '🔥', '💧'], answer: '🔥'},
+                    {sequence: ['🎯', '🎯🎯', '🎯🎯🎯'], answer: '🎯🎯🎯🎯'},
+                    {sequence: ['🟦', '🟨', '🟦', '🟨'], answer: '🟦'},
+                    {sequence: ['⚡', '⚡⚡', '⚡⚡⚡'], answer: '⚡⚡⚡⚡'},
+                    {sequence: ['💎', '💎💎', '💎💎💎'], answer: '💎💎💎💎'}
+                ]
+            };
+
+            // Start timer
+            patternGame.timer = setInterval(updatePatternTimer, 1000);
+            
+            // Show first pattern
+            showPattern();
+        }
+
+        function showPattern() {
+            if (patternGame.round >= patternGame.patterns.length || patternGame.timeLeft <= 0) {
+                endPatternGame();
+                return;
+            }
+            
+            const pattern = patternGame.patterns[patternGame.round];
+            const grid = document.getElementById('patternGrid');
+            grid.innerHTML = '';
+            
+            // Show sequence + empty slot for answer
+            const allItems = [...pattern.sequence, '?'];
+            
+            allItems.forEach((item, index) => {
+                const element = document.createElement('div');
+                element.className = 'pattern-item';
+                element.textContent = item;
+                
+                if (item === '?') {
+                    element.style.cursor = 'pointer';
+                    element.onclick = () => selectPatternAnswer();
+                }
+                
+                grid.appendChild(element);
+            });
+            
+            // Generate options (correct answer + 2 wrong ones)
+            const options = [pattern.answer];
+            const allSymbols = ['🔴', '🔵', '🟢', '🟡', '⭐', '🔺', '🔻', '🌙', '🔥', '💧', '🎯', '🟦', '🟨', '⚡', '💎'];
+            
+            while (options.length < 3) {
+                const randomSymbol = allSymbols[Math.floor(Math.random() * allSymbols.length)];
+                if (!options.includes(randomSymbol)) {
+                    options.push(randomSymbol);
+                }
+            }
+            
+            // Shuffle options
+            for (let i = options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [options[i], options[j]] = [options[j], options[i]];
+            }
+            
+            patternGame.currentOptions = options;
+            patternGame.correctAnswer = pattern.answer;
+            
+            // Update UI
+            patternGame.round++;
+            document.getElementById('patternRound').textContent = patternGame.round;
+            document.getElementById('patternScore').textContent = patternGame.score;
+            
+            // Update progress
+            const progress = (patternGame.round / patternGame.patterns.length) * 100;
+            document.getElementById('patternProgress').style.width = progress + '%';
+        }
+
+        function selectPatternAnswer() {
+            const grid = document.getElementById('patternGrid');
+            const questionMark = grid.querySelector('.pattern-item:last-child');
+            
+            // Create option buttons
+            questionMark.innerHTML = '';
+            questionMark.style.display = 'flex';
+            questionMark.style.flexDirection = 'column';
+            questionMark.style.gap = '5px';
+            questionMark.style.fontSize = '1rem';
+            
+            patternGame.currentOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.style.background = 'rgba(59, 130, 246, 0.1)';
+                button.style.border = '1px solid rgba(59, 130, 246, 0.3)';
+                button.style.borderRadius = '8px';
+                button.style.color = '#f8fafc';
+                button.style.padding = '5px';
+                button.style.cursor = 'pointer';
+                button.onclick = () => checkPatternAnswer(option);
+                questionMark.appendChild(button);
+            });
+        }
+
+        function checkPatternAnswer(selectedAnswer) {
+            if (selectedAnswer === patternGame.correctAnswer) {
+                patternGame.score++;
+            }
+            
+            setTimeout(() => {
+                showPattern();
+            }, 1500);
+        }
+
+        function updatePatternTimer() {
+            patternGame.timeLeft--;
+            document.getElementById('patternTimer').textContent = patternGame.timeLeft;
+            
+            if (patternGame.timeLeft <= 0) {
+                endPatternGame();
+            }
+        }
+
+        function endPatternGame() {
+            clearInterval(patternGame.timer);
+            const percentage = Math.round((patternGame.score / patternGame.round) * 100);
+            
+            // Update stats
+            if (percentage > gameState.stats.bestPatternScore) {
+                gameState.stats.bestPatternScore = percentage;
+            }
+            gameState.stats.totalGames++;
+            saveStats();
+            
+            // Show results
+            document.getElementById('patternFinalScore').textContent = percentage + '%';
+            document.getElementById('patternStars').textContent = getStars(percentage, 70);
+            document.getElementById('patternQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('patternResults').style.display = 'block';
+        }
+
+        // Word Game Functions
+        function startWordGame() {
+            hideAllScreens();
+            document.getElementById('wordGame').style.display = 'block';
+            document.getElementById('wordResults').style.display = 'none';
+            
+            // Reset game state
+            wordGame = {
+                round: 0,
+                score: 0,
+                currentWord: '',
+                timer: null,
+                timeLeft: 60,
+                words: ['OCEAN', 'FIRE', 'MOUNTAIN', 'MUSIC', 'BOOK', 'STAR', 'FLOWER', 'RAIN', 'DREAM', 'LIGHT'],
+                associations: {
+                    'OCEAN': ['water', 'blue', 'waves', 'sea', 'fish', 'deep', 'salt', 'beach'],
+                    'FIRE': ['hot', 'red', 'burn', 'flame', 'heat', 'smoke', 'warm', 'light'],
+                    'MOUNTAIN': ['high', 'peak', 'climb', 'snow', 'rock', 'tall', 'summit', 'hill'],
+                    'MUSIC': ['sound', 'song', 'melody', 'rhythm', 'note', 'beat', 'harmony', 'dance'],
+                    'BOOK': ['read', 'page', 'story', 'word', 'knowledge', 'learn', 'paper', 'text'],
+                    'STAR': ['bright', 'night', 'sky', 'shine', 'space', 'twinkle', 'galaxy', 'moon'],
+                    'FLOWER': ['bloom', 'petal', 'garden', 'color', 'smell', 'beauty', 'spring', 'rose'],
+                    'RAIN': ['water', 'drop', 'cloud', 'wet', 'storm', 'umbrella', 'puddle', 'weather'],
+                    'DREAM': ['sleep', 'night', 'imagine', 'fantasy', 'vision', 'hope', 'wish', 'mind'],
+                    'LIGHT': ['bright', 'shine', 'lamp', 'sun', 'glow', 'illuminate', 'beam', 'bulb']
+                }
+            };
+
+            // Start timer
+            wordGame.timer = setInterval(updateWordTimer, 1000);
+            
+            // Show first word
+            showWord();
+            
+            // Setup input
+            const input = document.getElementById('wordInput');
+            input.value = '';
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    submitWord();
                 }
             });
-        });
+        }
 
-        // Timeline animation on scroll
-        const timelineObserver = new IntersectionObserver(function (entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.3 });
+        function showWord() {
+            if (wordGame.round >= wordGame.words.length || wordGame.timeLeft <= 0) {
+                endWordGame();
+                return;
+            }
+            
+            wordGame.currentWord = wordGame.words[wordGame.round];
+            document.getElementById('wordDisplay').textContent = wordGame.currentWord;
+            document.getElementById('wordInput').value = '';
+            document.getElementById('wordInput').focus();
+            
+            // Update UI
+            wordGame.round++;
+            document.getElementById('wordRound').textContent = wordGame.round;
+            document.getElementById('wordScore').textContent = wordGame.score;
+            
+            // Update progress
+            const progress = (wordGame.round / wordGame.words.length) * 100;
+            document.getElementById('wordProgress').style.width = progress + '%';
+        }
 
-        document.querySelectorAll('.timeline-item').forEach(item => {
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(30px)';
-            item.style.transition = 'all 0.6s ease';
-            timelineObserver.observe(item);
-        });
+        function submitWord() {
+            const input = document.getElementById('wordInput');
+            const userWord = input.value.toLowerCase().trim();
+            
+            if (userWord.length === 0) return;
+            
+            // Check if word is associated
+            const associations = wordGame.associations[wordGame.currentWord];
+            if (associations.includes(userWord) || userWord === wordGame.currentWord.toLowerCase()) {
+                wordGame.score++;
+            }
+            
+            setTimeout(() => {
+                showWord();
+            }, 500);
+        }
+
+        function updateWordTimer() {
+            wordGame.timeLeft--;
+            document.getElementById('wordTimer').textContent = wordGame.timeLeft;
+            
+            if (wordGame.timeLeft <= 0) {
+                endWordGame();
+            }
+        }
+
+        function endWordGame() {
+            clearInterval(wordGame.timer);
+            const percentage = Math.round((wordGame.score / wordGame.round) * 100);
+            
+            // Update stats
+            gameState.stats.totalGames++;
+            saveStats();
+            
+            // Show results
+            document.getElementById('wordFinalScore').textContent = percentage + '%';
+            document.getElementById('wordStars').textContent = getStars(percentage, 60);
+            document.getElementById('wordQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('wordResults').style.display = 'block';
+        }
+
+        // Utility Functions
+        function getStars(score, threshold) {
+            if (score >= threshold + 20) return '⭐⭐⭐';
+            if (score >= threshold) return '⭐⭐';
+            if (score >= threshold - 20) return '⭐';
+            return '';
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
-
 </html>
