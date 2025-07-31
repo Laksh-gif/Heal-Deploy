@@ -13,8 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        
-         * {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -127,7 +126,7 @@
             width: 100%;
         }
 
-      
+
         .navbar {
             position: fixed;
             top: 0;
@@ -303,7 +302,7 @@
             transform: rotate(45deg) translate(-5px, -6px);
         }
 
-        
+
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -336,7 +335,7 @@
             padding: min(16px, 3vw) min(32px, 6vw);
         }
 
-        
+
         .hero {
             padding: max(100px, 15vh) 0 max(60px, 10vh);
             text-align: center;
@@ -565,7 +564,7 @@
             margin-right: min(8px, 2vw);
         }
 
-        
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(min(150px, 25vw), 1fr));
@@ -810,7 +809,7 @@
             z-index: 1;
         }
 
-       
+
         .analytics-preview {
             padding: min(60px, 10vh) 0;
             background: rgba(15, 23, 42, 0.95);
@@ -1048,7 +1047,7 @@
             font-weight: 600;
         }
 
-        
+
         .floating-element {
             position: absolute;
             border-radius: 50%;
@@ -1380,7 +1379,7 @@
             font-size: clamp(10px, 2.2vw, 16px);
         }
 
-        
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -1456,7 +1455,7 @@
             }
         }
 
-        
+
         .fade-in-up {
             opacity: 0;
             transform: translateY(30px);
@@ -1468,7 +1467,7 @@
             transform: translateY(0);
         }
 
-        
+
         @media (hover: none) and (pointer: coarse) {
 
             .feature-card:hover,
@@ -1484,7 +1483,7 @@
             }
         }
 
-        
+
         @media screen and (-webkit-min-device-pixel-ratio: 0) {
 
             select,
@@ -1507,12 +1506,12 @@
             }
         }
 
-       
+
         * {
             max-width: 100%;
         }
 
-       
+
         @media (max-width: 320px) {
             .container {
                 padding: 0 10px;
@@ -1541,7 +1540,7 @@
             }
         }
 
-       
+
         @media (max-height: 500px) and (orientation: landscape) {
             .hero {
                 min-height: auto;
@@ -1560,7 +1559,7 @@
 </head>
 
 <body>
-   
+
     <div class="animated-bg">
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
@@ -1568,7 +1567,7 @@
         <div class="bg-shape"></div>
         <div class="bg-shape"></div>
     </div>
-   
+
     <div class="mobile-menu" id="mobileMenu">
         <a href="#features" class="nav-link">Features</a>
         <a href="about.html" class="nav-link">About</a>
@@ -1576,7 +1575,7 @@
         <a href="cognitive.html" class="nav-link">Brain Training</a>
         <a href="#cta" class="nav-cta">Get Started</a>
     </div>
-   
+
     <nav id="navbar" class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
@@ -1597,7 +1596,7 @@
             </button>
         </div>
     </nav>
-    
+
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -1616,7 +1615,7 @@
                     </button>
                 </div>
             </div>
-           
+
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-value">10K+</div>
@@ -1633,7 +1632,7 @@
             </div>
         </div>
     </section>
-  
+
     <section id="features" class="features">
         <div class="container">
             <div class="section-header">
@@ -1725,7 +1724,7 @@
             </div>
         </div>
     </section>
-    
+
     <section class="analytics-preview">
         <div class="container">
             <div class="section-header">
@@ -1737,7 +1736,7 @@
                 </p>
             </div>
             <div class="analytics-content">
-                
+
                 <div class="analytics-features">
                     <div class="analytics-feature">
                         <div class="analytics-feature-icon blue-bg">
@@ -1776,7 +1775,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="chart-container">
                     <div class="chart-wrapper">
                         <div class="chart-header">
@@ -1804,12 +1803,12 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="floating-element floating-1"></div>
                     <div class="floating-element floating-2"></div>
                 </div>
             </div>
-            
+
             <div class="analytics-cta">
 
 
@@ -1819,7 +1818,7 @@
             </div>
         </div>
     </section>
-    
+
     <section id="testimonials" class="testimonials">
         <div class="container">
             <div class="section-header">
@@ -1869,7 +1868,7 @@
             </div>
         </div>
     </section>
-   
+
     <section id="cta" class="cta">
         <div class="container">
             <div class="cta-content">
@@ -1881,7 +1880,7 @@
             </div>
         </div>
     </section>
-   
+
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -1931,7 +1930,7 @@
         </div>
     </footer>
     <script>
-       
+
         window.addEventListener('scroll', function () {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -1940,7 +1939,7 @@
                 navbar.classList.remove('scrolled');
             }
         });
-        
+
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         if (mobileMenuBtn) {
@@ -1950,7 +1949,7 @@
                 document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
             });
         }
-        
+
         document.querySelectorAll('.mobile-menu .nav-link, .mobile-menu .nav-cta').forEach(link => {
             link.addEventListener('click', function () {
                 mobileMenu.classList.remove('active');
@@ -1958,7 +1957,7 @@
                 document.body.style.overflow = '';
             });
         });
-        
+
         document.addEventListener('click', function (event) {
             if (!mobileMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
                 mobileMenu.classList.remove('active');
@@ -1966,7 +1965,7 @@
                 document.body.style.overflow = '';
             }
         });
-        
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1979,9 +1978,9 @@
                 }
             });
         });
-       
+
         function showDemo() {
-            window.open('https://www.youtube.com/watch?v=vx0YQcJ9nTE', '_blank');
+            window.open('https://www.youtube.com/watch?v=1SqWCEoZe_M', '_blank');
         }
         function showSignup() {
             alert('🚀 Sign up form would appear here! Join thousands of users transforming their healthcare journey.');
@@ -1995,7 +1994,7 @@
         function showContact() {
             alert('📞 Contact Us:\n\nEmail: support@healverse.com\nPhone: +1 (555) 123-4567\nAddress: 123 Healthcare Ave, San Francisco, CA 94102');
         }
-       
+
         let healthChart = null;
         let chartData = [];
         let chartUpdateInterval = null;
@@ -2005,18 +2004,18 @@
             const bpData = [];
             const hrData = [];
             const sugarData = [];
-            
+
             for (let i = 6; i >= 0; i--) {
                 const date = new Date(now);
                 date.setDate(date.getDate() - i);
-                
+
                 const label = window.innerWidth < 480
                     ? date.toLocaleDateString('en-US', { day: 'numeric' })
                     : window.innerWidth < 768
                         ? date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
                         : date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
                 labels.push(label);
-                
+
                 const baseBP = 120 + Math.sin(i * 0.5) * 10;
                 const baseHR = 72 + Math.sin(i * 0.3) * 8;
                 const baseSugar = 95 + Math.sin(i * 0.7) * 15;
@@ -2029,14 +2028,14 @@
         function initHealthChart() {
             const ctx = document.getElementById('healthChart');
             if (!ctx) return;
-            
+
             const data = generateHealthData();
             chartData = data;
-            
+
             if (healthChart) {
                 healthChart.destroy();
             }
-            
+
             const isMobile = window.innerWidth < 768;
             const isSmallMobile = window.innerWidth < 480;
             healthChart = new Chart(ctx, {
@@ -2178,9 +2177,9 @@
                     }
                 }
             });
-            
+
             updateHealthStats();
-            
+
             startRealTimeUpdates();
         }
         function updateHealthStats() {
@@ -2196,11 +2195,11 @@
             if (avgSugarElement) avgSugarElement.textContent = avgSugar;
         }
         function startRealTimeUpdates() {
-            
+
             if (chartUpdateInterval) {
                 clearInterval(chartUpdateInterval);
             }
-            
+
             chartUpdateInterval = setInterval(() => {
                 if (!healthChart || !chartData) return;
                 const lastBP = chartData.bpData[chartData.bpData.length - 1];
@@ -2215,7 +2214,7 @@
                     : window.innerWidth < 768
                         ? now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
                         : now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-               
+
                 if (healthChart.data.labels.length >= 7) {
                     healthChart.data.labels.shift();
                     healthChart.data.datasets[0].data.shift();
@@ -2225,7 +2224,7 @@
                     chartData.hrData.shift();
                     chartData.sugarData.shift();
                 }
-                
+
                 healthChart.data.labels.push(newLabel);
                 healthChart.data.datasets[0].data.push(Math.max(90, Math.min(140, newBP)));
                 healthChart.data.datasets[1].data.push(Math.max(60, Math.min(100, newHR)));
@@ -2233,12 +2232,12 @@
                 chartData.bpData.push(Math.max(90, Math.min(140, newBP)));
                 chartData.hrData.push(Math.max(60, Math.min(100, newHR)));
                 chartData.sugarData.push(Math.max(70, Math.min(130, newSugar)));
-                
+
                 healthChart.update('none');
                 updateHealthStats();
             }, 5000);
         }
-        
+
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -2250,7 +2249,7 @@
                 }
             });
         }, observerOptions);
-        
+
         function initScrollAnimations() {
             const animateElements = document.querySelectorAll('.stat-card, .feature-card, .testimonial-card, .analytics-feature, .chart-container');
             animateElements.forEach(el => {
@@ -2258,7 +2257,7 @@
                 observer.observe(el);
             });
         }
-        
+
         function animateCounters() {
             const counters = document.querySelectorAll('.stat-value');
             counters.forEach(counter => {
@@ -2280,19 +2279,19 @@
                 }
             });
         }
-        
+
         if (window.innerWidth >= 768) {
             document.addEventListener('mousemove', function (e) {
                 const mouseX = e.clientX / window.innerWidth;
                 const mouseY = e.clientY / window.innerHeight;
-                
+
                 document.querySelectorAll('.floating-element').forEach((element, index) => {
                     const speed = (index + 1) * 0.5;
                     const x = (mouseX - 0.5) * speed * 20;
                     const y = (mouseY - 0.5) * speed * 20;
                     element.style.transform = `translate(${x}px, ${y}px)`;
                 });
-                
+
                 document.querySelectorAll('.bg-shape').forEach((shape, index) => {
                     const speed = (index + 1) * 0.3;
                     const x = (mouseX - 0.5) * speed * 30;
@@ -2301,21 +2300,21 @@
                 });
             });
         }
-        
+
         function handleResize() {
             if (healthChart) {
-                
+
                 initHealthChart();
             }
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-           
+
             setTimeout(() => {
                 initHealthChart();
             }, 500);
             initScrollAnimations();
-           
+
             const statsSection = document.querySelector('.stats-grid');
             if (statsSection) {
                 const statsObserver = new IntersectionObserver(function (entries) {
@@ -2329,7 +2328,7 @@
                 statsObserver.observe(statsSection);
             }
         });
-       
+
         let resizeTimeout;
         window.addEventListener('resize', function () {
             clearTimeout(resizeTimeout);
@@ -2339,13 +2338,13 @@
         window.addEventListener('orientationchange', function () {
             setTimeout(handleResize, 100);
         });
-      
+
         window.addEventListener('beforeunload', function () {
             if (chartUpdateInterval) {
                 clearInterval(chartUpdateInterval);
             }
         });
-      
+
         document.querySelectorAll('.btn-primary, .btn-gradient, .btn-cta').forEach(button => {
             button.addEventListener('click', function (e) {
                 const originalText = this.textContent;
@@ -2357,7 +2356,7 @@
                 }, 1000);
             });
         });
-      
+
         if (window.innerWidth >= 768) {
             document.querySelectorAll('.feature-card').forEach(card => {
                 card.addEventListener('mouseenter', function () {
@@ -2368,7 +2367,7 @@
                 });
             });
         }
-     
+
         let lastTouchEnd = 0;
         document.addEventListener('touchend', function (event) {
             const now = (new Date()).getTime();
@@ -2377,19 +2376,19 @@
             }
             lastTouchEnd = now;
         }, false);
-      
+
         let ticking = false;
         function updateScrollEffects() {
             if (!ticking) {
                 requestAnimationFrame(function () {
-                    
+
                     ticking = false;
                 });
                 ticking = true;
             }
         }
         window.addEventListener('scroll', updateScrollEffects, { passive: true });
-      
+
         document.addEventListener('touchmove', function (e) {
             if (e.touches.length > 1) {
                 e.preventDefault();
